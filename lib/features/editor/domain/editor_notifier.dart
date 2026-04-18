@@ -47,17 +47,22 @@ class EditorState {
   LayerEntity? get activeLayer => layers.isEmpty ? null : layers.first;
 }
 
+typedef EditorParam = ({String? uuid, LayerConfig? preset});
+
 @riverpod
 class EditorNotifier extends _$EditorNotifier {
   static const _uuid = Uuid();
 
   @override
-  EditorState build(String? templateUuid) {
-    if (templateUuid != null) _loadTemplate(templateUuid);
+  EditorState build(EditorParam param) {
+    final initialLayer = param.preset != null
+        ? _layerFromConfig(param.preset!)
+        : _defaultGridLayer();
+    if (param.uuid != null) _loadTemplate(param.uuid!);
     return EditorState(
       name: '新しいテンプレート',
       pageConfig: const PageConfig(),
-      layers: [_defaultGridLayer()],
+      layers: [initialLayer],
     );
   }
 
@@ -134,11 +139,13 @@ class EditorNotifier extends _$EditorNotifier {
     return template.uuid;
   }
 
-  LayerEntity _defaultGridLayer() => LayerEntity(
+  LayerEntity _defaultGridLayer() => _layerFromConfig(const LayerConfig.grid());
+
+  LayerEntity _layerFromConfig(LayerConfig config) => LayerEntity(
         uuid: _uuid.v4(),
         sortOrder: 0,
-        layerType: 'grid',
-        configJson: jsonEncode(const LayerConfig.grid().toJson()),
+        layerType: _layerType(config),
+        configJson: jsonEncode(config.toJson()),
       );
 
   String _layerType(LayerConfig config) => switch (config) {

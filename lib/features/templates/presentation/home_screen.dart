@@ -2,18 +2,27 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import '../../../features/editor/domain/editor_notifier.dart';
+import '../../../shared/models/layer_config.dart';
 import '../../../shared/models/notebook_template.dart';
 
 class HomeScreen extends ConsumerWidget {
   const HomeScreen({super.key});
 
   static const _presets = [
-    (label: '方眼', icon: Icons.grid_on),
-    (label: '六角形', icon: Icons.hexagon_outlined),
-    (label: '製図', icon: Icons.architecture),
-    (label: '計算用紙', icon: Icons.calculate_outlined),
-    (label: '実験ノート', icon: Icons.science_outlined),
+    (label: '方眼', icon: Icons.grid_on, layerType: 'grid'),
+    (label: '六角形', icon: Icons.hexagon_outlined, layerType: 'hex'),
+    (label: '製図', icon: Icons.architecture, layerType: 'isometric'),
+    (label: '計算用紙', icon: Icons.calculate_outlined, layerType: 'grid_calc'),
+    (label: '実験ノート', icon: Icons.science_outlined, layerType: 'grid_exp'),
   ];
+
+  static LayerConfig _presetConfig(String layerType) => switch (layerType) {
+    'hex' => const LayerConfig.hex(),
+    'isometric' => const LayerConfig.isometric(),
+    'grid_calc' => const LayerConfig.grid(cellWidthMm: 5.0, cellHeightMm: 10.0),
+    'grid_exp' => const LayerConfig.grid(cellWidthMm: 5.0, cellHeightMm: 5.0, boldEvery: 5),
+    _ => const LayerConfig.grid(),
+  };
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -58,7 +67,10 @@ class HomeScreen extends ConsumerWidget {
               return _PresetCard(
                 label: p.label,
                 icon: p.icon,
-                onTap: () => context.push('/editor'),
+                onTap: () => context.push(
+                  '/editor',
+                  extra: _presetConfig(p.layerType),
+                ),
               );
             },
           ),
