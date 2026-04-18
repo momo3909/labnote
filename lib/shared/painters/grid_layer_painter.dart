@@ -37,9 +37,13 @@ class GridLayerPainter extends CustomPainter {
       ..strokeWidth = bold ? baseStroke * 2 : baseStroke
       ..style = PaintingStyle.stroke;
 
+    // Center grid so partial cells at both edges are equal width/height
+    final offsetX = (clip.width % cellW) / 2;
+    final offsetY = (clip.height % cellH) / 2;
+
     if (config.showVertical) {
       int col = 0;
-      for (double x = clip.left; x <= clip.right + cellW; x += cellW) {
+      for (double x = clip.left + offsetX; x <= clip.right + 0.5; x += cellW) {
         final bold = config.boldEvery != null && col % config.boldEvery! == 0;
         _drawLine(canvas, Offset(x, clip.top), Offset(x, clip.bottom), makePaint(bold));
         col++;
@@ -48,7 +52,7 @@ class GridLayerPainter extends CustomPainter {
 
     if (config.showHorizontal) {
       int row = 0;
-      for (double y = clip.top; y <= clip.bottom + cellH; y += cellH) {
+      for (double y = clip.top + offsetY; y <= clip.bottom + 0.5; y += cellH) {
         final bold = config.boldEvery != null && row % config.boldEvery! == 0;
         _drawLine(canvas, Offset(clip.left, y), Offset(clip.right, y), makePaint(bold));
         row++;

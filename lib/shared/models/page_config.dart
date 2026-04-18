@@ -14,7 +14,7 @@ class PageConfig with _$PageConfig {
     @Default(PaperOrientation.portrait) PaperOrientation orientation,
     @Default(10.0) double marginTopMm,
     @Default(10.0) double marginBottomMm,
-    @Default(20.0) double marginLeftMm,
+    @Default(10.0) double marginLeftMm,
     @Default(10.0) double marginRightMm,
     @Default(HoleConfig.h26) HoleConfig holeConfig,
     @Default(1) int pageCount,

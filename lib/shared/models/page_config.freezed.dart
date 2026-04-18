@@ -214,7 +214,7 @@ class _$PageConfigImpl implements _PageConfig {
     this.orientation = PaperOrientation.portrait,
     this.marginTopMm = 10.0,
     this.marginBottomMm = 10.0,
-    this.marginLeftMm = 20.0,
+    this.marginLeftMm = 10.0,
     this.marginRightMm = 10.0,
     this.holeConfig = HoleConfig.h26,
     this.pageCount = 1,

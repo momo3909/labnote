@@ -24,6 +24,7 @@ class EditorScreen extends ConsumerStatefulWidget {
 
 class _EditorScreenState extends ConsumerState<EditorScreen> {
   bool _isExporting = false;
+  bool _settingsExpanded = false;
 
   EditorParam get _param => (uuid: widget.templateUuid, preset: widget.presetConfig);
 
@@ -52,7 +53,14 @@ class _EditorScreenState extends ConsumerState<EditorScreen> {
       ),
       body: Column(
         children: [
-          Expanded(child: _buildPreview(state)),
+          Expanded(
+            child: InteractiveViewer(
+              boundaryMargin: const EdgeInsets.all(double.infinity),
+              minScale: 0.3,
+              maxScale: 6.0,
+              child: _buildPreview(state),
+            ),
+          ),
           _buildBottomSheet(context, ref, state, notifier),
         ],
       ),
@@ -248,9 +256,9 @@ class _EditorScreenState extends ConsumerState<EditorScreen> {
 
   Widget _buildBottomSheet(BuildContext context, WidgetRef ref, EditorState state, EditorNotifier notifier) {
     final config = state.activeLayer?.config;
+    final pc = state.pageConfig;
 
     return Container(
-      padding: const EdgeInsets.fromLTRB(16, 12, 16, 32),
       decoration: BoxDecoration(
         color: Colors.white,
         border: Border(top: BorderSide(color: Colors.grey.shade200)),
@@ -258,74 +266,141 @@ class _EditorScreenState extends ConsumerState<EditorScreen> {
       child: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
-          _buildLayerControls(context, ref, state, notifier, config),
-          const SizedBox(height: 8),
-          Row(
-            children: [
-              const Text('用紙', style: TextStyle(fontSize: 13)),
-              const SizedBox(width: 16),
-              _styleChip(
-                label: 'A4',
-                selected: state.pageConfig.paperSize == PaperSize.a4,
-                onTap: () => notifier.updatePageConfig(
-                  state.pageConfig.copyWith(paperSize: PaperSize.a4),
-                ),
+          // Settings toggle header
+          InkWell(
+            onTap: () => setState(() => _settingsExpanded = !_settingsExpanded),
+            child: Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 10),
+              child: Row(
+                children: [
+                  const Text('設定', style: TextStyle(fontSize: 13, fontWeight: FontWeight.w600)),
+                  const Spacer(),
+                  Icon(
+                    _settingsExpanded ? Icons.expand_less : Icons.expand_more,
+                    size: 20,
+                    color: Colors.black54,
+                  ),
+                ],
               ),
-              const SizedBox(width: 8),
-              _styleChip(
-                label: 'B5',
-                selected: state.pageConfig.paperSize == PaperSize.b5,
-                onTap: () => notifier.updatePageConfig(
-                  state.pageConfig.copyWith(paperSize: PaperSize.b5),
-                ),
-              ),
-            ],
+            ),
           ),
-          const SizedBox(height: 8),
-          Row(
-            children: [
-              const Text('余白', style: TextStyle(fontSize: 13)),
-              const SizedBox(width: 16),
-              _styleChip(
-                label: 'なし',
-                selected: state.pageConfig.marginLeftMm == 0,
-                onTap: () => notifier.updatePageConfig(state.pageConfig.copyWith(
-                  marginTopMm: 0, marginBottomMm: 0,
-                  marginLeftMm: 0, marginRightMm: 0,
-                )),
-              ),
-              const SizedBox(width: 8),
-              _styleChip(
-                label: '標準',
-                selected: state.pageConfig.marginLeftMm == 10 && state.pageConfig.marginTopMm == 10,
-                onTap: () => notifier.updatePageConfig(state.pageConfig.copyWith(
-                  marginTopMm: 10, marginBottomMm: 10,
-                  marginLeftMm: 10, marginRightMm: 10,
-                )),
-              ),
-              const SizedBox(width: 8),
-              _styleChip(
-                label: '26穴',
-                selected: state.pageConfig.marginLeftMm == 20 && state.pageConfig.marginTopMm == 10,
-                onTap: () => notifier.updatePageConfig(state.pageConfig.copyWith(
-                  marginTopMm: 10, marginBottomMm: 10,
-                  marginLeftMm: 20, marginRightMm: 10,
-                )),
-              ),
-            ],
-          ),
-          const SizedBox(height: 12),
-          SizedBox(
-            width: double.infinity,
-            child: FilledButton(
-              onPressed: _isExporting ? null : () => _exportPdf(context, ref, state, notifier),
-              child: _isExporting
-                  ? const SizedBox(
-                      height: 18,
-                      width: 18,
-                      child: CircularProgressIndicator(strokeWidth: 2, color: Colors.white),
+          // Collapsible settings panel
+          ClipRect(
+            child: AnimatedSize(
+              duration: const Duration(milliseconds: 220),
+              curve: Curves.easeInOut,
+              child: _settingsExpanded
+                  ? ConstrainedBox(
+                      constraints: const BoxConstraints(maxHeight: 320),
+                      child: SingleChildScrollView(
+                        padding: const EdgeInsets.fromLTRB(16, 0, 16, 8),
+                        child: Column(
+                          mainAxisSize: MainAxisSize.min,
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            const Divider(height: 1),
+                            const SizedBox(height: 8),
+                            _buildLayerControls(context, ref, state, notifier, config),
+                            const SizedBox(height: 8),
+                            Row(
+                              children: [
+                                const Text('用紙', style: TextStyle(fontSize: 13)),
+                                const SizedBox(width: 16),
+                                _styleChip(
+                                  label: 'A4',
+                                  selected: pc.paperSize == PaperSize.a4,
+                                  onTap: () => notifier.updatePageConfig(pc.copyWith(paperSize: PaperSize.a4)),
+                                ),
+                                const SizedBox(width: 8),
+                                _styleChip(
+                                  label: 'B5',
+                                  selected: pc.paperSize == PaperSize.b5,
+                                  onTap: () => notifier.updatePageConfig(pc.copyWith(paperSize: PaperSize.b5)),
+                                ),
+                              ],
+                            ),
+                            const SizedBox(height: 10),
+                            Row(
+                              children: [
+                                const Text('余白プリセット', style: TextStyle(fontSize: 13)),
+                                const SizedBox(width: 8),
+                                _styleChip(
+                                  label: 'なし',
+                                  selected: pc.marginLeftMm == 0 && pc.marginTopMm == 0,
+                                  onTap: () => notifier.updatePageConfig(pc.copyWith(
+                                    marginTopMm: 0, marginBottomMm: 0,
+                                    marginLeftMm: 0, marginRightMm: 0,
+                                  )),
+                                ),
+                                const SizedBox(width: 6),
+                                _styleChip(
+                                  label: '標準',
+                                  selected: pc.marginLeftMm == 10 && pc.marginTopMm == 10 &&
+                                      pc.marginRightMm == 10 && pc.marginBottomMm == 10,
+                                  onTap: () => notifier.updatePageConfig(pc.copyWith(
+                                    marginTopMm: 10, marginBottomMm: 10,
+                                    marginLeftMm: 10, marginRightMm: 10,
+                                  )),
+                                ),
+                                const SizedBox(width: 6),
+                                _styleChip(
+                                  label: '26穴',
+                                  selected: pc.marginLeftMm == 20 && pc.marginTopMm == 10,
+                                  onTap: () => notifier.updatePageConfig(pc.copyWith(
+                                    marginTopMm: 10, marginBottomMm: 10,
+                                    marginLeftMm: 20, marginRightMm: 10,
+                                  )),
+                                ),
+                              ],
+                            ),
+                            const SizedBox(height: 4),
+                            _buildSliderRow(
+                              label: '上余白',
+                              value: pc.marginTopMm,
+                              min: 0, max: 30,
+                              onChanged: (v) => notifier.updatePageConfig(pc.copyWith(marginTopMm: v)),
+                            ),
+                            _buildSliderRow(
+                              label: '下余白',
+                              value: pc.marginBottomMm,
+                              min: 0, max: 30,
+                              onChanged: (v) => notifier.updatePageConfig(pc.copyWith(marginBottomMm: v)),
+                            ),
+                            _buildSliderRow(
+                              label: '左余白',
+                              value: pc.marginLeftMm,
+                              min: 0, max: 30,
+                              onChanged: (v) => notifier.updatePageConfig(pc.copyWith(marginLeftMm: v)),
+                            ),
+                            _buildSliderRow(
+                              label: '右余白',
+                              value: pc.marginRightMm,
+                              min: 0, max: 30,
+                              onChanged: (v) => notifier.updatePageConfig(pc.copyWith(marginRightMm: v)),
+                            ),
+                            const SizedBox(height: 4),
+                          ],
+                        ),
+                      ),
                     )
-                  : const Text('PDF 出力'),
+                  : const SizedBox.shrink(),
+            ),
+          ),
+          // PDF button — always visible
+          Padding(
+            padding: EdgeInsets.fromLTRB(16, 8, 16, MediaQuery.of(context).padding.bottom + 16),
+            child: SizedBox(
+              width: double.infinity,
+              child: FilledButton(
+                onPressed: _isExporting ? null : () => _exportPdf(context, ref, state, notifier),
+                child: _isExporting
+                    ? const SizedBox(
+                        height: 18,
+                        width: 18,
+                        child: CircularProgressIndicator(strokeWidth: 2, color: Colors.white),
+                      )
+                    : const Text('PDF 出力'),
+              ),
             ),
           ),
         ],

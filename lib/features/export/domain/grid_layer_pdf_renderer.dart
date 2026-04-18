@@ -46,12 +46,15 @@ class GridLayerPdfRenderer {
     canvas.drawRect(left, bottom, right - left, top - bottom);
     canvas.clipPath();
 
+    // Center grid so partial cells at both edges are equal
+    final offsetX = ((right - left) % cellW) / 2;
+    final offsetY = ((top - bottom) % cellH) / 2;
+
     if (config.showVertical) {
       int col = 0;
-      for (double x = left; x <= right + cellW; x += cellW) {
+      for (double x = left + offsetX; x <= right + 0.5; x += cellW) {
         final bold = config.boldEvery != null && col % config.boldEvery! == 0;
         canvas.setLineWidth(bold ? baseStroke * 2 : baseStroke);
-        // PDF y-coords: bottom and top are already in PDF space
         _drawLine(canvas, x, bottom, x, top, size, vertical: true);
         col++;
       }
@@ -59,7 +62,7 @@ class GridLayerPdfRenderer {
 
     if (config.showHorizontal) {
       int row = 0;
-      for (double y = bottom; y <= top + cellH; y += cellH) {
+      for (double y = bottom + offsetY; y <= top + 0.5; y += cellH) {
         final bold = config.boldEvery != null && row % config.boldEvery! == 0;
         canvas.setLineWidth(bold ? baseStroke * 2 : baseStroke);
         _drawLine(canvas, left, y, right, y, size, vertical: false);
