@@ -1,160 +1,144 @@
-# LabNote 開発進捗
+# LabNote v2 進捗
 
-## 引き継ぎ情報
+> v1 完了記録 → `docs/v1/PROGRESS.md`
 
-- **リポジトリ**: https://github.com/momo3909/labnote
-- **プランファイル**: `/Users/momonoi/.claude/plans/parallel-strolling-brooks.md`
-- **メモリ**: `/Users/momonoi/.claude/projects/-Users-momonoi/memory/project_labnote.md`
-- **作業ディレクトリ**: `~/labnote`
-- **Flutter**: 3.41.7 / `/opt/homebrew/bin/flutter`
+---
 
-## ブランチ戦略
+## 現在の作業
+**ブランチ**: 未着手  
+**次のタスク**: `feature/dot-grid` ブランチ作成 → タスク①から着手
 
-```
-main          ← 常にビルド通る状態。mainマージ→TestFlight自動配布
-feature/xxx   ← 機能単位で作業。完成したらPR→main
-fix/xxx       ← バグ修正
-```
+---
 
-## スケジュール（全12週）
+## v2 スケジュール
 
-| 週 | ブランチ | 内容 | 状態 |
-|----|---------|------|------|
-| 1-2 | `feature/grid-painter` | GridLayerPainter + GridLayerPdfRenderer + エディタプレビュー | ✅ 完了 |
-| 3-4 | `feature/editor-ui` | グリッド設定UI（スライダー・ボトムシート）・プレビュー更新 | ✅ 完了 |
-| 5-6 | `feature/db-repository` | Drift DB・TemplateRepository・保存/読み込み | ✅ 完了（editor-uiに前倒し） |
-| 7-8 | `feature/layer-types` | HexLayer / IsometricLayer / RegionLayer（Painter+PDF各セット） | ✅ 完了 |
-| 9-10 | `feature/screens` | ホーム・保存一覧・go_routerナビゲーション | ✅ 完了（layer-typesに前倒し） |
-| 11a | `feature/paywall` | RevenueCat連携・EntitlementNotifier・ペイウォールUI | ✅ 完了 |
-| 11b | `feature/firebase-auth` | 匿名認証自動実行・AuthStateProvider | ✅ 完了（paywall branchに同梱） |
-| 12 | `feature/week12-polish` | UI磨き・バグ修正・TestFlight提出 | ✅ 完了（コード）|
+| 週 | 期間 | ブランチ | 内容 |
+|----|------|---------|------|
+| 1 | 04/19〜04/25 | `feature/dot-grid` | ドットグリッド |
+| 2 | 04/26〜05/02 | `feature/log-grid` | 対数グラフ |
+| 3 | 05/03〜05/09 | `feature/cornell` | コーネルノート |
+| 4〜6 | 05/10〜05/30 | `feature/multi-layer` | レイヤー合成（State/UI/Properties） |
+| 7 | 05/31〜06/06 | `feature/hole-marks` | ホール穴PDF描画 |
+| 8 | 06/07〜06/13 | `feature/line-color` | カラー線 |
+| 9 | 06/14〜06/20 | `feature/paper-sizes` | 用紙サイズ拡張 |
+| 10 | 06/21〜06/27 | `feature/page-elements` | 行番号・ページ番号 |
+| 11 | 06/28〜07/04 | `feature/polish-v2` | テスト・バグ修正・App Store準備 |
 
-## 完了済みタスク
+---
 
-### 環境構築（週0）
-- [x] Flutter 3.41.7 確認
-- [x] `flutter create labnote` プロジェクト作成
-- [x] フォルダ構成作成（Feature-first + Clean Architecture）
-- [x] `pubspec.yaml` パッケージ追加（riverpod, freezed, drift, go_router, pdf, printing, RevenueCat, Firebase）
-- [x] `build_runner` コード生成（freezed/drift/json_serializable）
-- [x] `flutter analyze` エラーゼロ確認
-- [x] `flutter test` パス確認
-- [x] GitHub リポジトリ作成・初回プッシュ（https://github.com/momo3909/labnote）
-- [x] GitHub Actions CI/Deploy ワークフロー設定
-- [x] Fastlane `beta` lane 設定
-- [x] `.github/copilot-instructions.md` 作成
+## タスク一覧
 
-### 作成済みファイル
-- [x] `lib/core/constants/print_constants.dart` — mm→pt変換、用紙サイズ定数
-- [x] `lib/core/router/app_router.dart` — go_router設定
-- [x] `lib/core/theme/app_theme.dart` — ミニマルテーマ
-- [x] `lib/shared/models/layer_config.dart` — LayerConfig sealed class（freezed）
-- [x] `lib/shared/models/page_config.dart` — PageConfig（freezed）
-- [x] `lib/shared/models/notebook_template.dart` — NotebookTemplate（UUID主キー）
-- [x] `lib/features/auth/domain/app_user.dart` — AppUser（freezed）
-- [x] `lib/features/auth/domain/auth_repository.dart` — AuthRepository抽象クラス
-- [x] `lib/features/auth/data/firebase_auth_repository.dart` — Firebase匿名認証実装
-- [x] `lib/features/editor/data/app_database.dart` — Drift DB定義（@DataClassName('TemplateRow')でNamingConflict解決済み）
-- [x] `lib/features/templates/data/template_repository.dart` — Drift CRUD
-- [x] `lib/features/editor/domain/editor_notifier.dart` — EditorNotifier（Riverpod）
+### feature/dot-grid　[ 未着手 ]
 
-## 進行中タスク
+**目標**: ドットグリッド（方眼の交点にドットを打つパターン）を追加
 
-### feature/editor-ui（週3-4）
+- [ ] ① `lib/shared/models/layer_config.dart` — `LayerConfig.dot({spacingMm, dotRadiusMm})` = `DotLayerConfig` 追加 → build_runner
+- [ ] ② `lib/shared/painters/dot_layer_painter.dart` — 新規作成。`contentRect()` でクリップ後、交点に `canvas.drawCircle` 
+- [ ] ③ `lib/features/export/domain/dot_layer_pdf_renderer.dart` — 新規作成。PDF y-up 座標系に注意
+- [ ] ④ `lib/features/editor/presentation/editor_screen.dart` — `DotLayerConfig` case を switch に追加・`_buildDotControls()` 実装（間隔スライダー・ドット径スライダー）
+- [ ] ⑤ `lib/features/templates/presentation/home_screen.dart` — `_presets` にドット追加・`pdf_builder.dart` の switch に case 追加
 
-**目標**: テンプレート保存フロー完成・ホーム画面（保存済み一覧）実装
+---
 
-- [x] `lib/features/templates/data/template_repository.dart` — Drift CRUD（getAll/getByUuid/save/create/delete）
-- [x] `lib/features/editor/domain/editor_notifier.dart` — EditorNotifier（Riverpod）・EditorState・templatesProvider
-- [x] `lib/features/templates/presentation/home_screen.dart` — ホーム画面（プリセット選択＋保存済み一覧）
-- [x] `lib/features/templates/presentation/saved_list_screen.dart` — スワイプ削除対応リスト
-- [x] エディタ保存ボタン → 名前入力ダイアログ → DB保存 → ホームに戻る遷移
-- [x] `app_router.dart` — /editor ルート競合修正
+### feature/log-grid　[ 未着手 ]
 
-### feature/grid-painter（週1-2）
+**目標**: 対数グラフ用紙（片対数・両対数）を追加
 
-**目標**: `LayerConfig.grid(...)` を受け取り、画面とPDFに同一グリッドを描画する
+- [ ] ① `lib/shared/models/layer_config.dart` — `LayerConfig.logGrid({xScale, yScale})` = `LogGridLayerConfig` 追加（`enum LogScale { linear, log }`）→ build_runner
+- [ ] ② `lib/shared/painters/log_grid_layer_painter.dart` — 新規作成。log スケール軸の目盛り計算（10^n 区切り）
+- [ ] ③ `lib/features/export/domain/log_grid_layer_pdf_renderer.dart` — 新規作成
+- [ ] ④ `lib/features/editor/presentation/editor_screen.dart` — case 追加・X軸/Y軸スケール切替チップ
+- [ ] ⑤ `lib/features/templates/presentation/home_screen.dart` + `pdf_builder.dart` — preset & switch 追加
 
-- [x] `lib/shared/painters/grid_layer_painter.dart` — CustomPainter実装（実線・破線・点線・boldEvery対応）
-- [x] `lib/features/export/domain/grid_layer_pdf_renderer.dart` — dart-pdf実装（PDF座標系変換済み）
-- [x] `lib/shared/painters/painter_utils.dart` — mm→px変換ユーティリティ
-- [x] `lib/features/editor/presentation/editor_screen.dart` — グリッドプレビュー＋ボトムシート設定UI
-- [x] `test/features/editor/grid_layer_painter_test.dart` — ユニットテスト10件パス
+---
 
-**設計メモ**:
-```
-GridLayerConfig(cellWidthMm: 5, cellHeightMm: 5, lineStyle: solid)
-  └→ GridLayerPainter.paint(canvas, size)  // 画面: 1px = ? mm はdpiから算出
-  └→ GridLayerPdfRenderer.render(page)     // PDF: 1pt = 1/72inch, 1mm = 2.8346pt
-```
+### feature/cornell　[ 未着手 ]
 
-画面プレビューのスケール:
-- A4(210×297mm)をデバイス画面幅に収まるよう等倍縮小
-- `scaleFactor = canvasWidthPx / (paperWidthMm * mmToPt)`
+**目標**: コーネルノート（左カラム＋下サマリー行の罫線レイアウト）を追加
 
-## 完了済みタスク（feature/layer-types）
+- [ ] ① `lib/shared/models/layer_config.dart` — `LayerConfig.cornell({leftColMm, bottomRowMm, lineSpacingMm})` = `CornellLayerConfig` 追加 → build_runner
+- [ ] ② `lib/shared/painters/cornell_layer_painter.dart` — 新規作成。区切り線（左縦・下横）＋横罫線（メインエリアのみ）
+- [ ] ③ `lib/features/export/domain/cornell_layer_pdf_renderer.dart` — 新規作成
+- [ ] ④ `lib/features/editor/presentation/editor_screen.dart` — case 追加・左カラム幅・下行高スライダー
+- [ ] ⑤ `lib/features/templates/presentation/home_screen.dart` + `pdf_builder.dart` — preset & switch 追加
 
-- [x] `lib/shared/painters/hex_layer_painter.dart` — 六角形グリッド CustomPainter（flat/pointy対応）
-- [x] `lib/shared/painters/isometric_layer_painter.dart` — アイソメトリックグリッド CustomPainter
-- [x] `lib/features/export/domain/hex_layer_pdf_renderer.dart` — 六角形グリッド PDF レンダラー
-- [x] `lib/features/export/domain/isometric_layer_pdf_renderer.dart` — アイソメトリック PDF レンダラー
-- [x] `lib/features/export/domain/pdf_builder.dart` — テンプレート→PDF変換（複数ページ対応）
-- [x] `lib/features/export/presentation/export_service.dart` — iOS共有シート経由PDF出力
-- [x] `EditorScreen` — 全レイヤー型プレビュー対応・PDF出力ボタン実装・ページ数ダイアログ
-- [x] `HomeScreen` — プリセットカードから適切なLayerConfigをエディタに渡すよう接続
-- [x] `app_router.dart` — `/editor` ルートのextraでLayerConfigを受け渡し
-- [x] `EditorNotifier` — `EditorParam({uuid, preset})` でプリセット初期設定に対応
+---
 
-## 完了済みタスク（feature/paywall）
+### feature/multi-layer　[ 未着手 ]
 
-- [x] `lib/features/paywall/domain/free_limits.dart` — フリー制限定数（保存3件・グリッド5mm以上・1ページ）
-- [x] `lib/features/paywall/domain/entitlement_notifier.dart` — RevenueCat Pro状態管理・purchase/restore
-- [x] `lib/features/paywall/presentation/paywall_modal.dart` — ペイウォールUI（BottomSheet・パッケージ表示・復元）
-- [x] `lib/main.dart` — Firebase匿名認証自動実行・RevenueCat初期化（API key設定後に有効）
-- [x] `HomeScreen` — hex/isometric プリセットに🔒表示・タップでPaywall
-- [x] `EditorScreen` — 保存数制限チェック・ページ数制限（フリー=1）・グリッドサイズ制限（<5mmでPaywall）
-- [x] `SavedListScreen` — 無料プラン使用状況バナー表示
+**Week 4: State & Preview**
 
-### RevenueCat 設定手順（TestFlight提出前）
-1. RevenueCat Dashboardでアプリ登録
-2. App Store Connectで In-App Purchase 商品作成（monthly_pro, annual_pro）
-3. `entitlement_notifier.dart` の `_rcApiKeyIos` を実際のAPIキーに差し替え
-4. Entitlement ID `pro` を RevenueCat Dashboardで設定
+- [ ] ① `lib/features/editor/domain/editor_notifier.dart` — `EditorState.activeLayer` → `List<EditorLayer> layers` + `int activeLayerIndex` に変更。DB の `layersJson: List<String>` は既存のまま使用
+- [ ] ② `lib/features/editor/presentation/editor_screen.dart` — `_buildPreview` をすべての layers をスタックで描画するよう更新（`Stack` + `CustomPaint` ×N）
 
-## 完了済みタスク（feature/week12-polish）
+**Week 5: Layer Management UI**
 
-- [x] `lib/core/theme/app_theme.dart` — テーマ強化（FilledButton・Card・Slider・Checkbox・SnackBar）
-- [x] `EditorScreen._buildBottomSheet` — レイヤー種別対応コントロール（GridLayerConfig/HexLayerConfig/IsometricLayerConfig）
-- [x] `EditorScreen._exportPdf` — PDF出力後フリーユーザーへのソフトプロンプト（SnackBar）
-- [x] `SettingsScreen` — Proステータス表示・購入復元・プライバシーポリシー
-- [x] `app_router.dart` + `ScaffoldWithNavBar` — 設定タブ（3タブ構成）
-- [x] `HomeScreen` — 保存済み一覧のアイコンをレイヤータイプ別に表示
+- [ ] ③ `lib/features/editor/presentation/editor_screen.dart` — 設定パネルにレイヤー一覧追加（レイヤー追加ボタン・選択・削除）
+- [ ] ④ `lib/features/editor/domain/editor_notifier.dart` — `addLayer(LayerConfig)` / `removeLayer(int index)` / `reorderLayer(int from, int to)` メソッド追加
 
-## 未着手タスク（詳細は着手時に展開）
+**Week 6: Layer Properties**
 
-- CI/CD: Fastlane match 証明書設定（TestFlight提出前）
-- プライバシーポリシー作成（リリース前）
-- ソフトプロンプト: PDF出力完了後・3回目起動時バナー（オプション）
+- [ ] ⑤ `lib/shared/models/layer_config.dart` — 全 LayerConfig に `@Default(1.0) double opacity` 追加 → build_runner
+- [ ] ⑥ `lib/features/editor/presentation/editor_screen.dart` — レイヤー行に不透明度スライダー・表示/非表示トグル追加
+- [ ] ⑦ 全 Painter / PdfRenderer — `opacity` フィールドを実際に使用するよう確認・修正
 
-## 技術メモ・決定事項
+---
 
-### DBについて
-- Isar 3.x はメンテ停止のため **drift** を採用
-- テンプレートのレイヤー設定は `layersJson`（JSON文字列）として保存
-- `uuid` パッケージで UUID v4 を生成して主キーに使用
+### feature/hole-marks　[ 未着手 ]
 
-### mm→px変換（画面プレビュー）
-```dart
-// 画面プレビュー用スケール係数の計算
-double scaleFactor(double canvasWidthPx, double paperWidthMm) {
-  return canvasWidthPx / (paperWidthMm * mmToPt);
-}
-// pt座標をピクセルに変換
-double ptToPx(double pt, double scaleFactor) => pt * scaleFactor;
-```
+**目標**: HoleConfig（26穴/30穴）をプレビューとPDFに描画
 
-### LayerConfig の追加方法（拡張時）
-1. `layer_config.dart` に `const factory LayerConfig.newType(...)` を追加
-2. `build_runner` を再実行
-3. `NewTypeLayerPainter` と `NewTypeLayerPdfRenderer` を1セット追加
-4. `EditorScreen` の switch 文に case を追加
+- [ ] ① `lib/shared/painters/hole_marks_painter.dart` — 新規作成。`HoleConfig` に応じて穴位置に `drawCircle`（中抜き円）
+- [ ] ② `lib/features/export/domain/pdf_builder.dart` — `HoleConfig != none` のとき穴マークを各ページに描画
+- [ ] ③ `lib/features/editor/presentation/editor_screen.dart` — 設定パネルに穴設定チップ追加（なし/26穴/30穴）
+- [ ] ④ `lib/features/editor/presentation/editor_screen.dart` — `_buildPreview` に `HoleMasksPainter` をオーバーレイ
+
+---
+
+### feature/line-color　[ 未着手 ]
+
+**目標**: 各レイヤーの線色を選択可能にする
+
+- [ ] ① `lib/shared/models/layer_config.dart` — 全 LayerConfig に `@Default(0xFF9E9E9E) int colorValue` 追加 → build_runner（Color は JSON非対応なので int で保存）
+- [ ] ② `lib/shared/painters/painter_utils.dart` — `colorFromValue(int v)` ヘルパー追加
+- [ ] ③ 全 Painter / PdfRenderer — ハードコードの `Color(0xFFAAAAAA)` → `config.colorValue` 使用に変更
+- [ ] ④ `lib/features/editor/presentation/editor_screen.dart` — 設定パネルに色選択UI追加（カラーパレット or `showColorPicker`）
+
+---
+
+### feature/paper-sizes　[ 未着手 ]
+
+**目標**: Letter/A3/B4 を追加
+
+- [ ] ① `lib/core/constants/print_constants.dart` — Letter/A3/B4 の幅・高さ定数追加
+- [ ] ② `lib/shared/models/page_config.dart` — `PaperSize` に `letter`, `a3`, `b4` 追加 → build_runner
+- [ ] ③ `lib/features/editor/presentation/editor_screen.dart` — 用紙チップに新サイズ追加。`paperWidthMm` / `paperHeightMm` の switch を更新
+- [ ] ④ 全 Painter / PdfRenderer / pdf_builder — `PaperSize` switch に新ケース追加
+
+---
+
+### feature/page-elements　[ 未着手 ]
+
+**目標**: 行番号・ページ番号をPDFに自動挿入
+
+- [ ] ① `lib/shared/models/page_config.dart` — `showLineNumbers: bool`, `showPageNumber: bool` 追加 → build_runner
+- [ ] ② `lib/features/export/domain/pdf_builder.dart` — ページ番号をフッターに挿入（`pw.Text` + `pw.FullPage`）
+- [ ] ③ `lib/features/export/domain/pdf_builder.dart` — 行番号を左余白に挿入（グリッド行ごとに番号）
+- [ ] ④ `lib/features/editor/presentation/editor_screen.dart` — 設定パネルに行番号/ページ番号トグル追加
+
+---
+
+### feature/polish-v2　[ 未着手 ]
+
+- [ ] 全機能の結合テスト（PDF出力 + レイヤー合成）
+- [ ] `flutter test` 全パス確認
+- [ ] RevenueCat 実API key 設定（`entitlement_notifier.dart`）
+- [ ] App Store Connect: In-App Purchase 商品作成
+- [ ] TestFlight 提出
+
+---
+
+## 完了ブランチ
+| ブランチ | 完了日 |
+|---------|--------|
+| v1 全機能 | 2026-04-18 |
