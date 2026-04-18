@@ -89,6 +89,30 @@ Map<String, dynamic> _$$DotLayerConfigImplToJson(
   'runtimeType': instance.$type,
 };
 
+_$LogGridLayerConfigImpl _$$LogGridLayerConfigImplFromJson(
+  Map<String, dynamic> json,
+) => _$LogGridLayerConfigImpl(
+  xScale:
+      $enumDecodeNullable(_$LogScaleEnumMap, json['xScale']) ?? LogScale.linear,
+  yScale:
+      $enumDecodeNullable(_$LogScaleEnumMap, json['yScale']) ?? LogScale.log,
+  xDecades: (json['xDecades'] as num?)?.toInt() ?? 1,
+  yDecades: (json['yDecades'] as num?)?.toInt() ?? 3,
+  $type: json['runtimeType'] as String?,
+);
+
+Map<String, dynamic> _$$LogGridLayerConfigImplToJson(
+  _$LogGridLayerConfigImpl instance,
+) => <String, dynamic>{
+  'xScale': _$LogScaleEnumMap[instance.xScale]!,
+  'yScale': _$LogScaleEnumMap[instance.yScale]!,
+  'xDecades': instance.xDecades,
+  'yDecades': instance.yDecades,
+  'runtimeType': instance.$type,
+};
+
+const _$LogScaleEnumMap = {LogScale.linear: 'linear', LogScale.log: 'log'};
+
 _$RegionLayerConfigImpl _$$RegionLayerConfigImplFromJson(
   Map<String, dynamic> json,
 ) => _$RegionLayerConfigImpl(

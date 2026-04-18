@@ -5,8 +5,8 @@
 ---
 
 ## 現在の作業
-**ブランチ**: `feature/dot-grid` → **完了・マージ待ち**  
-**次のタスク**: `feature/log-grid` ブランチ作成 → タスク①から着手
+**ブランチ**: `feature/log-grid` → **完了・マージ待ち**  
+**次のタスク**: `feature/cornell` ブランチ作成 → タスク①から着手
 
 ---
 
@@ -40,15 +40,15 @@
 
 ---
 
-### feature/log-grid　[ 未着手 ]
+### feature/log-grid　[ ✅ 完了 ]
 
 **目標**: 対数グラフ用紙（片対数・両対数）を追加
 
-- [ ] ① `lib/shared/models/layer_config.dart` — `LayerConfig.logGrid({xScale, yScale})` = `LogGridLayerConfig` 追加（`enum LogScale { linear, log }`）→ build_runner
-- [ ] ② `lib/shared/painters/log_grid_layer_painter.dart` — 新規作成。log スケール軸の目盛り計算（10^n 区切り）
-- [ ] ③ `lib/features/export/domain/log_grid_layer_pdf_renderer.dart` — 新規作成
-- [ ] ④ `lib/features/editor/presentation/editor_screen.dart` — case 追加・X軸/Y軸スケール切替チップ
-- [ ] ⑤ `lib/features/templates/presentation/home_screen.dart` + `pdf_builder.dart` — preset & switch 追加
+- [x] ① `lib/shared/models/layer_config.dart` — `LogGridLayerConfig(xScale, yScale, xDecades, yDecades)` + `enum LogScale` 追加
+- [x] ② `lib/shared/painters/log_grid_layer_painter.dart` — 新規作成。log10 で9本の minor 線 + major 線（太線）
+- [x] ③ `lib/features/export/domain/log_grid_layer_pdf_renderer.dart` — 新規作成
+- [x] ④ `lib/features/editor/presentation/editor_screen.dart` — case 追加・X/Y軸スケール切替チップ＋デケード数スライダー
+- [x] ⑤ `home_screen.dart` + `pdf_builder.dart` + `editor_notifier.dart` — 片対数・両対数プリセット追加
 
 ---
 

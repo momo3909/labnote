@@ -25,6 +25,8 @@ LayerConfig _$LayerConfigFromJson(Map<String, dynamic> json) {
       return IsometricLayerConfig.fromJson(json);
     case 'dot':
       return DotLayerConfig.fromJson(json);
+    case 'logGrid':
+      return LogGridLayerConfig.fromJson(json);
     case 'region':
       return RegionLayerConfig.fromJson(json);
     case 'guide':
@@ -56,6 +58,13 @@ mixin _$LayerConfig {
     required TResult Function(double hexSizeMm, HexOrientation orientation) hex,
     required TResult Function(double spacingMm) isometric,
     required TResult Function(double spacingMm, double dotRadiusMm) dot,
+    required TResult Function(
+      LogScale xScale,
+      LogScale yScale,
+      int xDecades,
+      int yDecades,
+    )
+    logGrid,
     required TResult Function(List<PageRegion> regions) region,
     required TResult Function(GuideType guideType, Map<String, dynamic> params)
     guide,
@@ -74,6 +83,13 @@ mixin _$LayerConfig {
     TResult? Function(double hexSizeMm, HexOrientation orientation)? hex,
     TResult? Function(double spacingMm)? isometric,
     TResult? Function(double spacingMm, double dotRadiusMm)? dot,
+    TResult? Function(
+      LogScale xScale,
+      LogScale yScale,
+      int xDecades,
+      int yDecades,
+    )?
+    logGrid,
     TResult? Function(List<PageRegion> regions)? region,
     TResult? Function(GuideType guideType, Map<String, dynamic> params)? guide,
   }) => throw _privateConstructorUsedError;
@@ -91,6 +107,13 @@ mixin _$LayerConfig {
     TResult Function(double hexSizeMm, HexOrientation orientation)? hex,
     TResult Function(double spacingMm)? isometric,
     TResult Function(double spacingMm, double dotRadiusMm)? dot,
+    TResult Function(
+      LogScale xScale,
+      LogScale yScale,
+      int xDecades,
+      int yDecades,
+    )?
+    logGrid,
     TResult Function(List<PageRegion> regions)? region,
     TResult Function(GuideType guideType, Map<String, dynamic> params)? guide,
     required TResult orElse(),
@@ -101,6 +124,7 @@ mixin _$LayerConfig {
     required TResult Function(HexLayerConfig value) hex,
     required TResult Function(IsometricLayerConfig value) isometric,
     required TResult Function(DotLayerConfig value) dot,
+    required TResult Function(LogGridLayerConfig value) logGrid,
     required TResult Function(RegionLayerConfig value) region,
     required TResult Function(GuideLayerConfig value) guide,
   }) => throw _privateConstructorUsedError;
@@ -110,6 +134,7 @@ mixin _$LayerConfig {
     TResult? Function(HexLayerConfig value)? hex,
     TResult? Function(IsometricLayerConfig value)? isometric,
     TResult? Function(DotLayerConfig value)? dot,
+    TResult? Function(LogGridLayerConfig value)? logGrid,
     TResult? Function(RegionLayerConfig value)? region,
     TResult? Function(GuideLayerConfig value)? guide,
   }) => throw _privateConstructorUsedError;
@@ -119,6 +144,7 @@ mixin _$LayerConfig {
     TResult Function(HexLayerConfig value)? hex,
     TResult Function(IsometricLayerConfig value)? isometric,
     TResult Function(DotLayerConfig value)? dot,
+    TResult Function(LogGridLayerConfig value)? logGrid,
     TResult Function(RegionLayerConfig value)? region,
     TResult Function(GuideLayerConfig value)? guide,
     required TResult orElse(),
@@ -318,6 +344,13 @@ class _$GridLayerConfigImpl implements GridLayerConfig {
     required TResult Function(double hexSizeMm, HexOrientation orientation) hex,
     required TResult Function(double spacingMm) isometric,
     required TResult Function(double spacingMm, double dotRadiusMm) dot,
+    required TResult Function(
+      LogScale xScale,
+      LogScale yScale,
+      int xDecades,
+      int yDecades,
+    )
+    logGrid,
     required TResult Function(List<PageRegion> regions) region,
     required TResult Function(GuideType guideType, Map<String, dynamic> params)
     guide,
@@ -347,6 +380,13 @@ class _$GridLayerConfigImpl implements GridLayerConfig {
     TResult? Function(double hexSizeMm, HexOrientation orientation)? hex,
     TResult? Function(double spacingMm)? isometric,
     TResult? Function(double spacingMm, double dotRadiusMm)? dot,
+    TResult? Function(
+      LogScale xScale,
+      LogScale yScale,
+      int xDecades,
+      int yDecades,
+    )?
+    logGrid,
     TResult? Function(List<PageRegion> regions)? region,
     TResult? Function(GuideType guideType, Map<String, dynamic> params)? guide,
   }) {
@@ -375,6 +415,13 @@ class _$GridLayerConfigImpl implements GridLayerConfig {
     TResult Function(double hexSizeMm, HexOrientation orientation)? hex,
     TResult Function(double spacingMm)? isometric,
     TResult Function(double spacingMm, double dotRadiusMm)? dot,
+    TResult Function(
+      LogScale xScale,
+      LogScale yScale,
+      int xDecades,
+      int yDecades,
+    )?
+    logGrid,
     TResult Function(List<PageRegion> regions)? region,
     TResult Function(GuideType guideType, Map<String, dynamic> params)? guide,
     required TResult orElse(),
@@ -399,6 +446,7 @@ class _$GridLayerConfigImpl implements GridLayerConfig {
     required TResult Function(HexLayerConfig value) hex,
     required TResult Function(IsometricLayerConfig value) isometric,
     required TResult Function(DotLayerConfig value) dot,
+    required TResult Function(LogGridLayerConfig value) logGrid,
     required TResult Function(RegionLayerConfig value) region,
     required TResult Function(GuideLayerConfig value) guide,
   }) {
@@ -412,6 +460,7 @@ class _$GridLayerConfigImpl implements GridLayerConfig {
     TResult? Function(HexLayerConfig value)? hex,
     TResult? Function(IsometricLayerConfig value)? isometric,
     TResult? Function(DotLayerConfig value)? dot,
+    TResult? Function(LogGridLayerConfig value)? logGrid,
     TResult? Function(RegionLayerConfig value)? region,
     TResult? Function(GuideLayerConfig value)? guide,
   }) {
@@ -425,6 +474,7 @@ class _$GridLayerConfigImpl implements GridLayerConfig {
     TResult Function(HexLayerConfig value)? hex,
     TResult Function(IsometricLayerConfig value)? isometric,
     TResult Function(DotLayerConfig value)? dot,
+    TResult Function(LogGridLayerConfig value)? logGrid,
     TResult Function(RegionLayerConfig value)? region,
     TResult Function(GuideLayerConfig value)? guide,
     required TResult orElse(),
@@ -575,6 +625,13 @@ class _$HexLayerConfigImpl implements HexLayerConfig {
     required TResult Function(double hexSizeMm, HexOrientation orientation) hex,
     required TResult Function(double spacingMm) isometric,
     required TResult Function(double spacingMm, double dotRadiusMm) dot,
+    required TResult Function(
+      LogScale xScale,
+      LogScale yScale,
+      int xDecades,
+      int yDecades,
+    )
+    logGrid,
     required TResult Function(List<PageRegion> regions) region,
     required TResult Function(GuideType guideType, Map<String, dynamic> params)
     guide,
@@ -597,6 +654,13 @@ class _$HexLayerConfigImpl implements HexLayerConfig {
     TResult? Function(double hexSizeMm, HexOrientation orientation)? hex,
     TResult? Function(double spacingMm)? isometric,
     TResult? Function(double spacingMm, double dotRadiusMm)? dot,
+    TResult? Function(
+      LogScale xScale,
+      LogScale yScale,
+      int xDecades,
+      int yDecades,
+    )?
+    logGrid,
     TResult? Function(List<PageRegion> regions)? region,
     TResult? Function(GuideType guideType, Map<String, dynamic> params)? guide,
   }) {
@@ -618,6 +682,13 @@ class _$HexLayerConfigImpl implements HexLayerConfig {
     TResult Function(double hexSizeMm, HexOrientation orientation)? hex,
     TResult Function(double spacingMm)? isometric,
     TResult Function(double spacingMm, double dotRadiusMm)? dot,
+    TResult Function(
+      LogScale xScale,
+      LogScale yScale,
+      int xDecades,
+      int yDecades,
+    )?
+    logGrid,
     TResult Function(List<PageRegion> regions)? region,
     TResult Function(GuideType guideType, Map<String, dynamic> params)? guide,
     required TResult orElse(),
@@ -635,6 +706,7 @@ class _$HexLayerConfigImpl implements HexLayerConfig {
     required TResult Function(HexLayerConfig value) hex,
     required TResult Function(IsometricLayerConfig value) isometric,
     required TResult Function(DotLayerConfig value) dot,
+    required TResult Function(LogGridLayerConfig value) logGrid,
     required TResult Function(RegionLayerConfig value) region,
     required TResult Function(GuideLayerConfig value) guide,
   }) {
@@ -648,6 +720,7 @@ class _$HexLayerConfigImpl implements HexLayerConfig {
     TResult? Function(HexLayerConfig value)? hex,
     TResult? Function(IsometricLayerConfig value)? isometric,
     TResult? Function(DotLayerConfig value)? dot,
+    TResult? Function(LogGridLayerConfig value)? logGrid,
     TResult? Function(RegionLayerConfig value)? region,
     TResult? Function(GuideLayerConfig value)? guide,
   }) {
@@ -661,6 +734,7 @@ class _$HexLayerConfigImpl implements HexLayerConfig {
     TResult Function(HexLayerConfig value)? hex,
     TResult Function(IsometricLayerConfig value)? isometric,
     TResult Function(DotLayerConfig value)? dot,
+    TResult Function(LogGridLayerConfig value)? logGrid,
     TResult Function(RegionLayerConfig value)? region,
     TResult Function(GuideLayerConfig value)? guide,
     required TResult orElse(),
@@ -792,6 +866,13 @@ class _$IsometricLayerConfigImpl implements IsometricLayerConfig {
     required TResult Function(double hexSizeMm, HexOrientation orientation) hex,
     required TResult Function(double spacingMm) isometric,
     required TResult Function(double spacingMm, double dotRadiusMm) dot,
+    required TResult Function(
+      LogScale xScale,
+      LogScale yScale,
+      int xDecades,
+      int yDecades,
+    )
+    logGrid,
     required TResult Function(List<PageRegion> regions) region,
     required TResult Function(GuideType guideType, Map<String, dynamic> params)
     guide,
@@ -814,6 +895,13 @@ class _$IsometricLayerConfigImpl implements IsometricLayerConfig {
     TResult? Function(double hexSizeMm, HexOrientation orientation)? hex,
     TResult? Function(double spacingMm)? isometric,
     TResult? Function(double spacingMm, double dotRadiusMm)? dot,
+    TResult? Function(
+      LogScale xScale,
+      LogScale yScale,
+      int xDecades,
+      int yDecades,
+    )?
+    logGrid,
     TResult? Function(List<PageRegion> regions)? region,
     TResult? Function(GuideType guideType, Map<String, dynamic> params)? guide,
   }) {
@@ -835,6 +923,13 @@ class _$IsometricLayerConfigImpl implements IsometricLayerConfig {
     TResult Function(double hexSizeMm, HexOrientation orientation)? hex,
     TResult Function(double spacingMm)? isometric,
     TResult Function(double spacingMm, double dotRadiusMm)? dot,
+    TResult Function(
+      LogScale xScale,
+      LogScale yScale,
+      int xDecades,
+      int yDecades,
+    )?
+    logGrid,
     TResult Function(List<PageRegion> regions)? region,
     TResult Function(GuideType guideType, Map<String, dynamic> params)? guide,
     required TResult orElse(),
@@ -852,6 +947,7 @@ class _$IsometricLayerConfigImpl implements IsometricLayerConfig {
     required TResult Function(HexLayerConfig value) hex,
     required TResult Function(IsometricLayerConfig value) isometric,
     required TResult Function(DotLayerConfig value) dot,
+    required TResult Function(LogGridLayerConfig value) logGrid,
     required TResult Function(RegionLayerConfig value) region,
     required TResult Function(GuideLayerConfig value) guide,
   }) {
@@ -865,6 +961,7 @@ class _$IsometricLayerConfigImpl implements IsometricLayerConfig {
     TResult? Function(HexLayerConfig value)? hex,
     TResult? Function(IsometricLayerConfig value)? isometric,
     TResult? Function(DotLayerConfig value)? dot,
+    TResult? Function(LogGridLayerConfig value)? logGrid,
     TResult? Function(RegionLayerConfig value)? region,
     TResult? Function(GuideLayerConfig value)? guide,
   }) {
@@ -878,6 +975,7 @@ class _$IsometricLayerConfigImpl implements IsometricLayerConfig {
     TResult Function(HexLayerConfig value)? hex,
     TResult Function(IsometricLayerConfig value)? isometric,
     TResult Function(DotLayerConfig value)? dot,
+    TResult Function(LogGridLayerConfig value)? logGrid,
     TResult Function(RegionLayerConfig value)? region,
     TResult Function(GuideLayerConfig value)? guide,
     required TResult orElse(),
@@ -1017,6 +1115,13 @@ class _$DotLayerConfigImpl implements DotLayerConfig {
     required TResult Function(double hexSizeMm, HexOrientation orientation) hex,
     required TResult Function(double spacingMm) isometric,
     required TResult Function(double spacingMm, double dotRadiusMm) dot,
+    required TResult Function(
+      LogScale xScale,
+      LogScale yScale,
+      int xDecades,
+      int yDecades,
+    )
+    logGrid,
     required TResult Function(List<PageRegion> regions) region,
     required TResult Function(GuideType guideType, Map<String, dynamic> params)
     guide,
@@ -1039,6 +1144,13 @@ class _$DotLayerConfigImpl implements DotLayerConfig {
     TResult? Function(double hexSizeMm, HexOrientation orientation)? hex,
     TResult? Function(double spacingMm)? isometric,
     TResult? Function(double spacingMm, double dotRadiusMm)? dot,
+    TResult? Function(
+      LogScale xScale,
+      LogScale yScale,
+      int xDecades,
+      int yDecades,
+    )?
+    logGrid,
     TResult? Function(List<PageRegion> regions)? region,
     TResult? Function(GuideType guideType, Map<String, dynamic> params)? guide,
   }) {
@@ -1060,6 +1172,13 @@ class _$DotLayerConfigImpl implements DotLayerConfig {
     TResult Function(double hexSizeMm, HexOrientation orientation)? hex,
     TResult Function(double spacingMm)? isometric,
     TResult Function(double spacingMm, double dotRadiusMm)? dot,
+    TResult Function(
+      LogScale xScale,
+      LogScale yScale,
+      int xDecades,
+      int yDecades,
+    )?
+    logGrid,
     TResult Function(List<PageRegion> regions)? region,
     TResult Function(GuideType guideType, Map<String, dynamic> params)? guide,
     required TResult orElse(),
@@ -1077,6 +1196,7 @@ class _$DotLayerConfigImpl implements DotLayerConfig {
     required TResult Function(HexLayerConfig value) hex,
     required TResult Function(IsometricLayerConfig value) isometric,
     required TResult Function(DotLayerConfig value) dot,
+    required TResult Function(LogGridLayerConfig value) logGrid,
     required TResult Function(RegionLayerConfig value) region,
     required TResult Function(GuideLayerConfig value) guide,
   }) {
@@ -1090,6 +1210,7 @@ class _$DotLayerConfigImpl implements DotLayerConfig {
     TResult? Function(HexLayerConfig value)? hex,
     TResult? Function(IsometricLayerConfig value)? isometric,
     TResult? Function(DotLayerConfig value)? dot,
+    TResult? Function(LogGridLayerConfig value)? logGrid,
     TResult? Function(RegionLayerConfig value)? region,
     TResult? Function(GuideLayerConfig value)? guide,
   }) {
@@ -1103,6 +1224,7 @@ class _$DotLayerConfigImpl implements DotLayerConfig {
     TResult Function(HexLayerConfig value)? hex,
     TResult Function(IsometricLayerConfig value)? isometric,
     TResult Function(DotLayerConfig value)? dot,
+    TResult Function(LogGridLayerConfig value)? logGrid,
     TResult Function(RegionLayerConfig value)? region,
     TResult Function(GuideLayerConfig value)? guide,
     required TResult orElse(),
@@ -1135,6 +1257,286 @@ abstract class DotLayerConfig implements LayerConfig {
   /// with the given fields replaced by the non-null parameter values.
   @JsonKey(includeFromJson: false, includeToJson: false)
   _$$DotLayerConfigImplCopyWith<_$DotLayerConfigImpl> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class _$$LogGridLayerConfigImplCopyWith<$Res> {
+  factory _$$LogGridLayerConfigImplCopyWith(
+    _$LogGridLayerConfigImpl value,
+    $Res Function(_$LogGridLayerConfigImpl) then,
+  ) = __$$LogGridLayerConfigImplCopyWithImpl<$Res>;
+  @useResult
+  $Res call({LogScale xScale, LogScale yScale, int xDecades, int yDecades});
+}
+
+/// @nodoc
+class __$$LogGridLayerConfigImplCopyWithImpl<$Res>
+    extends _$LayerConfigCopyWithImpl<$Res, _$LogGridLayerConfigImpl>
+    implements _$$LogGridLayerConfigImplCopyWith<$Res> {
+  __$$LogGridLayerConfigImplCopyWithImpl(
+    _$LogGridLayerConfigImpl _value,
+    $Res Function(_$LogGridLayerConfigImpl) _then,
+  ) : super(_value, _then);
+
+  /// Create a copy of LayerConfig
+  /// with the given fields replaced by the non-null parameter values.
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? xScale = null,
+    Object? yScale = null,
+    Object? xDecades = null,
+    Object? yDecades = null,
+  }) {
+    return _then(
+      _$LogGridLayerConfigImpl(
+        xScale: null == xScale
+            ? _value.xScale
+            : xScale // ignore: cast_nullable_to_non_nullable
+                  as LogScale,
+        yScale: null == yScale
+            ? _value.yScale
+            : yScale // ignore: cast_nullable_to_non_nullable
+                  as LogScale,
+        xDecades: null == xDecades
+            ? _value.xDecades
+            : xDecades // ignore: cast_nullable_to_non_nullable
+                  as int,
+        yDecades: null == yDecades
+            ? _value.yDecades
+            : yDecades // ignore: cast_nullable_to_non_nullable
+                  as int,
+      ),
+    );
+  }
+}
+
+/// @nodoc
+@JsonSerializable()
+class _$LogGridLayerConfigImpl implements LogGridLayerConfig {
+  const _$LogGridLayerConfigImpl({
+    this.xScale = LogScale.linear,
+    this.yScale = LogScale.log,
+    this.xDecades = 1,
+    this.yDecades = 3,
+    final String? $type,
+  }) : $type = $type ?? 'logGrid';
+
+  factory _$LogGridLayerConfigImpl.fromJson(Map<String, dynamic> json) =>
+      _$$LogGridLayerConfigImplFromJson(json);
+
+  @override
+  @JsonKey()
+  final LogScale xScale;
+  @override
+  @JsonKey()
+  final LogScale yScale;
+  @override
+  @JsonKey()
+  final int xDecades;
+  @override
+  @JsonKey()
+  final int yDecades;
+
+  @JsonKey(name: 'runtimeType')
+  final String $type;
+
+  @override
+  String toString() {
+    return 'LayerConfig.logGrid(xScale: $xScale, yScale: $yScale, xDecades: $xDecades, yDecades: $yDecades)';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$LogGridLayerConfigImpl &&
+            (identical(other.xScale, xScale) || other.xScale == xScale) &&
+            (identical(other.yScale, yScale) || other.yScale == yScale) &&
+            (identical(other.xDecades, xDecades) ||
+                other.xDecades == xDecades) &&
+            (identical(other.yDecades, yDecades) ||
+                other.yDecades == yDecades));
+  }
+
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  @override
+  int get hashCode =>
+      Object.hash(runtimeType, xScale, yScale, xDecades, yDecades);
+
+  /// Create a copy of LayerConfig
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$LogGridLayerConfigImplCopyWith<_$LogGridLayerConfigImpl> get copyWith =>
+      __$$LogGridLayerConfigImplCopyWithImpl<_$LogGridLayerConfigImpl>(
+        this,
+        _$identity,
+      );
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function(
+      double cellWidthMm,
+      double cellHeightMm,
+      LineStyle lineStyle,
+      int? boldEvery,
+      bool showHorizontal,
+      bool showVertical,
+    )
+    grid,
+    required TResult Function(double hexSizeMm, HexOrientation orientation) hex,
+    required TResult Function(double spacingMm) isometric,
+    required TResult Function(double spacingMm, double dotRadiusMm) dot,
+    required TResult Function(
+      LogScale xScale,
+      LogScale yScale,
+      int xDecades,
+      int yDecades,
+    )
+    logGrid,
+    required TResult Function(List<PageRegion> regions) region,
+    required TResult Function(GuideType guideType, Map<String, dynamic> params)
+    guide,
+  }) {
+    return logGrid(xScale, yScale, xDecades, yDecades);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function(
+      double cellWidthMm,
+      double cellHeightMm,
+      LineStyle lineStyle,
+      int? boldEvery,
+      bool showHorizontal,
+      bool showVertical,
+    )?
+    grid,
+    TResult? Function(double hexSizeMm, HexOrientation orientation)? hex,
+    TResult? Function(double spacingMm)? isometric,
+    TResult? Function(double spacingMm, double dotRadiusMm)? dot,
+    TResult? Function(
+      LogScale xScale,
+      LogScale yScale,
+      int xDecades,
+      int yDecades,
+    )?
+    logGrid,
+    TResult? Function(List<PageRegion> regions)? region,
+    TResult? Function(GuideType guideType, Map<String, dynamic> params)? guide,
+  }) {
+    return logGrid?.call(xScale, yScale, xDecades, yDecades);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function(
+      double cellWidthMm,
+      double cellHeightMm,
+      LineStyle lineStyle,
+      int? boldEvery,
+      bool showHorizontal,
+      bool showVertical,
+    )?
+    grid,
+    TResult Function(double hexSizeMm, HexOrientation orientation)? hex,
+    TResult Function(double spacingMm)? isometric,
+    TResult Function(double spacingMm, double dotRadiusMm)? dot,
+    TResult Function(
+      LogScale xScale,
+      LogScale yScale,
+      int xDecades,
+      int yDecades,
+    )?
+    logGrid,
+    TResult Function(List<PageRegion> regions)? region,
+    TResult Function(GuideType guideType, Map<String, dynamic> params)? guide,
+    required TResult orElse(),
+  }) {
+    if (logGrid != null) {
+      return logGrid(xScale, yScale, xDecades, yDecades);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(GridLayerConfig value) grid,
+    required TResult Function(HexLayerConfig value) hex,
+    required TResult Function(IsometricLayerConfig value) isometric,
+    required TResult Function(DotLayerConfig value) dot,
+    required TResult Function(LogGridLayerConfig value) logGrid,
+    required TResult Function(RegionLayerConfig value) region,
+    required TResult Function(GuideLayerConfig value) guide,
+  }) {
+    return logGrid(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(GridLayerConfig value)? grid,
+    TResult? Function(HexLayerConfig value)? hex,
+    TResult? Function(IsometricLayerConfig value)? isometric,
+    TResult? Function(DotLayerConfig value)? dot,
+    TResult? Function(LogGridLayerConfig value)? logGrid,
+    TResult? Function(RegionLayerConfig value)? region,
+    TResult? Function(GuideLayerConfig value)? guide,
+  }) {
+    return logGrid?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(GridLayerConfig value)? grid,
+    TResult Function(HexLayerConfig value)? hex,
+    TResult Function(IsometricLayerConfig value)? isometric,
+    TResult Function(DotLayerConfig value)? dot,
+    TResult Function(LogGridLayerConfig value)? logGrid,
+    TResult Function(RegionLayerConfig value)? region,
+    TResult Function(GuideLayerConfig value)? guide,
+    required TResult orElse(),
+  }) {
+    if (logGrid != null) {
+      return logGrid(this);
+    }
+    return orElse();
+  }
+
+  @override
+  Map<String, dynamic> toJson() {
+    return _$$LogGridLayerConfigImplToJson(this);
+  }
+}
+
+abstract class LogGridLayerConfig implements LayerConfig {
+  const factory LogGridLayerConfig({
+    final LogScale xScale,
+    final LogScale yScale,
+    final int xDecades,
+    final int yDecades,
+  }) = _$LogGridLayerConfigImpl;
+
+  factory LogGridLayerConfig.fromJson(Map<String, dynamic> json) =
+      _$LogGridLayerConfigImpl.fromJson;
+
+  LogScale get xScale;
+  LogScale get yScale;
+  int get xDecades;
+  int get yDecades;
+
+  /// Create a copy of LayerConfig
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  _$$LogGridLayerConfigImplCopyWith<_$LogGridLayerConfigImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
@@ -1241,6 +1643,13 @@ class _$RegionLayerConfigImpl implements RegionLayerConfig {
     required TResult Function(double hexSizeMm, HexOrientation orientation) hex,
     required TResult Function(double spacingMm) isometric,
     required TResult Function(double spacingMm, double dotRadiusMm) dot,
+    required TResult Function(
+      LogScale xScale,
+      LogScale yScale,
+      int xDecades,
+      int yDecades,
+    )
+    logGrid,
     required TResult Function(List<PageRegion> regions) region,
     required TResult Function(GuideType guideType, Map<String, dynamic> params)
     guide,
@@ -1263,6 +1672,13 @@ class _$RegionLayerConfigImpl implements RegionLayerConfig {
     TResult? Function(double hexSizeMm, HexOrientation orientation)? hex,
     TResult? Function(double spacingMm)? isometric,
     TResult? Function(double spacingMm, double dotRadiusMm)? dot,
+    TResult? Function(
+      LogScale xScale,
+      LogScale yScale,
+      int xDecades,
+      int yDecades,
+    )?
+    logGrid,
     TResult? Function(List<PageRegion> regions)? region,
     TResult? Function(GuideType guideType, Map<String, dynamic> params)? guide,
   }) {
@@ -1284,6 +1700,13 @@ class _$RegionLayerConfigImpl implements RegionLayerConfig {
     TResult Function(double hexSizeMm, HexOrientation orientation)? hex,
     TResult Function(double spacingMm)? isometric,
     TResult Function(double spacingMm, double dotRadiusMm)? dot,
+    TResult Function(
+      LogScale xScale,
+      LogScale yScale,
+      int xDecades,
+      int yDecades,
+    )?
+    logGrid,
     TResult Function(List<PageRegion> regions)? region,
     TResult Function(GuideType guideType, Map<String, dynamic> params)? guide,
     required TResult orElse(),
@@ -1301,6 +1724,7 @@ class _$RegionLayerConfigImpl implements RegionLayerConfig {
     required TResult Function(HexLayerConfig value) hex,
     required TResult Function(IsometricLayerConfig value) isometric,
     required TResult Function(DotLayerConfig value) dot,
+    required TResult Function(LogGridLayerConfig value) logGrid,
     required TResult Function(RegionLayerConfig value) region,
     required TResult Function(GuideLayerConfig value) guide,
   }) {
@@ -1314,6 +1738,7 @@ class _$RegionLayerConfigImpl implements RegionLayerConfig {
     TResult? Function(HexLayerConfig value)? hex,
     TResult? Function(IsometricLayerConfig value)? isometric,
     TResult? Function(DotLayerConfig value)? dot,
+    TResult? Function(LogGridLayerConfig value)? logGrid,
     TResult? Function(RegionLayerConfig value)? region,
     TResult? Function(GuideLayerConfig value)? guide,
   }) {
@@ -1327,6 +1752,7 @@ class _$RegionLayerConfigImpl implements RegionLayerConfig {
     TResult Function(HexLayerConfig value)? hex,
     TResult Function(IsometricLayerConfig value)? isometric,
     TResult Function(DotLayerConfig value)? dot,
+    TResult Function(LogGridLayerConfig value)? logGrid,
     TResult Function(RegionLayerConfig value)? region,
     TResult Function(GuideLayerConfig value)? guide,
     required TResult orElse(),
@@ -1474,6 +1900,13 @@ class _$GuideLayerConfigImpl implements GuideLayerConfig {
     required TResult Function(double hexSizeMm, HexOrientation orientation) hex,
     required TResult Function(double spacingMm) isometric,
     required TResult Function(double spacingMm, double dotRadiusMm) dot,
+    required TResult Function(
+      LogScale xScale,
+      LogScale yScale,
+      int xDecades,
+      int yDecades,
+    )
+    logGrid,
     required TResult Function(List<PageRegion> regions) region,
     required TResult Function(GuideType guideType, Map<String, dynamic> params)
     guide,
@@ -1496,6 +1929,13 @@ class _$GuideLayerConfigImpl implements GuideLayerConfig {
     TResult? Function(double hexSizeMm, HexOrientation orientation)? hex,
     TResult? Function(double spacingMm)? isometric,
     TResult? Function(double spacingMm, double dotRadiusMm)? dot,
+    TResult? Function(
+      LogScale xScale,
+      LogScale yScale,
+      int xDecades,
+      int yDecades,
+    )?
+    logGrid,
     TResult? Function(List<PageRegion> regions)? region,
     TResult? Function(GuideType guideType, Map<String, dynamic> params)? guide,
   }) {
@@ -1517,6 +1957,13 @@ class _$GuideLayerConfigImpl implements GuideLayerConfig {
     TResult Function(double hexSizeMm, HexOrientation orientation)? hex,
     TResult Function(double spacingMm)? isometric,
     TResult Function(double spacingMm, double dotRadiusMm)? dot,
+    TResult Function(
+      LogScale xScale,
+      LogScale yScale,
+      int xDecades,
+      int yDecades,
+    )?
+    logGrid,
     TResult Function(List<PageRegion> regions)? region,
     TResult Function(GuideType guideType, Map<String, dynamic> params)? guide,
     required TResult orElse(),
@@ -1534,6 +1981,7 @@ class _$GuideLayerConfigImpl implements GuideLayerConfig {
     required TResult Function(HexLayerConfig value) hex,
     required TResult Function(IsometricLayerConfig value) isometric,
     required TResult Function(DotLayerConfig value) dot,
+    required TResult Function(LogGridLayerConfig value) logGrid,
     required TResult Function(RegionLayerConfig value) region,
     required TResult Function(GuideLayerConfig value) guide,
   }) {
@@ -1547,6 +1995,7 @@ class _$GuideLayerConfigImpl implements GuideLayerConfig {
     TResult? Function(HexLayerConfig value)? hex,
     TResult? Function(IsometricLayerConfig value)? isometric,
     TResult? Function(DotLayerConfig value)? dot,
+    TResult? Function(LogGridLayerConfig value)? logGrid,
     TResult? Function(RegionLayerConfig value)? region,
     TResult? Function(GuideLayerConfig value)? guide,
   }) {
@@ -1560,6 +2009,7 @@ class _$GuideLayerConfigImpl implements GuideLayerConfig {
     TResult Function(HexLayerConfig value)? hex,
     TResult Function(IsometricLayerConfig value)? isometric,
     TResult Function(DotLayerConfig value)? dot,
+    TResult Function(LogGridLayerConfig value)? logGrid,
     TResult Function(RegionLayerConfig value)? region,
     TResult Function(GuideLayerConfig value)? guide,
     required TResult orElse(),
