@@ -25,6 +25,10 @@ class IsometricLayerPainter extends CustomPainter {
     final cellW = mmToPx(config.spacingMm, scale);
     if (cellW <= 0) return;
 
+    final clip = contentRect(size, pageConfig, scale);
+    canvas.save();
+    canvas.clipRect(clip);
+
     final cellH = cellW * sqrt(3.0) / 2.0;
     final paint = Paint()
       ..color = color.withValues(alpha: opacity)
@@ -32,28 +36,30 @@ class IsometricLayerPainter extends CustomPainter {
       ..style = PaintingStyle.stroke;
 
     // Horizontal lines
-    for (double y = 0; y <= size.height + cellH; y += cellH) {
-      canvas.drawLine(Offset(0, y), Offset(size.width, y), paint);
+    for (double y = clip.top; y <= clip.bottom + cellH; y += cellH) {
+      canvas.drawLine(Offset(clip.left, y), Offset(clip.right, y), paint);
     }
 
     // Diagonal shift: how far x moves from top to bottom for a 60° line
-    final diag = size.height / sqrt(3.0);
+    final diagH = clip.height / sqrt(3.0);
 
-    // Lines going lower-right (slope +√3): from (x0, 0) to (x0+diag, size.height)
-    final nStart = ((-diag) / cellW).floor() - 1;
-    final nEnd = (size.width / cellW).ceil() + 1;
+    // Lines going lower-right (slope +√3)
+    final nStart = (((clip.left - diagH) - clip.left) / cellW).floor() - 1;
+    final nEnd = ((clip.right - clip.left) / cellW).ceil() + 1;
     for (int n = nStart; n <= nEnd; n++) {
-      final x0 = n * cellW;
-      canvas.drawLine(Offset(x0, 0), Offset(x0 + diag, size.height), paint);
+      final x0 = clip.left + n * cellW;
+      canvas.drawLine(Offset(x0, clip.top), Offset(x0 + diagH, clip.bottom), paint);
     }
 
-    // Lines going lower-left (slope -√3): from (x0, 0) to (x0-diag, size.height)
-    final n2Start = ((-size.width - diag) / cellW).floor() - 1;
-    final n2End = ((size.width + diag) / cellW).ceil() + 1;
+    // Lines going lower-left (slope -√3)
+    final n2Start = ((-(clip.width + diagH)) / cellW).floor() - 1;
+    final n2End = ((clip.width + diagH) / cellW).ceil() + 1;
     for (int n = n2Start; n <= n2End; n++) {
-      final x0 = n * cellW;
-      canvas.drawLine(Offset(x0, 0), Offset(x0 - diag, size.height), paint);
+      final x0 = clip.left + n * cellW;
+      canvas.drawLine(Offset(x0, clip.top), Offset(x0 - diagH, clip.bottom), paint);
     }
+
+    canvas.restore();
   }
 
   @override

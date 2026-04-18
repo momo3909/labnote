@@ -6,6 +6,16 @@ import '../../features/templates/presentation/saved_list_screen.dart';
 import '../../features/settings/presentation/settings_screen.dart';
 import '../../shared/models/layer_config.dart';
 
+CustomTransitionPage<void> _fadeRoute(GoRouterState state, Widget child) {
+  return CustomTransitionPage<void>(
+    key: state.pageKey,
+    child: child,
+    transitionDuration: const Duration(milliseconds: 150),
+    transitionsBuilder: (context, animation, secondaryAnimation, child) =>
+        FadeTransition(opacity: animation, child: child),
+  );
+}
+
 final appRouter = GoRouter(
   initialLocation: '/',
   routes: [
@@ -19,15 +29,19 @@ final appRouter = GoRouter(
     ),
     GoRoute(
       path: '/editor',
-      builder: (context, state) => EditorScreen(
-        templateUuid: null,
-        presetConfig: state.extra as LayerConfig?,
+      pageBuilder: (context, state) => _fadeRoute(
+        state,
+        EditorScreen(
+          templateUuid: null,
+          presetConfig: state.extra as LayerConfig?,
+        ),
       ),
     ),
     GoRoute(
       path: '/editor/:uuid',
-      builder: (context, state) => EditorScreen(
-        templateUuid: state.pathParameters['uuid'],
+      pageBuilder: (context, state) => _fadeRoute(
+        state,
+        EditorScreen(templateUuid: state.pathParameters['uuid']),
       ),
     ),
   ],

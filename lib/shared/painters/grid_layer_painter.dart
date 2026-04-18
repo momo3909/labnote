@@ -25,6 +25,10 @@ class GridLayerPainter extends CustomPainter {
     final cellH = mmToPx(config.cellHeightMm, scale);
     if (cellW <= 0 || cellH <= 0) return;
 
+    final clip = contentRect(size, pageConfig, scale);
+    canvas.save();
+    canvas.clipRect(clip);
+
     final baseStroke = config.lineStyle == LineStyle.solid ? 0.5 : 0.4;
     final paintColor = color.withValues(alpha: opacity);
 
@@ -33,19 +37,25 @@ class GridLayerPainter extends CustomPainter {
       ..strokeWidth = bold ? baseStroke * 2 : baseStroke
       ..style = PaintingStyle.stroke;
 
-    int col = 0;
-    for (double x = 0; x <= size.width + cellW; x += cellW) {
-      final bold = config.boldEvery != null && col % config.boldEvery! == 0;
-      _drawLine(canvas, Offset(x, 0), Offset(x, size.height), makePaint(bold));
-      col++;
+    if (config.showVertical) {
+      int col = 0;
+      for (double x = clip.left; x <= clip.right + cellW; x += cellW) {
+        final bold = config.boldEvery != null && col % config.boldEvery! == 0;
+        _drawLine(canvas, Offset(x, clip.top), Offset(x, clip.bottom), makePaint(bold));
+        col++;
+      }
     }
 
-    int row = 0;
-    for (double y = 0; y <= size.height + cellH; y += cellH) {
-      final bold = config.boldEvery != null && row % config.boldEvery! == 0;
-      _drawLine(canvas, Offset(0, y), Offset(size.width, y), makePaint(bold));
-      row++;
+    if (config.showHorizontal) {
+      int row = 0;
+      for (double y = clip.top; y <= clip.bottom + cellH; y += cellH) {
+        final bold = config.boldEvery != null && row % config.boldEvery! == 0;
+        _drawLine(canvas, Offset(clip.left, y), Offset(clip.right, y), makePaint(bold));
+        row++;
+      }
     }
+
+    canvas.restore();
   }
 
   void _drawLine(Canvas canvas, Offset start, Offset end, Paint paint) {

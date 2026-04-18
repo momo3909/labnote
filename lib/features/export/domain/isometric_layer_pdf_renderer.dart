@@ -31,42 +31,49 @@ class IsometricLayerPdfRenderer {
     final cellW = toPoints(config.spacingMm);
     if (cellW <= 0) return;
 
+    // Content rect in PDF space (y-up from bottom-left)
+    final left = toPoints(pageConfig.marginLeftMm);
+    final right = size.x - toPoints(pageConfig.marginRightMm);
+    final bottom = toPoints(pageConfig.marginBottomMm);
+    final top = size.y - toPoints(pageConfig.marginTopMm);
+    final contentH = top - bottom;
+
     final cellH = cellW * sqrt(3.0) / 2.0;
     canvas.setStrokeColor(color);
     canvas.setLineWidth(0.3);
+    canvas.saveContext();
+    canvas.drawRect(left, bottom, right - left, contentH);
+    canvas.clipPath();
 
-    // PDF座標系は左下原点: y=0=bottom, y=size.y=top
-    // Horizontal lines (in PDF: y = k * cellH from bottom)
-    for (double y = 0; y <= size.y + cellH; y += cellH) {
-      canvas.moveTo(0, y);
-      canvas.lineTo(size.x, y);
+    // Horizontal lines
+    for (double y = bottom; y <= top + cellH; y += cellH) {
+      canvas.moveTo(left, y);
+      canvas.lineTo(right, y);
       canvas.strokePath();
     }
 
-    final diag = size.y / sqrt(3.0);
+    final diagH = contentH / sqrt(3.0);
 
-    // Lines going upper-right in PDF space (slope +√3 in screen → lower-left to upper-right in PDF)
-    // In PDF (y-up): going right and UP = positive slope
-    // For a 60° line in PDF: slope = tan(60°) = √3
-    // At y=0 (bottom): x = x0; at y=size.y (top): x = x0 + diag
-    final nStart = ((-diag) / cellW).floor() - 1;
-    final nEnd = ((size.x + diag) / cellW).ceil() + 1;
+    // Lines going upper-right (slope +√3 in PDF y-up space)
+    final nStart = ((-diagH) / cellW).floor() - 1;
+    final nEnd = ((right - left + diagH) / cellW).ceil() + 1;
     for (int n = nStart; n <= nEnd; n++) {
-      final x0 = n * cellW;
-      canvas.moveTo(x0, 0);
-      canvas.lineTo(x0 + diag, size.y);
+      final x0 = left + n * cellW;
+      canvas.moveTo(x0, bottom);
+      canvas.lineTo(x0 + diagH, top);
       canvas.strokePath();
     }
 
-    // Lines going upper-left in PDF space (slope -√3)
-    // At y=0 (bottom): x = x0; at y=size.y (top): x = x0 - diag
-    final n2Start = ((-size.x - diag) / cellW).floor() - 1;
-    final n2End = ((size.x + diag) / cellW).ceil() + 1;
+    // Lines going upper-left (slope -√3)
+    final n2Start = ((-(right - left) - diagH) / cellW).floor() - 1;
+    final n2End = ((right - left + diagH) / cellW).ceil() + 1;
     for (int n = n2Start; n <= n2End; n++) {
-      final x0 = n * cellW;
-      canvas.moveTo(x0, 0);
-      canvas.lineTo(x0 - diag, size.y);
+      final x0 = left + n * cellW;
+      canvas.moveTo(x0, bottom);
+      canvas.lineTo(x0 - diagH, top);
       canvas.strokePath();
     }
+
+    canvas.restoreContext();
   }
 }

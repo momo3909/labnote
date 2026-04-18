@@ -13,19 +13,27 @@ import '../../paywall/domain/entitlement_notifier.dart';
 import '../../paywall/domain/free_limits.dart';
 import '../../paywall/presentation/paywall_modal.dart';
 
-class EditorScreen extends ConsumerWidget {
+class EditorScreen extends ConsumerStatefulWidget {
   const EditorScreen({super.key, this.templateUuid, this.presetConfig});
   final String? templateUuid;
   final LayerConfig? presetConfig;
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
-    final param = (uuid: templateUuid, preset: presetConfig);
-    final state = ref.watch(editorNotifierProvider(param));
-    final notifier = ref.read(editorNotifierProvider(param).notifier);
+  ConsumerState<EditorScreen> createState() => _EditorScreenState();
+}
+
+class _EditorScreenState extends ConsumerState<EditorScreen> {
+  bool _isExporting = false;
+
+  EditorParam get _param => (uuid: widget.templateUuid, preset: widget.presetConfig);
+
+  @override
+  Widget build(BuildContext context) {
+    final state = ref.watch(editorNotifierProvider(_param));
+    final notifier = ref.read(editorNotifierProvider(_param).notifier);
     return Scaffold(
       appBar: AppBar(
-        title: Text(templateUuid == null ? '新規作成' : 'テンプレート編集'),
+        title: Text(widget.templateUuid == null ? '新規作成' : 'テンプレート編集'),
         actions: [
           state.isSaving
               ? const Padding(
@@ -57,6 +65,8 @@ class EditorScreen extends ConsumerWidget {
     EditorState state,
     EditorNotifier notifier,
   ) async {
+    if (_isExporting) return;
+
     // 名前未設定の場合は先に保存
     String? uuid = state.savedUuid;
     if (uuid == null) {
@@ -105,10 +115,15 @@ class EditorScreen extends ConsumerWidget {
       pageCount = freeMaxPdfPages;
     }
 
-    // Export
-    final template = await ref.read(templateRepositoryProvider).getByUuid(uuid);
-    if (template == null || !context.mounted) return;
-    await ExportService.sharePdf(template, pageCount: pageCount);
+    // Export with loading indicator
+    setState(() => _isExporting = true);
+    try {
+      final template = await ref.read(templateRepositoryProvider).getByUuid(uuid);
+      if (template == null || !context.mounted) return;
+      await ExportService.sharePdf(template, pageCount: pageCount);
+    } finally {
+      if (mounted) setState(() => _isExporting = false);
+    }
 
     // ソフトプロンプト（フリーユーザー・出力完了後）
     if (!context.mounted) return;
@@ -133,7 +148,6 @@ class EditorScreen extends ConsumerWidget {
     EditorState state,
     EditorNotifier notifier,
   ) async {
-    // 新規保存の場合のみ制限チェック
     if (state.savedUuid == null) {
       final isPro = ref.read(entitlementNotifierProvider).valueOrNull ?? false;
       if (!isPro) {
@@ -267,12 +281,51 @@ class EditorScreen extends ConsumerWidget {
               ),
             ],
           ),
+          const SizedBox(height: 8),
+          Row(
+            children: [
+              const Text('余白', style: TextStyle(fontSize: 13)),
+              const SizedBox(width: 16),
+              _styleChip(
+                label: 'なし',
+                selected: state.pageConfig.marginLeftMm == 0,
+                onTap: () => notifier.updatePageConfig(state.pageConfig.copyWith(
+                  marginTopMm: 0, marginBottomMm: 0,
+                  marginLeftMm: 0, marginRightMm: 0,
+                )),
+              ),
+              const SizedBox(width: 8),
+              _styleChip(
+                label: '標準',
+                selected: state.pageConfig.marginLeftMm == 10 && state.pageConfig.marginTopMm == 10,
+                onTap: () => notifier.updatePageConfig(state.pageConfig.copyWith(
+                  marginTopMm: 10, marginBottomMm: 10,
+                  marginLeftMm: 10, marginRightMm: 10,
+                )),
+              ),
+              const SizedBox(width: 8),
+              _styleChip(
+                label: '26穴',
+                selected: state.pageConfig.marginLeftMm == 20 && state.pageConfig.marginTopMm == 10,
+                onTap: () => notifier.updatePageConfig(state.pageConfig.copyWith(
+                  marginTopMm: 10, marginBottomMm: 10,
+                  marginLeftMm: 20, marginRightMm: 10,
+                )),
+              ),
+            ],
+          ),
           const SizedBox(height: 12),
           SizedBox(
             width: double.infinity,
             child: FilledButton(
-              onPressed: () => _exportPdf(context, ref, state, notifier),
-              child: const Text('PDF 出力'),
+              onPressed: _isExporting ? null : () => _exportPdf(context, ref, state, notifier),
+              child: _isExporting
+                  ? const SizedBox(
+                      height: 18,
+                      width: 18,
+                      child: CircularProgressIndicator(strokeWidth: 2, color: Colors.white),
+                    )
+                  : const Text('PDF 出力'),
             ),
           ),
         ],
@@ -356,6 +409,28 @@ class EditorScreen extends ConsumerWidget {
               label: '点線',
               selected: config.lineStyle == LineStyle.dotted,
               onTap: () => notifier.updateActiveLayerConfig(config.copyWith(lineStyle: LineStyle.dotted)),
+            ),
+          ],
+        ),
+        const SizedBox(height: 6),
+        Row(
+          children: [
+            const Text('表示', style: TextStyle(fontSize: 13)),
+            const SizedBox(width: 16),
+            _styleChip(
+              label: '横線',
+              selected: config.showHorizontal,
+              onTap: () => notifier.updateActiveLayerConfig(
+                config.copyWith(showHorizontal: !config.showHorizontal),
+              ),
+            ),
+            const SizedBox(width: 8),
+            _styleChip(
+              label: '縦線',
+              selected: config.showVertical,
+              onTap: () => notifier.updateActiveLayerConfig(
+                config.copyWith(showVertical: !config.showVertical),
+              ),
             ),
           ],
         ),

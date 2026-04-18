@@ -15,6 +15,8 @@ _$GridLayerConfigImpl _$$GridLayerConfigImplFromJson(
       $enumDecodeNullable(_$LineStyleEnumMap, json['lineStyle']) ??
       LineStyle.solid,
   boldEvery: (json['boldEvery'] as num?)?.toInt(),
+  showHorizontal: json['showHorizontal'] as bool? ?? true,
+  showVertical: json['showVertical'] as bool? ?? true,
   $type: json['runtimeType'] as String?,
 );
 
@@ -25,6 +27,8 @@ Map<String, dynamic> _$$GridLayerConfigImplToJson(
   'cellHeightMm': instance.cellHeightMm,
   'lineStyle': _$LineStyleEnumMap[instance.lineStyle]!,
   'boldEvery': instance.boldEvery,
+  'showHorizontal': instance.showHorizontal,
+  'showVertical': instance.showVertical,
   'runtimeType': instance.$type,
 };
 

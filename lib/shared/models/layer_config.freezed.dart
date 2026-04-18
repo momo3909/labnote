@@ -47,6 +47,8 @@ mixin _$LayerConfig {
       double cellHeightMm,
       LineStyle lineStyle,
       int? boldEvery,
+      bool showHorizontal,
+      bool showVertical,
     )
     grid,
     required TResult Function(double hexSizeMm, HexOrientation orientation) hex,
@@ -62,6 +64,8 @@ mixin _$LayerConfig {
       double cellHeightMm,
       LineStyle lineStyle,
       int? boldEvery,
+      bool showHorizontal,
+      bool showVertical,
     )?
     grid,
     TResult? Function(double hexSizeMm, HexOrientation orientation)? hex,
@@ -76,6 +80,8 @@ mixin _$LayerConfig {
       double cellHeightMm,
       LineStyle lineStyle,
       int? boldEvery,
+      bool showHorizontal,
+      bool showVertical,
     )?
     grid,
     TResult Function(double hexSizeMm, HexOrientation orientation)? hex,
@@ -148,6 +154,8 @@ abstract class _$$GridLayerConfigImplCopyWith<$Res> {
     double cellHeightMm,
     LineStyle lineStyle,
     int? boldEvery,
+    bool showHorizontal,
+    bool showVertical,
   });
 }
 
@@ -169,6 +177,8 @@ class __$$GridLayerConfigImplCopyWithImpl<$Res>
     Object? cellHeightMm = null,
     Object? lineStyle = null,
     Object? boldEvery = freezed,
+    Object? showHorizontal = null,
+    Object? showVertical = null,
   }) {
     return _then(
       _$GridLayerConfigImpl(
@@ -188,6 +198,14 @@ class __$$GridLayerConfigImplCopyWithImpl<$Res>
             ? _value.boldEvery
             : boldEvery // ignore: cast_nullable_to_non_nullable
                   as int?,
+        showHorizontal: null == showHorizontal
+            ? _value.showHorizontal
+            : showHorizontal // ignore: cast_nullable_to_non_nullable
+                  as bool,
+        showVertical: null == showVertical
+            ? _value.showVertical
+            : showVertical // ignore: cast_nullable_to_non_nullable
+                  as bool,
       ),
     );
   }
@@ -201,6 +219,8 @@ class _$GridLayerConfigImpl implements GridLayerConfig {
     this.cellHeightMm = 5.0,
     this.lineStyle = LineStyle.solid,
     this.boldEvery,
+    this.showHorizontal = true,
+    this.showVertical = true,
     final String? $type,
   }) : $type = $type ?? 'grid';
 
@@ -218,13 +238,19 @@ class _$GridLayerConfigImpl implements GridLayerConfig {
   final LineStyle lineStyle;
   @override
   final int? boldEvery;
+  @override
+  @JsonKey()
+  final bool showHorizontal;
+  @override
+  @JsonKey()
+  final bool showVertical;
 
   @JsonKey(name: 'runtimeType')
   final String $type;
 
   @override
   String toString() {
-    return 'LayerConfig.grid(cellWidthMm: $cellWidthMm, cellHeightMm: $cellHeightMm, lineStyle: $lineStyle, boldEvery: $boldEvery)';
+    return 'LayerConfig.grid(cellWidthMm: $cellWidthMm, cellHeightMm: $cellHeightMm, lineStyle: $lineStyle, boldEvery: $boldEvery, showHorizontal: $showHorizontal, showVertical: $showVertical)';
   }
 
   @override
@@ -239,13 +265,24 @@ class _$GridLayerConfigImpl implements GridLayerConfig {
             (identical(other.lineStyle, lineStyle) ||
                 other.lineStyle == lineStyle) &&
             (identical(other.boldEvery, boldEvery) ||
-                other.boldEvery == boldEvery));
+                other.boldEvery == boldEvery) &&
+            (identical(other.showHorizontal, showHorizontal) ||
+                other.showHorizontal == showHorizontal) &&
+            (identical(other.showVertical, showVertical) ||
+                other.showVertical == showVertical));
   }
 
   @JsonKey(includeFromJson: false, includeToJson: false)
   @override
-  int get hashCode =>
-      Object.hash(runtimeType, cellWidthMm, cellHeightMm, lineStyle, boldEvery);
+  int get hashCode => Object.hash(
+    runtimeType,
+    cellWidthMm,
+    cellHeightMm,
+    lineStyle,
+    boldEvery,
+    showHorizontal,
+    showVertical,
+  );
 
   /// Create a copy of LayerConfig
   /// with the given fields replaced by the non-null parameter values.
@@ -266,6 +303,8 @@ class _$GridLayerConfigImpl implements GridLayerConfig {
       double cellHeightMm,
       LineStyle lineStyle,
       int? boldEvery,
+      bool showHorizontal,
+      bool showVertical,
     )
     grid,
     required TResult Function(double hexSizeMm, HexOrientation orientation) hex,
@@ -274,7 +313,14 @@ class _$GridLayerConfigImpl implements GridLayerConfig {
     required TResult Function(GuideType guideType, Map<String, dynamic> params)
     guide,
   }) {
-    return grid(cellWidthMm, cellHeightMm, lineStyle, boldEvery);
+    return grid(
+      cellWidthMm,
+      cellHeightMm,
+      lineStyle,
+      boldEvery,
+      showHorizontal,
+      showVertical,
+    );
   }
 
   @override
@@ -285,6 +331,8 @@ class _$GridLayerConfigImpl implements GridLayerConfig {
       double cellHeightMm,
       LineStyle lineStyle,
       int? boldEvery,
+      bool showHorizontal,
+      bool showVertical,
     )?
     grid,
     TResult? Function(double hexSizeMm, HexOrientation orientation)? hex,
@@ -292,7 +340,14 @@ class _$GridLayerConfigImpl implements GridLayerConfig {
     TResult? Function(List<PageRegion> regions)? region,
     TResult? Function(GuideType guideType, Map<String, dynamic> params)? guide,
   }) {
-    return grid?.call(cellWidthMm, cellHeightMm, lineStyle, boldEvery);
+    return grid?.call(
+      cellWidthMm,
+      cellHeightMm,
+      lineStyle,
+      boldEvery,
+      showHorizontal,
+      showVertical,
+    );
   }
 
   @override
@@ -303,6 +358,8 @@ class _$GridLayerConfigImpl implements GridLayerConfig {
       double cellHeightMm,
       LineStyle lineStyle,
       int? boldEvery,
+      bool showHorizontal,
+      bool showVertical,
     )?
     grid,
     TResult Function(double hexSizeMm, HexOrientation orientation)? hex,
@@ -312,7 +369,14 @@ class _$GridLayerConfigImpl implements GridLayerConfig {
     required TResult orElse(),
   }) {
     if (grid != null) {
-      return grid(cellWidthMm, cellHeightMm, lineStyle, boldEvery);
+      return grid(
+        cellWidthMm,
+        cellHeightMm,
+        lineStyle,
+        boldEvery,
+        showHorizontal,
+        showVertical,
+      );
     }
     return orElse();
   }
@@ -369,6 +433,8 @@ abstract class GridLayerConfig implements LayerConfig {
     final double cellHeightMm,
     final LineStyle lineStyle,
     final int? boldEvery,
+    final bool showHorizontal,
+    final bool showVertical,
   }) = _$GridLayerConfigImpl;
 
   factory GridLayerConfig.fromJson(Map<String, dynamic> json) =
@@ -378,6 +444,8 @@ abstract class GridLayerConfig implements LayerConfig {
   double get cellHeightMm;
   LineStyle get lineStyle;
   int? get boldEvery;
+  bool get showHorizontal;
+  bool get showVertical;
 
   /// Create a copy of LayerConfig
   /// with the given fields replaced by the non-null parameter values.
@@ -486,6 +554,8 @@ class _$HexLayerConfigImpl implements HexLayerConfig {
       double cellHeightMm,
       LineStyle lineStyle,
       int? boldEvery,
+      bool showHorizontal,
+      bool showVertical,
     )
     grid,
     required TResult Function(double hexSizeMm, HexOrientation orientation) hex,
@@ -505,6 +575,8 @@ class _$HexLayerConfigImpl implements HexLayerConfig {
       double cellHeightMm,
       LineStyle lineStyle,
       int? boldEvery,
+      bool showHorizontal,
+      bool showVertical,
     )?
     grid,
     TResult? Function(double hexSizeMm, HexOrientation orientation)? hex,
@@ -523,6 +595,8 @@ class _$HexLayerConfigImpl implements HexLayerConfig {
       double cellHeightMm,
       LineStyle lineStyle,
       int? boldEvery,
+      bool showHorizontal,
+      bool showVertical,
     )?
     grid,
     TResult Function(double hexSizeMm, HexOrientation orientation)? hex,
@@ -691,6 +765,8 @@ class _$IsometricLayerConfigImpl implements IsometricLayerConfig {
       double cellHeightMm,
       LineStyle lineStyle,
       int? boldEvery,
+      bool showHorizontal,
+      bool showVertical,
     )
     grid,
     required TResult Function(double hexSizeMm, HexOrientation orientation) hex,
@@ -710,6 +786,8 @@ class _$IsometricLayerConfigImpl implements IsometricLayerConfig {
       double cellHeightMm,
       LineStyle lineStyle,
       int? boldEvery,
+      bool showHorizontal,
+      bool showVertical,
     )?
     grid,
     TResult? Function(double hexSizeMm, HexOrientation orientation)? hex,
@@ -728,6 +806,8 @@ class _$IsometricLayerConfigImpl implements IsometricLayerConfig {
       double cellHeightMm,
       LineStyle lineStyle,
       int? boldEvery,
+      bool showHorizontal,
+      bool showVertical,
     )?
     grid,
     TResult Function(double hexSizeMm, HexOrientation orientation)? hex,
@@ -900,6 +980,8 @@ class _$RegionLayerConfigImpl implements RegionLayerConfig {
       double cellHeightMm,
       LineStyle lineStyle,
       int? boldEvery,
+      bool showHorizontal,
+      bool showVertical,
     )
     grid,
     required TResult Function(double hexSizeMm, HexOrientation orientation) hex,
@@ -919,6 +1001,8 @@ class _$RegionLayerConfigImpl implements RegionLayerConfig {
       double cellHeightMm,
       LineStyle lineStyle,
       int? boldEvery,
+      bool showHorizontal,
+      bool showVertical,
     )?
     grid,
     TResult? Function(double hexSizeMm, HexOrientation orientation)? hex,
@@ -937,6 +1021,8 @@ class _$RegionLayerConfigImpl implements RegionLayerConfig {
       double cellHeightMm,
       LineStyle lineStyle,
       int? boldEvery,
+      bool showHorizontal,
+      bool showVertical,
     )?
     grid,
     TResult Function(double hexSizeMm, HexOrientation orientation)? hex,
@@ -1121,6 +1207,8 @@ class _$GuideLayerConfigImpl implements GuideLayerConfig {
       double cellHeightMm,
       LineStyle lineStyle,
       int? boldEvery,
+      bool showHorizontal,
+      bool showVertical,
     )
     grid,
     required TResult Function(double hexSizeMm, HexOrientation orientation) hex,
@@ -1140,6 +1228,8 @@ class _$GuideLayerConfigImpl implements GuideLayerConfig {
       double cellHeightMm,
       LineStyle lineStyle,
       int? boldEvery,
+      bool showHorizontal,
+      bool showVertical,
     )?
     grid,
     TResult? Function(double hexSizeMm, HexOrientation orientation)? hex,
@@ -1158,6 +1248,8 @@ class _$GuideLayerConfigImpl implements GuideLayerConfig {
       double cellHeightMm,
       LineStyle lineStyle,
       int? boldEvery,
+      bool showHorizontal,
+      bool showVertical,
     )?
     grid,
     TResult Function(double hexSizeMm, HexOrientation orientation)? hex,
