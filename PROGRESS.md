@@ -25,8 +25,8 @@ fix/xxx       ← バグ修正
 | 5-6 | `feature/db-repository` | Drift DB・TemplateRepository・保存/読み込み | ✅ 完了（editor-uiに前倒し） |
 | 7-8 | `feature/layer-types` | HexLayer / IsometricLayer / RegionLayer（Painter+PDF各セット） | ✅ 完了 |
 | 9-10 | `feature/screens` | ホーム・保存一覧・go_routerナビゲーション | ✅ 完了（layer-typesに前倒し） |
-| 11a | `feature/paywall` | RevenueCat連携・EntitlementNotifier・ペイウォールUI | ⬜ 未着手 |
-| 11b | `feature/firebase-auth` | 匿名認証自動実行・AuthStateProvider | ⬜ 未着手 |
+| 11a | `feature/paywall` | RevenueCat連携・EntitlementNotifier・ペイウォールUI | ✅ 完了 |
+| 11b | `feature/firebase-auth` | 匿名認証自動実行・AuthStateProvider | ✅ 完了（paywall branchに同梱） |
 | 12 | `main` | UI磨き・バグ修正・TestFlight提出 | ⬜ 未着手 |
 
 ## 完了済みタスク
@@ -105,12 +105,27 @@ GridLayerConfig(cellWidthMm: 5, cellHeightMm: 5, lineStyle: solid)
 - [x] `app_router.dart` — `/editor` ルートのextraでLayerConfigを受け渡し
 - [x] `EditorNotifier` — `EditorParam({uuid, preset})` でプリセット初期設定に対応
 
+## 完了済みタスク（feature/paywall）
+
+- [x] `lib/features/paywall/domain/free_limits.dart` — フリー制限定数（保存3件・グリッド5mm以上・1ページ）
+- [x] `lib/features/paywall/domain/entitlement_notifier.dart` — RevenueCat Pro状態管理・purchase/restore
+- [x] `lib/features/paywall/presentation/paywall_modal.dart` — ペイウォールUI（BottomSheet・パッケージ表示・復元）
+- [x] `lib/main.dart` — Firebase匿名認証自動実行・RevenueCat初期化（API key設定後に有効）
+- [x] `HomeScreen` — hex/isometric プリセットに🔒表示・タップでPaywall
+- [x] `EditorScreen` — 保存数制限チェック・ページ数制限（フリー=1）・グリッドサイズ制限（<5mmでPaywall）
+- [x] `SavedListScreen` — 無料プラン使用状況バナー表示
+
+### RevenueCat 設定手順（TestFlight提出前）
+1. RevenueCat Dashboardでアプリ登録
+2. App Store Connectで In-App Purchase 商品作成（monthly_pro, annual_pro）
+3. `entitlement_notifier.dart` の `_rcApiKeyIos` を実際のAPIキーに差し替え
+4. Entitlement ID `pro` を RevenueCat Dashboardで設定
+
 ## 未着手タスク（詳細は着手時に展開）
 
-- feature/paywall（RevenueCat）
-- feature/firebase-auth
 - CI/CD: Fastlane match 証明書設定（TestFlight提出前）
 - プライバシーポリシー作成（リリース前）
+- ソフトプロンプト: PDF出力完了後・3回目起動時バナー（オプション）
 
 ## 技術メモ・決定事項
 
