@@ -14,6 +14,8 @@ class HomeScreen extends ConsumerWidget {
   static const _presets = [
     (label: '方眼', icon: Icons.grid_on, layerType: 'grid'),
     (label: 'ドット', icon: Icons.grain, layerType: 'dot'),
+    (label: '片対数', icon: Icons.show_chart, layerType: 'log_semi'),
+    (label: '両対数', icon: Icons.multiline_chart, layerType: 'log_log'),
     (label: '六角形', icon: Icons.hexagon_outlined, layerType: 'hex'),
     (label: '製図', icon: Icons.architecture, layerType: 'isometric'),
     (label: '計算用紙', icon: Icons.calculate_outlined, layerType: 'grid_calc'),
@@ -22,6 +24,8 @@ class HomeScreen extends ConsumerWidget {
 
   static LayerConfig _presetConfig(String layerType) => switch (layerType) {
     'dot' => const LayerConfig.dot(),
+    'log_semi' => const LayerConfig.logGrid(xScale: LogScale.linear, yScale: LogScale.log, yDecades: 3),
+    'log_log' => const LayerConfig.logGrid(xScale: LogScale.log, yScale: LogScale.log, xDecades: 2, yDecades: 3),
     'hex' => const LayerConfig.hex(),
     'isometric' => const LayerConfig.isometric(),
     'grid_calc' => const LayerConfig.grid(cellWidthMm: 5.0, cellHeightMm: 10.0),

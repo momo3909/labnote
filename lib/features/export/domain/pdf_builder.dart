@@ -8,6 +8,7 @@ import 'dot_layer_pdf_renderer.dart';
 import 'grid_layer_pdf_renderer.dart';
 import 'hex_layer_pdf_renderer.dart';
 import 'isometric_layer_pdf_renderer.dart';
+import 'log_grid_layer_pdf_renderer.dart';
 
 class PdfBuilder {
   static const _lineColor = PdfColor.fromInt(0xFFAAAAAA);
@@ -55,6 +56,12 @@ class PdfBuilder {
             opacity: layer.opacity,
           ).build(),
         DotLayerConfig() => DotLayerPdfRenderer(
+            config: config,
+            pageConfig: pageConfig,
+            color: _lineColor,
+            opacity: layer.opacity,
+          ).build(),
+        LogGridLayerConfig() => LogGridLayerPdfRenderer(
             config: config,
             pageConfig: pageConfig,
             color: _lineColor,

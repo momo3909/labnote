@@ -6,6 +6,7 @@ part 'layer_config.g.dart';
 enum LineStyle { solid, dashed, dotted }
 enum HexOrientation { flat, pointy }
 enum GuideType { axis, bondAngle60, bondAngle109, bondAngle120, scale }
+enum LogScale { linear, log }
 
 @freezed
 sealed class LayerConfig with _$LayerConfig {
@@ -31,6 +32,13 @@ sealed class LayerConfig with _$LayerConfig {
     @Default(5.0) double spacingMm,
     @Default(0.5) double dotRadiusMm,
   }) = DotLayerConfig;
+
+  const factory LayerConfig.logGrid({
+    @Default(LogScale.linear) LogScale xScale,
+    @Default(LogScale.log) LogScale yScale,
+    @Default(1) int xDecades,
+    @Default(3) int yDecades,
+  }) = LogGridLayerConfig;
 
   const factory LayerConfig.region({
     @Default([]) List<PageRegion> regions,

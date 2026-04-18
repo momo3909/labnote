@@ -7,6 +7,7 @@ import '../../../shared/painters/dot_layer_painter.dart';
 import '../../../shared/painters/grid_layer_painter.dart';
 import '../../../shared/painters/hex_layer_painter.dart';
 import '../../../shared/painters/isometric_layer_painter.dart';
+import '../../../shared/painters/log_grid_layer_painter.dart';
 import '../../../core/constants/print_constants.dart';
 import '../domain/editor_notifier.dart';
 import '../../export/presentation/export_service.dart';
@@ -344,6 +345,9 @@ class _EditorScreenState extends ConsumerState<EditorScreen> {
       DotLayerConfig() => CustomPaint(
           painter: DotLayerPainter(config: config, pageConfig: pageConfig, color: color),
         ),
+      LogGridLayerConfig() => CustomPaint(
+          painter: LogGridLayerPainter(config: config, pageConfig: pageConfig, color: color),
+        ),
       _ => const SizedBox.expand(),
     };
   }
@@ -649,6 +653,7 @@ class _EditorScreenState extends ConsumerState<EditorScreen> {
       HexLayerConfig() => _buildHexControls(notifier, config),
       IsometricLayerConfig() => _buildIsometricControls(notifier, config),
       DotLayerConfig() => _buildDotControls(notifier, config),
+      LogGridLayerConfig() => _buildLogGridControls(notifier, config),
       _ => const SizedBox.shrink(),
     };
   }
@@ -816,6 +821,72 @@ class _EditorScreenState extends ConsumerState<EditorScreen> {
           onChanged: (v) =>
               notifier.updateActiveLayerConfig(config.copyWith(dotRadiusMm: v / 2)),
         ),
+      ],
+    );
+  }
+
+  Widget _buildLogGridControls(EditorNotifier notifier, LogGridLayerConfig config) {
+    return Column(
+      mainAxisSize: MainAxisSize.min,
+      children: [
+        Row(
+          children: [
+            const Text('X軸', style: TextStyle(fontSize: 13)),
+            const SizedBox(width: 16),
+            _styleChip(
+              label: '等間隔',
+              selected: config.xScale == LogScale.linear,
+              onTap: () => notifier.updateActiveLayerConfig(
+                  config.copyWith(xScale: LogScale.linear)),
+            ),
+            const SizedBox(width: 8),
+            _styleChip(
+              label: '対数',
+              selected: config.xScale == LogScale.log,
+              onTap: () => notifier.updateActiveLayerConfig(
+                  config.copyWith(xScale: LogScale.log)),
+            ),
+          ],
+        ),
+        const SizedBox(height: 6),
+        Row(
+          children: [
+            const Text('Y軸', style: TextStyle(fontSize: 13)),
+            const SizedBox(width: 16),
+            _styleChip(
+              label: '等間隔',
+              selected: config.yScale == LogScale.linear,
+              onTap: () => notifier.updateActiveLayerConfig(
+                  config.copyWith(yScale: LogScale.linear)),
+            ),
+            const SizedBox(width: 8),
+            _styleChip(
+              label: '対数',
+              selected: config.yScale == LogScale.log,
+              onTap: () => notifier.updateActiveLayerConfig(
+                  config.copyWith(yScale: LogScale.log)),
+            ),
+          ],
+        ),
+        const SizedBox(height: 6),
+        if (config.xScale == LogScale.log)
+          _buildSliderRow(
+            label: 'X デケード',
+            value: config.xDecades.toDouble(),
+            min: 1,
+            max: 5,
+            onChanged: (v) => notifier.updateActiveLayerConfig(
+                config.copyWith(xDecades: v.round())),
+          ),
+        if (config.yScale == LogScale.log)
+          _buildSliderRow(
+            label: 'Y デケード',
+            value: config.yDecades.toDouble(),
+            min: 1,
+            max: 5,
+            onChanged: (v) => notifier.updateActiveLayerConfig(
+                config.copyWith(yDecades: v.round())),
+          ),
       ],
     );
   }
