@@ -4,6 +4,7 @@ import '../../../core/constants/print_constants.dart';
 import '../../../shared/models/layer_config.dart';
 import '../../../shared/models/notebook_template.dart';
 import '../../../shared/models/page_config.dart';
+import 'cornell_layer_pdf_renderer.dart';
 import 'dot_layer_pdf_renderer.dart';
 import 'grid_layer_pdf_renderer.dart';
 import 'hex_layer_pdf_renderer.dart';
@@ -62,6 +63,12 @@ class PdfBuilder {
             opacity: layer.opacity,
           ).build(),
         LogGridLayerConfig() => LogGridLayerPdfRenderer(
+            config: config,
+            pageConfig: pageConfig,
+            color: _lineColor,
+            opacity: layer.opacity,
+          ).build(),
+        CornellLayerConfig() => CornellLayerPdfRenderer(
             config: config,
             pageConfig: pageConfig,
             color: _lineColor,

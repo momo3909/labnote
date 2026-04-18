@@ -40,6 +40,12 @@ sealed class LayerConfig with _$LayerConfig {
     @Default(3) int yDecades,
   }) = LogGridLayerConfig;
 
+  const factory LayerConfig.cornell({
+    @Default(40.0) double leftColMm,
+    @Default(25.0) double bottomRowMm,
+    @Default(6.0) double lineSpacingMm,
+  }) = CornellLayerConfig;
+
   const factory LayerConfig.region({
     @Default([]) List<PageRegion> regions,
   }) = RegionLayerConfig;

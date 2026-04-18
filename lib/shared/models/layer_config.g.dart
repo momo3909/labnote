@@ -113,6 +113,24 @@ Map<String, dynamic> _$$LogGridLayerConfigImplToJson(
 
 const _$LogScaleEnumMap = {LogScale.linear: 'linear', LogScale.log: 'log'};
 
+_$CornellLayerConfigImpl _$$CornellLayerConfigImplFromJson(
+  Map<String, dynamic> json,
+) => _$CornellLayerConfigImpl(
+  leftColMm: (json['leftColMm'] as num?)?.toDouble() ?? 40.0,
+  bottomRowMm: (json['bottomRowMm'] as num?)?.toDouble() ?? 25.0,
+  lineSpacingMm: (json['lineSpacingMm'] as num?)?.toDouble() ?? 6.0,
+  $type: json['runtimeType'] as String?,
+);
+
+Map<String, dynamic> _$$CornellLayerConfigImplToJson(
+  _$CornellLayerConfigImpl instance,
+) => <String, dynamic>{
+  'leftColMm': instance.leftColMm,
+  'bottomRowMm': instance.bottomRowMm,
+  'lineSpacingMm': instance.lineSpacingMm,
+  'runtimeType': instance.$type,
+};
+
 _$RegionLayerConfigImpl _$$RegionLayerConfigImplFromJson(
   Map<String, dynamic> json,
 ) => _$RegionLayerConfigImpl(

@@ -3,6 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import '../../../shared/models/layer_config.dart';
 import '../../../shared/models/page_config.dart';
+import '../../../shared/painters/cornell_layer_painter.dart';
 import '../../../shared/painters/dot_layer_painter.dart';
 import '../../../shared/painters/grid_layer_painter.dart';
 import '../../../shared/painters/hex_layer_painter.dart';
@@ -348,6 +349,9 @@ class _EditorScreenState extends ConsumerState<EditorScreen> {
       LogGridLayerConfig() => CustomPaint(
           painter: LogGridLayerPainter(config: config, pageConfig: pageConfig, color: color),
         ),
+      CornellLayerConfig() => CustomPaint(
+          painter: CornellLayerPainter(config: config, pageConfig: pageConfig, color: color),
+        ),
       _ => const SizedBox.expand(),
     };
   }
@@ -654,6 +658,7 @@ class _EditorScreenState extends ConsumerState<EditorScreen> {
       IsometricLayerConfig() => _buildIsometricControls(notifier, config),
       DotLayerConfig() => _buildDotControls(notifier, config),
       LogGridLayerConfig() => _buildLogGridControls(notifier, config),
+      CornellLayerConfig() => _buildCornellControls(notifier, config),
       _ => const SizedBox.shrink(),
     };
   }
@@ -820,6 +825,38 @@ class _EditorScreenState extends ConsumerState<EditorScreen> {
           max: 2.0,
           onChanged: (v) =>
               notifier.updateActiveLayerConfig(config.copyWith(dotRadiusMm: v / 2)),
+        ),
+      ],
+    );
+  }
+
+  Widget _buildCornellControls(EditorNotifier notifier, CornellLayerConfig config) {
+    return Column(
+      mainAxisSize: MainAxisSize.min,
+      children: [
+        _buildSliderRow(
+          label: 'キーワード欄',
+          value: config.leftColMm,
+          min: 20,
+          max: 80,
+          onChanged: (v) =>
+              notifier.updateActiveLayerConfig(config.copyWith(leftColMm: v)),
+        ),
+        _buildSliderRow(
+          label: 'サマリー欄',
+          value: config.bottomRowMm,
+          min: 10,
+          max: 60,
+          onChanged: (v) =>
+              notifier.updateActiveLayerConfig(config.copyWith(bottomRowMm: v)),
+        ),
+        _buildSliderRow(
+          label: '罫線間隔',
+          value: config.lineSpacingMm,
+          min: 4,
+          max: 12,
+          onChanged: (v) =>
+              notifier.updateActiveLayerConfig(config.copyWith(lineSpacingMm: v)),
         ),
       ],
     );
