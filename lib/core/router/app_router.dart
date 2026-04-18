@@ -8,10 +8,10 @@ final appRouter = GoRouter(
   initialLocation: '/',
   routes: [
     ShellRoute(
-      builder: (context, state, child) => ScaffoldWithNavBar(child: child),
+      builder: (context, state, child) => ScaffoldWithNavBar(child: child), // ignore: avoid_types_on_closure_parameters
       routes: [
-        GoRoute(path: '/', builder: (_, __) => const HomeScreen()),
-        GoRoute(path: '/saved', builder: (_, __) => const SavedListScreen()),
+        GoRoute(path: '/', builder: (context, state) => const HomeScreen()),
+        GoRoute(path: '/saved', builder: (context, state) => const SavedListScreen()),
       ],
     ),
     GoRoute(
@@ -22,7 +22,7 @@ final appRouter = GoRouter(
     ),
     GoRoute(
       path: '/editor/new',
-      builder: (_, __) => const EditorScreen(templateId: null),
+      builder: (context, state) => const EditorScreen(templateId: null),
     ),
   ],
 );
