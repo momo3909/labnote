@@ -109,6 +109,22 @@ class EditorScreen extends ConsumerWidget {
     final template = await ref.read(templateRepositoryProvider).getByUuid(uuid);
     if (template == null || !context.mounted) return;
     await ExportService.sharePdf(template, pageCount: pageCount);
+
+    // ソフトプロンプト（フリーユーザー・出力完了後）
+    if (!context.mounted) return;
+    final isProNow = ref.read(entitlementNotifierProvider).valueOrNull ?? false;
+    if (!isProNow) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: const Text('複数ページの一括出力は Pro プランでご利用いただけます'),
+          action: SnackBarAction(
+            label: 'Proを見る',
+            onPressed: () => showPaywallModal(context),
+          ),
+          duration: const Duration(seconds: 4),
+        ),
+      );
+    }
   }
 
   Future<void> _showSaveDialog(
@@ -218,7 +234,6 @@ class EditorScreen extends ConsumerWidget {
 
   Widget _buildBottomSheet(BuildContext context, WidgetRef ref, EditorState state, EditorNotifier notifier) {
     final config = state.activeLayer?.config;
-    final gridConfig = config is GridLayerConfig ? config : const GridLayerConfig();
 
     return Container(
       padding: const EdgeInsets.fromLTRB(16, 12, 16, 32),
@@ -229,65 +244,12 @@ class EditorScreen extends ConsumerWidget {
       child: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
-          Row(
-            children: [
-              const SizedBox(width: 80),
-              const Spacer(),
-              const Text('縦横連動', style: TextStyle(fontSize: 12, color: Colors.black54)),
-              Transform.scale(
-                scale: 0.85,
-                child: Checkbox(
-                  value: state.isGridLinked,
-                  onChanged: (_) => notifier.toggleGridLink(),
-                  visualDensity: VisualDensity.compact,
-                ),
-              ),
-            ],
-          ),
-          _buildSliderRow(
-            label: 'グリッド幅',
-            value: gridConfig.cellWidthMm,
-            min: 1,
-            max: 20,
-            onChanged: (v) => _onGridSizeChange(context, ref, v, notifier.updateGridWidth),
-          ),
-          _buildSliderRow(
-            label: 'グリッド高さ',
-            value: gridConfig.cellHeightMm,
-            min: 1,
-            max: 20,
-            enabled: !state.isGridLinked,
-            onChanged: (v) => _onGridSizeChange(context, ref, v, notifier.updateGridHeight),
-          ),
+          _buildLayerControls(context, ref, state, notifier, config),
           const SizedBox(height: 8),
           Row(
             children: [
-              const Text('線種', style: TextStyle(fontSize: 13)),
+              const Text('用紙', style: TextStyle(fontSize: 13)),
               const SizedBox(width: 16),
-              _styleChip(
-                label: '実線',
-                selected: gridConfig.lineStyle == LineStyle.solid,
-                onTap: () => notifier.updateActiveLayerConfig(
-                  gridConfig.copyWith(lineStyle: LineStyle.solid),
-                ),
-              ),
-              const SizedBox(width: 8),
-              _styleChip(
-                label: '破線',
-                selected: gridConfig.lineStyle == LineStyle.dashed,
-                onTap: () => notifier.updateActiveLayerConfig(
-                  gridConfig.copyWith(lineStyle: LineStyle.dashed),
-                ),
-              ),
-              const SizedBox(width: 8),
-              _styleChip(
-                label: '点線',
-                selected: gridConfig.lineStyle == LineStyle.dotted,
-                onTap: () => notifier.updateActiveLayerConfig(
-                  gridConfig.copyWith(lineStyle: LineStyle.dotted),
-                ),
-              ),
-              const Spacer(),
               _styleChip(
                 label: 'A4',
                 selected: state.pageConfig.paperSize == PaperSize.a4,
@@ -315,6 +277,136 @@ class EditorScreen extends ConsumerWidget {
           ),
         ],
       ),
+    );
+  }
+
+  Widget _buildLayerControls(
+    BuildContext context,
+    WidgetRef ref,
+    EditorState state,
+    EditorNotifier notifier,
+    LayerConfig? config,
+  ) {
+    return switch (config) {
+      GridLayerConfig() => _buildGridControls(context, ref, state, notifier, config),
+      HexLayerConfig() => _buildHexControls(notifier, config),
+      IsometricLayerConfig() => _buildIsometricControls(notifier, config),
+      _ => const SizedBox.shrink(),
+    };
+  }
+
+  Widget _buildGridControls(
+    BuildContext context,
+    WidgetRef ref,
+    EditorState state,
+    EditorNotifier notifier,
+    GridLayerConfig config,
+  ) {
+    return Column(
+      mainAxisSize: MainAxisSize.min,
+      children: [
+        Row(
+          children: [
+            const SizedBox(width: 80),
+            const Spacer(),
+            const Text('縦横連動', style: TextStyle(fontSize: 12, color: Colors.black54)),
+            Transform.scale(
+              scale: 0.85,
+              child: Checkbox(
+                value: state.isGridLinked,
+                onChanged: (_) => notifier.toggleGridLink(),
+                visualDensity: VisualDensity.compact,
+              ),
+            ),
+          ],
+        ),
+        _buildSliderRow(
+          label: 'グリッド幅',
+          value: config.cellWidthMm,
+          min: 1,
+          max: 20,
+          onChanged: (v) => _onGridSizeChange(context, ref, v, notifier.updateGridWidth),
+        ),
+        _buildSliderRow(
+          label: 'グリッド高さ',
+          value: config.cellHeightMm,
+          min: 1,
+          max: 20,
+          enabled: !state.isGridLinked,
+          onChanged: (v) => _onGridSizeChange(context, ref, v, notifier.updateGridHeight),
+        ),
+        const SizedBox(height: 6),
+        Row(
+          children: [
+            const Text('線種', style: TextStyle(fontSize: 13)),
+            const SizedBox(width: 16),
+            _styleChip(
+              label: '実線',
+              selected: config.lineStyle == LineStyle.solid,
+              onTap: () => notifier.updateActiveLayerConfig(config.copyWith(lineStyle: LineStyle.solid)),
+            ),
+            const SizedBox(width: 8),
+            _styleChip(
+              label: '破線',
+              selected: config.lineStyle == LineStyle.dashed,
+              onTap: () => notifier.updateActiveLayerConfig(config.copyWith(lineStyle: LineStyle.dashed)),
+            ),
+            const SizedBox(width: 8),
+            _styleChip(
+              label: '点線',
+              selected: config.lineStyle == LineStyle.dotted,
+              onTap: () => notifier.updateActiveLayerConfig(config.copyWith(lineStyle: LineStyle.dotted)),
+            ),
+          ],
+        ),
+      ],
+    );
+  }
+
+  Widget _buildHexControls(EditorNotifier notifier, HexLayerConfig config) {
+    return Column(
+      mainAxisSize: MainAxisSize.min,
+      children: [
+        _buildSliderRow(
+          label: '六角形サイズ',
+          value: config.hexSizeMm,
+          min: 2,
+          max: 20,
+          onChanged: (v) => notifier.updateActiveLayerConfig(config.copyWith(hexSizeMm: v)),
+        ),
+        const SizedBox(height: 6),
+        Row(
+          children: [
+            const Text('向き', style: TextStyle(fontSize: 13)),
+            const SizedBox(width: 16),
+            _styleChip(
+              label: 'フラット',
+              selected: config.orientation == HexOrientation.flat,
+              onTap: () => notifier.updateActiveLayerConfig(
+                config.copyWith(orientation: HexOrientation.flat),
+              ),
+            ),
+            const SizedBox(width: 8),
+            _styleChip(
+              label: '尖り',
+              selected: config.orientation == HexOrientation.pointy,
+              onTap: () => notifier.updateActiveLayerConfig(
+                config.copyWith(orientation: HexOrientation.pointy),
+              ),
+            ),
+          ],
+        ),
+      ],
+    );
+  }
+
+  Widget _buildIsometricControls(EditorNotifier notifier, IsometricLayerConfig config) {
+    return _buildSliderRow(
+      label: '間隔',
+      value: config.spacingMm,
+      min: 2,
+      max: 20,
+      onChanged: (v) => notifier.updateActiveLayerConfig(config.copyWith(spacingMm: v)),
     );
   }
 
