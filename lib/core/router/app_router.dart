@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import '../../features/templates/presentation/home_screen.dart';
 import '../../features/editor/presentation/editor_screen.dart';
 import '../../features/templates/presentation/saved_list_screen.dart';
+import '../../features/settings/presentation/settings_screen.dart';
 import '../../shared/models/layer_config.dart';
 
 final appRouter = GoRouter(
@@ -13,6 +14,7 @@ final appRouter = GoRouter(
       routes: [
         GoRoute(path: '/', builder: (context, state) => const HomeScreen()),
         GoRoute(path: '/saved', builder: (context, state) => const SavedListScreen()),
+        GoRoute(path: '/settings', builder: (context, state) => const SettingsScreen()),
       ],
     ),
     GoRoute(
@@ -46,6 +48,8 @@ class ScaffoldWithNavBar extends StatelessWidget {
               context.go('/');
             case 1:
               context.go('/saved');
+            case 2:
+              context.go('/settings');
           }
         },
         selectedIndex: _selectedIndex(context),
@@ -60,6 +64,11 @@ class ScaffoldWithNavBar extends StatelessWidget {
             selectedIcon: Icon(Icons.folder),
             label: '保存済み',
           ),
+          NavigationDestination(
+            icon: Icon(Icons.settings_outlined),
+            selectedIcon: Icon(Icons.settings),
+            label: '設定',
+          ),
         ],
       ),
     );
@@ -68,6 +77,7 @@ class ScaffoldWithNavBar extends StatelessWidget {
   int _selectedIndex(BuildContext context) {
     final location = GoRouterState.of(context).uri.path;
     if (location.startsWith('/saved')) return 1;
+    if (location.startsWith('/settings')) return 2;
     return 0;
   }
 }

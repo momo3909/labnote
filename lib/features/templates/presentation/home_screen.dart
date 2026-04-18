@@ -130,7 +130,7 @@ class HomeScreen extends ConsumerWidget {
               itemBuilder: (context, i) {
                 final t = templates[i];
                 return ListTile(
-                  leading: const Icon(Icons.grid_on_outlined, color: Color(0xFF1A1A2E)),
+                  leading: Icon(_templateIcon(t.layersJson), color: const Color(0xFF1A1A2E)),
                   title: Text(t.name),
                   subtitle: Text(
                     _formatDate(t.updatedAt),
@@ -145,6 +145,14 @@ class HomeScreen extends ConsumerWidget {
         ),
       ],
     );
+  }
+
+  IconData _templateIcon(List<String> layersJson) {
+    if (layersJson.isEmpty) return Icons.grid_on_outlined;
+    final first = layersJson.first.toLowerCase();
+    if (first.contains('"hex"') || first.contains("'hex'")) return Icons.hexagon_outlined;
+    if (first.contains('"isometric"') || first.contains("'isometric'")) return Icons.architecture;
+    return Icons.grid_on_outlined;
   }
 
   String _formatDate(DateTime dt) =>

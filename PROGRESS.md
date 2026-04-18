@@ -27,7 +27,7 @@ fix/xxx       ← バグ修正
 | 9-10 | `feature/screens` | ホーム・保存一覧・go_routerナビゲーション | ✅ 完了（layer-typesに前倒し） |
 | 11a | `feature/paywall` | RevenueCat連携・EntitlementNotifier・ペイウォールUI | ✅ 完了 |
 | 11b | `feature/firebase-auth` | 匿名認証自動実行・AuthStateProvider | ✅ 完了（paywall branchに同梱） |
-| 12 | `main` | UI磨き・バグ修正・TestFlight提出 | ⬜ 未着手 |
+| 12 | `feature/week12-polish` | UI磨き・バグ修正・TestFlight提出 | ✅ 完了（コード）|
 
 ## 完了済みタスク
 
@@ -120,6 +120,15 @@ GridLayerConfig(cellWidthMm: 5, cellHeightMm: 5, lineStyle: solid)
 2. App Store Connectで In-App Purchase 商品作成（monthly_pro, annual_pro）
 3. `entitlement_notifier.dart` の `_rcApiKeyIos` を実際のAPIキーに差し替え
 4. Entitlement ID `pro` を RevenueCat Dashboardで設定
+
+## 完了済みタスク（feature/week12-polish）
+
+- [x] `lib/core/theme/app_theme.dart` — テーマ強化（FilledButton・Card・Slider・Checkbox・SnackBar）
+- [x] `EditorScreen._buildBottomSheet` — レイヤー種別対応コントロール（GridLayerConfig/HexLayerConfig/IsometricLayerConfig）
+- [x] `EditorScreen._exportPdf` — PDF出力後フリーユーザーへのソフトプロンプト（SnackBar）
+- [x] `SettingsScreen` — Proステータス表示・購入復元・プライバシーポリシー
+- [x] `app_router.dart` + `ScaffoldWithNavBar` — 設定タブ（3タブ構成）
+- [x] `HomeScreen` — 保存済み一覧のアイコンをレイヤータイプ別に表示
 
 ## 未着手タスク（詳細は着手時に展開）
 
