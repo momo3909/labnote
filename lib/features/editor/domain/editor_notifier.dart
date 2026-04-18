@@ -150,6 +150,7 @@ class EditorNotifier extends _$EditorNotifier {
 
   String _layerType(LayerConfig config) => switch (config) {
         GridLayerConfig() => 'grid',
+        DotLayerConfig() => 'dot',
         HexLayerConfig() => 'hex',
         IsometricLayerConfig() => 'isometric',
         RegionLayerConfig() => 'region',

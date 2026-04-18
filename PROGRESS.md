@@ -5,8 +5,8 @@
 ---
 
 ## 現在の作業
-**ブランチ**: 未着手  
-**次のタスク**: `feature/dot-grid` ブランチ作成 → タスク①から着手
+**ブランチ**: `feature/dot-grid` → **完了・マージ待ち**  
+**次のタスク**: `feature/log-grid` ブランチ作成 → タスク①から着手
 
 ---
 
@@ -28,15 +28,15 @@
 
 ## タスク一覧
 
-### feature/dot-grid　[ 未着手 ]
+### feature/dot-grid　[ ✅ 完了 ]
 
 **目標**: ドットグリッド（方眼の交点にドットを打つパターン）を追加
 
-- [ ] ① `lib/shared/models/layer_config.dart` — `LayerConfig.dot({spacingMm, dotRadiusMm})` = `DotLayerConfig` 追加 → build_runner
-- [ ] ② `lib/shared/painters/dot_layer_painter.dart` — 新規作成。`contentRect()` でクリップ後、交点に `canvas.drawCircle` 
-- [ ] ③ `lib/features/export/domain/dot_layer_pdf_renderer.dart` — 新規作成。PDF y-up 座標系に注意
-- [ ] ④ `lib/features/editor/presentation/editor_screen.dart` — `DotLayerConfig` case を switch に追加・`_buildDotControls()` 実装（間隔スライダー・ドット径スライダー）
-- [ ] ⑤ `lib/features/templates/presentation/home_screen.dart` — `_presets` にドット追加・`pdf_builder.dart` の switch に case 追加
+- [x] ① `lib/shared/models/layer_config.dart` — `LayerConfig.dot({spacingMm, dotRadiusMm})` = `DotLayerConfig` 追加 → build_runner
+- [x] ② `lib/shared/painters/dot_layer_painter.dart` — 新規作成。`contentRect()` でクリップ後、交点に `canvas.drawCircle` 
+- [x] ③ `lib/features/export/domain/dot_layer_pdf_renderer.dart` — 新規作成。PDF y-up 座標系
+- [x] ④ `lib/features/editor/presentation/editor_screen.dart` — `DotLayerConfig` case 追加・`_buildDotControls()` 実装
+- [x] ⑤ `lib/features/templates/presentation/home_screen.dart` + `pdf_builder.dart` + `editor_notifier.dart` — preset & switch 追加
 
 ---
 
