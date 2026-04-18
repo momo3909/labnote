@@ -23,6 +23,8 @@ LayerConfig _$LayerConfigFromJson(Map<String, dynamic> json) {
       return HexLayerConfig.fromJson(json);
     case 'isometric':
       return IsometricLayerConfig.fromJson(json);
+    case 'dot':
+      return DotLayerConfig.fromJson(json);
     case 'region':
       return RegionLayerConfig.fromJson(json);
     case 'guide':
@@ -53,6 +55,7 @@ mixin _$LayerConfig {
     grid,
     required TResult Function(double hexSizeMm, HexOrientation orientation) hex,
     required TResult Function(double spacingMm) isometric,
+    required TResult Function(double spacingMm, double dotRadiusMm) dot,
     required TResult Function(List<PageRegion> regions) region,
     required TResult Function(GuideType guideType, Map<String, dynamic> params)
     guide,
@@ -70,6 +73,7 @@ mixin _$LayerConfig {
     grid,
     TResult? Function(double hexSizeMm, HexOrientation orientation)? hex,
     TResult? Function(double spacingMm)? isometric,
+    TResult? Function(double spacingMm, double dotRadiusMm)? dot,
     TResult? Function(List<PageRegion> regions)? region,
     TResult? Function(GuideType guideType, Map<String, dynamic> params)? guide,
   }) => throw _privateConstructorUsedError;
@@ -86,6 +90,7 @@ mixin _$LayerConfig {
     grid,
     TResult Function(double hexSizeMm, HexOrientation orientation)? hex,
     TResult Function(double spacingMm)? isometric,
+    TResult Function(double spacingMm, double dotRadiusMm)? dot,
     TResult Function(List<PageRegion> regions)? region,
     TResult Function(GuideType guideType, Map<String, dynamic> params)? guide,
     required TResult orElse(),
@@ -95,6 +100,7 @@ mixin _$LayerConfig {
     required TResult Function(GridLayerConfig value) grid,
     required TResult Function(HexLayerConfig value) hex,
     required TResult Function(IsometricLayerConfig value) isometric,
+    required TResult Function(DotLayerConfig value) dot,
     required TResult Function(RegionLayerConfig value) region,
     required TResult Function(GuideLayerConfig value) guide,
   }) => throw _privateConstructorUsedError;
@@ -103,6 +109,7 @@ mixin _$LayerConfig {
     TResult? Function(GridLayerConfig value)? grid,
     TResult? Function(HexLayerConfig value)? hex,
     TResult? Function(IsometricLayerConfig value)? isometric,
+    TResult? Function(DotLayerConfig value)? dot,
     TResult? Function(RegionLayerConfig value)? region,
     TResult? Function(GuideLayerConfig value)? guide,
   }) => throw _privateConstructorUsedError;
@@ -111,6 +118,7 @@ mixin _$LayerConfig {
     TResult Function(GridLayerConfig value)? grid,
     TResult Function(HexLayerConfig value)? hex,
     TResult Function(IsometricLayerConfig value)? isometric,
+    TResult Function(DotLayerConfig value)? dot,
     TResult Function(RegionLayerConfig value)? region,
     TResult Function(GuideLayerConfig value)? guide,
     required TResult orElse(),
@@ -309,6 +317,7 @@ class _$GridLayerConfigImpl implements GridLayerConfig {
     grid,
     required TResult Function(double hexSizeMm, HexOrientation orientation) hex,
     required TResult Function(double spacingMm) isometric,
+    required TResult Function(double spacingMm, double dotRadiusMm) dot,
     required TResult Function(List<PageRegion> regions) region,
     required TResult Function(GuideType guideType, Map<String, dynamic> params)
     guide,
@@ -337,6 +346,7 @@ class _$GridLayerConfigImpl implements GridLayerConfig {
     grid,
     TResult? Function(double hexSizeMm, HexOrientation orientation)? hex,
     TResult? Function(double spacingMm)? isometric,
+    TResult? Function(double spacingMm, double dotRadiusMm)? dot,
     TResult? Function(List<PageRegion> regions)? region,
     TResult? Function(GuideType guideType, Map<String, dynamic> params)? guide,
   }) {
@@ -364,6 +374,7 @@ class _$GridLayerConfigImpl implements GridLayerConfig {
     grid,
     TResult Function(double hexSizeMm, HexOrientation orientation)? hex,
     TResult Function(double spacingMm)? isometric,
+    TResult Function(double spacingMm, double dotRadiusMm)? dot,
     TResult Function(List<PageRegion> regions)? region,
     TResult Function(GuideType guideType, Map<String, dynamic> params)? guide,
     required TResult orElse(),
@@ -387,6 +398,7 @@ class _$GridLayerConfigImpl implements GridLayerConfig {
     required TResult Function(GridLayerConfig value) grid,
     required TResult Function(HexLayerConfig value) hex,
     required TResult Function(IsometricLayerConfig value) isometric,
+    required TResult Function(DotLayerConfig value) dot,
     required TResult Function(RegionLayerConfig value) region,
     required TResult Function(GuideLayerConfig value) guide,
   }) {
@@ -399,6 +411,7 @@ class _$GridLayerConfigImpl implements GridLayerConfig {
     TResult? Function(GridLayerConfig value)? grid,
     TResult? Function(HexLayerConfig value)? hex,
     TResult? Function(IsometricLayerConfig value)? isometric,
+    TResult? Function(DotLayerConfig value)? dot,
     TResult? Function(RegionLayerConfig value)? region,
     TResult? Function(GuideLayerConfig value)? guide,
   }) {
@@ -411,6 +424,7 @@ class _$GridLayerConfigImpl implements GridLayerConfig {
     TResult Function(GridLayerConfig value)? grid,
     TResult Function(HexLayerConfig value)? hex,
     TResult Function(IsometricLayerConfig value)? isometric,
+    TResult Function(DotLayerConfig value)? dot,
     TResult Function(RegionLayerConfig value)? region,
     TResult Function(GuideLayerConfig value)? guide,
     required TResult orElse(),
@@ -560,6 +574,7 @@ class _$HexLayerConfigImpl implements HexLayerConfig {
     grid,
     required TResult Function(double hexSizeMm, HexOrientation orientation) hex,
     required TResult Function(double spacingMm) isometric,
+    required TResult Function(double spacingMm, double dotRadiusMm) dot,
     required TResult Function(List<PageRegion> regions) region,
     required TResult Function(GuideType guideType, Map<String, dynamic> params)
     guide,
@@ -581,6 +596,7 @@ class _$HexLayerConfigImpl implements HexLayerConfig {
     grid,
     TResult? Function(double hexSizeMm, HexOrientation orientation)? hex,
     TResult? Function(double spacingMm)? isometric,
+    TResult? Function(double spacingMm, double dotRadiusMm)? dot,
     TResult? Function(List<PageRegion> regions)? region,
     TResult? Function(GuideType guideType, Map<String, dynamic> params)? guide,
   }) {
@@ -601,6 +617,7 @@ class _$HexLayerConfigImpl implements HexLayerConfig {
     grid,
     TResult Function(double hexSizeMm, HexOrientation orientation)? hex,
     TResult Function(double spacingMm)? isometric,
+    TResult Function(double spacingMm, double dotRadiusMm)? dot,
     TResult Function(List<PageRegion> regions)? region,
     TResult Function(GuideType guideType, Map<String, dynamic> params)? guide,
     required TResult orElse(),
@@ -617,6 +634,7 @@ class _$HexLayerConfigImpl implements HexLayerConfig {
     required TResult Function(GridLayerConfig value) grid,
     required TResult Function(HexLayerConfig value) hex,
     required TResult Function(IsometricLayerConfig value) isometric,
+    required TResult Function(DotLayerConfig value) dot,
     required TResult Function(RegionLayerConfig value) region,
     required TResult Function(GuideLayerConfig value) guide,
   }) {
@@ -629,6 +647,7 @@ class _$HexLayerConfigImpl implements HexLayerConfig {
     TResult? Function(GridLayerConfig value)? grid,
     TResult? Function(HexLayerConfig value)? hex,
     TResult? Function(IsometricLayerConfig value)? isometric,
+    TResult? Function(DotLayerConfig value)? dot,
     TResult? Function(RegionLayerConfig value)? region,
     TResult? Function(GuideLayerConfig value)? guide,
   }) {
@@ -641,6 +660,7 @@ class _$HexLayerConfigImpl implements HexLayerConfig {
     TResult Function(GridLayerConfig value)? grid,
     TResult Function(HexLayerConfig value)? hex,
     TResult Function(IsometricLayerConfig value)? isometric,
+    TResult Function(DotLayerConfig value)? dot,
     TResult Function(RegionLayerConfig value)? region,
     TResult Function(GuideLayerConfig value)? guide,
     required TResult orElse(),
@@ -771,6 +791,7 @@ class _$IsometricLayerConfigImpl implements IsometricLayerConfig {
     grid,
     required TResult Function(double hexSizeMm, HexOrientation orientation) hex,
     required TResult Function(double spacingMm) isometric,
+    required TResult Function(double spacingMm, double dotRadiusMm) dot,
     required TResult Function(List<PageRegion> regions) region,
     required TResult Function(GuideType guideType, Map<String, dynamic> params)
     guide,
@@ -792,6 +813,7 @@ class _$IsometricLayerConfigImpl implements IsometricLayerConfig {
     grid,
     TResult? Function(double hexSizeMm, HexOrientation orientation)? hex,
     TResult? Function(double spacingMm)? isometric,
+    TResult? Function(double spacingMm, double dotRadiusMm)? dot,
     TResult? Function(List<PageRegion> regions)? region,
     TResult? Function(GuideType guideType, Map<String, dynamic> params)? guide,
   }) {
@@ -812,6 +834,7 @@ class _$IsometricLayerConfigImpl implements IsometricLayerConfig {
     grid,
     TResult Function(double hexSizeMm, HexOrientation orientation)? hex,
     TResult Function(double spacingMm)? isometric,
+    TResult Function(double spacingMm, double dotRadiusMm)? dot,
     TResult Function(List<PageRegion> regions)? region,
     TResult Function(GuideType guideType, Map<String, dynamic> params)? guide,
     required TResult orElse(),
@@ -828,6 +851,7 @@ class _$IsometricLayerConfigImpl implements IsometricLayerConfig {
     required TResult Function(GridLayerConfig value) grid,
     required TResult Function(HexLayerConfig value) hex,
     required TResult Function(IsometricLayerConfig value) isometric,
+    required TResult Function(DotLayerConfig value) dot,
     required TResult Function(RegionLayerConfig value) region,
     required TResult Function(GuideLayerConfig value) guide,
   }) {
@@ -840,6 +864,7 @@ class _$IsometricLayerConfigImpl implements IsometricLayerConfig {
     TResult? Function(GridLayerConfig value)? grid,
     TResult? Function(HexLayerConfig value)? hex,
     TResult? Function(IsometricLayerConfig value)? isometric,
+    TResult? Function(DotLayerConfig value)? dot,
     TResult? Function(RegionLayerConfig value)? region,
     TResult? Function(GuideLayerConfig value)? guide,
   }) {
@@ -852,6 +877,7 @@ class _$IsometricLayerConfigImpl implements IsometricLayerConfig {
     TResult Function(GridLayerConfig value)? grid,
     TResult Function(HexLayerConfig value)? hex,
     TResult Function(IsometricLayerConfig value)? isometric,
+    TResult Function(DotLayerConfig value)? dot,
     TResult Function(RegionLayerConfig value)? region,
     TResult Function(GuideLayerConfig value)? guide,
     required TResult orElse(),
@@ -882,6 +908,234 @@ abstract class IsometricLayerConfig implements LayerConfig {
   @JsonKey(includeFromJson: false, includeToJson: false)
   _$$IsometricLayerConfigImplCopyWith<_$IsometricLayerConfigImpl>
   get copyWith => throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class _$$DotLayerConfigImplCopyWith<$Res> {
+  factory _$$DotLayerConfigImplCopyWith(
+    _$DotLayerConfigImpl value,
+    $Res Function(_$DotLayerConfigImpl) then,
+  ) = __$$DotLayerConfigImplCopyWithImpl<$Res>;
+  @useResult
+  $Res call({double spacingMm, double dotRadiusMm});
+}
+
+/// @nodoc
+class __$$DotLayerConfigImplCopyWithImpl<$Res>
+    extends _$LayerConfigCopyWithImpl<$Res, _$DotLayerConfigImpl>
+    implements _$$DotLayerConfigImplCopyWith<$Res> {
+  __$$DotLayerConfigImplCopyWithImpl(
+    _$DotLayerConfigImpl _value,
+    $Res Function(_$DotLayerConfigImpl) _then,
+  ) : super(_value, _then);
+
+  /// Create a copy of LayerConfig
+  /// with the given fields replaced by the non-null parameter values.
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({Object? spacingMm = null, Object? dotRadiusMm = null}) {
+    return _then(
+      _$DotLayerConfigImpl(
+        spacingMm: null == spacingMm
+            ? _value.spacingMm
+            : spacingMm // ignore: cast_nullable_to_non_nullable
+                  as double,
+        dotRadiusMm: null == dotRadiusMm
+            ? _value.dotRadiusMm
+            : dotRadiusMm // ignore: cast_nullable_to_non_nullable
+                  as double,
+      ),
+    );
+  }
+}
+
+/// @nodoc
+@JsonSerializable()
+class _$DotLayerConfigImpl implements DotLayerConfig {
+  const _$DotLayerConfigImpl({
+    this.spacingMm = 5.0,
+    this.dotRadiusMm = 0.5,
+    final String? $type,
+  }) : $type = $type ?? 'dot';
+
+  factory _$DotLayerConfigImpl.fromJson(Map<String, dynamic> json) =>
+      _$$DotLayerConfigImplFromJson(json);
+
+  @override
+  @JsonKey()
+  final double spacingMm;
+  @override
+  @JsonKey()
+  final double dotRadiusMm;
+
+  @JsonKey(name: 'runtimeType')
+  final String $type;
+
+  @override
+  String toString() {
+    return 'LayerConfig.dot(spacingMm: $spacingMm, dotRadiusMm: $dotRadiusMm)';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$DotLayerConfigImpl &&
+            (identical(other.spacingMm, spacingMm) ||
+                other.spacingMm == spacingMm) &&
+            (identical(other.dotRadiusMm, dotRadiusMm) ||
+                other.dotRadiusMm == dotRadiusMm));
+  }
+
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  @override
+  int get hashCode => Object.hash(runtimeType, spacingMm, dotRadiusMm);
+
+  /// Create a copy of LayerConfig
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$DotLayerConfigImplCopyWith<_$DotLayerConfigImpl> get copyWith =>
+      __$$DotLayerConfigImplCopyWithImpl<_$DotLayerConfigImpl>(
+        this,
+        _$identity,
+      );
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function(
+      double cellWidthMm,
+      double cellHeightMm,
+      LineStyle lineStyle,
+      int? boldEvery,
+      bool showHorizontal,
+      bool showVertical,
+    )
+    grid,
+    required TResult Function(double hexSizeMm, HexOrientation orientation) hex,
+    required TResult Function(double spacingMm) isometric,
+    required TResult Function(double spacingMm, double dotRadiusMm) dot,
+    required TResult Function(List<PageRegion> regions) region,
+    required TResult Function(GuideType guideType, Map<String, dynamic> params)
+    guide,
+  }) {
+    return dot(spacingMm, dotRadiusMm);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function(
+      double cellWidthMm,
+      double cellHeightMm,
+      LineStyle lineStyle,
+      int? boldEvery,
+      bool showHorizontal,
+      bool showVertical,
+    )?
+    grid,
+    TResult? Function(double hexSizeMm, HexOrientation orientation)? hex,
+    TResult? Function(double spacingMm)? isometric,
+    TResult? Function(double spacingMm, double dotRadiusMm)? dot,
+    TResult? Function(List<PageRegion> regions)? region,
+    TResult? Function(GuideType guideType, Map<String, dynamic> params)? guide,
+  }) {
+    return dot?.call(spacingMm, dotRadiusMm);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function(
+      double cellWidthMm,
+      double cellHeightMm,
+      LineStyle lineStyle,
+      int? boldEvery,
+      bool showHorizontal,
+      bool showVertical,
+    )?
+    grid,
+    TResult Function(double hexSizeMm, HexOrientation orientation)? hex,
+    TResult Function(double spacingMm)? isometric,
+    TResult Function(double spacingMm, double dotRadiusMm)? dot,
+    TResult Function(List<PageRegion> regions)? region,
+    TResult Function(GuideType guideType, Map<String, dynamic> params)? guide,
+    required TResult orElse(),
+  }) {
+    if (dot != null) {
+      return dot(spacingMm, dotRadiusMm);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(GridLayerConfig value) grid,
+    required TResult Function(HexLayerConfig value) hex,
+    required TResult Function(IsometricLayerConfig value) isometric,
+    required TResult Function(DotLayerConfig value) dot,
+    required TResult Function(RegionLayerConfig value) region,
+    required TResult Function(GuideLayerConfig value) guide,
+  }) {
+    return dot(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(GridLayerConfig value)? grid,
+    TResult? Function(HexLayerConfig value)? hex,
+    TResult? Function(IsometricLayerConfig value)? isometric,
+    TResult? Function(DotLayerConfig value)? dot,
+    TResult? Function(RegionLayerConfig value)? region,
+    TResult? Function(GuideLayerConfig value)? guide,
+  }) {
+    return dot?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(GridLayerConfig value)? grid,
+    TResult Function(HexLayerConfig value)? hex,
+    TResult Function(IsometricLayerConfig value)? isometric,
+    TResult Function(DotLayerConfig value)? dot,
+    TResult Function(RegionLayerConfig value)? region,
+    TResult Function(GuideLayerConfig value)? guide,
+    required TResult orElse(),
+  }) {
+    if (dot != null) {
+      return dot(this);
+    }
+    return orElse();
+  }
+
+  @override
+  Map<String, dynamic> toJson() {
+    return _$$DotLayerConfigImplToJson(this);
+  }
+}
+
+abstract class DotLayerConfig implements LayerConfig {
+  const factory DotLayerConfig({
+    final double spacingMm,
+    final double dotRadiusMm,
+  }) = _$DotLayerConfigImpl;
+
+  factory DotLayerConfig.fromJson(Map<String, dynamic> json) =
+      _$DotLayerConfigImpl.fromJson;
+
+  double get spacingMm;
+  double get dotRadiusMm;
+
+  /// Create a copy of LayerConfig
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  _$$DotLayerConfigImplCopyWith<_$DotLayerConfigImpl> get copyWith =>
+      throw _privateConstructorUsedError;
 }
 
 /// @nodoc
@@ -986,6 +1240,7 @@ class _$RegionLayerConfigImpl implements RegionLayerConfig {
     grid,
     required TResult Function(double hexSizeMm, HexOrientation orientation) hex,
     required TResult Function(double spacingMm) isometric,
+    required TResult Function(double spacingMm, double dotRadiusMm) dot,
     required TResult Function(List<PageRegion> regions) region,
     required TResult Function(GuideType guideType, Map<String, dynamic> params)
     guide,
@@ -1007,6 +1262,7 @@ class _$RegionLayerConfigImpl implements RegionLayerConfig {
     grid,
     TResult? Function(double hexSizeMm, HexOrientation orientation)? hex,
     TResult? Function(double spacingMm)? isometric,
+    TResult? Function(double spacingMm, double dotRadiusMm)? dot,
     TResult? Function(List<PageRegion> regions)? region,
     TResult? Function(GuideType guideType, Map<String, dynamic> params)? guide,
   }) {
@@ -1027,6 +1283,7 @@ class _$RegionLayerConfigImpl implements RegionLayerConfig {
     grid,
     TResult Function(double hexSizeMm, HexOrientation orientation)? hex,
     TResult Function(double spacingMm)? isometric,
+    TResult Function(double spacingMm, double dotRadiusMm)? dot,
     TResult Function(List<PageRegion> regions)? region,
     TResult Function(GuideType guideType, Map<String, dynamic> params)? guide,
     required TResult orElse(),
@@ -1043,6 +1300,7 @@ class _$RegionLayerConfigImpl implements RegionLayerConfig {
     required TResult Function(GridLayerConfig value) grid,
     required TResult Function(HexLayerConfig value) hex,
     required TResult Function(IsometricLayerConfig value) isometric,
+    required TResult Function(DotLayerConfig value) dot,
     required TResult Function(RegionLayerConfig value) region,
     required TResult Function(GuideLayerConfig value) guide,
   }) {
@@ -1055,6 +1313,7 @@ class _$RegionLayerConfigImpl implements RegionLayerConfig {
     TResult? Function(GridLayerConfig value)? grid,
     TResult? Function(HexLayerConfig value)? hex,
     TResult? Function(IsometricLayerConfig value)? isometric,
+    TResult? Function(DotLayerConfig value)? dot,
     TResult? Function(RegionLayerConfig value)? region,
     TResult? Function(GuideLayerConfig value)? guide,
   }) {
@@ -1067,6 +1326,7 @@ class _$RegionLayerConfigImpl implements RegionLayerConfig {
     TResult Function(GridLayerConfig value)? grid,
     TResult Function(HexLayerConfig value)? hex,
     TResult Function(IsometricLayerConfig value)? isometric,
+    TResult Function(DotLayerConfig value)? dot,
     TResult Function(RegionLayerConfig value)? region,
     TResult Function(GuideLayerConfig value)? guide,
     required TResult orElse(),
@@ -1213,6 +1473,7 @@ class _$GuideLayerConfigImpl implements GuideLayerConfig {
     grid,
     required TResult Function(double hexSizeMm, HexOrientation orientation) hex,
     required TResult Function(double spacingMm) isometric,
+    required TResult Function(double spacingMm, double dotRadiusMm) dot,
     required TResult Function(List<PageRegion> regions) region,
     required TResult Function(GuideType guideType, Map<String, dynamic> params)
     guide,
@@ -1234,6 +1495,7 @@ class _$GuideLayerConfigImpl implements GuideLayerConfig {
     grid,
     TResult? Function(double hexSizeMm, HexOrientation orientation)? hex,
     TResult? Function(double spacingMm)? isometric,
+    TResult? Function(double spacingMm, double dotRadiusMm)? dot,
     TResult? Function(List<PageRegion> regions)? region,
     TResult? Function(GuideType guideType, Map<String, dynamic> params)? guide,
   }) {
@@ -1254,6 +1516,7 @@ class _$GuideLayerConfigImpl implements GuideLayerConfig {
     grid,
     TResult Function(double hexSizeMm, HexOrientation orientation)? hex,
     TResult Function(double spacingMm)? isometric,
+    TResult Function(double spacingMm, double dotRadiusMm)? dot,
     TResult Function(List<PageRegion> regions)? region,
     TResult Function(GuideType guideType, Map<String, dynamic> params)? guide,
     required TResult orElse(),
@@ -1270,6 +1533,7 @@ class _$GuideLayerConfigImpl implements GuideLayerConfig {
     required TResult Function(GridLayerConfig value) grid,
     required TResult Function(HexLayerConfig value) hex,
     required TResult Function(IsometricLayerConfig value) isometric,
+    required TResult Function(DotLayerConfig value) dot,
     required TResult Function(RegionLayerConfig value) region,
     required TResult Function(GuideLayerConfig value) guide,
   }) {
@@ -1282,6 +1546,7 @@ class _$GuideLayerConfigImpl implements GuideLayerConfig {
     TResult? Function(GridLayerConfig value)? grid,
     TResult? Function(HexLayerConfig value)? hex,
     TResult? Function(IsometricLayerConfig value)? isometric,
+    TResult? Function(DotLayerConfig value)? dot,
     TResult? Function(RegionLayerConfig value)? region,
     TResult? Function(GuideLayerConfig value)? guide,
   }) {
@@ -1294,6 +1559,7 @@ class _$GuideLayerConfigImpl implements GuideLayerConfig {
     TResult Function(GridLayerConfig value)? grid,
     TResult Function(HexLayerConfig value)? hex,
     TResult Function(IsometricLayerConfig value)? isometric,
+    TResult Function(DotLayerConfig value)? dot,
     TResult Function(RegionLayerConfig value)? region,
     TResult Function(GuideLayerConfig value)? guide,
     required TResult orElse(),

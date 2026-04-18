@@ -27,6 +27,11 @@ sealed class LayerConfig with _$LayerConfig {
     @Default(5.0) double spacingMm,
   }) = IsometricLayerConfig;
 
+  const factory LayerConfig.dot({
+    @Default(5.0) double spacingMm,
+    @Default(0.5) double dotRadiusMm,
+  }) = DotLayerConfig;
+
   const factory LayerConfig.region({
     @Default([]) List<PageRegion> regions,
   }) = RegionLayerConfig;

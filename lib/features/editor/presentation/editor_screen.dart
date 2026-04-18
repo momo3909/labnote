@@ -3,6 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import '../../../shared/models/layer_config.dart';
 import '../../../shared/models/page_config.dart';
+import '../../../shared/painters/dot_layer_painter.dart';
 import '../../../shared/painters/grid_layer_painter.dart';
 import '../../../shared/painters/hex_layer_painter.dart';
 import '../../../shared/painters/isometric_layer_painter.dart';
@@ -340,6 +341,9 @@ class _EditorScreenState extends ConsumerState<EditorScreen> {
       IsometricLayerConfig() => CustomPaint(
           painter: IsometricLayerPainter(config: config, pageConfig: pageConfig, color: color),
         ),
+      DotLayerConfig() => CustomPaint(
+          painter: DotLayerPainter(config: config, pageConfig: pageConfig, color: color),
+        ),
       _ => const SizedBox.expand(),
     };
   }
@@ -644,6 +648,7 @@ class _EditorScreenState extends ConsumerState<EditorScreen> {
       GridLayerConfig() => _buildGridControls(context, ref, state, notifier, config),
       HexLayerConfig() => _buildHexControls(notifier, config),
       IsometricLayerConfig() => _buildIsometricControls(notifier, config),
+      DotLayerConfig() => _buildDotControls(notifier, config),
       _ => const SizedBox.shrink(),
     };
   }
@@ -789,6 +794,29 @@ class _EditorScreenState extends ConsumerState<EditorScreen> {
       min: 2,
       max: 20,
       onChanged: (v) => notifier.updateActiveLayerConfig(config.copyWith(spacingMm: v)),
+    );
+  }
+
+  Widget _buildDotControls(EditorNotifier notifier, DotLayerConfig config) {
+    return Column(
+      mainAxisSize: MainAxisSize.min,
+      children: [
+        _buildSliderRow(
+          label: 'ドット間隔',
+          value: config.spacingMm,
+          min: 2,
+          max: 20,
+          onChanged: (v) => notifier.updateActiveLayerConfig(config.copyWith(spacingMm: v)),
+        ),
+        _buildSliderRow(
+          label: 'ドット径',
+          value: config.dotRadiusMm * 2,
+          min: 0.2,
+          max: 2.0,
+          onChanged: (v) =>
+              notifier.updateActiveLayerConfig(config.copyWith(dotRadiusMm: v / 2)),
+        ),
+      ],
     );
   }
 

@@ -4,6 +4,7 @@ import '../../../core/constants/print_constants.dart';
 import '../../../shared/models/layer_config.dart';
 import '../../../shared/models/notebook_template.dart';
 import '../../../shared/models/page_config.dart';
+import 'dot_layer_pdf_renderer.dart';
 import 'grid_layer_pdf_renderer.dart';
 import 'hex_layer_pdf_renderer.dart';
 import 'isometric_layer_pdf_renderer.dart';
@@ -48,6 +49,12 @@ class PdfBuilder {
             opacity: layer.opacity,
           ).build(),
         IsometricLayerConfig() => IsometricLayerPdfRenderer(
+            config: config,
+            pageConfig: pageConfig,
+            color: _lineColor,
+            opacity: layer.opacity,
+          ).build(),
+        DotLayerConfig() => DotLayerPdfRenderer(
             config: config,
             pageConfig: pageConfig,
             color: _lineColor,

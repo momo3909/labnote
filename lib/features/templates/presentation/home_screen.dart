@@ -13,6 +13,7 @@ class HomeScreen extends ConsumerWidget {
 
   static const _presets = [
     (label: '方眼', icon: Icons.grid_on, layerType: 'grid'),
+    (label: 'ドット', icon: Icons.grain, layerType: 'dot'),
     (label: '六角形', icon: Icons.hexagon_outlined, layerType: 'hex'),
     (label: '製図', icon: Icons.architecture, layerType: 'isometric'),
     (label: '計算用紙', icon: Icons.calculate_outlined, layerType: 'grid_calc'),
@@ -20,6 +21,7 @@ class HomeScreen extends ConsumerWidget {
   ];
 
   static LayerConfig _presetConfig(String layerType) => switch (layerType) {
+    'dot' => const LayerConfig.dot(),
     'hex' => const LayerConfig.hex(),
     'isometric' => const LayerConfig.isometric(),
     'grid_calc' => const LayerConfig.grid(cellWidthMm: 5.0, cellHeightMm: 10.0),

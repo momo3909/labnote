@@ -74,6 +74,21 @@ Map<String, dynamic> _$$IsometricLayerConfigImplToJson(
   'runtimeType': instance.$type,
 };
 
+_$DotLayerConfigImpl _$$DotLayerConfigImplFromJson(Map<String, dynamic> json) =>
+    _$DotLayerConfigImpl(
+      spacingMm: (json['spacingMm'] as num?)?.toDouble() ?? 5.0,
+      dotRadiusMm: (json['dotRadiusMm'] as num?)?.toDouble() ?? 0.5,
+      $type: json['runtimeType'] as String?,
+    );
+
+Map<String, dynamic> _$$DotLayerConfigImplToJson(
+  _$DotLayerConfigImpl instance,
+) => <String, dynamic>{
+  'spacingMm': instance.spacingMm,
+  'dotRadiusMm': instance.dotRadiusMm,
+  'runtimeType': instance.$type,
+};
+
 _$RegionLayerConfigImpl _$$RegionLayerConfigImplFromJson(
   Map<String, dynamic> json,
 ) => _$RegionLayerConfigImpl(
