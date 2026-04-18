@@ -24,7 +24,7 @@ final rcOfferingsProvider = AutoDisposeFutureProvider<Offerings?>.internal(
 // ignore: unused_element
 typedef RcOfferingsRef = AutoDisposeFutureProviderRef<Offerings?>;
 String _$entitlementNotifierHash() =>
-    r'ff7e214dd1de4ce50ff2fdf8678dcc9548204644';
+    r'186d6405f0d58ccadcc983b10ba7698aab3aaed7';
 
 /// See also [EntitlementNotifier].
 @ProviderFor(EntitlementNotifier)

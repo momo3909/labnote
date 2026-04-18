@@ -14,6 +14,8 @@ sealed class LayerConfig with _$LayerConfig {
     @Default(5.0) double cellHeightMm,
     @Default(LineStyle.solid) LineStyle lineStyle,
     int? boldEvery,
+    @Default(true) bool showHorizontal,
+    @Default(true) bool showVertical,
   }) = GridLayerConfig;
 
   const factory LayerConfig.hex({

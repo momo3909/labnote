@@ -16,7 +16,7 @@ _$PageConfigImpl _$$PageConfigImplFromJson(Map<String, dynamic> json) =>
           PaperOrientation.portrait,
       marginTopMm: (json['marginTopMm'] as num?)?.toDouble() ?? 10.0,
       marginBottomMm: (json['marginBottomMm'] as num?)?.toDouble() ?? 10.0,
-      marginLeftMm: (json['marginLeftMm'] as num?)?.toDouble() ?? 20.0,
+      marginLeftMm: (json['marginLeftMm'] as num?)?.toDouble() ?? 10.0,
       marginRightMm: (json['marginRightMm'] as num?)?.toDouble() ?? 10.0,
       holeConfig:
           $enumDecodeNullable(_$HoleConfigEnumMap, json['holeConfig']) ??

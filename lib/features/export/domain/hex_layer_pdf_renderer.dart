@@ -31,53 +31,74 @@ class HexLayerPdfRenderer {
     final hexR = toPoints(config.hexSizeMm);
     if (hexR <= 0) return;
 
+    // Content rect in PDF space (y-up from bottom-left)
+    final left = toPoints(pageConfig.marginLeftMm);
+    final right = size.x - toPoints(pageConfig.marginRightMm);
+    final bottom = toPoints(pageConfig.marginBottomMm);
+    final top = size.y - toPoints(pageConfig.marginTopMm);
+
     canvas.setStrokeColor(color);
     canvas.setLineWidth(0.3);
+    canvas.saveContext();
+    canvas.drawRect(left, bottom, right - left, top - bottom);
+    canvas.clipPath();
 
     if (config.orientation == HexOrientation.flat) {
-      _drawFlatGrid(canvas, size, hexR);
+      _drawFlatGrid(canvas, left, right, bottom, top, hexR);
     } else {
-      _drawPointyGrid(canvas, size, hexR);
+      _drawPointyGrid(canvas, left, right, bottom, top, hexR);
     }
+
+    canvas.restoreContext();
   }
 
-  void _drawFlatGrid(PdfGraphics canvas, PdfPoint size, double hexR) {
-    final qStart = -1;
-    final qEnd = (size.x / (hexR * 3.0 / 2.0)).ceil() + 2;
-    final rStart = (-size.y / (hexR * sqrt(3.0))).floor() - 1;
-    final rEnd = (size.y / (hexR * sqrt(3.0))).ceil() + 1;
+  void _drawFlatGrid(PdfGraphics canvas, double left, double right, double bottom, double top, double hexR) {
+    final w = right - left;
+    final h = top - bottom;
+    final colStep = hexR * 3.0 / 2.0;
+    final rowStep = hexR * sqrt(3.0);
+
+    final qStart = ((left - hexR * 2) / colStep).floor() - 1;
+    final qEnd = ((left + w + hexR * 2) / colStep).ceil() + 1;
+    final rStart = ((bottom - hexR * 2) / rowStep).floor() - 1;
+    final rEnd = ((bottom + h + hexR * 2) / rowStep).ceil() + 1;
 
     for (int q = qStart; q <= qEnd; q++) {
       for (int r = rStart; r <= rEnd; r++) {
-        final cx = hexR * 3.0 / 2.0 * q;
-        final cy = hexR * (sqrt(3.0) / 2.0 * q + sqrt(3.0) * r);
-        _drawHex(canvas, size, cx, cy, hexR, 0.0);
+        final cx = left + hexR * 3.0 / 2.0 * q;
+        // PDF y-up: map screen-style r to PDF coords
+        final cy = bottom + hexR * (sqrt(3.0) / 2.0 * q + sqrt(3.0) * r);
+        _drawHex(canvas, cx, cy, hexR, 0.0);
       }
     }
   }
 
-  void _drawPointyGrid(PdfGraphics canvas, PdfPoint size, double hexR) {
-    final qStart = -1;
-    final qEnd = (size.x / (hexR * sqrt(3.0))).ceil() + 2;
-    final rStart = -1;
-    final rEnd = (size.y / (hexR * 3.0 / 2.0)).ceil() + 2;
+  void _drawPointyGrid(PdfGraphics canvas, double left, double right, double bottom, double top, double hexR) {
+    final w = right - left;
+    final h = top - bottom;
+    final colStep = hexR * sqrt(3.0);
+    final rowStep = hexR * 3.0 / 2.0;
+
+    final qStart = ((left - hexR * 2) / colStep).floor() - 1;
+    final qEnd = ((left + w + hexR * 2) / colStep).ceil() + 1;
+    final rStart = ((bottom - hexR * 2) / rowStep).floor() - 1;
+    final rEnd = ((bottom + h + hexR * 2) / rowStep).ceil() + 1;
 
     for (int q = qStart; q <= qEnd; q++) {
       for (int r = rStart; r <= rEnd; r++) {
-        final cx = hexR * (sqrt(3.0) * q + sqrt(3.0) / 2.0 * r);
-        final cy = hexR * 3.0 / 2.0 * r;
-        _drawHex(canvas, size, cx, cy, hexR, 30.0);
+        final cx = left + hexR * (sqrt(3.0) * q + sqrt(3.0) / 2.0 * r);
+        final cy = bottom + hexR * 3.0 / 2.0 * r;
+        _drawHex(canvas, cx, cy, hexR, 30.0);
       }
     }
   }
 
-  void _drawHex(PdfGraphics canvas, PdfPoint size, double cx, double cy, double r, double offsetDeg) {
-    // PDF座標系は左下原点なので y を反転
+  void _drawHex(PdfGraphics canvas, double cx, double cy, double r, double offsetDeg) {
     bool first = true;
     for (int i = 0; i < 6; i++) {
       final angle = (60.0 * i + offsetDeg) * pi / 180.0;
       final x = cx + r * cos(angle);
-      final y = size.y - (cy + r * sin(angle));
+      final y = cy + r * sin(angle);
       if (first) {
         canvas.moveTo(x, y);
         first = false;

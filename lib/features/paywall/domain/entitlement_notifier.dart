@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:purchases_flutter/purchases_flutter.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
@@ -18,6 +19,9 @@ class EntitlementNotifier extends _$EntitlementNotifier {
   }
 
   Future<bool> _fetchIsPro() async {
+    // デバッグビルド時は Pro を強制解除（実機テスト用）
+    if (kDebugMode) return true;
+
     try {
       final info = await Purchases.getCustomerInfo();
       return info.entitlements.active.containsKey(_entitlementId);
