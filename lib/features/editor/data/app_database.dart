@@ -3,6 +3,7 @@ import 'package:drift_flutter/drift_flutter.dart';
 
 part 'app_database.g.dart';
 
+@DataClassName('TemplateRow')
 class NotebookTemplates extends Table {
   TextColumn get uuid => text()();
   TextColumn get name => text()();

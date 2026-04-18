@@ -4,7 +4,7 @@ part of 'app_database.dart';
 
 // ignore_for_file: type=lint
 class $NotebookTemplatesTable extends NotebookTemplates
-    with TableInfo<$NotebookTemplatesTable, NotebookTemplate> {
+    with TableInfo<$NotebookTemplatesTable, TemplateRow> {
   @override
   final GeneratedDatabase attachedDatabase;
   final String? _alias;
@@ -168,7 +168,7 @@ class $NotebookTemplatesTable extends NotebookTemplates
   static const String $name = 'notebook_templates';
   @override
   VerificationContext validateIntegrity(
-    Insertable<NotebookTemplate> instance, {
+    Insertable<TemplateRow> instance, {
     bool isInserting = false,
   }) {
     final context = VerificationContext();
@@ -267,9 +267,9 @@ class $NotebookTemplatesTable extends NotebookTemplates
   @override
   Set<GeneratedColumn> get $primaryKey => {uuid};
   @override
-  NotebookTemplate map(Map<String, dynamic> data, {String? tablePrefix}) {
+  TemplateRow map(Map<String, dynamic> data, {String? tablePrefix}) {
     final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : '';
-    return NotebookTemplate(
+    return TemplateRow(
       uuid: attachedDatabase.typeMapping.read(
         DriftSqlType.string,
         data['${effectivePrefix}uuid'],
@@ -327,8 +327,7 @@ class $NotebookTemplatesTable extends NotebookTemplates
   }
 }
 
-class NotebookTemplate extends DataClass
-    implements Insertable<NotebookTemplate> {
+class TemplateRow extends DataClass implements Insertable<TemplateRow> {
   final String uuid;
   final String name;
   final DateTime createdAt;
@@ -341,7 +340,7 @@ class NotebookTemplate extends DataClass
   final int downloadCount;
   final String pageConfigJson;
   final String layersJson;
-  const NotebookTemplate({
+  const TemplateRow({
     required this.uuid,
     required this.name,
     required this.createdAt,
@@ -398,12 +397,12 @@ class NotebookTemplate extends DataClass
     );
   }
 
-  factory NotebookTemplate.fromJson(
+  factory TemplateRow.fromJson(
     Map<String, dynamic> json, {
     ValueSerializer? serializer,
   }) {
     serializer ??= driftRuntimeOptions.defaultSerializer;
-    return NotebookTemplate(
+    return TemplateRow(
       uuid: serializer.fromJson<String>(json['uuid']),
       name: serializer.fromJson<String>(json['name']),
       createdAt: serializer.fromJson<DateTime>(json['createdAt']),
@@ -437,7 +436,7 @@ class NotebookTemplate extends DataClass
     };
   }
 
-  NotebookTemplate copyWith({
+  TemplateRow copyWith({
     String? uuid,
     String? name,
     DateTime? createdAt,
@@ -450,7 +449,7 @@ class NotebookTemplate extends DataClass
     int? downloadCount,
     String? pageConfigJson,
     String? layersJson,
-  }) => NotebookTemplate(
+  }) => TemplateRow(
     uuid: uuid ?? this.uuid,
     name: name ?? this.name,
     createdAt: createdAt ?? this.createdAt,
@@ -464,8 +463,8 @@ class NotebookTemplate extends DataClass
     pageConfigJson: pageConfigJson ?? this.pageConfigJson,
     layersJson: layersJson ?? this.layersJson,
   );
-  NotebookTemplate copyWithCompanion(NotebookTemplatesCompanion data) {
-    return NotebookTemplate(
+  TemplateRow copyWithCompanion(NotebookTemplatesCompanion data) {
+    return TemplateRow(
       uuid: data.uuid.present ? data.uuid.value : this.uuid,
       name: data.name.present ? data.name.value : this.name,
       createdAt: data.createdAt.present ? data.createdAt.value : this.createdAt,
@@ -489,7 +488,7 @@ class NotebookTemplate extends DataClass
 
   @override
   String toString() {
-    return (StringBuffer('NotebookTemplate(')
+    return (StringBuffer('TemplateRow(')
           ..write('uuid: $uuid, ')
           ..write('name: $name, ')
           ..write('createdAt: $createdAt, ')
@@ -524,7 +523,7 @@ class NotebookTemplate extends DataClass
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||
-      (other is NotebookTemplate &&
+      (other is TemplateRow &&
           other.uuid == this.uuid &&
           other.name == this.name &&
           other.createdAt == this.createdAt &&
@@ -539,7 +538,7 @@ class NotebookTemplate extends DataClass
           other.layersJson == this.layersJson);
 }
 
-class NotebookTemplatesCompanion extends UpdateCompanion<NotebookTemplate> {
+class NotebookTemplatesCompanion extends UpdateCompanion<TemplateRow> {
   final Value<String> uuid;
   final Value<String> name;
   final Value<DateTime> createdAt;
@@ -587,7 +586,7 @@ class NotebookTemplatesCompanion extends UpdateCompanion<NotebookTemplate> {
        createdAt = Value(createdAt),
        updatedAt = Value(updatedAt),
        pageConfigJson = Value(pageConfigJson);
-  static Insertable<NotebookTemplate> custom({
+  static Insertable<TemplateRow> custom({
     Expression<String>? uuid,
     Expression<String>? name,
     Expression<DateTime>? createdAt,
@@ -959,21 +958,17 @@ class $$NotebookTemplatesTableTableManager
         RootTableManager<
           _$AppDatabase,
           $NotebookTemplatesTable,
-          NotebookTemplate,
+          TemplateRow,
           $$NotebookTemplatesTableFilterComposer,
           $$NotebookTemplatesTableOrderingComposer,
           $$NotebookTemplatesTableAnnotationComposer,
           $$NotebookTemplatesTableCreateCompanionBuilder,
           $$NotebookTemplatesTableUpdateCompanionBuilder,
           (
-            NotebookTemplate,
-            BaseReferences<
-              _$AppDatabase,
-              $NotebookTemplatesTable,
-              NotebookTemplate
-            >,
+            TemplateRow,
+            BaseReferences<_$AppDatabase, $NotebookTemplatesTable, TemplateRow>,
           ),
-          NotebookTemplate,
+          TemplateRow,
           PrefetchHooks Function()
         > {
   $$NotebookTemplatesTableTableManager(
@@ -1064,21 +1059,17 @@ typedef $$NotebookTemplatesTableProcessedTableManager =
     ProcessedTableManager<
       _$AppDatabase,
       $NotebookTemplatesTable,
-      NotebookTemplate,
+      TemplateRow,
       $$NotebookTemplatesTableFilterComposer,
       $$NotebookTemplatesTableOrderingComposer,
       $$NotebookTemplatesTableAnnotationComposer,
       $$NotebookTemplatesTableCreateCompanionBuilder,
       $$NotebookTemplatesTableUpdateCompanionBuilder,
       (
-        NotebookTemplate,
-        BaseReferences<
-          _$AppDatabase,
-          $NotebookTemplatesTable,
-          NotebookTemplate
-        >,
+        TemplateRow,
+        BaseReferences<_$AppDatabase, $NotebookTemplatesTable, TemplateRow>,
       ),
-      NotebookTemplate,
+      TemplateRow,
       PrefetchHooks Function()
     >;
 

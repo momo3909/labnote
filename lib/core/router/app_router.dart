@@ -8,21 +8,21 @@ final appRouter = GoRouter(
   initialLocation: '/',
   routes: [
     ShellRoute(
-      builder: (context, state, child) => ScaffoldWithNavBar(child: child), // ignore: avoid_types_on_closure_parameters
+      builder: (context, state, child) => ScaffoldWithNavBar(child: child),
       routes: [
         GoRoute(path: '/', builder: (context, state) => const HomeScreen()),
         GoRoute(path: '/saved', builder: (context, state) => const SavedListScreen()),
       ],
     ),
     GoRoute(
-      path: '/editor/:templateId',
-      builder: (context, state) => EditorScreen(
-        templateId: state.pathParameters['templateId'],
-      ),
+      path: '/editor',
+      builder: (context, state) => const EditorScreen(templateUuid: null),
     ),
     GoRoute(
-      path: '/editor/new',
-      builder: (context, state) => const EditorScreen(templateId: null),
+      path: '/editor/:uuid',
+      builder: (context, state) => EditorScreen(
+        templateUuid: state.pathParameters['uuid'],
+      ),
     ),
   ],
 );
@@ -38,14 +38,24 @@ class ScaffoldWithNavBar extends StatelessWidget {
       bottomNavigationBar: NavigationBar(
         onDestinationSelected: (index) {
           switch (index) {
-            case 0: context.go('/');
-            case 1: context.go('/saved');
+            case 0:
+              context.go('/');
+            case 1:
+              context.go('/saved');
           }
         },
         selectedIndex: _selectedIndex(context),
         destinations: const [
-          NavigationDestination(icon: Icon(Icons.home_outlined), selectedIcon: Icon(Icons.home), label: 'ホーム'),
-          NavigationDestination(icon: Icon(Icons.folder_outlined), selectedIcon: Icon(Icons.folder), label: '保存済み'),
+          NavigationDestination(
+            icon: Icon(Icons.home_outlined),
+            selectedIcon: Icon(Icons.home),
+            label: 'ホーム',
+          ),
+          NavigationDestination(
+            icon: Icon(Icons.folder_outlined),
+            selectedIcon: Icon(Icons.folder),
+            label: '保存済み',
+          ),
         ],
       ),
     );

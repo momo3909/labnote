@@ -1,13 +1,158 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:go_router/go_router.dart';
+import '../../../features/editor/domain/editor_notifier.dart';
+import '../../../shared/models/notebook_template.dart';
 
-class HomeScreen extends StatelessWidget {
+class HomeScreen extends ConsumerWidget {
   const HomeScreen({super.key});
+
+  static const _presets = [
+    (label: '方眼', icon: Icons.grid_on),
+    (label: '六角形', icon: Icons.hexagon_outlined),
+    (label: '製図', icon: Icons.architecture),
+    (label: '計算用紙', icon: Icons.calculate_outlined),
+    (label: '実験ノート', icon: Icons.science_outlined),
+  ];
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    final templatesAsync = ref.watch(templatesProvider);
+    return Scaffold(
+      appBar: AppBar(title: const Text('LabNote')),
+      body: ListView(
+        children: [
+          _buildPresetsSection(context),
+          _buildSavedSection(context, templatesAsync),
+          const SizedBox(height: 80),
+        ],
+      ),
+      floatingActionButton: FloatingActionButton.extended(
+        onPressed: () => context.push('/editor'),
+        icon: const Icon(Icons.add),
+        label: const Text('新規作成'),
+      ),
+    );
+  }
+
+  Widget _buildPresetsSection(BuildContext context) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        const Padding(
+          padding: EdgeInsets.fromLTRB(16, 20, 16, 10),
+          child: Text(
+            'テンプレート',
+            style: TextStyle(fontSize: 13, fontWeight: FontWeight.w600, color: Colors.black54),
+          ),
+        ),
+        SizedBox(
+          height: 88,
+          child: ListView.separated(
+            scrollDirection: Axis.horizontal,
+            padding: const EdgeInsets.symmetric(horizontal: 16),
+            itemCount: _presets.length,
+            separatorBuilder: (context, index) => const SizedBox(width: 10),
+            itemBuilder: (context, i) {
+              final p = _presets[i];
+              return _PresetCard(
+                label: p.label,
+                icon: p.icon,
+                onTap: () => context.push('/editor'),
+              );
+            },
+          ),
+        ),
+      ],
+    );
+  }
+
+  Widget _buildSavedSection(
+    BuildContext context,
+    AsyncValue<List<NotebookTemplate>> templatesAsync,
+  ) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        const Padding(
+          padding: EdgeInsets.fromLTRB(16, 24, 16, 8),
+          child: Text(
+            '保存済み',
+            style: TextStyle(fontSize: 13, fontWeight: FontWeight.w600, color: Colors.black54),
+          ),
+        ),
+        templatesAsync.when(
+          loading: () => const Padding(
+            padding: EdgeInsets.all(32),
+            child: Center(child: CircularProgressIndicator()),
+          ),
+          error: (e, _) => Padding(
+            padding: const EdgeInsets.all(16),
+            child: Text('読み込みエラー: $e', style: const TextStyle(color: Colors.red)),
+          ),
+          data: (templates) {
+            if (templates.isEmpty) {
+              return const Padding(
+                padding: EdgeInsets.symmetric(vertical: 32),
+                child: Center(
+                  child: Text('保存済みテンプレートはありません', style: TextStyle(color: Colors.black38)),
+                ),
+              );
+            }
+            return ListView.separated(
+              shrinkWrap: true,
+              physics: const NeverScrollableScrollPhysics(),
+              itemCount: templates.length,
+              separatorBuilder: (context, index) => const Divider(height: 1, indent: 16),
+              itemBuilder: (context, i) {
+                final t = templates[i];
+                return ListTile(
+                  leading: const Icon(Icons.grid_on_outlined, color: Color(0xFF1A1A2E)),
+                  title: Text(t.name),
+                  subtitle: Text(
+                    _formatDate(t.updatedAt),
+                    style: const TextStyle(fontSize: 12),
+                  ),
+                  trailing: const Icon(Icons.chevron_right, size: 18, color: Colors.black38),
+                  onTap: () => context.push('/editor/${t.uuid}'),
+                );
+              },
+            );
+          },
+        ),
+      ],
+    );
+  }
+
+  String _formatDate(DateTime dt) =>
+      '${dt.year}/${dt.month.toString().padLeft(2, '0')}/${dt.day.toString().padLeft(2, '0')}';
+}
+
+class _PresetCard extends StatelessWidget {
+  const _PresetCard({required this.label, required this.icon, required this.onTap});
+  final String label;
+  final IconData icon;
+  final VoidCallback onTap;
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(title: const Text('LabNote')),
-      body: const Center(child: Text('ホーム画面（実装中）')),
+    return GestureDetector(
+      onTap: onTap,
+      child: Container(
+        width: 72,
+        decoration: BoxDecoration(
+          color: Colors.grey.shade100,
+          borderRadius: BorderRadius.circular(8),
+        ),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Icon(icon, size: 28, color: const Color(0xFF1A1A2E)),
+            const SizedBox(height: 6),
+            Text(label, style: const TextStyle(fontSize: 11)),
+          ],
+        ),
+      ),
     );
   }
 }

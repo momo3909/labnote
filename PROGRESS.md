@@ -21,8 +21,8 @@ fix/xxx       ← バグ修正
 | 週 | ブランチ | 内容 | 状態 |
 |----|---------|------|------|
 | 1-2 | `feature/grid-painter` | GridLayerPainter + GridLayerPdfRenderer + エディタプレビュー | ✅ 完了 |
-| 3-4 | `feature/editor-ui` | グリッド設定UI（スライダー・ボトムシート）・プレビュー更新 | ⬜ 未着手 |
-| 5-6 | `feature/db-repository` | Drift DB・TemplateRepository・保存/読み込み | ⬜ 未着手 |
+| 3-4 | `feature/editor-ui` | グリッド設定UI（スライダー・ボトムシート）・プレビュー更新 | ✅ 完了 |
+| 5-6 | `feature/db-repository` | Drift DB・TemplateRepository・保存/読み込み | ✅ 完了（editor-uiに前倒し） |
 | 7-8 | `feature/layer-types` | HexLayer / IsometricLayer / RegionLayer（Painter+PDF各セット） | ⬜ 未着手 |
 | 9-10 | `feature/screens` | ホーム・保存一覧・go_routerナビゲーション | ⬜ 未着手 |
 | 11a | `feature/paywall` | RevenueCat連携・EntitlementNotifier・ペイウォールUI | ⬜ 未着手 |
@@ -54,9 +54,22 @@ fix/xxx       ← バグ修正
 - [x] `lib/features/auth/domain/app_user.dart` — AppUser（freezed）
 - [x] `lib/features/auth/domain/auth_repository.dart` — AuthRepository抽象クラス
 - [x] `lib/features/auth/data/firebase_auth_repository.dart` — Firebase匿名認証実装
-- [x] `lib/features/editor/data/app_database.dart` — Drift DB定義
+- [x] `lib/features/editor/data/app_database.dart` — Drift DB定義（@DataClassName('TemplateRow')でNamingConflict解決済み）
+- [x] `lib/features/templates/data/template_repository.dart` — Drift CRUD
+- [x] `lib/features/editor/domain/editor_notifier.dart` — EditorNotifier（Riverpod）
 
 ## 進行中タスク
+
+### feature/editor-ui（週3-4）
+
+**目標**: テンプレート保存フロー完成・ホーム画面（保存済み一覧）実装
+
+- [x] `lib/features/templates/data/template_repository.dart` — Drift CRUD（getAll/getByUuid/save/create/delete）
+- [x] `lib/features/editor/domain/editor_notifier.dart` — EditorNotifier（Riverpod）・EditorState・templatesProvider
+- [x] `lib/features/templates/presentation/home_screen.dart` — ホーム画面（プリセット選択＋保存済み一覧）
+- [x] `lib/features/templates/presentation/saved_list_screen.dart` — スワイプ削除対応リスト
+- [x] エディタ保存ボタン → 名前入力ダイアログ → DB保存 → ホームに戻る遷移
+- [x] `app_router.dart` — /editor ルート競合修正
 
 ### feature/grid-painter（週1-2）
 
