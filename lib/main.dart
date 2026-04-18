@@ -6,7 +6,11 @@ import 'core/theme/app_theme.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  await Firebase.initializeApp();
+  try {
+    await Firebase.initializeApp();
+  } catch (_) {
+    // GoogleService-Info.plist 未設定時はスキップ（開発中のみ）
+  }
   runApp(const ProviderScope(child: LabNoteApp()));
 }
 
