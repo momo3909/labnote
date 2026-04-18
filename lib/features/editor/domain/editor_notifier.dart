@@ -152,6 +152,7 @@ class EditorNotifier extends _$EditorNotifier {
         GridLayerConfig() => 'grid',
         DotLayerConfig() => 'dot',
         LogGridLayerConfig() => 'log_grid',
+        CornellLayerConfig() => 'cornell',
         HexLayerConfig() => 'hex',
         IsometricLayerConfig() => 'isometric',
         RegionLayerConfig() => 'region',

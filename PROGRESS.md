@@ -5,8 +5,8 @@
 ---
 
 ## 現在の作業
-**ブランチ**: `feature/log-grid` → **完了・マージ待ち**  
-**次のタスク**: `feature/cornell` ブランチ作成 → タスク①から着手
+**ブランチ**: `feature/cornell` → **完了・マージ待ち**  
+**次のタスク**: `feature/multi-layer` ブランチ作成 → Week4 タスク①から着手
 
 ---
 
@@ -52,15 +52,15 @@
 
 ---
 
-### feature/cornell　[ 未着手 ]
+### feature/cornell　[ ✅ 完了 ]
 
 **目標**: コーネルノート（左カラム＋下サマリー行の罫線レイアウト）を追加
 
-- [ ] ① `lib/shared/models/layer_config.dart` — `LayerConfig.cornell({leftColMm, bottomRowMm, lineSpacingMm})` = `CornellLayerConfig` 追加 → build_runner
-- [ ] ② `lib/shared/painters/cornell_layer_painter.dart` — 新規作成。区切り線（左縦・下横）＋横罫線（メインエリアのみ）
-- [ ] ③ `lib/features/export/domain/cornell_layer_pdf_renderer.dart` — 新規作成
-- [ ] ④ `lib/features/editor/presentation/editor_screen.dart` — case 追加・左カラム幅・下行高スライダー
-- [ ] ⑤ `lib/features/templates/presentation/home_screen.dart` + `pdf_builder.dart` — preset & switch 追加
+- [x] ① `lib/shared/models/layer_config.dart` — `CornellLayerConfig(leftColMm, bottomRowMm, lineSpacingMm)` 追加
+- [x] ② `lib/shared/painters/cornell_layer_painter.dart` — 新規作成。区切り線（太線）＋メインエリアの横罫線
+- [x] ③ `lib/features/export/domain/cornell_layer_pdf_renderer.dart` — 新規作成
+- [x] ④ `lib/features/editor/presentation/editor_screen.dart` — case 追加・3スライダー（キーワード欄/サマリー欄/罫線間隔）
+- [x] ⑤ `home_screen.dart` + `pdf_builder.dart` + `editor_notifier.dart` — preset & switch 追加
 
 ---
 

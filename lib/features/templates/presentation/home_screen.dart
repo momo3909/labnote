@@ -20,6 +20,7 @@ class HomeScreen extends ConsumerWidget {
     (label: '製図', icon: Icons.architecture, layerType: 'isometric'),
     (label: '計算用紙', icon: Icons.calculate_outlined, layerType: 'grid_calc'),
     (label: '実験ノート', icon: Icons.science_outlined, layerType: 'grid_exp'),
+    (label: 'コーネル', icon: Icons.view_agenda_outlined, layerType: 'cornell'),
   ];
 
   static LayerConfig _presetConfig(String layerType) => switch (layerType) {
@@ -30,6 +31,7 @@ class HomeScreen extends ConsumerWidget {
     'isometric' => const LayerConfig.isometric(),
     'grid_calc' => const LayerConfig.grid(cellWidthMm: 5.0, cellHeightMm: 10.0),
     'grid_exp' => const LayerConfig.grid(cellWidthMm: 5.0, cellHeightMm: 5.0, boldEvery: 5),
+    'cornell' => const LayerConfig.cornell(),
     _ => const LayerConfig.grid(),
   };
 
