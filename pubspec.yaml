@@ -1,0 +1,59 @@
+name: labnote
+description: "理系のためのノート設計アプリ"
+publish_to: 'none'
+version: 1.0.0+1
+
+environment:
+  sdk: ^3.11.5
+
+dependencies:
+  flutter:
+    sdk: flutter
+  cupertino_icons: ^1.0.8
+
+  # 状態管理
+  flutter_riverpod: ^2.6.1
+  riverpod_annotation: ^2.3.5
+
+  # イミュータブルモデル・JSON生成
+  freezed_annotation: ^2.4.4
+  json_annotation: ^4.9.0
+
+  # ローカルDB
+  drift: ^2.23.1
+  drift_flutter: ^0.2.4
+  path_provider: ^2.1.5
+
+  # ルーティング
+  go_router: ^15.1.2
+
+  # PDF生成・印刷
+  pdf: ^3.11.3
+  printing: ^5.14.2
+
+  # 課金（RevenueCat）
+  purchases_flutter: ^8.7.0
+
+  # Firebase
+  firebase_core: ^3.14.0
+  firebase_auth: ^5.6.0
+  firebase_analytics: ^11.4.6
+
+  # ユーティリティ
+  uuid: ^4.5.1
+  intl: ^0.20.2
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^6.0.0
+
+  # コード生成
+  build_runner: ^2.4.15
+  riverpod_generator: ^2.4.4
+  freezed: ^2.5.8
+  json_serializable: ^6.9.5
+  drift_dev: ^2.23.1
+
+flutter:
+  uses-material-design: true
