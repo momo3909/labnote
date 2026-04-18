@@ -23,8 +23,8 @@ fix/xxx       ← バグ修正
 | 1-2 | `feature/grid-painter` | GridLayerPainter + GridLayerPdfRenderer + エディタプレビュー | ✅ 完了 |
 | 3-4 | `feature/editor-ui` | グリッド設定UI（スライダー・ボトムシート）・プレビュー更新 | ✅ 完了 |
 | 5-6 | `feature/db-repository` | Drift DB・TemplateRepository・保存/読み込み | ✅ 完了（editor-uiに前倒し） |
-| 7-8 | `feature/layer-types` | HexLayer / IsometricLayer / RegionLayer（Painter+PDF各セット） | ⬜ 未着手 |
-| 9-10 | `feature/screens` | ホーム・保存一覧・go_routerナビゲーション | ⬜ 未着手 |
+| 7-8 | `feature/layer-types` | HexLayer / IsometricLayer / RegionLayer（Painter+PDF各セット） | ✅ 完了 |
+| 9-10 | `feature/screens` | ホーム・保存一覧・go_routerナビゲーション | ✅ 完了（layer-typesに前倒し） |
 | 11a | `feature/paywall` | RevenueCat連携・EntitlementNotifier・ペイウォールUI | ⬜ 未着手 |
 | 11b | `feature/firebase-auth` | 匿名認証自動実行・AuthStateProvider | ⬜ 未着手 |
 | 12 | `main` | UI磨き・バグ修正・TestFlight提出 | ⬜ 未着手 |
@@ -92,12 +92,21 @@ GridLayerConfig(cellWidthMm: 5, cellHeightMm: 5, lineStyle: solid)
 - A4(210×297mm)をデバイス画面幅に収まるよう等倍縮小
 - `scaleFactor = canvasWidthPx / (paperWidthMm * mmToPt)`
 
+## 完了済みタスク（feature/layer-types）
+
+- [x] `lib/shared/painters/hex_layer_painter.dart` — 六角形グリッド CustomPainter（flat/pointy対応）
+- [x] `lib/shared/painters/isometric_layer_painter.dart` — アイソメトリックグリッド CustomPainter
+- [x] `lib/features/export/domain/hex_layer_pdf_renderer.dart` — 六角形グリッド PDF レンダラー
+- [x] `lib/features/export/domain/isometric_layer_pdf_renderer.dart` — アイソメトリック PDF レンダラー
+- [x] `lib/features/export/domain/pdf_builder.dart` — テンプレート→PDF変換（複数ページ対応）
+- [x] `lib/features/export/presentation/export_service.dart` — iOS共有シート経由PDF出力
+- [x] `EditorScreen` — 全レイヤー型プレビュー対応・PDF出力ボタン実装・ページ数ダイアログ
+- [x] `HomeScreen` — プリセットカードから適切なLayerConfigをエディタに渡すよう接続
+- [x] `app_router.dart` — `/editor` ルートのextraでLayerConfigを受け渡し
+- [x] `EditorNotifier` — `EditorParam({uuid, preset})` でプリセット初期設定に対応
+
 ## 未着手タスク（詳細は着手時に展開）
 
-- feature/editor-ui
-- feature/db-repository
-- feature/layer-types（hex, isometric, region, guide）
-- feature/screens（ホーム・保存一覧）
 - feature/paywall（RevenueCat）
 - feature/firebase-auth
 - CI/CD: Fastlane match 証明書設定（TestFlight提出前）

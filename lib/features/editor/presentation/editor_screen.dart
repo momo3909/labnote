@@ -4,17 +4,22 @@ import 'package:go_router/go_router.dart';
 import '../../../shared/models/layer_config.dart';
 import '../../../shared/models/page_config.dart';
 import '../../../shared/painters/grid_layer_painter.dart';
+import '../../../shared/painters/hex_layer_painter.dart';
+import '../../../shared/painters/isometric_layer_painter.dart';
 import '../../../core/constants/print_constants.dart';
 import '../domain/editor_notifier.dart';
+import '../../export/presentation/export_service.dart';
 
 class EditorScreen extends ConsumerWidget {
-  const EditorScreen({super.key, this.templateUuid});
+  const EditorScreen({super.key, this.templateUuid, this.presetConfig});
   final String? templateUuid;
+  final LayerConfig? presetConfig;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final state = ref.watch(editorNotifierProvider(templateUuid));
-    final notifier = ref.read(editorNotifierProvider(templateUuid).notifier);
+    final param = (uuid: templateUuid, preset: presetConfig);
+    final state = ref.watch(editorNotifierProvider(param));
+    final notifier = ref.read(editorNotifierProvider(param).notifier);
     return Scaffold(
       appBar: AppBar(
         title: Text(templateUuid == null ? '新規作成' : 'テンプレート編集'),
@@ -37,10 +42,65 @@ class EditorScreen extends ConsumerWidget {
       body: Column(
         children: [
           Expanded(child: _buildPreview(state)),
-          _buildBottomSheet(state, notifier),
+          _buildBottomSheet(context, ref, state, notifier),
         ],
       ),
     );
+  }
+
+  Future<void> _exportPdf(
+    BuildContext context,
+    WidgetRef ref,
+    EditorState state,
+    EditorNotifier notifier,
+  ) async {
+    // 名前未設定の場合は先に保存
+    String? uuid = state.savedUuid;
+    if (uuid == null) {
+      final controller = TextEditingController(text: state.name);
+      final confirmed = await showDialog<bool>(
+        context: context,
+        builder: (ctx) => AlertDialog(
+          title: const Text('PDF出力前に保存'),
+          content: TextField(
+            controller: controller,
+            autofocus: true,
+            decoration: const InputDecoration(hintText: 'テンプレート名を入力'),
+          ),
+          actions: [
+            TextButton(
+              onPressed: () => Navigator.pop(ctx, false),
+              child: const Text('キャンセル'),
+            ),
+            FilledButton(
+              onPressed: () => Navigator.pop(ctx, true),
+              child: const Text('保存して出力'),
+            ),
+          ],
+        ),
+      );
+      if (confirmed != true || !context.mounted) return;
+      final name = controller.text.trim();
+      if (name.isNotEmpty) notifier.updateName(name);
+      uuid = await notifier.saveTemplate(null);
+      ref.invalidate(templatesProvider);
+    }
+
+    if (!context.mounted) return;
+
+    // ページ数選択
+    int pageCount = state.pageConfig.pageCount;
+    final picked = await showDialog<int>(
+      context: context,
+      builder: (ctx) => _PageCountDialog(initial: pageCount),
+    );
+    if (picked == null || !context.mounted) return;
+    pageCount = picked;
+
+    // Export
+    final template = await ref.read(templateRepositoryProvider).getByUuid(uuid);
+    if (template == null || !context.mounted) return;
+    await ExportService.sharePdf(template, pageCount: pageCount);
   }
 
   Future<void> _showSaveDialog(
@@ -80,6 +140,22 @@ class EditorScreen extends ConsumerWidget {
     if (context.mounted) context.go('/');
   }
 
+  Widget _buildLayerPaint(LayerConfig? config, PageConfig pageConfig) {
+    const color = Color(0xFFAAAAAA);
+    return switch (config) {
+      GridLayerConfig() => CustomPaint(
+          painter: GridLayerPainter(config: config, pageConfig: pageConfig, color: color),
+        ),
+      HexLayerConfig() => CustomPaint(
+          painter: HexLayerPainter(config: config, pageConfig: pageConfig, color: color),
+        ),
+      IsometricLayerConfig() => CustomPaint(
+          painter: IsometricLayerPainter(config: config, pageConfig: pageConfig, color: color),
+        ),
+      _ => const SizedBox.expand(),
+    };
+  }
+
   Widget _buildPreview(EditorState state) {
     final paperWidthMm = state.pageConfig.paperSize == PaperSize.a4 ? a4WidthMm : b5WidthMm;
     final paperHeightMm = state.pageConfig.paperSize == PaperSize.a4 ? a4HeightMm : b5HeightMm;
@@ -98,22 +174,14 @@ class EditorScreen extends ConsumerWidget {
                 BoxShadow(color: Colors.black.withValues(alpha: 0.15), blurRadius: 8),
               ],
             ),
-            child: config is GridLayerConfig
-                ? CustomPaint(
-                    painter: GridLayerPainter(
-                      config: config,
-                      pageConfig: state.pageConfig,
-                      color: const Color(0xFFAAAAAA),
-                    ),
-                  )
-                : const SizedBox.expand(),
+                    child: _buildLayerPaint(config, state.pageConfig),
           ),
         ),
       ),
     );
   }
 
-  Widget _buildBottomSheet(EditorState state, EditorNotifier notifier) {
+  Widget _buildBottomSheet(BuildContext context, WidgetRef ref, EditorState state, EditorNotifier notifier) {
     final config = state.activeLayer?.config;
     final gridConfig = config is GridLayerConfig ? config : const GridLayerConfig();
 
@@ -205,7 +273,10 @@ class EditorScreen extends ConsumerWidget {
           const SizedBox(height: 12),
           SizedBox(
             width: double.infinity,
-            child: FilledButton(onPressed: () {}, child: const Text('PDF 出力')),
+            child: FilledButton(
+              onPressed: () => _exportPdf(context, ref, state, notifier),
+              child: const Text('PDF 出力'),
+            ),
           ),
         ],
       ),
@@ -267,6 +338,62 @@ class EditorScreen extends ConsumerWidget {
           style: TextStyle(fontSize: 12, color: selected ? Colors.white : Colors.black87),
         ),
       ),
+    );
+  }
+}
+
+class _PageCountDialog extends StatefulWidget {
+  const _PageCountDialog({required this.initial});
+  final int initial;
+
+  @override
+  State<_PageCountDialog> createState() => _PageCountDialogState();
+}
+
+class _PageCountDialogState extends State<_PageCountDialog> {
+  late int _count;
+
+  @override
+  void initState() {
+    super.initState();
+    _count = widget.initial.clamp(1, 50);
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return AlertDialog(
+      title: const Text('ページ数'),
+      content: Row(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          IconButton(
+            icon: const Icon(Icons.remove),
+            onPressed: _count > 1 ? () => setState(() => _count--) : null,
+          ),
+          SizedBox(
+            width: 48,
+            child: Text(
+              '$_count',
+              textAlign: TextAlign.center,
+              style: const TextStyle(fontSize: 20),
+            ),
+          ),
+          IconButton(
+            icon: const Icon(Icons.add),
+            onPressed: _count < 50 ? () => setState(() => _count++) : null,
+          ),
+        ],
+      ),
+      actions: [
+        TextButton(
+          onPressed: () => Navigator.pop(context),
+          child: const Text('キャンセル'),
+        ),
+        FilledButton(
+          onPressed: () => Navigator.pop(context, _count),
+          child: const Text('出力'),
+        ),
+      ],
     );
   }
 }

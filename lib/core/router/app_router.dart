@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import '../../features/templates/presentation/home_screen.dart';
 import '../../features/editor/presentation/editor_screen.dart';
 import '../../features/templates/presentation/saved_list_screen.dart';
+import '../../shared/models/layer_config.dart';
 
 final appRouter = GoRouter(
   initialLocation: '/',
@@ -16,7 +17,10 @@ final appRouter = GoRouter(
     ),
     GoRoute(
       path: '/editor',
-      builder: (context, state) => const EditorScreen(templateUuid: null),
+      builder: (context, state) => EditorScreen(
+        templateUuid: null,
+        presetConfig: state.extra as LayerConfig?,
+      ),
     ),
     GoRoute(
       path: '/editor/:uuid',

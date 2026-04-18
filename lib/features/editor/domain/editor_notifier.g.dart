@@ -60,7 +60,7 @@ final templatesProvider =
 @Deprecated('Will be removed in 3.0. Use Ref instead')
 // ignore: unused_element
 typedef TemplatesRef = AutoDisposeFutureProviderRef<List<NotebookTemplate>>;
-String _$editorNotifierHash() => r'daacdad564bc4053c47ffc703a40ea3bb4e8b70e';
+String _$editorNotifierHash() => r'4966c2a229a9218a6163465ebe9a77d95a5c972a';
 
 /// Copied from Dart SDK
 class _SystemHash {
@@ -85,9 +85,9 @@ class _SystemHash {
 
 abstract class _$EditorNotifier
     extends BuildlessAutoDisposeNotifier<EditorState> {
-  late final String? templateUuid;
+  late final ({LayerConfig? preset, String? uuid}) param;
 
-  EditorState build(String? templateUuid);
+  EditorState build(({LayerConfig? preset, String? uuid}) param);
 }
 
 /// See also [EditorNotifier].
@@ -100,15 +100,15 @@ class EditorNotifierFamily extends Family<EditorState> {
   const EditorNotifierFamily();
 
   /// See also [EditorNotifier].
-  EditorNotifierProvider call(String? templateUuid) {
-    return EditorNotifierProvider(templateUuid);
+  EditorNotifierProvider call(({LayerConfig? preset, String? uuid}) param) {
+    return EditorNotifierProvider(param);
   }
 
   @override
   EditorNotifierProvider getProviderOverride(
     covariant EditorNotifierProvider provider,
   ) {
-    return call(provider.templateUuid);
+    return call(provider.param);
   }
 
   static const Iterable<ProviderOrFamily>? _dependencies = null;
@@ -130,9 +130,9 @@ class EditorNotifierFamily extends Family<EditorState> {
 class EditorNotifierProvider
     extends AutoDisposeNotifierProviderImpl<EditorNotifier, EditorState> {
   /// See also [EditorNotifier].
-  EditorNotifierProvider(String? templateUuid)
+  EditorNotifierProvider(({LayerConfig? preset, String? uuid}) param)
     : this._internal(
-        () => EditorNotifier()..templateUuid = templateUuid,
+        () => EditorNotifier()..param = param,
         from: editorNotifierProvider,
         name: r'editorNotifierProvider',
         debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
@@ -141,7 +141,7 @@ class EditorNotifierProvider
         dependencies: EditorNotifierFamily._dependencies,
         allTransitiveDependencies:
             EditorNotifierFamily._allTransitiveDependencies,
-        templateUuid: templateUuid,
+        param: param,
       );
 
   EditorNotifierProvider._internal(
@@ -151,14 +151,14 @@ class EditorNotifierProvider
     required super.allTransitiveDependencies,
     required super.debugGetCreateSourceHash,
     required super.from,
-    required this.templateUuid,
+    required this.param,
   }) : super.internal();
 
-  final String? templateUuid;
+  final ({LayerConfig? preset, String? uuid}) param;
 
   @override
   EditorState runNotifierBuild(covariant EditorNotifier notifier) {
-    return notifier.build(templateUuid);
+    return notifier.build(param);
   }
 
   @override
@@ -166,13 +166,13 @@ class EditorNotifierProvider
     return ProviderOverride(
       origin: this,
       override: EditorNotifierProvider._internal(
-        () => create()..templateUuid = templateUuid,
+        () => create()..param = param,
         from: from,
         name: null,
         dependencies: null,
         allTransitiveDependencies: null,
         debugGetCreateSourceHash: null,
-        templateUuid: templateUuid,
+        param: param,
       ),
     );
   }
@@ -185,14 +185,13 @@ class EditorNotifierProvider
 
   @override
   bool operator ==(Object other) {
-    return other is EditorNotifierProvider &&
-        other.templateUuid == templateUuid;
+    return other is EditorNotifierProvider && other.param == param;
   }
 
   @override
   int get hashCode {
     var hash = _SystemHash.combine(0, runtimeType.hashCode);
-    hash = _SystemHash.combine(hash, templateUuid.hashCode);
+    hash = _SystemHash.combine(hash, param.hashCode);
 
     return _SystemHash.finish(hash);
   }
@@ -201,8 +200,8 @@ class EditorNotifierProvider
 @Deprecated('Will be removed in 3.0. Use Ref instead')
 // ignore: unused_element
 mixin EditorNotifierRef on AutoDisposeNotifierProviderRef<EditorState> {
-  /// The parameter `templateUuid` of this provider.
-  String? get templateUuid;
+  /// The parameter `param` of this provider.
+  ({LayerConfig? preset, String? uuid}) get param;
 }
 
 class _EditorNotifierProviderElement
@@ -211,7 +210,8 @@ class _EditorNotifierProviderElement
   _EditorNotifierProviderElement(super.provider);
 
   @override
-  String? get templateUuid => (origin as EditorNotifierProvider).templateUuid;
+  ({LayerConfig? preset, String? uuid}) get param =>
+      (origin as EditorNotifierProvider).param;
 }
 
 // ignore_for_file: type=lint
