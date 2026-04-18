@@ -2,6 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import '../../../features/editor/domain/editor_notifier.dart';
+import '../../../features/paywall/domain/entitlement_notifier.dart';
+import '../../../features/paywall/domain/free_limits.dart';
+import '../../../features/paywall/presentation/paywall_modal.dart';
 import '../../../shared/models/notebook_template.dart';
 
 class SavedListScreen extends ConsumerWidget {
@@ -18,18 +21,52 @@ class SavedListScreen extends ConsumerWidget {
           child: Text('読み込みエラー: $e', style: const TextStyle(color: Colors.red)),
         ),
         data: (templates) {
+          final isPro = ref.watch(entitlementNotifierProvider).valueOrNull ?? false;
           if (templates.isEmpty) {
             return const Center(
               child: Text('保存済みテンプレートはありません', style: TextStyle(color: Colors.black38)),
             );
           }
-          return ListView.separated(
-            itemCount: templates.length,
-            separatorBuilder: (context, index) => const Divider(height: 1, indent: 16),
-            itemBuilder: (context, i) => _TemplateListTile(
-              template: templates[i],
-              onDelete: () => _confirmDelete(context, ref, templates[i]),
-            ),
+          return Column(
+            children: [
+              if (!isPro)
+                Container(
+                  width: double.infinity,
+                  padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 10),
+                  color: Colors.amber.shade50,
+                  child: Row(
+                    children: [
+                      Expanded(
+                        child: Text(
+                          '無料プラン: ${templates.length}/$freeMaxSavedTemplates 件使用',
+                          style: const TextStyle(fontSize: 12, color: Colors.black54),
+                        ),
+                      ),
+                      TextButton(
+                        onPressed: () => showPaywallModal(context),
+                        style: TextButton.styleFrom(
+                          padding: EdgeInsets.zero,
+                          minimumSize: Size.zero,
+                          tapTargetSize: MaterialTapTargetSize.shrinkWrap,
+                        ),
+                        child: const Text('Proにアップグレード',
+                            style: TextStyle(fontSize: 12)),
+                      ),
+                    ],
+                  ),
+                ),
+              Expanded(
+                child: ListView.separated(
+                  itemCount: templates.length,
+                  separatorBuilder: (context, index) =>
+                      const Divider(height: 1, indent: 16),
+                  itemBuilder: (context, i) => _TemplateListTile(
+                    template: templates[i],
+                    onDelete: () => _confirmDelete(context, ref, templates[i]),
+                  ),
+                ),
+              ),
+            ],
           );
         },
       ),

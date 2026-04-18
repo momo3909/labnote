@@ -9,6 +9,9 @@ import '../../../shared/painters/isometric_layer_painter.dart';
 import '../../../core/constants/print_constants.dart';
 import '../domain/editor_notifier.dart';
 import '../../export/presentation/export_service.dart';
+import '../../paywall/domain/entitlement_notifier.dart';
+import '../../paywall/domain/free_limits.dart';
+import '../../paywall/presentation/paywall_modal.dart';
 
 class EditorScreen extends ConsumerWidget {
   const EditorScreen({super.key, this.templateUuid, this.presetConfig});
@@ -88,14 +91,19 @@ class EditorScreen extends ConsumerWidget {
 
     if (!context.mounted) return;
 
-    // ページ数選択
+    // ページ数選択（フリーは1ページのみ）
+    final isPro = ref.read(entitlementNotifierProvider).valueOrNull ?? false;
     int pageCount = state.pageConfig.pageCount;
-    final picked = await showDialog<int>(
-      context: context,
-      builder: (ctx) => _PageCountDialog(initial: pageCount),
-    );
-    if (picked == null || !context.mounted) return;
-    pageCount = picked;
+    if (isPro) {
+      final picked = await showDialog<int>(
+        context: context,
+        builder: (ctx) => _PageCountDialog(initial: pageCount),
+      );
+      if (picked == null || !context.mounted) return;
+      pageCount = picked;
+    } else {
+      pageCount = freeMaxPdfPages;
+    }
 
     // Export
     final template = await ref.read(templateRepositoryProvider).getByUuid(uuid);
@@ -109,6 +117,19 @@ class EditorScreen extends ConsumerWidget {
     EditorState state,
     EditorNotifier notifier,
   ) async {
+    // 新規保存の場合のみ制限チェック
+    if (state.savedUuid == null) {
+      final isPro = ref.read(entitlementNotifierProvider).valueOrNull ?? false;
+      if (!isPro) {
+        final all = await ref.read(templateRepositoryProvider).getAll();
+        if (all.length >= freeMaxSavedTemplates && context.mounted) {
+          final upgraded = await showPaywallModal(context);
+          if (!upgraded || !context.mounted) return;
+        }
+      }
+    }
+    if (!context.mounted) return;
+
     final controller = TextEditingController(text: state.name);
     final confirmed = await showDialog<bool>(
       context: context,
@@ -138,6 +159,20 @@ class EditorScreen extends ConsumerWidget {
     await notifier.saveTemplate(null);
     ref.invalidate(templatesProvider);
     if (context.mounted) context.go('/');
+  }
+
+  Future<void> _onGridSizeChange(
+    BuildContext context,
+    WidgetRef ref,
+    double value,
+    void Function(double) update,
+  ) async {
+    final isPro = ref.read(entitlementNotifierProvider).valueOrNull ?? false;
+    if (!isPro && value < freeMinGridSizeMm) {
+      final upgraded = await showPaywallModal(context);
+      if (!upgraded) return;
+    }
+    update(value);
   }
 
   Widget _buildLayerPaint(LayerConfig? config, PageConfig pageConfig) {
@@ -214,7 +249,7 @@ class EditorScreen extends ConsumerWidget {
             value: gridConfig.cellWidthMm,
             min: 1,
             max: 20,
-            onChanged: notifier.updateGridWidth,
+            onChanged: (v) => _onGridSizeChange(context, ref, v, notifier.updateGridWidth),
           ),
           _buildSliderRow(
             label: 'グリッド高さ',
@@ -222,7 +257,7 @@ class EditorScreen extends ConsumerWidget {
             min: 1,
             max: 20,
             enabled: !state.isGridLinked,
-            onChanged: notifier.updateGridHeight,
+            onChanged: (v) => _onGridSizeChange(context, ref, v, notifier.updateGridHeight),
           ),
           const SizedBox(height: 8),
           Row(

@@ -2,6 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import '../../../features/editor/domain/editor_notifier.dart';
+import '../../../features/paywall/domain/entitlement_notifier.dart';
+import '../../../features/paywall/domain/free_limits.dart';
+import '../../../features/paywall/presentation/paywall_modal.dart';
 import '../../../shared/models/layer_config.dart';
 import '../../../shared/models/notebook_template.dart';
 
@@ -31,7 +34,7 @@ class HomeScreen extends ConsumerWidget {
       appBar: AppBar(title: const Text('LabNote')),
       body: ListView(
         children: [
-          _buildPresetsSection(context),
+          _buildPresetsSection(context, ref),
           _buildSavedSection(context, templatesAsync),
           const SizedBox(height: 80),
         ],
@@ -44,7 +47,7 @@ class HomeScreen extends ConsumerWidget {
     );
   }
 
-  Widget _buildPresetsSection(BuildContext context) {
+  Widget _buildPresetsSection(BuildContext context, WidgetRef ref) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -64,13 +67,21 @@ class HomeScreen extends ConsumerWidget {
             separatorBuilder: (context, index) => const SizedBox(width: 10),
             itemBuilder: (context, i) {
               final p = _presets[i];
+              final isPro = ref.watch(entitlementNotifierProvider).valueOrNull ?? false;
+              final needsPro = proLayerTypes.contains(p.layerType);
               return _PresetCard(
                 label: p.label,
                 icon: p.icon,
-                onTap: () => context.push(
-                  '/editor',
-                  extra: _presetConfig(p.layerType),
-                ),
+                locked: needsPro && !isPro,
+                onTap: () async {
+                  if (needsPro && !isPro) {
+                    await showPaywallModal(context);
+                    return;
+                  }
+                  if (context.mounted) {
+                    context.push('/editor', extra: _presetConfig(p.layerType));
+                  }
+                },
               );
             },
           ),
@@ -141,10 +152,16 @@ class HomeScreen extends ConsumerWidget {
 }
 
 class _PresetCard extends StatelessWidget {
-  const _PresetCard({required this.label, required this.icon, required this.onTap});
+  const _PresetCard({
+    required this.label,
+    required this.icon,
+    required this.onTap,
+    this.locked = false,
+  });
   final String label;
   final IconData icon;
   final VoidCallback onTap;
+  final bool locked;
 
   @override
   Widget build(BuildContext context) {
@@ -156,12 +173,31 @@ class _PresetCard extends StatelessWidget {
           color: Colors.grey.shade100,
           borderRadius: BorderRadius.circular(8),
         ),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
+        child: Stack(
           children: [
-            Icon(icon, size: 28, color: const Color(0xFF1A1A2E)),
-            const SizedBox(height: 6),
-            Text(label, style: const TextStyle(fontSize: 11)),
+            Center(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Icon(icon,
+                      size: 28,
+                      color: locked
+                          ? Colors.black26
+                          : const Color(0xFF1A1A2E)),
+                  const SizedBox(height: 6),
+                  Text(label,
+                      style: TextStyle(
+                          fontSize: 11,
+                          color: locked ? Colors.black38 : Colors.black87)),
+                ],
+              ),
+            ),
+            if (locked)
+              const Positioned(
+                top: 6,
+                right: 6,
+                child: Icon(Icons.lock, size: 12, color: Colors.black38),
+              ),
           ],
         ),
       ),
