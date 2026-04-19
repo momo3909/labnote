@@ -1,4 +1,7 @@
+import 'dart:typed_data';
+import 'dart:ui' as ui;
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import '../../../shared/models/layer_config.dart';
@@ -7,9 +10,13 @@ import '../../../shared/painters/cornell_layer_painter.dart';
 import '../../../shared/painters/dot_layer_painter.dart';
 import '../../../shared/painters/grid_layer_painter.dart';
 import '../../../shared/painters/hex_layer_painter.dart';
+import '../../../shared/painters/hole_marks_painter.dart';
 import '../../../shared/painters/isometric_layer_painter.dart';
 import '../../../shared/painters/log_grid_layer_painter.dart';
+import '../../../shared/painters/page_elements_painter.dart';
+import '../../../shared/painters/painter_utils.dart';
 import '../../../core/constants/print_constants.dart';
+import '../../../shared/models/notebook_template.dart';
 import '../domain/editor_notifier.dart';
 import '../../export/presentation/export_service.dart';
 import '../../paywall/domain/entitlement_notifier.dart';
@@ -30,8 +37,10 @@ class _EditorScreenState extends ConsumerState<EditorScreen> {
   bool _settingsExpanded = false;
   bool _marginExpanded = false;
   bool _marginsLinked = false;
+  bool _positionExpanded = false;
   late final _transformController = TransformationController();
   Size? _previewSize;
+  final _previewKey = GlobalKey();
 
   EditorParam get _param => (uuid: widget.templateUuid, preset: widget.presetConfig);
 
@@ -68,6 +77,20 @@ class _EditorScreenState extends ConsumerState<EditorScreen> {
   }
 
   void _resetZoom() => _transformController.value = Matrix4.identity();
+
+  Future<Uint8List?> _capturePreview() async {
+    try {
+      // Paint フェーズが完了してから layer を参照する
+      await WidgetsBinding.instance.endOfFrame;
+      final boundary = _previewKey.currentContext?.findRenderObject() as RenderRepaintBoundary?;
+      if (boundary == null || boundary.debugNeedsPaint || boundary.size.isEmpty) return null;
+      final image = await boundary.toImage(pixelRatio: 1.5);
+      final byteData = await image.toByteData(format: ui.ImageByteFormat.png);
+      return byteData?.buffer.asUint8List();
+    } catch (_) {
+      return null;
+    }
+  }
 
   // ── Margin helpers ────────────────────────────────────────────────────────
 
@@ -107,6 +130,16 @@ class _EditorScreenState extends ConsumerState<EditorScreen> {
       appBar: AppBar(
         title: Text(widget.templateUuid == null ? '新規作成' : 'テンプレート編集'),
         actions: [
+          IconButton(
+            icon: const Icon(Icons.undo, size: 22),
+            onPressed: state.canUndo ? notifier.undo : null,
+            tooltip: '元に戻す',
+          ),
+          IconButton(
+            icon: const Icon(Icons.redo, size: 22),
+            onPressed: state.canRedo ? notifier.redo : null,
+            tooltip: 'やり直し',
+          ),
           state.isSaving
               ? const Padding(
                   padding: EdgeInsets.all(14),
@@ -122,34 +155,41 @@ class _EditorScreenState extends ConsumerState<EditorScreen> {
                 ),
         ],
       ),
-      body: Column(
-        children: [
-          Expanded(
-            child: LayoutBuilder(
-              builder: (context, constraints) {
-                _previewSize = constraints.biggest;
-                return Stack(
-                  children: [
-                    InteractiveViewer(
-                      transformationController: _transformController,
-                      boundaryMargin: const EdgeInsets.all(double.infinity),
-                      minScale: 0.3,
-                      maxScale: 6.0,
-                      child: _buildPreview(state),
-                    ),
-                    // Zoom buttons — top-right overlay
-                    Positioned(
-                      top: 8,
-                      right: 8,
-                      child: _buildZoomButtons(),
-                    ),
-                  ],
-                );
-              },
-            ),
-          ),
-          _buildBottomSheet(context, ref, state, notifier),
-        ],
+      body: LayoutBuilder(
+        builder: (context, bodyConstraints) {
+          // キーボード表示時など実際のボディ高さに応じて bottom sheet を制限する
+          final maxSheetContentH =
+              (bodyConstraints.maxHeight * 0.42).clamp(120.0, 320.0);
+          return Column(
+            children: [
+              Expanded(
+                child: LayoutBuilder(
+                  builder: (context, constraints) {
+                    _previewSize = constraints.biggest;
+                    return Stack(
+                      children: [
+                        InteractiveViewer(
+                          transformationController: _transformController,
+                          boundaryMargin: const EdgeInsets.all(double.infinity),
+                          minScale: 0.3,
+                          maxScale: 6.0,
+                          child: _buildPreview(state),
+                        ),
+                        Positioned(
+                          top: 8,
+                          right: 8,
+                          child: _buildZoomButtons(),
+                        ),
+                      ],
+                    );
+                  },
+                ),
+              ),
+              _buildBottomSheet(context, ref, state, notifier,
+                  maxSheetContentH: maxSheetContentH),
+            ],
+          );
+        },
       ),
     );
   }
@@ -222,7 +262,7 @@ class _EditorScreenState extends ConsumerState<EditorScreen> {
       if (confirmed != true || !context.mounted) return;
       final name = controller.text.trim();
       if (name.isNotEmpty) notifier.updateName(name);
-      uuid = await notifier.saveTemplate(null);
+      uuid = await notifier.saveTemplate(null, thumbnail: await _capturePreview());
       ref.invalidate(templatesProvider);
     }
 
@@ -272,6 +312,9 @@ class _EditorScreenState extends ConsumerState<EditorScreen> {
     EditorState state,
     EditorNotifier notifier,
   ) async {
+    // ダイアログを開く前にプレビューをキャプチャ（開いた後はサイズが変わる場合がある）
+    final thumbnail = await _capturePreview();
+
     if (state.savedUuid == null) {
       final isPro = ref.read(entitlementNotifierProvider).valueOrNull ?? false;
       if (!isPro) {
@@ -310,7 +353,7 @@ class _EditorScreenState extends ConsumerState<EditorScreen> {
     if (confirmed != true || !context.mounted) return;
     final name = controller.text.trim();
     if (name.isNotEmpty) notifier.updateName(name);
-    await notifier.saveTemplate(null);
+    await notifier.saveTemplate(null, thumbnail: thumbnail);
     ref.invalidate(templatesProvider);
     if (context.mounted) context.go('/');
   }
@@ -331,49 +374,97 @@ class _EditorScreenState extends ConsumerState<EditorScreen> {
 
   // ── Preview ───────────────────────────────────────────────────────────────
 
-  Widget _buildLayerPaint(LayerConfig? config, PageConfig pageConfig) {
-    const color = Color(0xFFAAAAAA);
+  Widget _buildLayerPaint(
+    LayerConfig? config,
+    PageConfig pageConfig, {
+    double opacity = 1.0,
+    Color color = const Color(0xFFCCCCCC),
+    LayerRegion region = LayerRegion.full,
+  }) {
     return switch (config) {
       GridLayerConfig() => CustomPaint(
-          painter: GridLayerPainter(config: config, pageConfig: pageConfig, color: color),
+          painter: GridLayerPainter(
+              config: config, pageConfig: pageConfig, color: color, opacity: opacity, region: region),
         ),
       HexLayerConfig() => CustomPaint(
-          painter: HexLayerPainter(config: config, pageConfig: pageConfig, color: color),
+          painter: HexLayerPainter(
+              config: config, pageConfig: pageConfig, color: color, opacity: opacity, region: region),
         ),
       IsometricLayerConfig() => CustomPaint(
-          painter: IsometricLayerPainter(config: config, pageConfig: pageConfig, color: color),
+          painter: IsometricLayerPainter(
+              config: config, pageConfig: pageConfig, color: color, opacity: opacity, region: region),
         ),
       DotLayerConfig() => CustomPaint(
-          painter: DotLayerPainter(config: config, pageConfig: pageConfig, color: color),
+          painter: DotLayerPainter(
+              config: config, pageConfig: pageConfig, color: color, opacity: opacity, region: region),
         ),
       LogGridLayerConfig() => CustomPaint(
-          painter: LogGridLayerPainter(config: config, pageConfig: pageConfig, color: color),
+          painter: LogGridLayerPainter(
+              config: config, pageConfig: pageConfig, color: color, opacity: opacity, region: region),
         ),
       CornellLayerConfig() => CustomPaint(
-          painter: CornellLayerPainter(config: config, pageConfig: pageConfig, color: color),
+          painter: CornellLayerPainter(
+              config: config, pageConfig: pageConfig, color: color, opacity: opacity, region: region),
         ),
       _ => const SizedBox.expand(),
     };
   }
 
   Widget _buildPreview(EditorState state) {
-    final paperWidthMm = state.pageConfig.paperSize == PaperSize.a4 ? a4WidthMm : b5WidthMm;
-    final paperHeightMm = state.pageConfig.paperSize == PaperSize.a4 ? a4HeightMm : b5HeightMm;
-    final config = state.activeLayer?.config;
+    final paperWidthMm = state.pageConfig.paperSize.widthMm;
+    final paperHeightMm = state.pageConfig.paperSize.heightMm;
 
     return Center(
       child: Padding(
         padding: const EdgeInsets.all(16),
         child: AspectRatio(
           aspectRatio: paperWidthMm / paperHeightMm,
-          child: Container(
+          child: RepaintBoundary(
+            key: _previewKey,
+            child: Container(
             decoration: BoxDecoration(
               color: Colors.white,
               boxShadow: [
                 BoxShadow(color: Colors.black.withValues(alpha: 0.15), blurRadius: 8),
               ],
             ),
-            child: _buildLayerPaint(config, state.pageConfig),
+            child: Stack(
+              children: [
+                ...state.layers
+                    .where((l) => l.isVisible)
+                    .map((l) => SizedBox.expand(
+                          child: _buildLayerPaint(
+                            l.config,
+                            state.pageConfig,
+                            opacity: l.opacity,
+                            color: colorFromHex(l.colorHex),
+                            region: LayerRegion(
+                              x: l.xRatio,
+                              y: l.yRatio,
+                              width: l.widthRatio,
+                              height: l.heightRatio,
+                            ),
+                          ),
+                        )),
+                if (state.pageConfig.showPageNumber || state.pageConfig.showLineNumbers)
+                  SizedBox.expand(
+                    child: CustomPaint(
+                      painter: PageElementsPainter(
+                        pageConfig: state.pageConfig,
+                        layers: state.layers,
+                        totalPages: state.pageConfig.pageCount,
+                      ),
+                    ),
+                  ),
+                if (state.pageConfig.holeConfig != HoleConfig.none)
+                  SizedBox.expand(
+                    child: CustomPaint(
+                      painter: HoleMarksPainter(pageConfig: state.pageConfig),
+                    ),
+                  ),
+              ],
+            ),
+          ),
           ),
         ),
       ),
@@ -386,8 +477,9 @@ class _EditorScreenState extends ConsumerState<EditorScreen> {
     BuildContext context,
     WidgetRef ref,
     EditorState state,
-    EditorNotifier notifier,
-  ) {
+    EditorNotifier notifier, {
+    required double maxSheetContentH,
+  }) {
     final config = state.activeLayer?.config;
     final pc = state.pageConfig;
 
@@ -428,7 +520,7 @@ class _EditorScreenState extends ConsumerState<EditorScreen> {
               curve: Curves.easeInOut,
               child: _settingsExpanded
                   ? ConstrainedBox(
-                      constraints: const BoxConstraints(maxHeight: 340),
+                      constraints: BoxConstraints(maxHeight: maxSheetContentH),
                       child: SingleChildScrollView(
                         padding: const EdgeInsets.fromLTRB(16, 0, 16, 8),
                         child: Column(
@@ -438,7 +530,11 @@ class _EditorScreenState extends ConsumerState<EditorScreen> {
                             const Divider(height: 1),
                             const SizedBox(height: 8),
 
-                            // Layer-specific controls
+                            // Layer list
+                            _buildLayerListPanel(context, state, notifier),
+                            const SizedBox(height: 8),
+
+                            // Active layer controls
                             _buildLayerControls(context, ref, state, notifier, config),
                             const SizedBox(height: 8),
 
@@ -447,19 +543,76 @@ class _EditorScreenState extends ConsumerState<EditorScreen> {
                               children: [
                                 const Text('用紙', style: TextStyle(fontSize: 13)),
                                 const SizedBox(width: 16),
+                                ...{
+                                  'A4': PaperSize.a4,
+                                  'B5': PaperSize.b5,
+                                  'A3': PaperSize.a3,
+                                  'B4': PaperSize.b4,
+                                  'Letter': PaperSize.letter,
+                                }.entries.map((e) => Padding(
+                                  padding: const EdgeInsets.only(right: 8),
+                                  child: _styleChip(
+                                    label: e.key,
+                                    selected: pc.paperSize == e.value,
+                                    onTap: () => notifier.updatePageConfig(
+                                      pc.copyWith(paperSize: e.value),
+                                    ),
+                                  ),
+                                )),
+                              ],
+                            ),
+                            const SizedBox(height: 8),
+
+                            // Hole punch
+                            Row(
+                              children: [
+                                const Text('穴', style: TextStyle(fontSize: 13)),
+                                const SizedBox(width: 16),
                                 _styleChip(
-                                  label: 'A4',
-                                  selected: pc.paperSize == PaperSize.a4,
+                                  label: 'なし',
+                                  selected: pc.holeConfig == HoleConfig.none,
                                   onTap: () => notifier.updatePageConfig(
-                                    pc.copyWith(paperSize: PaperSize.a4),
+                                    pc.copyWith(holeConfig: HoleConfig.none),
                                   ),
                                 ),
                                 const SizedBox(width: 8),
                                 _styleChip(
-                                  label: 'B5',
-                                  selected: pc.paperSize == PaperSize.b5,
+                                  label: '26穴',
+                                  selected: pc.holeConfig == HoleConfig.h26,
                                   onTap: () => notifier.updatePageConfig(
-                                    pc.copyWith(paperSize: PaperSize.b5),
+                                    pc.copyWith(holeConfig: HoleConfig.h26),
+                                  ),
+                                ),
+                                const SizedBox(width: 8),
+                                _styleChip(
+                                  label: '30穴',
+                                  selected: pc.holeConfig == HoleConfig.h30,
+                                  onTap: () => notifier.updatePageConfig(
+                                    pc.copyWith(holeConfig: HoleConfig.h30),
+                                  ),
+                                ),
+                              ],
+                            ),
+                            const SizedBox(height: 8),
+
+                            // Page elements
+                            Row(
+                              children: [
+                                const Text('挿入', style: TextStyle(fontSize: 13)),
+                                const SizedBox(width: 16),
+                                _toggleChip(
+                                  label: 'ページ番号',
+                                  enabled: pc.showPageNumber,
+                                  onTap: () => notifier.updatePageConfig(
+                                    pc.copyWith(showPageNumber: !pc.showPageNumber),
+                                  ),
+                                ),
+                                const SizedBox(width: 8),
+                                _toggleChip(
+                                  label: '行番号',
+                                  enabled: pc.showLineNumbers,
+                                  onTap: () => notifier.updatePageConfig(
+                                    pc.copyWith(showLineNumbers: !pc.showLineNumbers),
                                   ),
                                 ),
                               ],
@@ -639,6 +792,334 @@ class _EditorScreenState extends ConsumerState<EditorScreen> {
             ),
           ),
         ],
+      ),
+    );
+  }
+
+  // ── Layer management panel ────────────────────────────────────────────────
+
+  static const _lineColorSwatches = [
+    ('#CCCCCC', '灰'),
+    ('#1565C0', '青'),
+    ('#B71C1C', '赤'),
+    ('#1B5E20', '緑'),
+    ('#4A148C', '紫'),
+    ('#E65100', '橙'),
+    ('#37474F', '墨'),
+  ];
+
+  static const _addableLayerTypes = [
+    (label: '方眼', config: LayerConfig.grid()),
+    (label: 'ドット', config: LayerConfig.dot()),
+    (label: '片対数', config: LayerConfig.logGrid(xScale: LogScale.linear, yScale: LogScale.log)),
+    (label: '両対数', config: LayerConfig.logGrid(xScale: LogScale.log, yScale: LogScale.log)),
+    (label: '六角形', config: LayerConfig.hex()),
+    (label: '製図', config: LayerConfig.isometric()),
+    (label: 'コーネル', config: LayerConfig.cornell()),
+  ];
+
+  String _layerLabel(LayerEntity layer) => switch (layer.layerType) {
+        'grid' => '方眼',
+        'dot' => 'ドット',
+        'hex' => '六角形',
+        'isometric' => '製図',
+        'log_grid' => '対数グリッド',
+        'cornell' => 'コーネル',
+        _ => layer.layerType,
+      };
+
+  Widget _buildLayerListPanel(
+    BuildContext context,
+    EditorState state,
+    EditorNotifier notifier,
+  ) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      mainAxisSize: MainAxisSize.min,
+      children: [
+        Row(
+          children: [
+            const Text('レイヤー', style: TextStyle(fontSize: 13, fontWeight: FontWeight.w600)),
+            const Spacer(),
+            GestureDetector(
+              onTap: () => _showAddLayerSheet(context, notifier),
+              child: const Icon(Icons.add, size: 20, color: Color(0xFF1A1A2E)),
+            ),
+          ],
+        ),
+        const SizedBox(height: 4),
+        ...List.generate(state.layers.length, (i) {
+          final layer = state.layers[i];
+          final isActive = i == state.activeLayerIndex;
+          return Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              GestureDetector(
+                onTap: () => notifier.setActiveLayerIndex(i),
+                child: Container(
+                  margin: const EdgeInsets.only(bottom: 2),
+                  padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 6),
+                  decoration: BoxDecoration(
+                    color: isActive
+                        ? const Color(0xFF1A1A2E).withValues(alpha: 0.08)
+                        : Colors.transparent,
+                    borderRadius: BorderRadius.circular(6),
+                    border: isActive
+                        ? Border.all(color: const Color(0xFF1A1A2E), width: 1)
+                        : Border.all(color: Colors.grey.shade200),
+                  ),
+                  child: Row(
+                    children: [
+                      Expanded(
+                        child: Text(
+                          _layerLabel(layer),
+                          style: TextStyle(
+                            fontSize: 13,
+                            fontWeight: isActive ? FontWeight.w600 : FontWeight.normal,
+                          ),
+                        ),
+                      ),
+                      if (isActive) ...[
+                        const SizedBox(width: 4),
+                        ..._lineColorSwatches.map((s) {
+                          final (hex, _) = s;
+                          final selected =
+                              layer.colorHex.toUpperCase() == hex.toUpperCase();
+                          return GestureDetector(
+                            onTap: () => notifier.updateLayerColor(i, hex),
+                            child: Container(
+                              width: 16,
+                              height: 16,
+                              margin: const EdgeInsets.only(right: 3),
+                              decoration: BoxDecoration(
+                                color: colorFromHex(hex),
+                                shape: BoxShape.circle,
+                                border: Border.all(
+                                  color: selected ? Colors.black87 : Colors.transparent,
+                                  width: 1.5,
+                                ),
+                              ),
+                            ),
+                          );
+                        }),
+                        SizedBox(
+                          width: 64,
+                          child: Slider(
+                            value: layer.opacity,
+                            min: 0.1,
+                            max: 1.0,
+                            onChanged: (v) => notifier.updateLayerOpacity(i, v),
+                            onChangeEnd: (v) => notifier.commitLayerOpacity(i, v),
+                          ),
+                        ),
+                      ],
+                      GestureDetector(
+                        onTap: () => notifier.toggleLayerVisibility(i),
+                        child: Icon(
+                          layer.isVisible ? Icons.visibility : Icons.visibility_off,
+                          size: 18,
+                          color: layer.isVisible ? Colors.black54 : Colors.black26,
+                        ),
+                      ),
+                      const SizedBox(width: 4),
+                      if (state.layers.length > 1)
+                        GestureDetector(
+                          onTap: () => notifier.removeLayer(i),
+                          child: const Icon(Icons.close, size: 18, color: Colors.black38),
+                        ),
+                    ],
+                  ),
+                ),
+              ),
+              if (isActive) ...[
+                _buildLayerPositionPanel(i, layer, notifier),
+                const SizedBox(height: 4),
+              ],
+            ],
+          );
+        }),
+      ],
+    );
+  }
+
+  Widget _buildLayerPositionPanel(int index, LayerEntity layer, EditorNotifier notifier) {
+    const presets = [
+      (label: '全体',   xR: 0.0, yR: 0.0, wR: 1.0, hR: 1.0),
+      (label: '上半分', xR: 0.0, yR: 0.0, wR: 1.0, hR: 0.5),
+      (label: '下半分', xR: 0.0, yR: 0.5, wR: 1.0, hR: 0.5),
+      (label: '左半分', xR: 0.0, yR: 0.0, wR: 0.5, hR: 1.0),
+      (label: '右半分', xR: 0.5, yR: 0.0, wR: 0.5, hR: 1.0),
+    ];
+
+    final xMax = (1.0 - layer.widthRatio).clamp(0.0, 1.0);
+    final yMax = (1.0 - layer.heightRatio).clamp(0.0, 1.0);
+
+    return Container(
+      margin: const EdgeInsets.only(bottom: 2),
+      decoration: BoxDecoration(
+        color: const Color(0xFF1A1A2E).withValues(alpha: 0.04),
+        borderRadius: BorderRadius.circular(6),
+      ),
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          // ヘッダー（折りたたみ）
+          InkWell(
+            onTap: () => setState(() => _positionExpanded = !_positionExpanded),
+            borderRadius: BorderRadius.circular(6),
+            child: Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 6),
+              child: Row(
+                children: [
+                  const Text('配置', style: TextStyle(fontSize: 11, color: Colors.black54)),
+                  const SizedBox(width: 8),
+                  // 現在のプリセット名を表示
+                  Text(
+                    presets.where((p) =>
+                      layer.xRatio == p.xR && layer.yRatio == p.yR &&
+                      layer.widthRatio == p.wR && layer.heightRatio == p.hR
+                    ).map((p) => p.label).firstOrNull ?? 'カスタム',
+                    style: const TextStyle(fontSize: 11, color: Color(0xFF1A1A2E)),
+                  ),
+                  const Spacer(),
+                  Icon(
+                    _positionExpanded ? Icons.expand_less : Icons.expand_more,
+                    size: 16,
+                    color: Colors.black38,
+                  ),
+                ],
+              ),
+            ),
+          ),
+          // 折りたたみ本体
+          ClipRect(
+            child: AnimatedSize(
+              duration: const Duration(milliseconds: 200),
+              curve: Curves.easeInOut,
+              child: _positionExpanded
+                  ? Padding(
+                      padding: const EdgeInsets.fromLTRB(8, 0, 8, 8),
+                      child: Column(
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          Wrap(
+                            spacing: 4,
+                            runSpacing: 4,
+                            children: presets.map((p) {
+                              final selected = layer.xRatio == p.xR &&
+                                  layer.yRatio == p.yR &&
+                                  layer.widthRatio == p.wR &&
+                                  layer.heightRatio == p.hR;
+                              return _styleChip(
+                                label: p.label,
+                                selected: selected,
+                                onTap: () => notifier.updateLayerRegion(
+                                  index,
+                                  xRatio: p.xR, yRatio: p.yR,
+                                  widthRatio: p.wR, heightRatio: p.hR,
+                                ),
+                              );
+                            }).toList(),
+                          ),
+                          const SizedBox(height: 4),
+                          _buildRatioSlider(
+                            label: 'X',
+                            value: layer.xRatio,
+                            max: xMax,
+                            onChanged: (v) => notifier.updateLayerRegion(index, xRatio: v),
+                            onChangeEnd: (_) => notifier.commitLayerRegion(index),
+                          ),
+                          _buildRatioSlider(
+                            label: 'Y',
+                            value: layer.yRatio,
+                            max: yMax,
+                            onChanged: (v) => notifier.updateLayerRegion(index, yRatio: v),
+                            onChangeEnd: (_) => notifier.commitLayerRegion(index),
+                          ),
+                          _buildRatioSlider(
+                            label: '幅',
+                            value: layer.widthRatio,
+                            onChanged: (v) => notifier.updateLayerRegion(index, widthRatio: v),
+                            onChangeEnd: (_) => notifier.commitLayerRegion(index),
+                          ),
+                          _buildRatioSlider(
+                            label: '高さ',
+                            value: layer.heightRatio,
+                            onChanged: (v) => notifier.updateLayerRegion(index, heightRatio: v),
+                            onChangeEnd: (_) => notifier.commitLayerRegion(index),
+                          ),
+                        ],
+                      ),
+                    )
+                  : const SizedBox.shrink(),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildRatioSlider({
+    required String label,
+    required double value,
+    required ValueChanged<double> onChanged,
+    ValueChanged<double>? onChangeEnd,
+    double max = 1.0,
+  }) {
+    final effective = value.clamp(0.0, max);
+    return Row(
+      children: [
+        SizedBox(
+          width: 24,
+          child: Text(label, style: const TextStyle(fontSize: 11, color: Colors.black54)),
+        ),
+        Expanded(
+          child: Slider(
+            value: effective,
+            min: 0.0,
+            max: max > 0 ? max : 0.01,
+            divisions: ((max > 0 ? max : 0.01) * 20).round().clamp(1, 100),
+            onChanged: max > 0 ? onChanged : null,
+            onChangeEnd: onChangeEnd,
+          ),
+        ),
+        SizedBox(
+          width: 36,
+          child: Text(
+            '${(effective * 100).round()}%',
+            textAlign: TextAlign.right,
+            style: const TextStyle(fontSize: 11, color: Colors.black54),
+          ),
+        ),
+      ],
+    );
+  }
+
+  void _showAddLayerSheet(BuildContext context, EditorNotifier notifier) {
+    showModalBottomSheet<void>(
+      context: context,
+      builder: (ctx) => SafeArea(
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            const Padding(
+              padding: EdgeInsets.all(16),
+              child: Text(
+                'レイヤーを追加',
+                style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600),
+              ),
+            ),
+            ..._addableLayerTypes.map((t) => ListTile(
+                  title: Text(t.label),
+                  onTap: () {
+                    notifier.addLayer(t.config);
+                    Navigator.pop(ctx);
+                  },
+                )),
+            const SizedBox(height: 8),
+          ],
+        ),
       ),
     );
   }
@@ -992,6 +1473,45 @@ class _EditorScreenState extends ConsumerState<EditorScreen> {
             fontSize: 12,
             color: selected ? Colors.white : Colors.black87,
           ),
+        ),
+      ),
+    );
+  }
+
+  Widget _toggleChip({
+    required String label,
+    required bool enabled,
+    required VoidCallback onTap,
+  }) {
+    return GestureDetector(
+      onTap: onTap,
+      child: Container(
+        padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
+        decoration: BoxDecoration(
+          color: enabled ? const Color(0xFF1A1A2E).withValues(alpha: 0.12) : Colors.grey.shade100,
+          borderRadius: BorderRadius.circular(4),
+          border: Border.all(
+            color: enabled ? const Color(0xFF1A1A2E) : Colors.transparent,
+            width: 1,
+          ),
+        ),
+        child: Row(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Icon(
+              enabled ? Icons.check_box : Icons.check_box_outline_blank,
+              size: 14,
+              color: enabled ? const Color(0xFF1A1A2E) : Colors.black54,
+            ),
+            const SizedBox(width: 4),
+            Text(
+              label,
+              style: TextStyle(
+                fontSize: 12,
+                color: enabled ? const Color(0xFF1A1A2E) : Colors.black87,
+              ),
+            ),
+          ],
         ),
       ),
     );

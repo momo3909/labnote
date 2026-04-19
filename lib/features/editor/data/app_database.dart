@@ -17,6 +17,7 @@ class NotebookTemplates extends Table {
   IntColumn get downloadCount => integer().withDefault(const Constant(0))();
   TextColumn get pageConfigJson => text()();
   TextColumn get layersJson => text().withDefault(const Constant('[]'))();
+  BlobColumn get thumbnailPng => blob().nullable()();
 
   @override
   Set<Column> get primaryKey => {uuid};
@@ -27,7 +28,16 @@ class AppDatabase extends _$AppDatabase {
   AppDatabase() : super(_openConnection());
 
   @override
-  int get schemaVersion => 1;
+  int get schemaVersion => 2;
+
+  @override
+  MigrationStrategy get migration => MigrationStrategy(
+    onUpgrade: (m, from, to) async {
+      if (from < 2) {
+        await m.addColumn(notebookTemplates, notebookTemplates.thumbnailPng);
+      }
+    },
+  );
 
   static QueryExecutor _openConnection() {
     return driftDatabase(name: 'labnote.db');

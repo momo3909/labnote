@@ -3,7 +3,7 @@ import 'package:freezed_annotation/freezed_annotation.dart';
 part 'page_config.freezed.dart';
 part 'page_config.g.dart';
 
-enum PaperSize { a4, b5 }
+enum PaperSize { a4, b5, a3, b4, letter }
 enum PaperOrientation { portrait, landscape }
 enum HoleConfig { none, h26, h30 }
 
@@ -18,6 +18,8 @@ class PageConfig with _$PageConfig {
     @Default(10.0) double marginRightMm,
     @Default(HoleConfig.h26) HoleConfig holeConfig,
     @Default(1) int pageCount,
+    @Default(false) bool showPageNumber,
+    @Default(false) bool showLineNumbers,
   }) = _PageConfig;
 
   factory PageConfig.fromJson(Map<String, dynamic> json) =>

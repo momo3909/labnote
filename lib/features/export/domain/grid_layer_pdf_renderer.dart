@@ -1,52 +1,32 @@
 import 'package:pdf/pdf.dart';
-import 'package:pdf/widgets.dart' as pw;
 import '../../../core/constants/print_constants.dart';
 import '../../../shared/models/layer_config.dart';
-import '../../../shared/models/page_config.dart';
+import 'layer_pdf_renderer_base.dart';
 
-class GridLayerPdfRenderer {
+class GridLayerPdfRenderer extends LayerPdfRendererBase<GridLayerConfig> {
   const GridLayerPdfRenderer({
-    required this.config,
-    required this.pageConfig,
-    required this.color,
-    this.opacity = 1.0,
+    required super.config,
+    required super.pageConfig,
+    required super.color,
+    super.opacity,
+    super.region,
   });
 
-  final GridLayerConfig config;
-  final PageConfig pageConfig;
-  final PdfColor color;
-  final double opacity;
-
-  pw.Widget build() {
-    return pw.CustomPaint(
-      painter: (canvas, size) => _paint(canvas, size),
-      size: PdfPoint(
-        toPoints(pageConfig.paperSize == PaperSize.a4 ? a4WidthMm : b5WidthMm),
-        toPoints(pageConfig.paperSize == PaperSize.a4 ? a4HeightMm : b5HeightMm),
-      ),
-    );
-  }
-
-  void _paint(PdfGraphics canvas, PdfPoint size) {
+  @override
+  void paintContent(
+    PdfGraphics canvas, {
+    required double left,
+    required double right,
+    required double bottom,
+    required double top,
+  }) {
     final cellW = toPoints(config.cellWidthMm);
     final cellH = toPoints(config.cellHeightMm);
     if (cellW <= 0 || cellH <= 0) return;
 
-    // Content area in PDF points (PDF origin is bottom-left)
-    final left = toPoints(pageConfig.marginLeftMm);
-    final right = size.x - toPoints(pageConfig.marginRightMm);
-    final bottom = toPoints(pageConfig.marginBottomMm);
-    final top = size.y - toPoints(pageConfig.marginTopMm);
-
     final baseStroke = config.lineStyle == LineStyle.solid ? 0.3 : 0.25;
     canvas.setStrokeColor(color);
 
-    // Clip to content rect
-    canvas.saveContext();
-    canvas.drawRect(left, bottom, right - left, top - bottom);
-    canvas.clipPath();
-
-    // Center grid so partial cells at both edges are equal
     final offsetX = ((right - left) % cellW) / 2;
     final offsetY = ((top - bottom) % cellH) / 2;
 
@@ -55,7 +35,7 @@ class GridLayerPdfRenderer {
       for (double x = left + offsetX; x <= right + 0.5; x += cellW) {
         final bold = config.boldEvery != null && col % config.boldEvery! == 0;
         canvas.setLineWidth(bold ? baseStroke * 2 : baseStroke);
-        _drawLine(canvas, x, bottom, x, top, size, vertical: true);
+        _drawLine(canvas, x, bottom, x, top, vertical: true);
         col++;
       }
     }
@@ -65,22 +45,18 @@ class GridLayerPdfRenderer {
       for (double y = bottom + offsetY; y <= top + 0.5; y += cellH) {
         final bold = config.boldEvery != null && row % config.boldEvery! == 0;
         canvas.setLineWidth(bold ? baseStroke * 2 : baseStroke);
-        _drawLine(canvas, left, y, right, y, size, vertical: false);
+        _drawLine(canvas, left, y, right, y, vertical: false);
         row++;
       }
     }
-
-    canvas.restoreContext();
   }
 
-  // Coordinates are passed in PDF space (y-up from bottom-left); no inversion needed.
   void _drawLine(
     PdfGraphics canvas,
     double x1,
     double y1,
     double x2,
-    double y2,
-    PdfPoint size, {
+    double y2, {
     required bool vertical,
   }) {
     if (config.lineStyle == LineStyle.solid) {

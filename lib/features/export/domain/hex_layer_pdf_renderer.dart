@@ -1,55 +1,37 @@
 import 'dart:math';
 import 'package:pdf/pdf.dart';
-import 'package:pdf/widgets.dart' as pw;
 import '../../../core/constants/print_constants.dart';
 import '../../../shared/models/layer_config.dart';
-import '../../../shared/models/page_config.dart';
+import 'layer_pdf_renderer_base.dart';
 
-class HexLayerPdfRenderer {
+class HexLayerPdfRenderer extends LayerPdfRendererBase<HexLayerConfig> {
   const HexLayerPdfRenderer({
-    required this.config,
-    required this.pageConfig,
-    required this.color,
-    this.opacity = 1.0,
+    required super.config,
+    required super.pageConfig,
+    required super.color,
+    super.opacity,
+    super.region,
   });
 
-  final HexLayerConfig config;
-  final PageConfig pageConfig;
-  final PdfColor color;
-  final double opacity;
-
-  pw.Widget build() {
-    final w = toPoints(pageConfig.paperSize == PaperSize.a4 ? a4WidthMm : b5WidthMm);
-    final h = toPoints(pageConfig.paperSize == PaperSize.a4 ? a4HeightMm : b5HeightMm);
-    return pw.CustomPaint(
-      painter: (canvas, size) => _paint(canvas, size),
-      size: PdfPoint(w, h),
-    );
-  }
-
-  void _paint(PdfGraphics canvas, PdfPoint size) {
+  @override
+  void paintContent(
+    PdfGraphics canvas, {
+    required double left,
+    required double right,
+    required double bottom,
+    required double top,
+  }) {
     final hexR = toPoints(config.hexSizeMm);
     if (hexR <= 0) return;
 
-    // Content rect in PDF space (y-up from bottom-left)
-    final left = toPoints(pageConfig.marginLeftMm);
-    final right = size.x - toPoints(pageConfig.marginRightMm);
-    final bottom = toPoints(pageConfig.marginBottomMm);
-    final top = size.y - toPoints(pageConfig.marginTopMm);
-
     canvas.setStrokeColor(color);
     canvas.setLineWidth(0.3);
-    canvas.saveContext();
-    canvas.drawRect(left, bottom, right - left, top - bottom);
-    canvas.clipPath();
 
     if (config.orientation == HexOrientation.flat) {
       _drawFlatGrid(canvas, left, right, bottom, top, hexR);
     } else {
       _drawPointyGrid(canvas, left, right, bottom, top, hexR);
     }
-
-    canvas.restoreContext();
   }
 
   void _drawFlatGrid(PdfGraphics canvas, double left, double right, double bottom, double top, double hexR) {
@@ -66,7 +48,6 @@ class HexLayerPdfRenderer {
     for (int q = qStart; q <= qEnd; q++) {
       for (int r = rStart; r <= rEnd; r++) {
         final cx = left + hexR * 3.0 / 2.0 * q;
-        // PDF y-up: map screen-style r to PDF coords
         final cy = bottom + hexR * (sqrt(3.0) / 2.0 * q + sqrt(3.0) * r);
         _drawHex(canvas, cx, cy, hexR, 0.0);
       }

@@ -1,49 +1,31 @@
 import 'package:pdf/pdf.dart';
-import 'package:pdf/widgets.dart' as pw;
 import '../../../core/constants/print_constants.dart';
 import '../../../shared/models/layer_config.dart';
-import '../../../shared/models/page_config.dart';
+import 'layer_pdf_renderer_base.dart';
 
-class DotLayerPdfRenderer {
+class DotLayerPdfRenderer extends LayerPdfRendererBase<DotLayerConfig> {
   const DotLayerPdfRenderer({
-    required this.config,
-    required this.pageConfig,
-    required this.color,
-    this.opacity = 1.0,
+    required super.config,
+    required super.pageConfig,
+    required super.color,
+    super.opacity,
+    super.region,
   });
 
-  final DotLayerConfig config;
-  final PageConfig pageConfig;
-  final PdfColor color;
-  final double opacity;
-
-  pw.Widget build() {
-    return pw.CustomPaint(
-      painter: (canvas, size) => _paint(canvas, size),
-      size: PdfPoint(
-        toPoints(pageConfig.paperSize == PaperSize.a4 ? a4WidthMm : b5WidthMm),
-        toPoints(pageConfig.paperSize == PaperSize.a4 ? a4HeightMm : b5HeightMm),
-      ),
-    );
-  }
-
-  void _paint(PdfGraphics canvas, PdfPoint size) {
+  @override
+  void paintContent(
+    PdfGraphics canvas, {
+    required double left,
+    required double right,
+    required double bottom,
+    required double top,
+  }) {
     final spacing = toPoints(config.spacingMm);
     final radius = toPoints(config.dotRadiusMm);
     if (spacing <= 0 || radius <= 0) return;
 
-    // Content rect in PDF space (y-up from bottom-left)
-    final left = toPoints(pageConfig.marginLeftMm);
-    final right = size.x - toPoints(pageConfig.marginRightMm);
-    final bottom = toPoints(pageConfig.marginBottomMm);
-    final top = size.y - toPoints(pageConfig.marginTopMm);
-
     canvas.setFillColor(color);
-    canvas.saveContext();
-    canvas.drawRect(left, bottom, right - left, top - bottom);
-    canvas.clipPath();
 
-    // Center dots in content area
     final offsetX = ((right - left) % spacing) / 2;
     final offsetY = ((top - bottom) % spacing) / 2;
 
@@ -53,7 +35,5 @@ class DotLayerPdfRenderer {
         canvas.fillPath();
       }
     }
-
-    canvas.restoreContext();
   }
 }

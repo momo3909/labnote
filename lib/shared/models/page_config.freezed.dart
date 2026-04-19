@@ -29,6 +29,8 @@ mixin _$PageConfig {
   double get marginRightMm => throw _privateConstructorUsedError;
   HoleConfig get holeConfig => throw _privateConstructorUsedError;
   int get pageCount => throw _privateConstructorUsedError;
+  bool get showPageNumber => throw _privateConstructorUsedError;
+  bool get showLineNumbers => throw _privateConstructorUsedError;
 
   /// Serializes this PageConfig to a JSON map.
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
@@ -56,6 +58,8 @@ abstract class $PageConfigCopyWith<$Res> {
     double marginRightMm,
     HoleConfig holeConfig,
     int pageCount,
+    bool showPageNumber,
+    bool showLineNumbers,
   });
 }
 
@@ -82,6 +86,8 @@ class _$PageConfigCopyWithImpl<$Res, $Val extends PageConfig>
     Object? marginRightMm = null,
     Object? holeConfig = null,
     Object? pageCount = null,
+    Object? showPageNumber = null,
+    Object? showLineNumbers = null,
   }) {
     return _then(
       _value.copyWith(
@@ -117,6 +123,14 @@ class _$PageConfigCopyWithImpl<$Res, $Val extends PageConfig>
                 ? _value.pageCount
                 : pageCount // ignore: cast_nullable_to_non_nullable
                       as int,
+            showPageNumber: null == showPageNumber
+                ? _value.showPageNumber
+                : showPageNumber // ignore: cast_nullable_to_non_nullable
+                      as bool,
+            showLineNumbers: null == showLineNumbers
+                ? _value.showLineNumbers
+                : showLineNumbers // ignore: cast_nullable_to_non_nullable
+                      as bool,
           )
           as $Val,
     );
@@ -141,6 +155,8 @@ abstract class _$$PageConfigImplCopyWith<$Res>
     double marginRightMm,
     HoleConfig holeConfig,
     int pageCount,
+    bool showPageNumber,
+    bool showLineNumbers,
   });
 }
 
@@ -166,6 +182,8 @@ class __$$PageConfigImplCopyWithImpl<$Res>
     Object? marginRightMm = null,
     Object? holeConfig = null,
     Object? pageCount = null,
+    Object? showPageNumber = null,
+    Object? showLineNumbers = null,
   }) {
     return _then(
       _$PageConfigImpl(
@@ -201,6 +219,14 @@ class __$$PageConfigImplCopyWithImpl<$Res>
             ? _value.pageCount
             : pageCount // ignore: cast_nullable_to_non_nullable
                   as int,
+        showPageNumber: null == showPageNumber
+            ? _value.showPageNumber
+            : showPageNumber // ignore: cast_nullable_to_non_nullable
+                  as bool,
+        showLineNumbers: null == showLineNumbers
+            ? _value.showLineNumbers
+            : showLineNumbers // ignore: cast_nullable_to_non_nullable
+                  as bool,
       ),
     );
   }
@@ -218,6 +244,8 @@ class _$PageConfigImpl implements _PageConfig {
     this.marginRightMm = 10.0,
     this.holeConfig = HoleConfig.h26,
     this.pageCount = 1,
+    this.showPageNumber = false,
+    this.showLineNumbers = false,
   });
 
   factory _$PageConfigImpl.fromJson(Map<String, dynamic> json) =>
@@ -247,10 +275,16 @@ class _$PageConfigImpl implements _PageConfig {
   @override
   @JsonKey()
   final int pageCount;
+  @override
+  @JsonKey()
+  final bool showPageNumber;
+  @override
+  @JsonKey()
+  final bool showLineNumbers;
 
   @override
   String toString() {
-    return 'PageConfig(paperSize: $paperSize, orientation: $orientation, marginTopMm: $marginTopMm, marginBottomMm: $marginBottomMm, marginLeftMm: $marginLeftMm, marginRightMm: $marginRightMm, holeConfig: $holeConfig, pageCount: $pageCount)';
+    return 'PageConfig(paperSize: $paperSize, orientation: $orientation, marginTopMm: $marginTopMm, marginBottomMm: $marginBottomMm, marginLeftMm: $marginLeftMm, marginRightMm: $marginRightMm, holeConfig: $holeConfig, pageCount: $pageCount, showPageNumber: $showPageNumber, showLineNumbers: $showLineNumbers)';
   }
 
   @override
@@ -273,7 +307,11 @@ class _$PageConfigImpl implements _PageConfig {
             (identical(other.holeConfig, holeConfig) ||
                 other.holeConfig == holeConfig) &&
             (identical(other.pageCount, pageCount) ||
-                other.pageCount == pageCount));
+                other.pageCount == pageCount) &&
+            (identical(other.showPageNumber, showPageNumber) ||
+                other.showPageNumber == showPageNumber) &&
+            (identical(other.showLineNumbers, showLineNumbers) ||
+                other.showLineNumbers == showLineNumbers));
   }
 
   @JsonKey(includeFromJson: false, includeToJson: false)
@@ -288,6 +326,8 @@ class _$PageConfigImpl implements _PageConfig {
     marginRightMm,
     holeConfig,
     pageCount,
+    showPageNumber,
+    showLineNumbers,
   );
 
   /// Create a copy of PageConfig
@@ -314,6 +354,8 @@ abstract class _PageConfig implements PageConfig {
     final double marginRightMm,
     final HoleConfig holeConfig,
     final int pageCount,
+    final bool showPageNumber,
+    final bool showLineNumbers,
   }) = _$PageConfigImpl;
 
   factory _PageConfig.fromJson(Map<String, dynamic> json) =
@@ -335,6 +377,10 @@ abstract class _PageConfig implements PageConfig {
   HoleConfig get holeConfig;
   @override
   int get pageCount;
+  @override
+  bool get showPageNumber;
+  @override
+  bool get showLineNumbers;
 
   /// Create a copy of PageConfig
   /// with the given fields replaced by the non-null parameter values.

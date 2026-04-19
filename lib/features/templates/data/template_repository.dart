@@ -37,6 +37,7 @@ class TemplateRepository {
       isPublic: Value(template.isPublic),
       pageConfigJson: Value(template.pageConfigJson),
       layersJson: Value(jsonEncode(template.layersJson)),
+      thumbnailPng: Value(template.thumbnailPng),
     );
     await _db.into(_db.notebookTemplates).insertOnConflictUpdate(row);
     template.updatedAt = now;
@@ -48,6 +49,7 @@ class TemplateRepository {
     required PageConfig pageConfig,
     required List<LayerEntity> layers,
     String? authorId,
+    Uint8List? thumbnail,
   }) async {
     final now = DateTime.now();
     final template = NotebookTemplate()
@@ -57,7 +59,8 @@ class TemplateRepository {
       ..updatedAt = now
       ..authorId = authorId
       ..pageConfig = pageConfig
-      ..layers = layers;
+      ..layers = layers
+      ..thumbnailPng = thumbnail;
     return save(template);
   }
 
@@ -78,7 +81,8 @@ class TemplateRepository {
       ..authorId = row.authorId
       ..isPublic = row.isPublic
       ..pageConfigJson = row.pageConfigJson
-      ..layersJson = (jsonDecode(row.layersJson) as List).cast<String>();
+      ..layersJson = (jsonDecode(row.layersJson) as List).cast<String>()
+      ..thumbnailPng = row.thumbnailPng;
     return t;
   }
 }

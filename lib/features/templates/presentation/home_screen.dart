@@ -1,3 +1,4 @@
+import 'dart:typed_data';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
@@ -138,7 +139,10 @@ class HomeScreen extends ConsumerWidget {
               itemBuilder: (context, i) {
                 final t = templates[i];
                 return ListTile(
-                  leading: Icon(_templateIcon(t.layersJson), color: const Color(0xFF1A1A2E)),
+                  leading: _TemplateThumbnail(
+                    thumbnail: t.thumbnailPng,
+                    fallbackIcon: _templateIcon(t.layersJson),
+                  ),
                   title: Text(t.name),
                   subtitle: Text(
                     _formatDate(t.updatedAt),
@@ -158,13 +162,38 @@ class HomeScreen extends ConsumerWidget {
   IconData _templateIcon(List<String> layersJson) {
     if (layersJson.isEmpty) return Icons.grid_on_outlined;
     final first = layersJson.first.toLowerCase();
-    if (first.contains('"hex"') || first.contains("'hex'")) return Icons.hexagon_outlined;
-    if (first.contains('"isometric"') || first.contains("'isometric'")) return Icons.architecture;
+    if (first.contains('"hex"')) return Icons.hexagon_outlined;
+    if (first.contains('"isometric"')) return Icons.architecture;
+    if (first.contains('"dot"')) return Icons.grain;
+    if (first.contains('"log_grid"')) return Icons.show_chart;
+    if (first.contains('"cornell"')) return Icons.view_agenda_outlined;
     return Icons.grid_on_outlined;
   }
 
   String _formatDate(DateTime dt) =>
       '${dt.year}/${dt.month.toString().padLeft(2, '0')}/${dt.day.toString().padLeft(2, '0')}';
+}
+
+class _TemplateThumbnail extends StatelessWidget {
+  const _TemplateThumbnail({required this.thumbnail, required this.fallbackIcon});
+  final Uint8List? thumbnail;
+  final IconData fallbackIcon;
+
+  @override
+  Widget build(BuildContext context) {
+    if (thumbnail != null) {
+      return ClipRRect(
+        borderRadius: BorderRadius.circular(4),
+        child: Image.memory(
+          thumbnail!,
+          width: 32,
+          height: 44,
+          fit: BoxFit.cover,
+        ),
+      );
+    }
+    return Icon(fallbackIcon, color: const Color(0xFF1A1A2E));
+  }
 }
 
 class _PresetCard extends StatelessWidget {

@@ -1,33 +1,22 @@
 import 'package:flutter/material.dart';
 import '../models/layer_config.dart';
-import '../models/page_config.dart';
+import 'layer_painter_base.dart';
 import 'painter_utils.dart';
-import '../../core/constants/print_constants.dart';
 
-class GridLayerPainter extends CustomPainter {
+class GridLayerPainter extends LayerPainterBase<GridLayerConfig> {
   const GridLayerPainter({
-    required this.config,
-    required this.pageConfig,
-    required this.color,
-    this.opacity = 1.0,
+    required super.config,
+    required super.pageConfig,
+    required super.color,
+    super.opacity,
+    super.region,
   });
 
-  final GridLayerConfig config;
-  final PageConfig pageConfig;
-  final Color color;
-  final double opacity;
-
   @override
-  void paint(Canvas canvas, Size size) {
-    final paperWidthMm = pageConfig.paperSize == PaperSize.a4 ? a4WidthMm : b5WidthMm;
-    final scale = scaleFactor(size.width, paperWidthMm);
+  void paintContent(Canvas canvas, Rect clip, double scale) {
     final cellW = mmToPx(config.cellWidthMm, scale);
     final cellH = mmToPx(config.cellHeightMm, scale);
     if (cellW <= 0 || cellH <= 0) return;
-
-    final clip = contentRect(size, pageConfig, scale);
-    canvas.save();
-    canvas.clipRect(clip);
 
     final baseStroke = config.lineStyle == LineStyle.solid ? 0.5 : 0.4;
     final paintColor = color.withValues(alpha: opacity);
@@ -37,7 +26,6 @@ class GridLayerPainter extends CustomPainter {
       ..strokeWidth = bold ? baseStroke * 2 : baseStroke
       ..style = PaintingStyle.stroke;
 
-    // Center grid so partial cells at both edges are equal width/height
     final offsetX = (clip.width % cellW) / 2;
     final offsetY = (clip.height % cellH) / 2;
 
@@ -58,8 +46,6 @@ class GridLayerPainter extends CustomPainter {
         row++;
       }
     }
-
-    canvas.restore();
   }
 
   void _drawLine(Canvas canvas, Offset start, Offset end, Paint paint) {
@@ -95,11 +81,4 @@ class GridLayerPainter extends CustomPainter {
       drawing = !drawing;
     }
   }
-
-  @override
-  bool shouldRepaint(GridLayerPainter old) =>
-      old.config != config ||
-      old.pageConfig != pageConfig ||
-      old.color != color ||
-      old.opacity != opacity;
 }

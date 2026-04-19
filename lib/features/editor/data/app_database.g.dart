@@ -146,6 +146,18 @@ class $NotebookTemplatesTable extends NotebookTemplates
     requiredDuringInsert: false,
     defaultValue: const Constant('[]'),
   );
+  static const VerificationMeta _thumbnailPngMeta = const VerificationMeta(
+    'thumbnailPng',
+  );
+  @override
+  late final GeneratedColumn<Uint8List> thumbnailPng =
+      GeneratedColumn<Uint8List>(
+        'thumbnail_png',
+        aliasedName,
+        true,
+        type: DriftSqlType.blob,
+        requiredDuringInsert: false,
+      );
   @override
   List<GeneratedColumn> get $columns => [
     uuid,
@@ -160,6 +172,7 @@ class $NotebookTemplatesTable extends NotebookTemplates
     downloadCount,
     pageConfigJson,
     layersJson,
+    thumbnailPng,
   ];
   @override
   String get aliasedName => _alias ?? actualTableName;
@@ -261,6 +274,15 @@ class $NotebookTemplatesTable extends NotebookTemplates
         layersJson.isAcceptableOrUnknown(data['layers_json']!, _layersJsonMeta),
       );
     }
+    if (data.containsKey('thumbnail_png')) {
+      context.handle(
+        _thumbnailPngMeta,
+        thumbnailPng.isAcceptableOrUnknown(
+          data['thumbnail_png']!,
+          _thumbnailPngMeta,
+        ),
+      );
+    }
     return context;
   }
 
@@ -318,6 +340,10 @@ class $NotebookTemplatesTable extends NotebookTemplates
         DriftSqlType.string,
         data['${effectivePrefix}layers_json'],
       )!,
+      thumbnailPng: attachedDatabase.typeMapping.read(
+        DriftSqlType.blob,
+        data['${effectivePrefix}thumbnail_png'],
+      ),
     );
   }
 
@@ -340,6 +366,7 @@ class TemplateRow extends DataClass implements Insertable<TemplateRow> {
   final int downloadCount;
   final String pageConfigJson;
   final String layersJson;
+  final Uint8List? thumbnailPng;
   const TemplateRow({
     required this.uuid,
     required this.name,
@@ -353,6 +380,7 @@ class TemplateRow extends DataClass implements Insertable<TemplateRow> {
     required this.downloadCount,
     required this.pageConfigJson,
     required this.layersJson,
+    this.thumbnailPng,
   });
   @override
   Map<String, Expression> toColumns(bool nullToAbsent) {
@@ -373,6 +401,9 @@ class TemplateRow extends DataClass implements Insertable<TemplateRow> {
     map['download_count'] = Variable<int>(downloadCount);
     map['page_config_json'] = Variable<String>(pageConfigJson);
     map['layers_json'] = Variable<String>(layersJson);
+    if (!nullToAbsent || thumbnailPng != null) {
+      map['thumbnail_png'] = Variable<Uint8List>(thumbnailPng);
+    }
     return map;
   }
 
@@ -394,6 +425,9 @@ class TemplateRow extends DataClass implements Insertable<TemplateRow> {
       downloadCount: Value(downloadCount),
       pageConfigJson: Value(pageConfigJson),
       layersJson: Value(layersJson),
+      thumbnailPng: thumbnailPng == null && nullToAbsent
+          ? const Value.absent()
+          : Value(thumbnailPng),
     );
   }
 
@@ -415,6 +449,7 @@ class TemplateRow extends DataClass implements Insertable<TemplateRow> {
       downloadCount: serializer.fromJson<int>(json['downloadCount']),
       pageConfigJson: serializer.fromJson<String>(json['pageConfigJson']),
       layersJson: serializer.fromJson<String>(json['layersJson']),
+      thumbnailPng: serializer.fromJson<Uint8List?>(json['thumbnailPng']),
     );
   }
   @override
@@ -433,6 +468,7 @@ class TemplateRow extends DataClass implements Insertable<TemplateRow> {
       'downloadCount': serializer.toJson<int>(downloadCount),
       'pageConfigJson': serializer.toJson<String>(pageConfigJson),
       'layersJson': serializer.toJson<String>(layersJson),
+      'thumbnailPng': serializer.toJson<Uint8List?>(thumbnailPng),
     };
   }
 
@@ -449,6 +485,7 @@ class TemplateRow extends DataClass implements Insertable<TemplateRow> {
     int? downloadCount,
     String? pageConfigJson,
     String? layersJson,
+    Value<Uint8List?> thumbnailPng = const Value.absent(),
   }) => TemplateRow(
     uuid: uuid ?? this.uuid,
     name: name ?? this.name,
@@ -462,6 +499,7 @@ class TemplateRow extends DataClass implements Insertable<TemplateRow> {
     downloadCount: downloadCount ?? this.downloadCount,
     pageConfigJson: pageConfigJson ?? this.pageConfigJson,
     layersJson: layersJson ?? this.layersJson,
+    thumbnailPng: thumbnailPng.present ? thumbnailPng.value : this.thumbnailPng,
   );
   TemplateRow copyWithCompanion(NotebookTemplatesCompanion data) {
     return TemplateRow(
@@ -483,6 +521,9 @@ class TemplateRow extends DataClass implements Insertable<TemplateRow> {
       layersJson: data.layersJson.present
           ? data.layersJson.value
           : this.layersJson,
+      thumbnailPng: data.thumbnailPng.present
+          ? data.thumbnailPng.value
+          : this.thumbnailPng,
     );
   }
 
@@ -500,7 +541,8 @@ class TemplateRow extends DataClass implements Insertable<TemplateRow> {
           ..write('remoteId: $remoteId, ')
           ..write('downloadCount: $downloadCount, ')
           ..write('pageConfigJson: $pageConfigJson, ')
-          ..write('layersJson: $layersJson')
+          ..write('layersJson: $layersJson, ')
+          ..write('thumbnailPng: $thumbnailPng')
           ..write(')'))
         .toString();
   }
@@ -519,6 +561,7 @@ class TemplateRow extends DataClass implements Insertable<TemplateRow> {
     downloadCount,
     pageConfigJson,
     layersJson,
+    $driftBlobEquality.hash(thumbnailPng),
   );
   @override
   bool operator ==(Object other) =>
@@ -535,7 +578,8 @@ class TemplateRow extends DataClass implements Insertable<TemplateRow> {
           other.remoteId == this.remoteId &&
           other.downloadCount == this.downloadCount &&
           other.pageConfigJson == this.pageConfigJson &&
-          other.layersJson == this.layersJson);
+          other.layersJson == this.layersJson &&
+          $driftBlobEquality.equals(other.thumbnailPng, this.thumbnailPng));
 }
 
 class NotebookTemplatesCompanion extends UpdateCompanion<TemplateRow> {
@@ -551,6 +595,7 @@ class NotebookTemplatesCompanion extends UpdateCompanion<TemplateRow> {
   final Value<int> downloadCount;
   final Value<String> pageConfigJson;
   final Value<String> layersJson;
+  final Value<Uint8List?> thumbnailPng;
   final Value<int> rowid;
   const NotebookTemplatesCompanion({
     this.uuid = const Value.absent(),
@@ -565,6 +610,7 @@ class NotebookTemplatesCompanion extends UpdateCompanion<TemplateRow> {
     this.downloadCount = const Value.absent(),
     this.pageConfigJson = const Value.absent(),
     this.layersJson = const Value.absent(),
+    this.thumbnailPng = const Value.absent(),
     this.rowid = const Value.absent(),
   });
   NotebookTemplatesCompanion.insert({
@@ -580,6 +626,7 @@ class NotebookTemplatesCompanion extends UpdateCompanion<TemplateRow> {
     this.downloadCount = const Value.absent(),
     required String pageConfigJson,
     this.layersJson = const Value.absent(),
+    this.thumbnailPng = const Value.absent(),
     this.rowid = const Value.absent(),
   }) : uuid = Value(uuid),
        name = Value(name),
@@ -599,6 +646,7 @@ class NotebookTemplatesCompanion extends UpdateCompanion<TemplateRow> {
     Expression<int>? downloadCount,
     Expression<String>? pageConfigJson,
     Expression<String>? layersJson,
+    Expression<Uint8List>? thumbnailPng,
     Expression<int>? rowid,
   }) {
     return RawValuesInsertable({
@@ -614,6 +662,7 @@ class NotebookTemplatesCompanion extends UpdateCompanion<TemplateRow> {
       if (downloadCount != null) 'download_count': downloadCount,
       if (pageConfigJson != null) 'page_config_json': pageConfigJson,
       if (layersJson != null) 'layers_json': layersJson,
+      if (thumbnailPng != null) 'thumbnail_png': thumbnailPng,
       if (rowid != null) 'rowid': rowid,
     });
   }
@@ -631,6 +680,7 @@ class NotebookTemplatesCompanion extends UpdateCompanion<TemplateRow> {
     Value<int>? downloadCount,
     Value<String>? pageConfigJson,
     Value<String>? layersJson,
+    Value<Uint8List?>? thumbnailPng,
     Value<int>? rowid,
   }) {
     return NotebookTemplatesCompanion(
@@ -646,6 +696,7 @@ class NotebookTemplatesCompanion extends UpdateCompanion<TemplateRow> {
       downloadCount: downloadCount ?? this.downloadCount,
       pageConfigJson: pageConfigJson ?? this.pageConfigJson,
       layersJson: layersJson ?? this.layersJson,
+      thumbnailPng: thumbnailPng ?? this.thumbnailPng,
       rowid: rowid ?? this.rowid,
     );
   }
@@ -689,6 +740,9 @@ class NotebookTemplatesCompanion extends UpdateCompanion<TemplateRow> {
     if (layersJson.present) {
       map['layers_json'] = Variable<String>(layersJson.value);
     }
+    if (thumbnailPng.present) {
+      map['thumbnail_png'] = Variable<Uint8List>(thumbnailPng.value);
+    }
     if (rowid.present) {
       map['rowid'] = Variable<int>(rowid.value);
     }
@@ -710,6 +764,7 @@ class NotebookTemplatesCompanion extends UpdateCompanion<TemplateRow> {
           ..write('downloadCount: $downloadCount, ')
           ..write('pageConfigJson: $pageConfigJson, ')
           ..write('layersJson: $layersJson, ')
+          ..write('thumbnailPng: $thumbnailPng, ')
           ..write('rowid: $rowid')
           ..write(')'))
         .toString();
@@ -742,6 +797,7 @@ typedef $$NotebookTemplatesTableCreateCompanionBuilder =
       Value<int> downloadCount,
       required String pageConfigJson,
       Value<String> layersJson,
+      Value<Uint8List?> thumbnailPng,
       Value<int> rowid,
     });
 typedef $$NotebookTemplatesTableUpdateCompanionBuilder =
@@ -758,6 +814,7 @@ typedef $$NotebookTemplatesTableUpdateCompanionBuilder =
       Value<int> downloadCount,
       Value<String> pageConfigJson,
       Value<String> layersJson,
+      Value<Uint8List?> thumbnailPng,
       Value<int> rowid,
     });
 
@@ -827,6 +884,11 @@ class $$NotebookTemplatesTableFilterComposer
 
   ColumnFilters<String> get layersJson => $composableBuilder(
     column: $table.layersJson,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<Uint8List> get thumbnailPng => $composableBuilder(
+    column: $table.thumbnailPng,
     builder: (column) => ColumnFilters(column),
   );
 }
@@ -899,6 +961,11 @@ class $$NotebookTemplatesTableOrderingComposer
     column: $table.layersJson,
     builder: (column) => ColumnOrderings(column),
   );
+
+  ColumnOrderings<Uint8List> get thumbnailPng => $composableBuilder(
+    column: $table.thumbnailPng,
+    builder: (column) => ColumnOrderings(column),
+  );
 }
 
 class $$NotebookTemplatesTableAnnotationComposer
@@ -951,6 +1018,11 @@ class $$NotebookTemplatesTableAnnotationComposer
     column: $table.layersJson,
     builder: (column) => column,
   );
+
+  GeneratedColumn<Uint8List> get thumbnailPng => $composableBuilder(
+    column: $table.thumbnailPng,
+    builder: (column) => column,
+  );
 }
 
 class $$NotebookTemplatesTableTableManager
@@ -1001,6 +1073,7 @@ class $$NotebookTemplatesTableTableManager
                 Value<int> downloadCount = const Value.absent(),
                 Value<String> pageConfigJson = const Value.absent(),
                 Value<String> layersJson = const Value.absent(),
+                Value<Uint8List?> thumbnailPng = const Value.absent(),
                 Value<int> rowid = const Value.absent(),
               }) => NotebookTemplatesCompanion(
                 uuid: uuid,
@@ -1015,6 +1088,7 @@ class $$NotebookTemplatesTableTableManager
                 downloadCount: downloadCount,
                 pageConfigJson: pageConfigJson,
                 layersJson: layersJson,
+                thumbnailPng: thumbnailPng,
                 rowid: rowid,
               ),
           createCompanionCallback:
@@ -1031,6 +1105,7 @@ class $$NotebookTemplatesTableTableManager
                 Value<int> downloadCount = const Value.absent(),
                 required String pageConfigJson,
                 Value<String> layersJson = const Value.absent(),
+                Value<Uint8List?> thumbnailPng = const Value.absent(),
                 Value<int> rowid = const Value.absent(),
               }) => NotebookTemplatesCompanion.insert(
                 uuid: uuid,
@@ -1045,6 +1120,7 @@ class $$NotebookTemplatesTableTableManager
                 downloadCount: downloadCount,
                 pageConfigJson: pageConfigJson,
                 layersJson: layersJson,
+                thumbnailPng: thumbnailPng,
                 rowid: rowid,
               ),
           withReferenceMapper: (p0) => p0

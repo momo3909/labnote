@@ -57,7 +57,7 @@ void main() {
     test('A4のデフォルト用紙サイズ', () {
       const config = PageConfig();
       expect(config.paperSize, PaperSize.a4);
-      expect(config.marginLeftMm, 20.0);
+      expect(config.marginLeftMm, 10.0);
     });
 
     test('toJson/fromJsonのラウンドトリップ', () {

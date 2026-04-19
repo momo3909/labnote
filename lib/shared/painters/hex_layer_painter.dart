@@ -1,33 +1,22 @@
 import 'dart:math';
 import 'package:flutter/material.dart';
 import '../models/layer_config.dart';
-import '../models/page_config.dart';
+import 'layer_painter_base.dart';
 import 'painter_utils.dart';
-import '../../core/constants/print_constants.dart';
 
-class HexLayerPainter extends CustomPainter {
+class HexLayerPainter extends LayerPainterBase<HexLayerConfig> {
   const HexLayerPainter({
-    required this.config,
-    required this.pageConfig,
-    required this.color,
-    this.opacity = 1.0,
+    required super.config,
+    required super.pageConfig,
+    required super.color,
+    super.opacity,
+    super.region,
   });
 
-  final HexLayerConfig config;
-  final PageConfig pageConfig;
-  final Color color;
-  final double opacity;
-
   @override
-  void paint(Canvas canvas, Size size) {
-    final paperWidthMm = pageConfig.paperSize == PaperSize.a4 ? a4WidthMm : b5WidthMm;
-    final scale = scaleFactor(size.width, paperWidthMm);
+  void paintContent(Canvas canvas, Rect clip, double scale) {
     final hexR = mmToPx(config.hexSizeMm, scale);
     if (hexR <= 0) return;
-
-    final clip = contentRect(size, pageConfig, scale);
-    canvas.save();
-    canvas.clipRect(clip);
 
     final paint = Paint()
       ..color = color.withValues(alpha: opacity)
@@ -39,11 +28,8 @@ class HexLayerPainter extends CustomPainter {
     } else {
       _drawPointyGrid(canvas, clip, hexR, paint);
     }
-
-    canvas.restore();
   }
 
-  // flat-top: vertices at i*60° (0°=right). Col step = 3/2*r, row step = √3*r
   void _drawFlatGrid(Canvas canvas, Rect clip, double hexR, Paint paint) {
     final colStep = hexR * 3.0 / 2.0;
     final rowStep = hexR * sqrt(3.0);
@@ -62,7 +48,6 @@ class HexLayerPainter extends CustomPainter {
     }
   }
 
-  // pointy-top: vertices at i*60°+30°. Col step = √3*r, row step = 3/2*r
   void _drawPointyGrid(Canvas canvas, Rect clip, double hexR, Paint paint) {
     final colStep = hexR * sqrt(3.0);
     final rowStep = hexR * 3.0 / 2.0;
@@ -96,11 +81,4 @@ class HexLayerPainter extends CustomPainter {
     path.close();
     canvas.drawPath(path, paint);
   }
-
-  @override
-  bool shouldRepaint(HexLayerPainter old) =>
-      old.config != config ||
-      old.pageConfig != pageConfig ||
-      old.color != color ||
-      old.opacity != opacity;
 }

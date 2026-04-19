@@ -1,3 +1,4 @@
+import 'dart:typed_data';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
@@ -123,7 +124,7 @@ class _TemplateListTile extends StatelessWidget {
         return false;
       },
       child: ListTile(
-        leading: const Icon(Icons.grid_on_outlined, color: Color(0xFF1A1A2E)),
+        leading: _SavedThumbnail(thumbnail: template.thumbnailPng),
         title: Text(template.name),
         subtitle: Text(
           _formatDate(template.updatedAt),
@@ -137,4 +138,25 @@ class _TemplateListTile extends StatelessWidget {
 
   String _formatDate(DateTime dt) =>
       '${dt.year}/${dt.month.toString().padLeft(2, '0')}/${dt.day.toString().padLeft(2, '0')}';
+}
+
+class _SavedThumbnail extends StatelessWidget {
+  const _SavedThumbnail({required this.thumbnail});
+  final Uint8List? thumbnail;
+
+  @override
+  Widget build(BuildContext context) {
+    if (thumbnail != null) {
+      return ClipRRect(
+        borderRadius: BorderRadius.circular(4),
+        child: Image.memory(
+          thumbnail!,
+          width: 32,
+          height: 44,
+          fit: BoxFit.cover,
+        ),
+      );
+    }
+    return const Icon(Icons.grid_on_outlined, color: Color(0xFF1A1A2E));
+  }
 }

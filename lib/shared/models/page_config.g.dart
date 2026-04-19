@@ -22,6 +22,8 @@ _$PageConfigImpl _$$PageConfigImplFromJson(Map<String, dynamic> json) =>
           $enumDecodeNullable(_$HoleConfigEnumMap, json['holeConfig']) ??
           HoleConfig.h26,
       pageCount: (json['pageCount'] as num?)?.toInt() ?? 1,
+      showPageNumber: json['showPageNumber'] as bool? ?? false,
+      showLineNumbers: json['showLineNumbers'] as bool? ?? false,
     );
 
 Map<String, dynamic> _$$PageConfigImplToJson(_$PageConfigImpl instance) =>
@@ -34,9 +36,17 @@ Map<String, dynamic> _$$PageConfigImplToJson(_$PageConfigImpl instance) =>
       'marginRightMm': instance.marginRightMm,
       'holeConfig': _$HoleConfigEnumMap[instance.holeConfig]!,
       'pageCount': instance.pageCount,
+      'showPageNumber': instance.showPageNumber,
+      'showLineNumbers': instance.showLineNumbers,
     };
 
-const _$PaperSizeEnumMap = {PaperSize.a4: 'a4', PaperSize.b5: 'b5'};
+const _$PaperSizeEnumMap = {
+  PaperSize.a4: 'a4',
+  PaperSize.b5: 'b5',
+  PaperSize.a3: 'a3',
+  PaperSize.b4: 'b4',
+  PaperSize.letter: 'letter',
+};
 
 const _$PaperOrientationEnumMap = {
   PaperOrientation.portrait: 'portrait',
