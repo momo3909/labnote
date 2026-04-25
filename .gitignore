@@ -61,3 +61,4 @@ GoogleService-Info.plist
 # Uncomment below if you prefer not to commit generated files:
 # *.freezed.dart
 # *.g.dart
+ios/build/
