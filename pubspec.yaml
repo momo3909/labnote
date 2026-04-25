@@ -38,6 +38,13 @@ dependencies:
   firebase_core: ^3.14.0
   firebase_auth: ^5.6.0
   firebase_analytics: ^11.4.6
+  cloud_firestore: ^5.6.0
+
+  # 認証
+  google_sign_in: ^6.2.2
+
+  # 画像選択
+  image_picker: ^1.1.2
 
   # ユーティリティ
   uuid: ^4.5.1

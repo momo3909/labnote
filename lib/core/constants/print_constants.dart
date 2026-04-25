@@ -33,6 +33,13 @@ double effectiveMarginLeftMm(PageConfig pageConfig) {
   return max(pageConfig.marginLeftMm, minLeft);
 }
 
+extension PageConfigExt on PageConfig {
+  double get effectiveWidthMm => orientation == PaperOrientation.landscape
+      ? paperSize.heightMm : paperSize.widthMm;
+  double get effectiveHeightMm => orientation == PaperOrientation.landscape
+      ? paperSize.widthMm : paperSize.heightMm;
+}
+
 extension PaperSizeExt on PaperSize {
   double get widthMm => switch (this) {
     PaperSize.a4 => a4WidthMm,

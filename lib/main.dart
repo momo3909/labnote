@@ -5,15 +5,19 @@ import 'core/router/app_router.dart';
 import 'core/theme/app_theme.dart';
 import 'features/auth/data/firebase_auth_repository.dart';
 import 'features/paywall/domain/entitlement_notifier.dart';
+import 'firebase_options.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
-  // Firebase初期化（GoogleService-Info.plist 設定後に有効になる）
   try {
-    await Firebase.initializeApp();
+    await Firebase.initializeApp(
+      options: DefaultFirebaseOptions.currentPlatform,
+    );
     await FirebaseAuthRepository().signInAnonymously();
-  } catch (_) {}
+  } catch (e) {
+    debugPrint('Firebase init error: $e');
+  }
 
   // RevenueCat初期化（API key設定後に有効になる）
   try {

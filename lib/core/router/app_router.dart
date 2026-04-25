@@ -1,9 +1,15 @@
 import 'package:go_router/go_router.dart';
 import 'package:flutter/material.dart';
+import '../../features/auth/presentation/login_screen.dart';
 import '../../features/templates/presentation/home_screen.dart';
 import '../../features/editor/presentation/editor_screen.dart';
 import '../../features/templates/presentation/saved_list_screen.dart';
+import '../../features/gallery/presentation/gallery_screen.dart';
+import '../../features/profile/presentation/profile_screen.dart';
+import '../../features/profile/presentation/user_profile_screen.dart';
+import '../../features/profile/presentation/ranking_screen.dart';
 import '../../features/settings/presentation/settings_screen.dart';
+import '../../features/settings/presentation/privacy_policy_screen.dart';
 import '../../shared/models/layer_config.dart';
 
 CustomTransitionPage<void> _fadeRoute(GoRouterState state, Widget child) {
@@ -22,10 +28,52 @@ final appRouter = GoRouter(
     ShellRoute(
       builder: (context, state, child) => ScaffoldWithNavBar(child: child),
       routes: [
-        GoRoute(path: '/', builder: (context, state) => const HomeScreen()),
-        GoRoute(path: '/saved', builder: (context, state) => const SavedListScreen()),
-        GoRoute(path: '/settings', builder: (context, state) => const SettingsScreen()),
+        GoRoute(
+          path: '/',
+          pageBuilder: (context, state) =>
+              NoTransitionPage(key: state.pageKey, child: const HomeScreen()),
+        ),
+        GoRoute(
+          path: '/saved',
+          pageBuilder: (context, state) =>
+              NoTransitionPage(key: state.pageKey, child: const SavedListScreen()),
+        ),
+        GoRoute(
+          path: '/gallery',
+          pageBuilder: (context, state) =>
+              NoTransitionPage(key: state.pageKey, child: const GalleryScreen()),
+        ),
+        GoRoute(
+          path: '/settings',
+          pageBuilder: (context, state) =>
+              NoTransitionPage(key: state.pageKey, child: const SettingsScreen()),
+        ),
+        GoRoute(
+          path: '/profile',
+          pageBuilder: (context, state) =>
+              NoTransitionPage(key: state.pageKey, child: const ProfileScreen()),
+        ),
       ],
+    ),
+    GoRoute(
+      path: '/login',
+      pageBuilder: (context, state) => _fadeRoute(state, const LoginScreen()),
+    ),
+    GoRoute(
+      path: '/profile/:uid',
+      pageBuilder: (context, state) => _fadeRoute(
+        state,
+        UserProfileScreen(uid: state.pathParameters['uid']!),
+      ),
+    ),
+    GoRoute(
+      path: '/ranking',
+      pageBuilder: (context, state) => _fadeRoute(state, const RankingScreen()),
+    ),
+    GoRoute(
+      path: '/privacy',
+      pageBuilder: (context, state) =>
+          _fadeRoute(state, const PrivacyPolicyScreen()),
     ),
     GoRoute(
       path: '/editor',
@@ -63,7 +111,9 @@ class ScaffoldWithNavBar extends StatelessWidget {
             case 1:
               context.go('/saved');
             case 2:
-              context.go('/settings');
+              context.go('/gallery');
+            case 3:
+              context.go('/profile');
           }
         },
         selectedIndex: _selectedIndex(context),
@@ -79,9 +129,14 @@ class ScaffoldWithNavBar extends StatelessWidget {
             label: '保存済み',
           ),
           NavigationDestination(
-            icon: Icon(Icons.settings_outlined),
-            selectedIcon: Icon(Icons.settings),
-            label: '設定',
+            icon: Icon(Icons.explore_outlined),
+            selectedIcon: Icon(Icons.explore),
+            label: 'ギャラリー',
+          ),
+          NavigationDestination(
+            icon: Icon(Icons.person_outline),
+            selectedIcon: Icon(Icons.person),
+            label: 'プロフィール',
           ),
         ],
       ),
@@ -91,7 +146,8 @@ class ScaffoldWithNavBar extends StatelessWidget {
   int _selectedIndex(BuildContext context) {
     final location = GoRouterState.of(context).uri.path;
     if (location.startsWith('/saved')) return 1;
-    if (location.startsWith('/settings')) return 2;
+    if (location.startsWith('/gallery')) return 2;
+    if (location.startsWith('/profile')) return 3;
     return 0;
   }
 }

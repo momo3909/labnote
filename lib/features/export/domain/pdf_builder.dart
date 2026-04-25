@@ -8,11 +8,16 @@ import '../../../shared/models/page_config.dart';
 import 'cornell_layer_pdf_renderer.dart';
 import 'dot_layer_pdf_renderer.dart';
 import 'grid_layer_pdf_renderer.dart';
+import 'guide_layer_pdf_renderer.dart';
 import 'hex_layer_pdf_renderer.dart';
+import 'manuscript_layer_pdf_renderer.dart';
+import 'polar_layer_pdf_renderer.dart';
+import 'timetable_layer_pdf_renderer.dart';
 import 'hole_marks_pdf_renderer.dart';
 import 'isometric_layer_pdf_renderer.dart';
-import 'page_elements_pdf_renderer.dart';
 import 'log_grid_layer_pdf_renderer.dart';
+import 'page_elements_pdf_renderer.dart';
+import 'region_layer_pdf_renderer.dart';
 
 PdfColor pdfColorFromHex(String hex) {
   final h = hex.replaceFirst('#', '');
@@ -85,15 +90,28 @@ class PdfBuilder {
         CornellLayerConfig() => CornellLayerPdfRenderer(
             config: config, pageConfig: pageConfig, color: color,
             opacity: layer.opacity, region: region).build(),
-        RegionLayerConfig() => pw.SizedBox.shrink(),
-        GuideLayerConfig() => pw.SizedBox.shrink(),
+        PolarLayerConfig() => PolarLayerPdfRenderer(
+            config: config, pageConfig: pageConfig, color: color,
+            opacity: layer.opacity, region: region).build(),
+        ManuscriptLayerConfig() => ManuscriptLayerPdfRenderer(
+            config: config, pageConfig: pageConfig, color: color,
+            opacity: layer.opacity, region: region).build(),
+        TimetableLayerConfig() => TimetableLayerPdfRenderer(
+            config: config, pageConfig: pageConfig, color: color,
+            opacity: layer.opacity, region: region).build(),
+        RegionLayerConfig() => RegionLayerPdfRenderer(
+            config: config, pageConfig: pageConfig, color: color,
+            opacity: layer.opacity, region: region).build(),
+        GuideLayerConfig() => GuideLayerPdfRenderer(
+            config: config, pageConfig: pageConfig, color: color,
+            opacity: layer.opacity, region: region).build(),
       };
     }).toList();
   }
 
   static PdfPageFormat _pdfPageFormat(PageConfig config) {
-    final w = toPoints(config.paperSize.widthMm);
-    final h = toPoints(config.paperSize.heightMm);
+    final w = toPoints(config.effectiveWidthMm);
+    final h = toPoints(config.effectiveHeightMm);
     final margin = _marginPoints(config);
     return PdfPageFormat(w, h,
       marginTop: margin.top,

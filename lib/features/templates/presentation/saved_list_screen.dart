@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import '../../../features/editor/domain/editor_notifier.dart';
+import '../../../features/gallery/data/gallery_repository.dart';
+import '../../../features/gallery/domain/gallery_notifier.dart';
 import '../../../features/paywall/domain/entitlement_notifier.dart';
 import '../../../features/paywall/domain/free_limits.dart';
 import '../../../features/paywall/presentation/paywall_modal.dart';
@@ -64,6 +66,7 @@ class SavedListScreen extends ConsumerWidget {
                   itemBuilder: (context, i) => _TemplateListTile(
                     template: templates[i],
                     onDelete: () => _confirmDelete(context, ref, templates[i]),
+                    onPublish: () => _publishToGallery(context, ref, templates[i]),
                   ),
                 ),
               ),
@@ -72,6 +75,36 @@ class SavedListScreen extends ConsumerWidget {
         },
       ),
     );
+  }
+
+  Future<void> _publishToGallery(
+    BuildContext context,
+    WidgetRef ref,
+    NotebookTemplate template,
+  ) async {
+    final result = await showDialog<({String description, List<String> tags})>(
+      context: context,
+      builder: (ctx) => _PublishDialog(templateName: template.name),
+    );
+    if (result == null || !context.mounted) return;
+
+    try {
+      await ref.read(galleryRepositoryProvider).publish(
+            template,
+            description: result.description,
+            tags: result.tags,
+          );
+      if (!context.mounted) return;
+      ref.invalidate(galleryNotifierProvider);
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(content: Text('ギャラリーに投稿しました')),
+      );
+    } catch (e) {
+      if (!context.mounted) return;
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text('投稿エラー: $e')),
+      );
+    }
   }
 
   Future<void> _confirmDelete(
@@ -104,9 +137,14 @@ class SavedListScreen extends ConsumerWidget {
 }
 
 class _TemplateListTile extends StatelessWidget {
-  const _TemplateListTile({required this.template, required this.onDelete});
+  const _TemplateListTile({
+    required this.template,
+    required this.onDelete,
+    required this.onPublish,
+  });
   final NotebookTemplate template;
   final VoidCallback onDelete;
+  final VoidCallback onPublish;
 
   @override
   Widget build(BuildContext context) {
@@ -130,7 +168,44 @@ class _TemplateListTile extends StatelessWidget {
           _formatDate(template.updatedAt),
           style: const TextStyle(fontSize: 12),
         ),
-        trailing: const Icon(Icons.chevron_right, size: 18, color: Colors.black38),
+        trailing: PopupMenuButton<_TileAction>(
+          icon: const Icon(Icons.more_vert, size: 18, color: Colors.black38),
+          onSelected: (action) {
+            if (action == _TileAction.open) {
+              context.push('/editor/${template.uuid}');
+            } else if (action == _TileAction.publish) {
+              onPublish();
+            } else if (action == _TileAction.delete) {
+              onDelete();
+            }
+          },
+          itemBuilder: (_) => const [
+            PopupMenuItem(
+              value: _TileAction.open,
+              child: ListTile(
+                leading: Icon(Icons.edit_outlined),
+                title: Text('編集'),
+                contentPadding: EdgeInsets.zero,
+              ),
+            ),
+            PopupMenuItem(
+              value: _TileAction.publish,
+              child: ListTile(
+                leading: Icon(Icons.upload_outlined),
+                title: Text('ギャラリーに投稿'),
+                contentPadding: EdgeInsets.zero,
+              ),
+            ),
+            PopupMenuItem(
+              value: _TileAction.delete,
+              child: ListTile(
+                leading: Icon(Icons.delete_outline, color: Colors.red),
+                title: Text('削除', style: TextStyle(color: Colors.red)),
+                contentPadding: EdgeInsets.zero,
+              ),
+            ),
+          ],
+        ),
         onTap: () => context.push('/editor/${template.uuid}'),
       ),
     );
@@ -138,6 +213,126 @@ class _TemplateListTile extends StatelessWidget {
 
   String _formatDate(DateTime dt) =>
       '${dt.year}/${dt.month.toString().padLeft(2, '0')}/${dt.day.toString().padLeft(2, '0')}';
+}
+
+enum _TileAction { open, publish, delete }
+
+class _PublishDialog extends StatefulWidget {
+  const _PublishDialog({required this.templateName});
+  final String templateName;
+
+  @override
+  State<_PublishDialog> createState() => _PublishDialogState();
+}
+
+class _PublishDialogState extends State<_PublishDialog> {
+  final _descController = TextEditingController();
+  final _tagController = TextEditingController();
+  final List<String> _tags = [];
+
+  void _addTag() {
+    final tag = _tagController.text.trim();
+    if (tag.isEmpty || _tags.contains(tag) || _tags.length >= 5) return;
+    setState(() {
+      _tags.add(tag);
+      _tagController.clear();
+    });
+  }
+
+  @override
+  void dispose() {
+    _descController.dispose();
+    _tagController.dispose();
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return AlertDialog(
+      title: const Text('ギャラリーに投稿'),
+      content: SingleChildScrollView(
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text('「${widget.templateName}」を公開します。'),
+            const SizedBox(height: 12),
+            TextField(
+              controller: _descController,
+              maxLines: 2,
+              decoration: const InputDecoration(
+                labelText: '説明（任意）',
+                hintText: '例: 理系向け方眼＋コーネルノート',
+                border: OutlineInputBorder(),
+              ),
+            ),
+            const SizedBox(height: 12),
+            const Text('タグ（最大5件）',
+                style: TextStyle(fontSize: 13, color: Colors.black54)),
+            const SizedBox(height: 6),
+            if (_tags.isNotEmpty)
+              Wrap(
+                spacing: 6,
+                runSpacing: 4,
+                children: _tags
+                    .map(
+                      (tag) => InputChip(
+                        label: Text(tag,
+                            style: const TextStyle(fontSize: 12)),
+                        onDeleted: () =>
+                            setState(() => _tags.remove(tag)),
+                        visualDensity: VisualDensity.compact,
+                        materialTapTargetSize:
+                            MaterialTapTargetSize.shrinkWrap,
+                      ),
+                    )
+                    .toList(),
+              ),
+            if (_tags.length < 5) ...[
+              const SizedBox(height: 6),
+              Row(
+                children: [
+                  Expanded(
+                    child: TextField(
+                      controller: _tagController,
+                      decoration: const InputDecoration(
+                        hintText: 'タグを入力してEnter',
+                        isDense: true,
+                        border: OutlineInputBorder(),
+                        contentPadding: EdgeInsets.symmetric(
+                            horizontal: 10, vertical: 8),
+                      ),
+                      onSubmitted: (_) => _addTag(),
+                    ),
+                  ),
+                  const SizedBox(width: 8),
+                  IconButton(
+                    icon: const Icon(Icons.add_circle_outline),
+                    onPressed: _addTag,
+                    padding: EdgeInsets.zero,
+                    constraints: const BoxConstraints(),
+                  ),
+                ],
+              ),
+            ],
+          ],
+        ),
+      ),
+      actions: [
+        TextButton(
+          onPressed: () => Navigator.pop(context),
+          child: const Text('キャンセル'),
+        ),
+        FilledButton(
+          onPressed: () => Navigator.pop(
+            context,
+            (description: _descController.text.trim(), tags: List<String>.from(_tags)),
+          ),
+          child: const Text('投稿'),
+        ),
+      ],
+    );
+  }
 }
 
 class _SavedThumbnail extends StatelessWidget {

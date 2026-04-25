@@ -29,6 +29,12 @@ LayerConfig _$LayerConfigFromJson(Map<String, dynamic> json) {
       return LogGridLayerConfig.fromJson(json);
     case 'cornell':
       return CornellLayerConfig.fromJson(json);
+    case 'polar':
+      return PolarLayerConfig.fromJson(json);
+    case 'manuscript':
+      return ManuscriptLayerConfig.fromJson(json);
+    case 'timetable':
+      return TimetableLayerConfig.fromJson(json);
     case 'region':
       return RegionLayerConfig.fromJson(json);
     case 'guide':
@@ -73,6 +79,10 @@ mixin _$LayerConfig {
       double lineSpacingMm,
     )
     cornell,
+    required TResult Function(int rings, int sectors) polar,
+    required TResult Function(int columns, int rows) manuscript,
+    required TResult Function(int startHour, int endHour, int daysCount)
+    timetable,
     required TResult Function(List<PageRegion> regions) region,
     required TResult Function(GuideType guideType, Map<String, dynamic> params)
     guide,
@@ -104,6 +114,9 @@ mixin _$LayerConfig {
       double lineSpacingMm,
     )?
     cornell,
+    TResult? Function(int rings, int sectors)? polar,
+    TResult? Function(int columns, int rows)? manuscript,
+    TResult? Function(int startHour, int endHour, int daysCount)? timetable,
     TResult? Function(List<PageRegion> regions)? region,
     TResult? Function(GuideType guideType, Map<String, dynamic> params)? guide,
   }) => throw _privateConstructorUsedError;
@@ -134,6 +147,9 @@ mixin _$LayerConfig {
       double lineSpacingMm,
     )?
     cornell,
+    TResult Function(int rings, int sectors)? polar,
+    TResult Function(int columns, int rows)? manuscript,
+    TResult Function(int startHour, int endHour, int daysCount)? timetable,
     TResult Function(List<PageRegion> regions)? region,
     TResult Function(GuideType guideType, Map<String, dynamic> params)? guide,
     required TResult orElse(),
@@ -146,6 +162,9 @@ mixin _$LayerConfig {
     required TResult Function(DotLayerConfig value) dot,
     required TResult Function(LogGridLayerConfig value) logGrid,
     required TResult Function(CornellLayerConfig value) cornell,
+    required TResult Function(PolarLayerConfig value) polar,
+    required TResult Function(ManuscriptLayerConfig value) manuscript,
+    required TResult Function(TimetableLayerConfig value) timetable,
     required TResult Function(RegionLayerConfig value) region,
     required TResult Function(GuideLayerConfig value) guide,
   }) => throw _privateConstructorUsedError;
@@ -157,6 +176,9 @@ mixin _$LayerConfig {
     TResult? Function(DotLayerConfig value)? dot,
     TResult? Function(LogGridLayerConfig value)? logGrid,
     TResult? Function(CornellLayerConfig value)? cornell,
+    TResult? Function(PolarLayerConfig value)? polar,
+    TResult? Function(ManuscriptLayerConfig value)? manuscript,
+    TResult? Function(TimetableLayerConfig value)? timetable,
     TResult? Function(RegionLayerConfig value)? region,
     TResult? Function(GuideLayerConfig value)? guide,
   }) => throw _privateConstructorUsedError;
@@ -168,6 +190,9 @@ mixin _$LayerConfig {
     TResult Function(DotLayerConfig value)? dot,
     TResult Function(LogGridLayerConfig value)? logGrid,
     TResult Function(CornellLayerConfig value)? cornell,
+    TResult Function(PolarLayerConfig value)? polar,
+    TResult Function(ManuscriptLayerConfig value)? manuscript,
+    TResult Function(TimetableLayerConfig value)? timetable,
     TResult Function(RegionLayerConfig value)? region,
     TResult Function(GuideLayerConfig value)? guide,
     required TResult orElse(),
@@ -380,6 +405,10 @@ class _$GridLayerConfigImpl implements GridLayerConfig {
       double lineSpacingMm,
     )
     cornell,
+    required TResult Function(int rings, int sectors) polar,
+    required TResult Function(int columns, int rows) manuscript,
+    required TResult Function(int startHour, int endHour, int daysCount)
+    timetable,
     required TResult Function(List<PageRegion> regions) region,
     required TResult Function(GuideType guideType, Map<String, dynamic> params)
     guide,
@@ -422,6 +451,9 @@ class _$GridLayerConfigImpl implements GridLayerConfig {
       double lineSpacingMm,
     )?
     cornell,
+    TResult? Function(int rings, int sectors)? polar,
+    TResult? Function(int columns, int rows)? manuscript,
+    TResult? Function(int startHour, int endHour, int daysCount)? timetable,
     TResult? Function(List<PageRegion> regions)? region,
     TResult? Function(GuideType guideType, Map<String, dynamic> params)? guide,
   }) {
@@ -463,6 +495,9 @@ class _$GridLayerConfigImpl implements GridLayerConfig {
       double lineSpacingMm,
     )?
     cornell,
+    TResult Function(int rings, int sectors)? polar,
+    TResult Function(int columns, int rows)? manuscript,
+    TResult Function(int startHour, int endHour, int daysCount)? timetable,
     TResult Function(List<PageRegion> regions)? region,
     TResult Function(GuideType guideType, Map<String, dynamic> params)? guide,
     required TResult orElse(),
@@ -489,6 +524,9 @@ class _$GridLayerConfigImpl implements GridLayerConfig {
     required TResult Function(DotLayerConfig value) dot,
     required TResult Function(LogGridLayerConfig value) logGrid,
     required TResult Function(CornellLayerConfig value) cornell,
+    required TResult Function(PolarLayerConfig value) polar,
+    required TResult Function(ManuscriptLayerConfig value) manuscript,
+    required TResult Function(TimetableLayerConfig value) timetable,
     required TResult Function(RegionLayerConfig value) region,
     required TResult Function(GuideLayerConfig value) guide,
   }) {
@@ -504,6 +542,9 @@ class _$GridLayerConfigImpl implements GridLayerConfig {
     TResult? Function(DotLayerConfig value)? dot,
     TResult? Function(LogGridLayerConfig value)? logGrid,
     TResult? Function(CornellLayerConfig value)? cornell,
+    TResult? Function(PolarLayerConfig value)? polar,
+    TResult? Function(ManuscriptLayerConfig value)? manuscript,
+    TResult? Function(TimetableLayerConfig value)? timetable,
     TResult? Function(RegionLayerConfig value)? region,
     TResult? Function(GuideLayerConfig value)? guide,
   }) {
@@ -519,6 +560,9 @@ class _$GridLayerConfigImpl implements GridLayerConfig {
     TResult Function(DotLayerConfig value)? dot,
     TResult Function(LogGridLayerConfig value)? logGrid,
     TResult Function(CornellLayerConfig value)? cornell,
+    TResult Function(PolarLayerConfig value)? polar,
+    TResult Function(ManuscriptLayerConfig value)? manuscript,
+    TResult Function(TimetableLayerConfig value)? timetable,
     TResult Function(RegionLayerConfig value)? region,
     TResult Function(GuideLayerConfig value)? guide,
     required TResult orElse(),
@@ -682,6 +726,10 @@ class _$HexLayerConfigImpl implements HexLayerConfig {
       double lineSpacingMm,
     )
     cornell,
+    required TResult Function(int rings, int sectors) polar,
+    required TResult Function(int columns, int rows) manuscript,
+    required TResult Function(int startHour, int endHour, int daysCount)
+    timetable,
     required TResult Function(List<PageRegion> regions) region,
     required TResult Function(GuideType guideType, Map<String, dynamic> params)
     guide,
@@ -717,6 +765,9 @@ class _$HexLayerConfigImpl implements HexLayerConfig {
       double lineSpacingMm,
     )?
     cornell,
+    TResult? Function(int rings, int sectors)? polar,
+    TResult? Function(int columns, int rows)? manuscript,
+    TResult? Function(int startHour, int endHour, int daysCount)? timetable,
     TResult? Function(List<PageRegion> regions)? region,
     TResult? Function(GuideType guideType, Map<String, dynamic> params)? guide,
   }) {
@@ -751,6 +802,9 @@ class _$HexLayerConfigImpl implements HexLayerConfig {
       double lineSpacingMm,
     )?
     cornell,
+    TResult Function(int rings, int sectors)? polar,
+    TResult Function(int columns, int rows)? manuscript,
+    TResult Function(int startHour, int endHour, int daysCount)? timetable,
     TResult Function(List<PageRegion> regions)? region,
     TResult Function(GuideType guideType, Map<String, dynamic> params)? guide,
     required TResult orElse(),
@@ -770,6 +824,9 @@ class _$HexLayerConfigImpl implements HexLayerConfig {
     required TResult Function(DotLayerConfig value) dot,
     required TResult Function(LogGridLayerConfig value) logGrid,
     required TResult Function(CornellLayerConfig value) cornell,
+    required TResult Function(PolarLayerConfig value) polar,
+    required TResult Function(ManuscriptLayerConfig value) manuscript,
+    required TResult Function(TimetableLayerConfig value) timetable,
     required TResult Function(RegionLayerConfig value) region,
     required TResult Function(GuideLayerConfig value) guide,
   }) {
@@ -785,6 +842,9 @@ class _$HexLayerConfigImpl implements HexLayerConfig {
     TResult? Function(DotLayerConfig value)? dot,
     TResult? Function(LogGridLayerConfig value)? logGrid,
     TResult? Function(CornellLayerConfig value)? cornell,
+    TResult? Function(PolarLayerConfig value)? polar,
+    TResult? Function(ManuscriptLayerConfig value)? manuscript,
+    TResult? Function(TimetableLayerConfig value)? timetable,
     TResult? Function(RegionLayerConfig value)? region,
     TResult? Function(GuideLayerConfig value)? guide,
   }) {
@@ -800,6 +860,9 @@ class _$HexLayerConfigImpl implements HexLayerConfig {
     TResult Function(DotLayerConfig value)? dot,
     TResult Function(LogGridLayerConfig value)? logGrid,
     TResult Function(CornellLayerConfig value)? cornell,
+    TResult Function(PolarLayerConfig value)? polar,
+    TResult Function(ManuscriptLayerConfig value)? manuscript,
+    TResult Function(TimetableLayerConfig value)? timetable,
     TResult Function(RegionLayerConfig value)? region,
     TResult Function(GuideLayerConfig value)? guide,
     required TResult orElse(),
@@ -944,6 +1007,10 @@ class _$IsometricLayerConfigImpl implements IsometricLayerConfig {
       double lineSpacingMm,
     )
     cornell,
+    required TResult Function(int rings, int sectors) polar,
+    required TResult Function(int columns, int rows) manuscript,
+    required TResult Function(int startHour, int endHour, int daysCount)
+    timetable,
     required TResult Function(List<PageRegion> regions) region,
     required TResult Function(GuideType guideType, Map<String, dynamic> params)
     guide,
@@ -979,6 +1046,9 @@ class _$IsometricLayerConfigImpl implements IsometricLayerConfig {
       double lineSpacingMm,
     )?
     cornell,
+    TResult? Function(int rings, int sectors)? polar,
+    TResult? Function(int columns, int rows)? manuscript,
+    TResult? Function(int startHour, int endHour, int daysCount)? timetable,
     TResult? Function(List<PageRegion> regions)? region,
     TResult? Function(GuideType guideType, Map<String, dynamic> params)? guide,
   }) {
@@ -1013,6 +1083,9 @@ class _$IsometricLayerConfigImpl implements IsometricLayerConfig {
       double lineSpacingMm,
     )?
     cornell,
+    TResult Function(int rings, int sectors)? polar,
+    TResult Function(int columns, int rows)? manuscript,
+    TResult Function(int startHour, int endHour, int daysCount)? timetable,
     TResult Function(List<PageRegion> regions)? region,
     TResult Function(GuideType guideType, Map<String, dynamic> params)? guide,
     required TResult orElse(),
@@ -1032,6 +1105,9 @@ class _$IsometricLayerConfigImpl implements IsometricLayerConfig {
     required TResult Function(DotLayerConfig value) dot,
     required TResult Function(LogGridLayerConfig value) logGrid,
     required TResult Function(CornellLayerConfig value) cornell,
+    required TResult Function(PolarLayerConfig value) polar,
+    required TResult Function(ManuscriptLayerConfig value) manuscript,
+    required TResult Function(TimetableLayerConfig value) timetable,
     required TResult Function(RegionLayerConfig value) region,
     required TResult Function(GuideLayerConfig value) guide,
   }) {
@@ -1047,6 +1123,9 @@ class _$IsometricLayerConfigImpl implements IsometricLayerConfig {
     TResult? Function(DotLayerConfig value)? dot,
     TResult? Function(LogGridLayerConfig value)? logGrid,
     TResult? Function(CornellLayerConfig value)? cornell,
+    TResult? Function(PolarLayerConfig value)? polar,
+    TResult? Function(ManuscriptLayerConfig value)? manuscript,
+    TResult? Function(TimetableLayerConfig value)? timetable,
     TResult? Function(RegionLayerConfig value)? region,
     TResult? Function(GuideLayerConfig value)? guide,
   }) {
@@ -1062,6 +1141,9 @@ class _$IsometricLayerConfigImpl implements IsometricLayerConfig {
     TResult Function(DotLayerConfig value)? dot,
     TResult Function(LogGridLayerConfig value)? logGrid,
     TResult Function(CornellLayerConfig value)? cornell,
+    TResult Function(PolarLayerConfig value)? polar,
+    TResult Function(ManuscriptLayerConfig value)? manuscript,
+    TResult Function(TimetableLayerConfig value)? timetable,
     TResult Function(RegionLayerConfig value)? region,
     TResult Function(GuideLayerConfig value)? guide,
     required TResult orElse(),
@@ -1214,6 +1296,10 @@ class _$DotLayerConfigImpl implements DotLayerConfig {
       double lineSpacingMm,
     )
     cornell,
+    required TResult Function(int rings, int sectors) polar,
+    required TResult Function(int columns, int rows) manuscript,
+    required TResult Function(int startHour, int endHour, int daysCount)
+    timetable,
     required TResult Function(List<PageRegion> regions) region,
     required TResult Function(GuideType guideType, Map<String, dynamic> params)
     guide,
@@ -1249,6 +1335,9 @@ class _$DotLayerConfigImpl implements DotLayerConfig {
       double lineSpacingMm,
     )?
     cornell,
+    TResult? Function(int rings, int sectors)? polar,
+    TResult? Function(int columns, int rows)? manuscript,
+    TResult? Function(int startHour, int endHour, int daysCount)? timetable,
     TResult? Function(List<PageRegion> regions)? region,
     TResult? Function(GuideType guideType, Map<String, dynamic> params)? guide,
   }) {
@@ -1283,6 +1372,9 @@ class _$DotLayerConfigImpl implements DotLayerConfig {
       double lineSpacingMm,
     )?
     cornell,
+    TResult Function(int rings, int sectors)? polar,
+    TResult Function(int columns, int rows)? manuscript,
+    TResult Function(int startHour, int endHour, int daysCount)? timetable,
     TResult Function(List<PageRegion> regions)? region,
     TResult Function(GuideType guideType, Map<String, dynamic> params)? guide,
     required TResult orElse(),
@@ -1302,6 +1394,9 @@ class _$DotLayerConfigImpl implements DotLayerConfig {
     required TResult Function(DotLayerConfig value) dot,
     required TResult Function(LogGridLayerConfig value) logGrid,
     required TResult Function(CornellLayerConfig value) cornell,
+    required TResult Function(PolarLayerConfig value) polar,
+    required TResult Function(ManuscriptLayerConfig value) manuscript,
+    required TResult Function(TimetableLayerConfig value) timetable,
     required TResult Function(RegionLayerConfig value) region,
     required TResult Function(GuideLayerConfig value) guide,
   }) {
@@ -1317,6 +1412,9 @@ class _$DotLayerConfigImpl implements DotLayerConfig {
     TResult? Function(DotLayerConfig value)? dot,
     TResult? Function(LogGridLayerConfig value)? logGrid,
     TResult? Function(CornellLayerConfig value)? cornell,
+    TResult? Function(PolarLayerConfig value)? polar,
+    TResult? Function(ManuscriptLayerConfig value)? manuscript,
+    TResult? Function(TimetableLayerConfig value)? timetable,
     TResult? Function(RegionLayerConfig value)? region,
     TResult? Function(GuideLayerConfig value)? guide,
   }) {
@@ -1332,6 +1430,9 @@ class _$DotLayerConfigImpl implements DotLayerConfig {
     TResult Function(DotLayerConfig value)? dot,
     TResult Function(LogGridLayerConfig value)? logGrid,
     TResult Function(CornellLayerConfig value)? cornell,
+    TResult Function(PolarLayerConfig value)? polar,
+    TResult Function(ManuscriptLayerConfig value)? manuscript,
+    TResult Function(TimetableLayerConfig value)? timetable,
     TResult Function(RegionLayerConfig value)? region,
     TResult Function(GuideLayerConfig value)? guide,
     required TResult orElse(),
@@ -1511,6 +1612,10 @@ class _$LogGridLayerConfigImpl implements LogGridLayerConfig {
       double lineSpacingMm,
     )
     cornell,
+    required TResult Function(int rings, int sectors) polar,
+    required TResult Function(int columns, int rows) manuscript,
+    required TResult Function(int startHour, int endHour, int daysCount)
+    timetable,
     required TResult Function(List<PageRegion> regions) region,
     required TResult Function(GuideType guideType, Map<String, dynamic> params)
     guide,
@@ -1546,6 +1651,9 @@ class _$LogGridLayerConfigImpl implements LogGridLayerConfig {
       double lineSpacingMm,
     )?
     cornell,
+    TResult? Function(int rings, int sectors)? polar,
+    TResult? Function(int columns, int rows)? manuscript,
+    TResult? Function(int startHour, int endHour, int daysCount)? timetable,
     TResult? Function(List<PageRegion> regions)? region,
     TResult? Function(GuideType guideType, Map<String, dynamic> params)? guide,
   }) {
@@ -1580,6 +1688,9 @@ class _$LogGridLayerConfigImpl implements LogGridLayerConfig {
       double lineSpacingMm,
     )?
     cornell,
+    TResult Function(int rings, int sectors)? polar,
+    TResult Function(int columns, int rows)? manuscript,
+    TResult Function(int startHour, int endHour, int daysCount)? timetable,
     TResult Function(List<PageRegion> regions)? region,
     TResult Function(GuideType guideType, Map<String, dynamic> params)? guide,
     required TResult orElse(),
@@ -1599,6 +1710,9 @@ class _$LogGridLayerConfigImpl implements LogGridLayerConfig {
     required TResult Function(DotLayerConfig value) dot,
     required TResult Function(LogGridLayerConfig value) logGrid,
     required TResult Function(CornellLayerConfig value) cornell,
+    required TResult Function(PolarLayerConfig value) polar,
+    required TResult Function(ManuscriptLayerConfig value) manuscript,
+    required TResult Function(TimetableLayerConfig value) timetable,
     required TResult Function(RegionLayerConfig value) region,
     required TResult Function(GuideLayerConfig value) guide,
   }) {
@@ -1614,6 +1728,9 @@ class _$LogGridLayerConfigImpl implements LogGridLayerConfig {
     TResult? Function(DotLayerConfig value)? dot,
     TResult? Function(LogGridLayerConfig value)? logGrid,
     TResult? Function(CornellLayerConfig value)? cornell,
+    TResult? Function(PolarLayerConfig value)? polar,
+    TResult? Function(ManuscriptLayerConfig value)? manuscript,
+    TResult? Function(TimetableLayerConfig value)? timetable,
     TResult? Function(RegionLayerConfig value)? region,
     TResult? Function(GuideLayerConfig value)? guide,
   }) {
@@ -1629,6 +1746,9 @@ class _$LogGridLayerConfigImpl implements LogGridLayerConfig {
     TResult Function(DotLayerConfig value)? dot,
     TResult Function(LogGridLayerConfig value)? logGrid,
     TResult Function(CornellLayerConfig value)? cornell,
+    TResult Function(PolarLayerConfig value)? polar,
+    TResult Function(ManuscriptLayerConfig value)? manuscript,
+    TResult Function(TimetableLayerConfig value)? timetable,
     TResult Function(RegionLayerConfig value)? region,
     TResult Function(GuideLayerConfig value)? guide,
     required TResult orElse(),
@@ -1803,6 +1923,10 @@ class _$CornellLayerConfigImpl implements CornellLayerConfig {
       double lineSpacingMm,
     )
     cornell,
+    required TResult Function(int rings, int sectors) polar,
+    required TResult Function(int columns, int rows) manuscript,
+    required TResult Function(int startHour, int endHour, int daysCount)
+    timetable,
     required TResult Function(List<PageRegion> regions) region,
     required TResult Function(GuideType guideType, Map<String, dynamic> params)
     guide,
@@ -1838,6 +1962,9 @@ class _$CornellLayerConfigImpl implements CornellLayerConfig {
       double lineSpacingMm,
     )?
     cornell,
+    TResult? Function(int rings, int sectors)? polar,
+    TResult? Function(int columns, int rows)? manuscript,
+    TResult? Function(int startHour, int endHour, int daysCount)? timetable,
     TResult? Function(List<PageRegion> regions)? region,
     TResult? Function(GuideType guideType, Map<String, dynamic> params)? guide,
   }) {
@@ -1872,6 +1999,9 @@ class _$CornellLayerConfigImpl implements CornellLayerConfig {
       double lineSpacingMm,
     )?
     cornell,
+    TResult Function(int rings, int sectors)? polar,
+    TResult Function(int columns, int rows)? manuscript,
+    TResult Function(int startHour, int endHour, int daysCount)? timetable,
     TResult Function(List<PageRegion> regions)? region,
     TResult Function(GuideType guideType, Map<String, dynamic> params)? guide,
     required TResult orElse(),
@@ -1891,6 +2021,9 @@ class _$CornellLayerConfigImpl implements CornellLayerConfig {
     required TResult Function(DotLayerConfig value) dot,
     required TResult Function(LogGridLayerConfig value) logGrid,
     required TResult Function(CornellLayerConfig value) cornell,
+    required TResult Function(PolarLayerConfig value) polar,
+    required TResult Function(ManuscriptLayerConfig value) manuscript,
+    required TResult Function(TimetableLayerConfig value) timetable,
     required TResult Function(RegionLayerConfig value) region,
     required TResult Function(GuideLayerConfig value) guide,
   }) {
@@ -1906,6 +2039,9 @@ class _$CornellLayerConfigImpl implements CornellLayerConfig {
     TResult? Function(DotLayerConfig value)? dot,
     TResult? Function(LogGridLayerConfig value)? logGrid,
     TResult? Function(CornellLayerConfig value)? cornell,
+    TResult? Function(PolarLayerConfig value)? polar,
+    TResult? Function(ManuscriptLayerConfig value)? manuscript,
+    TResult? Function(TimetableLayerConfig value)? timetable,
     TResult? Function(RegionLayerConfig value)? region,
     TResult? Function(GuideLayerConfig value)? guide,
   }) {
@@ -1921,6 +2057,9 @@ class _$CornellLayerConfigImpl implements CornellLayerConfig {
     TResult Function(DotLayerConfig value)? dot,
     TResult Function(LogGridLayerConfig value)? logGrid,
     TResult Function(CornellLayerConfig value)? cornell,
+    TResult Function(PolarLayerConfig value)? polar,
+    TResult Function(ManuscriptLayerConfig value)? manuscript,
+    TResult Function(TimetableLayerConfig value)? timetable,
     TResult Function(RegionLayerConfig value)? region,
     TResult Function(GuideLayerConfig value)? guide,
     required TResult orElse(),
@@ -1956,6 +2095,891 @@ abstract class CornellLayerConfig implements LayerConfig {
   @JsonKey(includeFromJson: false, includeToJson: false)
   _$$CornellLayerConfigImplCopyWith<_$CornellLayerConfigImpl> get copyWith =>
       throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class _$$PolarLayerConfigImplCopyWith<$Res> {
+  factory _$$PolarLayerConfigImplCopyWith(
+    _$PolarLayerConfigImpl value,
+    $Res Function(_$PolarLayerConfigImpl) then,
+  ) = __$$PolarLayerConfigImplCopyWithImpl<$Res>;
+  @useResult
+  $Res call({int rings, int sectors});
+}
+
+/// @nodoc
+class __$$PolarLayerConfigImplCopyWithImpl<$Res>
+    extends _$LayerConfigCopyWithImpl<$Res, _$PolarLayerConfigImpl>
+    implements _$$PolarLayerConfigImplCopyWith<$Res> {
+  __$$PolarLayerConfigImplCopyWithImpl(
+    _$PolarLayerConfigImpl _value,
+    $Res Function(_$PolarLayerConfigImpl) _then,
+  ) : super(_value, _then);
+
+  /// Create a copy of LayerConfig
+  /// with the given fields replaced by the non-null parameter values.
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({Object? rings = null, Object? sectors = null}) {
+    return _then(
+      _$PolarLayerConfigImpl(
+        rings: null == rings
+            ? _value.rings
+            : rings // ignore: cast_nullable_to_non_nullable
+                  as int,
+        sectors: null == sectors
+            ? _value.sectors
+            : sectors // ignore: cast_nullable_to_non_nullable
+                  as int,
+      ),
+    );
+  }
+}
+
+/// @nodoc
+@JsonSerializable()
+class _$PolarLayerConfigImpl implements PolarLayerConfig {
+  const _$PolarLayerConfigImpl({
+    this.rings = 6,
+    this.sectors = 12,
+    final String? $type,
+  }) : $type = $type ?? 'polar';
+
+  factory _$PolarLayerConfigImpl.fromJson(Map<String, dynamic> json) =>
+      _$$PolarLayerConfigImplFromJson(json);
+
+  @override
+  @JsonKey()
+  final int rings;
+  @override
+  @JsonKey()
+  final int sectors;
+
+  @JsonKey(name: 'runtimeType')
+  final String $type;
+
+  @override
+  String toString() {
+    return 'LayerConfig.polar(rings: $rings, sectors: $sectors)';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$PolarLayerConfigImpl &&
+            (identical(other.rings, rings) || other.rings == rings) &&
+            (identical(other.sectors, sectors) || other.sectors == sectors));
+  }
+
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  @override
+  int get hashCode => Object.hash(runtimeType, rings, sectors);
+
+  /// Create a copy of LayerConfig
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$PolarLayerConfigImplCopyWith<_$PolarLayerConfigImpl> get copyWith =>
+      __$$PolarLayerConfigImplCopyWithImpl<_$PolarLayerConfigImpl>(
+        this,
+        _$identity,
+      );
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function(
+      double cellWidthMm,
+      double cellHeightMm,
+      LineStyle lineStyle,
+      int? boldEvery,
+      bool showHorizontal,
+      bool showVertical,
+    )
+    grid,
+    required TResult Function(double hexSizeMm, HexOrientation orientation) hex,
+    required TResult Function(double spacingMm) isometric,
+    required TResult Function(double spacingMm, double dotRadiusMm) dot,
+    required TResult Function(
+      LogScale xScale,
+      LogScale yScale,
+      int xDecades,
+      int yDecades,
+    )
+    logGrid,
+    required TResult Function(
+      double leftColMm,
+      double bottomRowMm,
+      double lineSpacingMm,
+    )
+    cornell,
+    required TResult Function(int rings, int sectors) polar,
+    required TResult Function(int columns, int rows) manuscript,
+    required TResult Function(int startHour, int endHour, int daysCount)
+    timetable,
+    required TResult Function(List<PageRegion> regions) region,
+    required TResult Function(GuideType guideType, Map<String, dynamic> params)
+    guide,
+  }) {
+    return polar(rings, sectors);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function(
+      double cellWidthMm,
+      double cellHeightMm,
+      LineStyle lineStyle,
+      int? boldEvery,
+      bool showHorizontal,
+      bool showVertical,
+    )?
+    grid,
+    TResult? Function(double hexSizeMm, HexOrientation orientation)? hex,
+    TResult? Function(double spacingMm)? isometric,
+    TResult? Function(double spacingMm, double dotRadiusMm)? dot,
+    TResult? Function(
+      LogScale xScale,
+      LogScale yScale,
+      int xDecades,
+      int yDecades,
+    )?
+    logGrid,
+    TResult? Function(
+      double leftColMm,
+      double bottomRowMm,
+      double lineSpacingMm,
+    )?
+    cornell,
+    TResult? Function(int rings, int sectors)? polar,
+    TResult? Function(int columns, int rows)? manuscript,
+    TResult? Function(int startHour, int endHour, int daysCount)? timetable,
+    TResult? Function(List<PageRegion> regions)? region,
+    TResult? Function(GuideType guideType, Map<String, dynamic> params)? guide,
+  }) {
+    return polar?.call(rings, sectors);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function(
+      double cellWidthMm,
+      double cellHeightMm,
+      LineStyle lineStyle,
+      int? boldEvery,
+      bool showHorizontal,
+      bool showVertical,
+    )?
+    grid,
+    TResult Function(double hexSizeMm, HexOrientation orientation)? hex,
+    TResult Function(double spacingMm)? isometric,
+    TResult Function(double spacingMm, double dotRadiusMm)? dot,
+    TResult Function(
+      LogScale xScale,
+      LogScale yScale,
+      int xDecades,
+      int yDecades,
+    )?
+    logGrid,
+    TResult Function(
+      double leftColMm,
+      double bottomRowMm,
+      double lineSpacingMm,
+    )?
+    cornell,
+    TResult Function(int rings, int sectors)? polar,
+    TResult Function(int columns, int rows)? manuscript,
+    TResult Function(int startHour, int endHour, int daysCount)? timetable,
+    TResult Function(List<PageRegion> regions)? region,
+    TResult Function(GuideType guideType, Map<String, dynamic> params)? guide,
+    required TResult orElse(),
+  }) {
+    if (polar != null) {
+      return polar(rings, sectors);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(GridLayerConfig value) grid,
+    required TResult Function(HexLayerConfig value) hex,
+    required TResult Function(IsometricLayerConfig value) isometric,
+    required TResult Function(DotLayerConfig value) dot,
+    required TResult Function(LogGridLayerConfig value) logGrid,
+    required TResult Function(CornellLayerConfig value) cornell,
+    required TResult Function(PolarLayerConfig value) polar,
+    required TResult Function(ManuscriptLayerConfig value) manuscript,
+    required TResult Function(TimetableLayerConfig value) timetable,
+    required TResult Function(RegionLayerConfig value) region,
+    required TResult Function(GuideLayerConfig value) guide,
+  }) {
+    return polar(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(GridLayerConfig value)? grid,
+    TResult? Function(HexLayerConfig value)? hex,
+    TResult? Function(IsometricLayerConfig value)? isometric,
+    TResult? Function(DotLayerConfig value)? dot,
+    TResult? Function(LogGridLayerConfig value)? logGrid,
+    TResult? Function(CornellLayerConfig value)? cornell,
+    TResult? Function(PolarLayerConfig value)? polar,
+    TResult? Function(ManuscriptLayerConfig value)? manuscript,
+    TResult? Function(TimetableLayerConfig value)? timetable,
+    TResult? Function(RegionLayerConfig value)? region,
+    TResult? Function(GuideLayerConfig value)? guide,
+  }) {
+    return polar?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(GridLayerConfig value)? grid,
+    TResult Function(HexLayerConfig value)? hex,
+    TResult Function(IsometricLayerConfig value)? isometric,
+    TResult Function(DotLayerConfig value)? dot,
+    TResult Function(LogGridLayerConfig value)? logGrid,
+    TResult Function(CornellLayerConfig value)? cornell,
+    TResult Function(PolarLayerConfig value)? polar,
+    TResult Function(ManuscriptLayerConfig value)? manuscript,
+    TResult Function(TimetableLayerConfig value)? timetable,
+    TResult Function(RegionLayerConfig value)? region,
+    TResult Function(GuideLayerConfig value)? guide,
+    required TResult orElse(),
+  }) {
+    if (polar != null) {
+      return polar(this);
+    }
+    return orElse();
+  }
+
+  @override
+  Map<String, dynamic> toJson() {
+    return _$$PolarLayerConfigImplToJson(this);
+  }
+}
+
+abstract class PolarLayerConfig implements LayerConfig {
+  const factory PolarLayerConfig({final int rings, final int sectors}) =
+      _$PolarLayerConfigImpl;
+
+  factory PolarLayerConfig.fromJson(Map<String, dynamic> json) =
+      _$PolarLayerConfigImpl.fromJson;
+
+  int get rings;
+  int get sectors;
+
+  /// Create a copy of LayerConfig
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  _$$PolarLayerConfigImplCopyWith<_$PolarLayerConfigImpl> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class _$$ManuscriptLayerConfigImplCopyWith<$Res> {
+  factory _$$ManuscriptLayerConfigImplCopyWith(
+    _$ManuscriptLayerConfigImpl value,
+    $Res Function(_$ManuscriptLayerConfigImpl) then,
+  ) = __$$ManuscriptLayerConfigImplCopyWithImpl<$Res>;
+  @useResult
+  $Res call({int columns, int rows});
+}
+
+/// @nodoc
+class __$$ManuscriptLayerConfigImplCopyWithImpl<$Res>
+    extends _$LayerConfigCopyWithImpl<$Res, _$ManuscriptLayerConfigImpl>
+    implements _$$ManuscriptLayerConfigImplCopyWith<$Res> {
+  __$$ManuscriptLayerConfigImplCopyWithImpl(
+    _$ManuscriptLayerConfigImpl _value,
+    $Res Function(_$ManuscriptLayerConfigImpl) _then,
+  ) : super(_value, _then);
+
+  /// Create a copy of LayerConfig
+  /// with the given fields replaced by the non-null parameter values.
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({Object? columns = null, Object? rows = null}) {
+    return _then(
+      _$ManuscriptLayerConfigImpl(
+        columns: null == columns
+            ? _value.columns
+            : columns // ignore: cast_nullable_to_non_nullable
+                  as int,
+        rows: null == rows
+            ? _value.rows
+            : rows // ignore: cast_nullable_to_non_nullable
+                  as int,
+      ),
+    );
+  }
+}
+
+/// @nodoc
+@JsonSerializable()
+class _$ManuscriptLayerConfigImpl implements ManuscriptLayerConfig {
+  const _$ManuscriptLayerConfigImpl({
+    this.columns = 20,
+    this.rows = 20,
+    final String? $type,
+  }) : $type = $type ?? 'manuscript';
+
+  factory _$ManuscriptLayerConfigImpl.fromJson(Map<String, dynamic> json) =>
+      _$$ManuscriptLayerConfigImplFromJson(json);
+
+  @override
+  @JsonKey()
+  final int columns;
+  @override
+  @JsonKey()
+  final int rows;
+
+  @JsonKey(name: 'runtimeType')
+  final String $type;
+
+  @override
+  String toString() {
+    return 'LayerConfig.manuscript(columns: $columns, rows: $rows)';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$ManuscriptLayerConfigImpl &&
+            (identical(other.columns, columns) || other.columns == columns) &&
+            (identical(other.rows, rows) || other.rows == rows));
+  }
+
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  @override
+  int get hashCode => Object.hash(runtimeType, columns, rows);
+
+  /// Create a copy of LayerConfig
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$ManuscriptLayerConfigImplCopyWith<_$ManuscriptLayerConfigImpl>
+  get copyWith =>
+      __$$ManuscriptLayerConfigImplCopyWithImpl<_$ManuscriptLayerConfigImpl>(
+        this,
+        _$identity,
+      );
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function(
+      double cellWidthMm,
+      double cellHeightMm,
+      LineStyle lineStyle,
+      int? boldEvery,
+      bool showHorizontal,
+      bool showVertical,
+    )
+    grid,
+    required TResult Function(double hexSizeMm, HexOrientation orientation) hex,
+    required TResult Function(double spacingMm) isometric,
+    required TResult Function(double spacingMm, double dotRadiusMm) dot,
+    required TResult Function(
+      LogScale xScale,
+      LogScale yScale,
+      int xDecades,
+      int yDecades,
+    )
+    logGrid,
+    required TResult Function(
+      double leftColMm,
+      double bottomRowMm,
+      double lineSpacingMm,
+    )
+    cornell,
+    required TResult Function(int rings, int sectors) polar,
+    required TResult Function(int columns, int rows) manuscript,
+    required TResult Function(int startHour, int endHour, int daysCount)
+    timetable,
+    required TResult Function(List<PageRegion> regions) region,
+    required TResult Function(GuideType guideType, Map<String, dynamic> params)
+    guide,
+  }) {
+    return manuscript(columns, rows);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function(
+      double cellWidthMm,
+      double cellHeightMm,
+      LineStyle lineStyle,
+      int? boldEvery,
+      bool showHorizontal,
+      bool showVertical,
+    )?
+    grid,
+    TResult? Function(double hexSizeMm, HexOrientation orientation)? hex,
+    TResult? Function(double spacingMm)? isometric,
+    TResult? Function(double spacingMm, double dotRadiusMm)? dot,
+    TResult? Function(
+      LogScale xScale,
+      LogScale yScale,
+      int xDecades,
+      int yDecades,
+    )?
+    logGrid,
+    TResult? Function(
+      double leftColMm,
+      double bottomRowMm,
+      double lineSpacingMm,
+    )?
+    cornell,
+    TResult? Function(int rings, int sectors)? polar,
+    TResult? Function(int columns, int rows)? manuscript,
+    TResult? Function(int startHour, int endHour, int daysCount)? timetable,
+    TResult? Function(List<PageRegion> regions)? region,
+    TResult? Function(GuideType guideType, Map<String, dynamic> params)? guide,
+  }) {
+    return manuscript?.call(columns, rows);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function(
+      double cellWidthMm,
+      double cellHeightMm,
+      LineStyle lineStyle,
+      int? boldEvery,
+      bool showHorizontal,
+      bool showVertical,
+    )?
+    grid,
+    TResult Function(double hexSizeMm, HexOrientation orientation)? hex,
+    TResult Function(double spacingMm)? isometric,
+    TResult Function(double spacingMm, double dotRadiusMm)? dot,
+    TResult Function(
+      LogScale xScale,
+      LogScale yScale,
+      int xDecades,
+      int yDecades,
+    )?
+    logGrid,
+    TResult Function(
+      double leftColMm,
+      double bottomRowMm,
+      double lineSpacingMm,
+    )?
+    cornell,
+    TResult Function(int rings, int sectors)? polar,
+    TResult Function(int columns, int rows)? manuscript,
+    TResult Function(int startHour, int endHour, int daysCount)? timetable,
+    TResult Function(List<PageRegion> regions)? region,
+    TResult Function(GuideType guideType, Map<String, dynamic> params)? guide,
+    required TResult orElse(),
+  }) {
+    if (manuscript != null) {
+      return manuscript(columns, rows);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(GridLayerConfig value) grid,
+    required TResult Function(HexLayerConfig value) hex,
+    required TResult Function(IsometricLayerConfig value) isometric,
+    required TResult Function(DotLayerConfig value) dot,
+    required TResult Function(LogGridLayerConfig value) logGrid,
+    required TResult Function(CornellLayerConfig value) cornell,
+    required TResult Function(PolarLayerConfig value) polar,
+    required TResult Function(ManuscriptLayerConfig value) manuscript,
+    required TResult Function(TimetableLayerConfig value) timetable,
+    required TResult Function(RegionLayerConfig value) region,
+    required TResult Function(GuideLayerConfig value) guide,
+  }) {
+    return manuscript(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(GridLayerConfig value)? grid,
+    TResult? Function(HexLayerConfig value)? hex,
+    TResult? Function(IsometricLayerConfig value)? isometric,
+    TResult? Function(DotLayerConfig value)? dot,
+    TResult? Function(LogGridLayerConfig value)? logGrid,
+    TResult? Function(CornellLayerConfig value)? cornell,
+    TResult? Function(PolarLayerConfig value)? polar,
+    TResult? Function(ManuscriptLayerConfig value)? manuscript,
+    TResult? Function(TimetableLayerConfig value)? timetable,
+    TResult? Function(RegionLayerConfig value)? region,
+    TResult? Function(GuideLayerConfig value)? guide,
+  }) {
+    return manuscript?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(GridLayerConfig value)? grid,
+    TResult Function(HexLayerConfig value)? hex,
+    TResult Function(IsometricLayerConfig value)? isometric,
+    TResult Function(DotLayerConfig value)? dot,
+    TResult Function(LogGridLayerConfig value)? logGrid,
+    TResult Function(CornellLayerConfig value)? cornell,
+    TResult Function(PolarLayerConfig value)? polar,
+    TResult Function(ManuscriptLayerConfig value)? manuscript,
+    TResult Function(TimetableLayerConfig value)? timetable,
+    TResult Function(RegionLayerConfig value)? region,
+    TResult Function(GuideLayerConfig value)? guide,
+    required TResult orElse(),
+  }) {
+    if (manuscript != null) {
+      return manuscript(this);
+    }
+    return orElse();
+  }
+
+  @override
+  Map<String, dynamic> toJson() {
+    return _$$ManuscriptLayerConfigImplToJson(this);
+  }
+}
+
+abstract class ManuscriptLayerConfig implements LayerConfig {
+  const factory ManuscriptLayerConfig({final int columns, final int rows}) =
+      _$ManuscriptLayerConfigImpl;
+
+  factory ManuscriptLayerConfig.fromJson(Map<String, dynamic> json) =
+      _$ManuscriptLayerConfigImpl.fromJson;
+
+  int get columns;
+  int get rows;
+
+  /// Create a copy of LayerConfig
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  _$$ManuscriptLayerConfigImplCopyWith<_$ManuscriptLayerConfigImpl>
+  get copyWith => throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class _$$TimetableLayerConfigImplCopyWith<$Res> {
+  factory _$$TimetableLayerConfigImplCopyWith(
+    _$TimetableLayerConfigImpl value,
+    $Res Function(_$TimetableLayerConfigImpl) then,
+  ) = __$$TimetableLayerConfigImplCopyWithImpl<$Res>;
+  @useResult
+  $Res call({int startHour, int endHour, int daysCount});
+}
+
+/// @nodoc
+class __$$TimetableLayerConfigImplCopyWithImpl<$Res>
+    extends _$LayerConfigCopyWithImpl<$Res, _$TimetableLayerConfigImpl>
+    implements _$$TimetableLayerConfigImplCopyWith<$Res> {
+  __$$TimetableLayerConfigImplCopyWithImpl(
+    _$TimetableLayerConfigImpl _value,
+    $Res Function(_$TimetableLayerConfigImpl) _then,
+  ) : super(_value, _then);
+
+  /// Create a copy of LayerConfig
+  /// with the given fields replaced by the non-null parameter values.
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? startHour = null,
+    Object? endHour = null,
+    Object? daysCount = null,
+  }) {
+    return _then(
+      _$TimetableLayerConfigImpl(
+        startHour: null == startHour
+            ? _value.startHour
+            : startHour // ignore: cast_nullable_to_non_nullable
+                  as int,
+        endHour: null == endHour
+            ? _value.endHour
+            : endHour // ignore: cast_nullable_to_non_nullable
+                  as int,
+        daysCount: null == daysCount
+            ? _value.daysCount
+            : daysCount // ignore: cast_nullable_to_non_nullable
+                  as int,
+      ),
+    );
+  }
+}
+
+/// @nodoc
+@JsonSerializable()
+class _$TimetableLayerConfigImpl implements TimetableLayerConfig {
+  const _$TimetableLayerConfigImpl({
+    this.startHour = 8,
+    this.endHour = 21,
+    this.daysCount = 5,
+    final String? $type,
+  }) : $type = $type ?? 'timetable';
+
+  factory _$TimetableLayerConfigImpl.fromJson(Map<String, dynamic> json) =>
+      _$$TimetableLayerConfigImplFromJson(json);
+
+  @override
+  @JsonKey()
+  final int startHour;
+  @override
+  @JsonKey()
+  final int endHour;
+  @override
+  @JsonKey()
+  final int daysCount;
+
+  @JsonKey(name: 'runtimeType')
+  final String $type;
+
+  @override
+  String toString() {
+    return 'LayerConfig.timetable(startHour: $startHour, endHour: $endHour, daysCount: $daysCount)';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$TimetableLayerConfigImpl &&
+            (identical(other.startHour, startHour) ||
+                other.startHour == startHour) &&
+            (identical(other.endHour, endHour) || other.endHour == endHour) &&
+            (identical(other.daysCount, daysCount) ||
+                other.daysCount == daysCount));
+  }
+
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  @override
+  int get hashCode => Object.hash(runtimeType, startHour, endHour, daysCount);
+
+  /// Create a copy of LayerConfig
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$TimetableLayerConfigImplCopyWith<_$TimetableLayerConfigImpl>
+  get copyWith =>
+      __$$TimetableLayerConfigImplCopyWithImpl<_$TimetableLayerConfigImpl>(
+        this,
+        _$identity,
+      );
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function(
+      double cellWidthMm,
+      double cellHeightMm,
+      LineStyle lineStyle,
+      int? boldEvery,
+      bool showHorizontal,
+      bool showVertical,
+    )
+    grid,
+    required TResult Function(double hexSizeMm, HexOrientation orientation) hex,
+    required TResult Function(double spacingMm) isometric,
+    required TResult Function(double spacingMm, double dotRadiusMm) dot,
+    required TResult Function(
+      LogScale xScale,
+      LogScale yScale,
+      int xDecades,
+      int yDecades,
+    )
+    logGrid,
+    required TResult Function(
+      double leftColMm,
+      double bottomRowMm,
+      double lineSpacingMm,
+    )
+    cornell,
+    required TResult Function(int rings, int sectors) polar,
+    required TResult Function(int columns, int rows) manuscript,
+    required TResult Function(int startHour, int endHour, int daysCount)
+    timetable,
+    required TResult Function(List<PageRegion> regions) region,
+    required TResult Function(GuideType guideType, Map<String, dynamic> params)
+    guide,
+  }) {
+    return timetable(startHour, endHour, daysCount);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function(
+      double cellWidthMm,
+      double cellHeightMm,
+      LineStyle lineStyle,
+      int? boldEvery,
+      bool showHorizontal,
+      bool showVertical,
+    )?
+    grid,
+    TResult? Function(double hexSizeMm, HexOrientation orientation)? hex,
+    TResult? Function(double spacingMm)? isometric,
+    TResult? Function(double spacingMm, double dotRadiusMm)? dot,
+    TResult? Function(
+      LogScale xScale,
+      LogScale yScale,
+      int xDecades,
+      int yDecades,
+    )?
+    logGrid,
+    TResult? Function(
+      double leftColMm,
+      double bottomRowMm,
+      double lineSpacingMm,
+    )?
+    cornell,
+    TResult? Function(int rings, int sectors)? polar,
+    TResult? Function(int columns, int rows)? manuscript,
+    TResult? Function(int startHour, int endHour, int daysCount)? timetable,
+    TResult? Function(List<PageRegion> regions)? region,
+    TResult? Function(GuideType guideType, Map<String, dynamic> params)? guide,
+  }) {
+    return timetable?.call(startHour, endHour, daysCount);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function(
+      double cellWidthMm,
+      double cellHeightMm,
+      LineStyle lineStyle,
+      int? boldEvery,
+      bool showHorizontal,
+      bool showVertical,
+    )?
+    grid,
+    TResult Function(double hexSizeMm, HexOrientation orientation)? hex,
+    TResult Function(double spacingMm)? isometric,
+    TResult Function(double spacingMm, double dotRadiusMm)? dot,
+    TResult Function(
+      LogScale xScale,
+      LogScale yScale,
+      int xDecades,
+      int yDecades,
+    )?
+    logGrid,
+    TResult Function(
+      double leftColMm,
+      double bottomRowMm,
+      double lineSpacingMm,
+    )?
+    cornell,
+    TResult Function(int rings, int sectors)? polar,
+    TResult Function(int columns, int rows)? manuscript,
+    TResult Function(int startHour, int endHour, int daysCount)? timetable,
+    TResult Function(List<PageRegion> regions)? region,
+    TResult Function(GuideType guideType, Map<String, dynamic> params)? guide,
+    required TResult orElse(),
+  }) {
+    if (timetable != null) {
+      return timetable(startHour, endHour, daysCount);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(GridLayerConfig value) grid,
+    required TResult Function(HexLayerConfig value) hex,
+    required TResult Function(IsometricLayerConfig value) isometric,
+    required TResult Function(DotLayerConfig value) dot,
+    required TResult Function(LogGridLayerConfig value) logGrid,
+    required TResult Function(CornellLayerConfig value) cornell,
+    required TResult Function(PolarLayerConfig value) polar,
+    required TResult Function(ManuscriptLayerConfig value) manuscript,
+    required TResult Function(TimetableLayerConfig value) timetable,
+    required TResult Function(RegionLayerConfig value) region,
+    required TResult Function(GuideLayerConfig value) guide,
+  }) {
+    return timetable(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(GridLayerConfig value)? grid,
+    TResult? Function(HexLayerConfig value)? hex,
+    TResult? Function(IsometricLayerConfig value)? isometric,
+    TResult? Function(DotLayerConfig value)? dot,
+    TResult? Function(LogGridLayerConfig value)? logGrid,
+    TResult? Function(CornellLayerConfig value)? cornell,
+    TResult? Function(PolarLayerConfig value)? polar,
+    TResult? Function(ManuscriptLayerConfig value)? manuscript,
+    TResult? Function(TimetableLayerConfig value)? timetable,
+    TResult? Function(RegionLayerConfig value)? region,
+    TResult? Function(GuideLayerConfig value)? guide,
+  }) {
+    return timetable?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(GridLayerConfig value)? grid,
+    TResult Function(HexLayerConfig value)? hex,
+    TResult Function(IsometricLayerConfig value)? isometric,
+    TResult Function(DotLayerConfig value)? dot,
+    TResult Function(LogGridLayerConfig value)? logGrid,
+    TResult Function(CornellLayerConfig value)? cornell,
+    TResult Function(PolarLayerConfig value)? polar,
+    TResult Function(ManuscriptLayerConfig value)? manuscript,
+    TResult Function(TimetableLayerConfig value)? timetable,
+    TResult Function(RegionLayerConfig value)? region,
+    TResult Function(GuideLayerConfig value)? guide,
+    required TResult orElse(),
+  }) {
+    if (timetable != null) {
+      return timetable(this);
+    }
+    return orElse();
+  }
+
+  @override
+  Map<String, dynamic> toJson() {
+    return _$$TimetableLayerConfigImplToJson(this);
+  }
+}
+
+abstract class TimetableLayerConfig implements LayerConfig {
+  const factory TimetableLayerConfig({
+    final int startHour,
+    final int endHour,
+    final int daysCount,
+  }) = _$TimetableLayerConfigImpl;
+
+  factory TimetableLayerConfig.fromJson(Map<String, dynamic> json) =
+      _$TimetableLayerConfigImpl.fromJson;
+
+  int get startHour;
+  int get endHour;
+  int get daysCount;
+
+  /// Create a copy of LayerConfig
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  _$$TimetableLayerConfigImplCopyWith<_$TimetableLayerConfigImpl>
+  get copyWith => throw _privateConstructorUsedError;
 }
 
 /// @nodoc
@@ -2074,6 +3098,10 @@ class _$RegionLayerConfigImpl implements RegionLayerConfig {
       double lineSpacingMm,
     )
     cornell,
+    required TResult Function(int rings, int sectors) polar,
+    required TResult Function(int columns, int rows) manuscript,
+    required TResult Function(int startHour, int endHour, int daysCount)
+    timetable,
     required TResult Function(List<PageRegion> regions) region,
     required TResult Function(GuideType guideType, Map<String, dynamic> params)
     guide,
@@ -2109,6 +3137,9 @@ class _$RegionLayerConfigImpl implements RegionLayerConfig {
       double lineSpacingMm,
     )?
     cornell,
+    TResult? Function(int rings, int sectors)? polar,
+    TResult? Function(int columns, int rows)? manuscript,
+    TResult? Function(int startHour, int endHour, int daysCount)? timetable,
     TResult? Function(List<PageRegion> regions)? region,
     TResult? Function(GuideType guideType, Map<String, dynamic> params)? guide,
   }) {
@@ -2143,6 +3174,9 @@ class _$RegionLayerConfigImpl implements RegionLayerConfig {
       double lineSpacingMm,
     )?
     cornell,
+    TResult Function(int rings, int sectors)? polar,
+    TResult Function(int columns, int rows)? manuscript,
+    TResult Function(int startHour, int endHour, int daysCount)? timetable,
     TResult Function(List<PageRegion> regions)? region,
     TResult Function(GuideType guideType, Map<String, dynamic> params)? guide,
     required TResult orElse(),
@@ -2162,6 +3196,9 @@ class _$RegionLayerConfigImpl implements RegionLayerConfig {
     required TResult Function(DotLayerConfig value) dot,
     required TResult Function(LogGridLayerConfig value) logGrid,
     required TResult Function(CornellLayerConfig value) cornell,
+    required TResult Function(PolarLayerConfig value) polar,
+    required TResult Function(ManuscriptLayerConfig value) manuscript,
+    required TResult Function(TimetableLayerConfig value) timetable,
     required TResult Function(RegionLayerConfig value) region,
     required TResult Function(GuideLayerConfig value) guide,
   }) {
@@ -2177,6 +3214,9 @@ class _$RegionLayerConfigImpl implements RegionLayerConfig {
     TResult? Function(DotLayerConfig value)? dot,
     TResult? Function(LogGridLayerConfig value)? logGrid,
     TResult? Function(CornellLayerConfig value)? cornell,
+    TResult? Function(PolarLayerConfig value)? polar,
+    TResult? Function(ManuscriptLayerConfig value)? manuscript,
+    TResult? Function(TimetableLayerConfig value)? timetable,
     TResult? Function(RegionLayerConfig value)? region,
     TResult? Function(GuideLayerConfig value)? guide,
   }) {
@@ -2192,6 +3232,9 @@ class _$RegionLayerConfigImpl implements RegionLayerConfig {
     TResult Function(DotLayerConfig value)? dot,
     TResult Function(LogGridLayerConfig value)? logGrid,
     TResult Function(CornellLayerConfig value)? cornell,
+    TResult Function(PolarLayerConfig value)? polar,
+    TResult Function(ManuscriptLayerConfig value)? manuscript,
+    TResult Function(TimetableLayerConfig value)? timetable,
     TResult Function(RegionLayerConfig value)? region,
     TResult Function(GuideLayerConfig value)? guide,
     required TResult orElse(),
@@ -2352,6 +3395,10 @@ class _$GuideLayerConfigImpl implements GuideLayerConfig {
       double lineSpacingMm,
     )
     cornell,
+    required TResult Function(int rings, int sectors) polar,
+    required TResult Function(int columns, int rows) manuscript,
+    required TResult Function(int startHour, int endHour, int daysCount)
+    timetable,
     required TResult Function(List<PageRegion> regions) region,
     required TResult Function(GuideType guideType, Map<String, dynamic> params)
     guide,
@@ -2387,6 +3434,9 @@ class _$GuideLayerConfigImpl implements GuideLayerConfig {
       double lineSpacingMm,
     )?
     cornell,
+    TResult? Function(int rings, int sectors)? polar,
+    TResult? Function(int columns, int rows)? manuscript,
+    TResult? Function(int startHour, int endHour, int daysCount)? timetable,
     TResult? Function(List<PageRegion> regions)? region,
     TResult? Function(GuideType guideType, Map<String, dynamic> params)? guide,
   }) {
@@ -2421,6 +3471,9 @@ class _$GuideLayerConfigImpl implements GuideLayerConfig {
       double lineSpacingMm,
     )?
     cornell,
+    TResult Function(int rings, int sectors)? polar,
+    TResult Function(int columns, int rows)? manuscript,
+    TResult Function(int startHour, int endHour, int daysCount)? timetable,
     TResult Function(List<PageRegion> regions)? region,
     TResult Function(GuideType guideType, Map<String, dynamic> params)? guide,
     required TResult orElse(),
@@ -2440,6 +3493,9 @@ class _$GuideLayerConfigImpl implements GuideLayerConfig {
     required TResult Function(DotLayerConfig value) dot,
     required TResult Function(LogGridLayerConfig value) logGrid,
     required TResult Function(CornellLayerConfig value) cornell,
+    required TResult Function(PolarLayerConfig value) polar,
+    required TResult Function(ManuscriptLayerConfig value) manuscript,
+    required TResult Function(TimetableLayerConfig value) timetable,
     required TResult Function(RegionLayerConfig value) region,
     required TResult Function(GuideLayerConfig value) guide,
   }) {
@@ -2455,6 +3511,9 @@ class _$GuideLayerConfigImpl implements GuideLayerConfig {
     TResult? Function(DotLayerConfig value)? dot,
     TResult? Function(LogGridLayerConfig value)? logGrid,
     TResult? Function(CornellLayerConfig value)? cornell,
+    TResult? Function(PolarLayerConfig value)? polar,
+    TResult? Function(ManuscriptLayerConfig value)? manuscript,
+    TResult? Function(TimetableLayerConfig value)? timetable,
     TResult? Function(RegionLayerConfig value)? region,
     TResult? Function(GuideLayerConfig value)? guide,
   }) {
@@ -2470,6 +3529,9 @@ class _$GuideLayerConfigImpl implements GuideLayerConfig {
     TResult Function(DotLayerConfig value)? dot,
     TResult Function(LogGridLayerConfig value)? logGrid,
     TResult Function(CornellLayerConfig value)? cornell,
+    TResult Function(PolarLayerConfig value)? polar,
+    TResult Function(ManuscriptLayerConfig value)? manuscript,
+    TResult Function(TimetableLayerConfig value)? timetable,
     TResult Function(RegionLayerConfig value)? region,
     TResult Function(GuideLayerConfig value)? guide,
     required TResult orElse(),

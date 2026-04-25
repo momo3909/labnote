@@ -60,7 +60,7 @@ final templatesProvider =
 @Deprecated('Will be removed in 3.0. Use Ref instead')
 // ignore: unused_element
 typedef TemplatesRef = AutoDisposeFutureProviderRef<List<NotebookTemplate>>;
-String _$editorNotifierHash() => r'd1ece5c9a38ba86485ae77095ba193f1fb6f5939';
+String _$editorNotifierHash() => r'd660f5a374031983a8823ca8a647303e15163813';
 
 /// Copied from Dart SDK
 class _SystemHash {

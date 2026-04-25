@@ -14,8 +14,7 @@ class HoleMarksPainter extends CustomPainter {
   void paint(Canvas canvas, Size size) {
     if (pageConfig.holeConfig == HoleConfig.none) return;
 
-    final paperWidthMm = pageConfig.paperSize.widthMm;
-    final scale = scaleFactor(size.width, paperWidthMm);
+    final scale = scaleFactor(size.width, pageConfig.effectiveWidthMm);
 
     final holeCount = pageConfig.holeConfig == HoleConfig.h26 ? 26 : 30;
     final cx = mmToPx(holeCenterXMm, scale);

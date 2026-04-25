@@ -46,6 +46,22 @@ sealed class LayerConfig with _$LayerConfig {
     @Default(6.0) double lineSpacingMm,
   }) = CornellLayerConfig;
 
+  const factory LayerConfig.polar({
+    @Default(6) int rings,
+    @Default(12) int sectors,
+  }) = PolarLayerConfig;
+
+  const factory LayerConfig.manuscript({
+    @Default(20) int columns,
+    @Default(20) int rows,
+  }) = ManuscriptLayerConfig;
+
+  const factory LayerConfig.timetable({
+    @Default(8) int startHour,
+    @Default(21) int endHour,
+    @Default(5) int daysCount,
+  }) = TimetableLayerConfig;
+
   const factory LayerConfig.region({
     @Default([]) List<PageRegion> regions,
   }) = RegionLayerConfig;

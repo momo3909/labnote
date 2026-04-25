@@ -8,6 +8,7 @@ class AppUser with _$AppUser {
     required String uid,
     String? displayName,
     String? email,
+    String? photoUrl,
     @Default(true) bool isAnonymous,
   }) = _AppUser;
 }

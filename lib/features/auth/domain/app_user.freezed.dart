@@ -20,6 +20,7 @@ mixin _$AppUser {
   String get uid => throw _privateConstructorUsedError;
   String? get displayName => throw _privateConstructorUsedError;
   String? get email => throw _privateConstructorUsedError;
+  String? get photoUrl => throw _privateConstructorUsedError;
   bool get isAnonymous => throw _privateConstructorUsedError;
 
   /// Create a copy of AppUser
@@ -33,7 +34,13 @@ abstract class $AppUserCopyWith<$Res> {
   factory $AppUserCopyWith(AppUser value, $Res Function(AppUser) then) =
       _$AppUserCopyWithImpl<$Res, AppUser>;
   @useResult
-  $Res call({String uid, String? displayName, String? email, bool isAnonymous});
+  $Res call({
+    String uid,
+    String? displayName,
+    String? email,
+    String? photoUrl,
+    bool isAnonymous,
+  });
 }
 
 /// @nodoc
@@ -54,6 +61,7 @@ class _$AppUserCopyWithImpl<$Res, $Val extends AppUser>
     Object? uid = null,
     Object? displayName = freezed,
     Object? email = freezed,
+    Object? photoUrl = freezed,
     Object? isAnonymous = null,
   }) {
     return _then(
@@ -69,6 +77,10 @@ class _$AppUserCopyWithImpl<$Res, $Val extends AppUser>
             email: freezed == email
                 ? _value.email
                 : email // ignore: cast_nullable_to_non_nullable
+                      as String?,
+            photoUrl: freezed == photoUrl
+                ? _value.photoUrl
+                : photoUrl // ignore: cast_nullable_to_non_nullable
                       as String?,
             isAnonymous: null == isAnonymous
                 ? _value.isAnonymous
@@ -88,7 +100,13 @@ abstract class _$$AppUserImplCopyWith<$Res> implements $AppUserCopyWith<$Res> {
   ) = __$$AppUserImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({String uid, String? displayName, String? email, bool isAnonymous});
+  $Res call({
+    String uid,
+    String? displayName,
+    String? email,
+    String? photoUrl,
+    bool isAnonymous,
+  });
 }
 
 /// @nodoc
@@ -108,6 +126,7 @@ class __$$AppUserImplCopyWithImpl<$Res>
     Object? uid = null,
     Object? displayName = freezed,
     Object? email = freezed,
+    Object? photoUrl = freezed,
     Object? isAnonymous = null,
   }) {
     return _then(
@@ -123,6 +142,10 @@ class __$$AppUserImplCopyWithImpl<$Res>
         email: freezed == email
             ? _value.email
             : email // ignore: cast_nullable_to_non_nullable
+                  as String?,
+        photoUrl: freezed == photoUrl
+            ? _value.photoUrl
+            : photoUrl // ignore: cast_nullable_to_non_nullable
                   as String?,
         isAnonymous: null == isAnonymous
             ? _value.isAnonymous
@@ -140,6 +163,7 @@ class _$AppUserImpl implements _AppUser {
     required this.uid,
     this.displayName,
     this.email,
+    this.photoUrl,
     this.isAnonymous = true,
   });
 
@@ -150,12 +174,14 @@ class _$AppUserImpl implements _AppUser {
   @override
   final String? email;
   @override
+  final String? photoUrl;
+  @override
   @JsonKey()
   final bool isAnonymous;
 
   @override
   String toString() {
-    return 'AppUser(uid: $uid, displayName: $displayName, email: $email, isAnonymous: $isAnonymous)';
+    return 'AppUser(uid: $uid, displayName: $displayName, email: $email, photoUrl: $photoUrl, isAnonymous: $isAnonymous)';
   }
 
   @override
@@ -167,13 +193,15 @@ class _$AppUserImpl implements _AppUser {
             (identical(other.displayName, displayName) ||
                 other.displayName == displayName) &&
             (identical(other.email, email) || other.email == email) &&
+            (identical(other.photoUrl, photoUrl) ||
+                other.photoUrl == photoUrl) &&
             (identical(other.isAnonymous, isAnonymous) ||
                 other.isAnonymous == isAnonymous));
   }
 
   @override
   int get hashCode =>
-      Object.hash(runtimeType, uid, displayName, email, isAnonymous);
+      Object.hash(runtimeType, uid, displayName, email, photoUrl, isAnonymous);
 
   /// Create a copy of AppUser
   /// with the given fields replaced by the non-null parameter values.
@@ -189,6 +217,7 @@ abstract class _AppUser implements AppUser {
     required final String uid,
     final String? displayName,
     final String? email,
+    final String? photoUrl,
     final bool isAnonymous,
   }) = _$AppUserImpl;
 
@@ -198,6 +227,8 @@ abstract class _AppUser implements AppUser {
   String? get displayName;
   @override
   String? get email;
+  @override
+  String? get photoUrl;
   @override
   bool get isAnonymous;
 

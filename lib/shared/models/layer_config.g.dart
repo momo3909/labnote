@@ -131,6 +131,56 @@ Map<String, dynamic> _$$CornellLayerConfigImplToJson(
   'runtimeType': instance.$type,
 };
 
+_$PolarLayerConfigImpl _$$PolarLayerConfigImplFromJson(
+  Map<String, dynamic> json,
+) => _$PolarLayerConfigImpl(
+  rings: (json['rings'] as num?)?.toInt() ?? 6,
+  sectors: (json['sectors'] as num?)?.toInt() ?? 12,
+  $type: json['runtimeType'] as String?,
+);
+
+Map<String, dynamic> _$$PolarLayerConfigImplToJson(
+  _$PolarLayerConfigImpl instance,
+) => <String, dynamic>{
+  'rings': instance.rings,
+  'sectors': instance.sectors,
+  'runtimeType': instance.$type,
+};
+
+_$ManuscriptLayerConfigImpl _$$ManuscriptLayerConfigImplFromJson(
+  Map<String, dynamic> json,
+) => _$ManuscriptLayerConfigImpl(
+  columns: (json['columns'] as num?)?.toInt() ?? 20,
+  rows: (json['rows'] as num?)?.toInt() ?? 20,
+  $type: json['runtimeType'] as String?,
+);
+
+Map<String, dynamic> _$$ManuscriptLayerConfigImplToJson(
+  _$ManuscriptLayerConfigImpl instance,
+) => <String, dynamic>{
+  'columns': instance.columns,
+  'rows': instance.rows,
+  'runtimeType': instance.$type,
+};
+
+_$TimetableLayerConfigImpl _$$TimetableLayerConfigImplFromJson(
+  Map<String, dynamic> json,
+) => _$TimetableLayerConfigImpl(
+  startHour: (json['startHour'] as num?)?.toInt() ?? 8,
+  endHour: (json['endHour'] as num?)?.toInt() ?? 21,
+  daysCount: (json['daysCount'] as num?)?.toInt() ?? 5,
+  $type: json['runtimeType'] as String?,
+);
+
+Map<String, dynamic> _$$TimetableLayerConfigImplToJson(
+  _$TimetableLayerConfigImpl instance,
+) => <String, dynamic>{
+  'startHour': instance.startHour,
+  'endHour': instance.endHour,
+  'daysCount': instance.daysCount,
+  'runtimeType': instance.$type,
+};
+
 _$RegionLayerConfigImpl _$$RegionLayerConfigImplFromJson(
   Map<String, dynamic> json,
 ) => _$RegionLayerConfigImpl(

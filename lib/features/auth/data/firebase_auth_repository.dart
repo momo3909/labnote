@@ -1,4 +1,5 @@
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 import '../domain/app_user.dart';
 import '../domain/auth_repository.dart';
 
@@ -16,10 +17,17 @@ class FirebaseAuthRepository implements AuthRepository {
   }
 
   @override
-  Future<void> linkWithApple() => throw UnimplementedError('v2で実装');
-
-  @override
-  Future<void> linkWithGoogle() => throw UnimplementedError('v2で実装');
+  Future<AppUser> signInWithGoogle() async {
+    final googleUser = await GoogleSignIn().signIn();
+    if (googleUser == null) throw Exception('Googleサインインがキャンセルされました');
+    final googleAuth = await googleUser.authentication;
+    final credential = GoogleAuthProvider.credential(
+      accessToken: googleAuth.accessToken,
+      idToken: googleAuth.idToken,
+    );
+    final result = await _auth.signInWithCredential(credential);
+    return _toAppUser(result.user!);
+  }
 
   @override
   Future<void> signOut() => _auth.signOut();
@@ -28,6 +36,7 @@ class FirebaseAuthRepository implements AuthRepository {
         uid: user.uid,
         displayName: user.displayName,
         email: user.email,
+        photoUrl: user.photoURL,
         isAnonymous: user.isAnonymous,
       );
 }

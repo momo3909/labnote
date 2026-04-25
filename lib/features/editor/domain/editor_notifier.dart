@@ -293,6 +293,9 @@ class EditorNotifier extends _$EditorNotifier {
         CornellLayerConfig() => 'cornell',
         HexLayerConfig() => 'hex',
         IsometricLayerConfig() => 'isometric',
+        PolarLayerConfig() => 'polar',
+        ManuscriptLayerConfig() => 'manuscript',
+        TimetableLayerConfig() => 'timetable',
         RegionLayerConfig() => 'region',
         GuideLayerConfig() => 'guide',
       };

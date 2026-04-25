@@ -23,8 +23,8 @@ abstract class LayerPdfRendererBase<C extends LayerConfig> {
   pw.Widget build() => pw.CustomPaint(
         painter: (canvas, size) => _paint(canvas, size),
         size: PdfPoint(
-          toPoints(pageConfig.paperSize.widthMm),
-          toPoints(pageConfig.paperSize.heightMm),
+          toPoints(pageConfig.effectiveWidthMm),
+          toPoints(pageConfig.effectiveHeightMm),
         ),
       );
 

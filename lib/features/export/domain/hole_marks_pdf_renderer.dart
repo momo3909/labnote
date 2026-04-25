@@ -11,12 +11,9 @@ class HoleMarksPdfRenderer {
   pw.Widget build() {
     if (pageConfig.holeConfig == HoleConfig.none) return pw.SizedBox.shrink();
 
-    final paperWidthMm = pageConfig.paperSize.widthMm;
-    final paperHeightMm = pageConfig.paperSize.heightMm;
-
     return pw.CustomPaint(
       painter: (canvas, size) => _paint(canvas, size),
-      size: PdfPoint(toPoints(paperWidthMm), toPoints(paperHeightMm)),
+      size: PdfPoint(toPoints(pageConfig.effectiveWidthMm), toPoints(pageConfig.effectiveHeightMm)),
     );
   }
 

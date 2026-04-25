@@ -21,7 +21,7 @@ abstract class LayerPainterBase<C extends LayerConfig> extends CustomPainter {
 
   @override
   void paint(Canvas canvas, Size size) {
-    final scale = scaleFactor(size.width, pageConfig.paperSize.widthMm);
+    final scale = scaleFactor(size.width, pageConfig.effectiveWidthMm);
     final content = contentRect(size, pageConfig, scale);
     final clip = layerRegionRect(content, region);
     if (clip.width <= 0 || clip.height <= 0) return;

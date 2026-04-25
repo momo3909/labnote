@@ -61,7 +61,7 @@ class PageElementsPdfRenderer {
     final marginT = toPoints(pageConfig.marginTopMm);
     final marginB = toPoints(pageConfig.marginBottomMm);
     final marginL = toPoints(pageConfig.marginLeftMm);
-    final paperH = toPoints(pageConfig.paperSize.heightMm);
+    final paperH = toPoints(pageConfig.effectiveHeightMm);
     final contentH = paperH - marginT - marginB;
 
     // グリッドペインターと同じセンタリングオフセット（Flutter y-down 換算）

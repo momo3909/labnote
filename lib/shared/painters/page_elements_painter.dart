@@ -20,8 +20,7 @@ class PageElementsPainter extends CustomPainter {
 
   @override
   void paint(Canvas canvas, Size size) {
-    final paperWidthMm = pageConfig.paperSize.widthMm;
-    final scale = scaleFactor(size.width, paperWidthMm);
+    final scale = scaleFactor(size.width, pageConfig.effectiveWidthMm);
 
     if (pageConfig.showPageNumber) _paintPageNumber(canvas, size, scale);
     if (pageConfig.showLineNumbers) _paintLineNumbers(canvas, size, scale);
