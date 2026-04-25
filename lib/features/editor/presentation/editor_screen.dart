@@ -127,6 +127,8 @@ class _EditorScreenState extends ConsumerState<EditorScreen> {
       );
       if (picked == null || !context.mounted) return;
       pageCount = picked;
+      // 選択したページ数を保存
+      notifier.updatePageConfig(state.pageConfig.copyWith(pageCount: pageCount));
     } else {
       pageCount = freeMaxPdfPages;
     }
@@ -154,6 +156,35 @@ class _EditorScreenState extends ConsumerState<EditorScreen> {
         ),
       );
     }
+  }
+
+  Future<void> _editName(EditorState state, EditorNotifier notifier) async {
+    final controller = TextEditingController(text: state.name);
+    final confirmed = await showDialog<bool>(
+      context: context,
+      builder: (ctx) => AlertDialog(
+        title: const Text('テンプレート名を変更'),
+        content: TextField(
+          controller: controller,
+          autofocus: true,
+          decoration: const InputDecoration(hintText: 'テンプレート名を入力'),
+          onSubmitted: (_) => Navigator.pop(ctx, true),
+        ),
+        actions: [
+          TextButton(
+            onPressed: () => Navigator.pop(ctx, false),
+            child: const Text('キャンセル'),
+          ),
+          FilledButton(
+            onPressed: () => Navigator.pop(ctx, true),
+            child: const Text('変更'),
+          ),
+        ],
+      ),
+    );
+    if (confirmed != true) return;
+    final name = controller.text.trim();
+    if (name.isNotEmpty) notifier.updateName(name);
   }
 
   Future<void> _showSaveDialog(EditorState state, EditorNotifier notifier) async {
@@ -211,7 +242,22 @@ class _EditorScreenState extends ConsumerState<EditorScreen> {
 
     return Scaffold(
       appBar: AppBar(
-        title: Text(widget.templateUuid == null ? '新規作成' : 'テンプレート編集'),
+        title: GestureDetector(
+          onTap: () => _editName(state, notifier),
+          child: Row(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Flexible(
+                child: Text(
+                  state.name,
+                  overflow: TextOverflow.ellipsis,
+                ),
+              ),
+              const SizedBox(width: 4),
+              const Icon(Icons.edit_outlined, size: 14, color: Colors.white54),
+            ],
+          ),
+        ),
         actions: [
           IconButton(
             icon: const Icon(Icons.undo, size: 22),

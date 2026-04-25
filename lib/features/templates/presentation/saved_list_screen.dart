@@ -67,6 +67,7 @@ class SavedListScreen extends ConsumerWidget {
                     template: templates[i],
                     onDelete: () => _confirmDelete(context, ref, templates[i]),
                     onPublish: () => _publishToGallery(context, ref, templates[i]),
+                    onDuplicate: () => _duplicate(context, ref, templates[i]),
                   ),
                 ),
               ),
@@ -107,6 +108,24 @@ class SavedListScreen extends ConsumerWidget {
     }
   }
 
+  Future<void> _duplicate(
+    BuildContext context,
+    WidgetRef ref,
+    NotebookTemplate template,
+  ) async {
+    await ref.read(templateRepositoryProvider).create(
+          name: '${template.name} のコピー',
+          pageConfig: template.pageConfig,
+          layers: template.layers,
+          thumbnail: template.thumbnailPng,
+        );
+    ref.invalidate(templatesProvider);
+    if (!context.mounted) return;
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(content: Text('「${template.name}」を複製しました')),
+    );
+  }
+
   Future<void> _confirmDelete(
     BuildContext context,
     WidgetRef ref,
@@ -141,10 +160,12 @@ class _TemplateListTile extends StatelessWidget {
     required this.template,
     required this.onDelete,
     required this.onPublish,
+    required this.onDuplicate,
   });
   final NotebookTemplate template;
   final VoidCallback onDelete;
   final VoidCallback onPublish;
+  final VoidCallback onDuplicate;
 
   @override
   Widget build(BuildContext context) {
@@ -173,6 +194,8 @@ class _TemplateListTile extends StatelessWidget {
           onSelected: (action) {
             if (action == _TileAction.open) {
               context.push('/editor/${template.uuid}');
+            } else if (action == _TileAction.duplicate) {
+              onDuplicate();
             } else if (action == _TileAction.publish) {
               onPublish();
             } else if (action == _TileAction.delete) {
@@ -185,6 +208,14 @@ class _TemplateListTile extends StatelessWidget {
               child: ListTile(
                 leading: Icon(Icons.edit_outlined),
                 title: Text('編集'),
+                contentPadding: EdgeInsets.zero,
+              ),
+            ),
+            PopupMenuItem(
+              value: _TileAction.duplicate,
+              child: ListTile(
+                leading: Icon(Icons.copy_outlined),
+                title: Text('複製'),
                 contentPadding: EdgeInsets.zero,
               ),
             ),
@@ -215,7 +246,7 @@ class _TemplateListTile extends StatelessWidget {
       '${dt.year}/${dt.month.toString().padLeft(2, '0')}/${dt.day.toString().padLeft(2, '0')}';
 }
 
-enum _TileAction { open, publish, delete }
+enum _TileAction { open, duplicate, publish, delete }
 
 class _PublishDialog extends StatefulWidget {
   const _PublishDialog({required this.templateName});
