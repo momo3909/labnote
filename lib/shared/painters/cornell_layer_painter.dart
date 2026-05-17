@@ -42,5 +42,26 @@ class CornellLayerPainter extends LayerPainterBase<CornellLayerConfig> {
 
     canvas.drawLine(Offset(dividerX, clip.top), Offset(dividerX, dividerY), paintDivider);
     canvas.drawLine(Offset(clip.left, dividerY), Offset(clip.right, dividerY), paintDivider);
+
+    final labelStyle = TextStyle(
+      color: color.withValues(alpha: opacity * 0.55),
+      fontSize: mmToPx(3.5, scale).clamp(8.0, 14.0),
+    );
+    if (config.keywordLabel.isNotEmpty) {
+      _drawLabel(canvas, config.keywordLabel, labelStyle,
+          Offset(clip.left + 4, clip.top + 4));
+    }
+    if (config.summaryLabel.isNotEmpty) {
+      _drawLabel(canvas, config.summaryLabel, labelStyle,
+          Offset(clip.left + 4, dividerY + 4));
+    }
+  }
+
+  void _drawLabel(Canvas canvas, String text, TextStyle style, Offset offset) {
+    final painter = TextPainter(
+      text: TextSpan(text: text, style: style),
+      textDirection: TextDirection.ltr,
+    )..layout();
+    painter.paint(canvas, offset);
   }
 }

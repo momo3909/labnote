@@ -26,12 +26,16 @@ class DotLayerPdfRenderer extends LayerPdfRendererBase<DotLayerConfig> {
 
     canvas.setFillColor(color);
 
-    final offsetX = ((right - left) % spacing) / 2;
-    final offsetY = ((top - bottom) % spacing) / 2;
+    final offsetX = config.alignToOrigin
+        ? ((right - left) / 2) % spacing
+        : ((right - left) % spacing) / 2;
+    final offsetY = config.alignToOrigin
+        ? ((top - bottom) / 2) % spacing
+        : ((top - bottom) % spacing) / 2;
 
     for (double x = left + offsetX; x <= right + 0.5; x += spacing) {
       for (double y = bottom + offsetY; y <= top + 0.5; y += spacing) {
-        canvas.drawEllipse(x - radius, y - radius, radius * 2, radius * 2);
+        canvas.drawEllipse(x, y, radius, radius);
         canvas.fillPath();
       }
     }

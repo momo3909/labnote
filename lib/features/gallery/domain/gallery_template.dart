@@ -17,8 +17,12 @@ class GalleryTemplate {
     this.description = '',
     this.authorName = '',
     this.authorAvatarUrl,
+    this.thumbnailUrl,
     this.thumbnailBytes,
     this.tags = const [],
+    this.originalId,
+    this.originalName,
+    this.originalAuthorName,
   });
 
   final String id;
@@ -33,8 +37,13 @@ class GalleryTemplate {
   final String pageConfigJson;
   final List<String> layersJson;
   final String description;
-  final Uint8List? thumbnailBytes;
+  final String? thumbnailUrl;       // Storage URL（新）
+  final Uint8List? thumbnailBytes;  // 旧ドキュメント後方互換
   final List<String> tags;
+  // リミックス元情報（null = オリジナル）
+  final String? originalId;
+  final String? originalName;
+  final String? originalAuthorName;
 
   PageConfig get pageConfig =>
       PageConfig.fromJson(jsonDecode(pageConfigJson) as Map<String, dynamic>);
@@ -56,7 +65,11 @@ class GalleryTemplate {
         pageConfigJson: pageConfigJson,
         layersJson: layersJson,
         description: description,
+        thumbnailUrl: thumbnailUrl,
         thumbnailBytes: thumbnailBytes,
         tags: tags,
+        originalId: originalId,
+        originalName: originalName,
+        originalAuthorName: originalAuthorName,
       );
 }

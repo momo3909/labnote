@@ -17,7 +17,7 @@ class DotControls extends StatelessWidget {
         buildSliderRow(
           label: 'ドット間隔',
           value: config.spacingMm,
-          min: 2,
+          min: 1.0,
           max: 20,
           onChanged: (v) => notifier.updateActiveLayerConfig(config.copyWith(spacingMm: v)),
         ),
@@ -27,6 +27,13 @@ class DotControls extends StatelessWidget {
           min: 0.2,
           max: 2.0,
           onChanged: (v) => notifier.updateActiveLayerConfig(config.copyWith(dotRadiusMm: v / 2)),
+        ),
+        const SizedBox(height: 8),
+        buildToggleChip(
+          label: '原点揃え（座標軸と合わせる）',
+          enabled: config.alignToOrigin,
+          onTap: () => notifier.updateActiveLayerConfig(
+              config.copyWith(alignToOrigin: !config.alignToOrigin)),
         ),
       ],
     );

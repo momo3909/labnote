@@ -32,35 +32,41 @@ class HexLayerPainter extends LayerPainterBase<HexLayerConfig> {
 
   void _drawFlatGrid(Canvas canvas, Rect clip, double hexR, Paint paint) {
     final colStep = hexR * 3.0 / 2.0;
-    final rowStep = hexR * sqrt(3.0);
+    final sqrt3 = sqrt(3.0);
 
-    final qStart = ((clip.left - hexR * 2) / colStep).floor() - 1;
-    final qEnd = ((clip.right + hexR * 2) / colStep).ceil() + 1;
-    final rStart = ((clip.top - hexR * 2) / rowStep).floor() - 1;
-    final rEnd = ((clip.bottom + hexR * 2) / rowStep).ceil() + 1;
+    // q は cx にのみ直接影響する軸。q ごとに r 範囲を算出して右上の欠けを防ぐ。
+    final qStart = ((-hexR * 2) / colStep).floor() - 1;
+    final qEnd   = ((clip.width + hexR * 2) / colStep).ceil() + 1;
 
     for (int q = qStart; q <= qEnd; q++) {
+      final cx   = clip.left + colStep * q;
+      final qOff = sqrt3 / 2.0 * q;
+      // cy = clip.top + hexR * (qOff + sqrt3 * r) を clip 高さで覆う r 範囲
+      final rStart = ((-1.0 - qOff) / sqrt3).floor() - 1;
+      final rEnd   = ((clip.height / hexR + 1.0 - qOff) / sqrt3).ceil() + 1;
       for (int r = rStart; r <= rEnd; r++) {
-        final cx = clip.left + hexR * 3.0 / 2.0 * q;
-        final cy = clip.top + hexR * (sqrt(3.0) / 2.0 * q + sqrt(3.0) * r);
+        final cy = clip.top + hexR * (qOff + sqrt3 * r);
         _drawHex(canvas, cx, cy, hexR, 0.0, paint);
       }
     }
   }
 
   void _drawPointyGrid(Canvas canvas, Rect clip, double hexR, Paint paint) {
-    final colStep = hexR * sqrt(3.0);
     final rowStep = hexR * 3.0 / 2.0;
+    final sqrt3 = sqrt(3.0);
 
-    final qStart = ((clip.left - hexR * 2) / colStep).floor() - 1;
-    final qEnd = ((clip.right + hexR * 2) / colStep).ceil() + 1;
-    final rStart = ((clip.top - hexR * 2) / rowStep).floor() - 1;
-    final rEnd = ((clip.bottom + hexR * 2) / rowStep).ceil() + 1;
+    // r は cy にのみ直接影響する軸。r ごとに q 範囲を算出する。
+    final rStart = ((-hexR * 2) / rowStep).floor() - 1;
+    final rEnd   = ((clip.height + hexR * 2) / rowStep).ceil() + 1;
 
-    for (int q = qStart; q <= qEnd; q++) {
-      for (int r = rStart; r <= rEnd; r++) {
-        final cx = clip.left + hexR * (sqrt(3.0) * q + sqrt(3.0) / 2.0 * r);
-        final cy = clip.top + hexR * 3.0 / 2.0 * r;
+    for (int r = rStart; r <= rEnd; r++) {
+      final cy   = clip.top + rowStep * r;
+      final rOff = sqrt3 / 2.0 * r;
+      // cx = clip.left + hexR * (sqrt3 * q + rOff) を clip 幅で覆う q 範囲
+      final qStart = ((-1.0 - rOff) / sqrt3).floor() - 1;
+      final qEnd   = ((clip.width / hexR + 1.0 - rOff) / sqrt3).ceil() + 1;
+      for (int q = qStart; q <= qEnd; q++) {
+        final cx = clip.left + hexR * (sqrt3 * q + rOff);
         _drawHex(canvas, cx, cy, hexR, 30.0, paint);
       }
     }

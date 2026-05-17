@@ -1,7 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:purchases_flutter/purchases_flutter.dart';
+import 'package:url_launcher/url_launcher.dart';
 import '../domain/entitlement_notifier.dart';
+
+const _tosUrl = 'https://momo3909.github.io/labnote/terms.html';
+const _privacyUrl = 'https://momo3909.github.io/labnote/privacy.html';
 
 Future<bool> showPaywallModal(BuildContext context) async {
   final result = await showModalBottomSheet<bool>(
@@ -75,18 +79,31 @@ class PaywallModal extends ConsumerWidget {
                 : _fallbackButtons(context, ref),
           ),
           const SizedBox(height: 16),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.center,
+          Wrap(
+            alignment: WrapAlignment.center,
             children: [
               TextButton(
                 onPressed: () => _restore(context, ref),
                 child: const Text('購入を復元', style: TextStyle(fontSize: 12)),
               ),
-              const Text('・', style: TextStyle(color: Colors.black38)),
+              const Padding(
+                padding: EdgeInsets.symmetric(vertical: 12),
+                child: Text('・', style: TextStyle(color: Colors.black38)),
+              ),
               TextButton(
-                onPressed: () {},
-                child:
-                    const Text('利用規約', style: TextStyle(fontSize: 12)),
+                onPressed: () => launchUrl(Uri.parse(_tosUrl),
+                    mode: LaunchMode.externalApplication),
+                child: const Text('利用規約', style: TextStyle(fontSize: 12)),
+              ),
+              const Padding(
+                padding: EdgeInsets.symmetric(vertical: 12),
+                child: Text('・', style: TextStyle(color: Colors.black38)),
+              ),
+              TextButton(
+                onPressed: () => launchUrl(Uri.parse(_privacyUrl),
+                    mode: LaunchMode.externalApplication),
+                child: const Text('プライバシーポリシー',
+                    style: TextStyle(fontSize: 12)),
               ),
             ],
           ),

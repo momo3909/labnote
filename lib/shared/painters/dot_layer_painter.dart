@@ -22,8 +22,13 @@ class DotLayerPainter extends LayerPainterBase<DotLayerConfig> {
       ..color = color.withValues(alpha: opacity)
       ..style = PaintingStyle.fill;
 
-    final offsetX = (clip.width % spacing) / 2;
-    final offsetY = (clip.height % spacing) / 2;
+    // alignToOrigin: コンテンツ中央にドットが来るよう位相を調整（座標軸原点と一致）
+    final offsetX = config.alignToOrigin
+        ? (clip.width / 2) % spacing
+        : (clip.width % spacing) / 2;
+    final offsetY = config.alignToOrigin
+        ? (clip.height / 2) % spacing
+        : (clip.height % spacing) / 2;
 
     for (double x = clip.left + offsetX; x <= clip.right + 0.5; x += spacing) {
       for (double y = clip.top + offsetY; y <= clip.bottom + 0.5; y += spacing) {

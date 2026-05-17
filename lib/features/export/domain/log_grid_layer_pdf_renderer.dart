@@ -1,8 +1,10 @@
 import 'dart:math';
 import 'package:pdf/pdf.dart';
+import 'package:pdf/widgets.dart' as pw;
 import '../../../core/constants/print_constants.dart';
 import '../../../shared/models/layer_config.dart';
 import 'layer_pdf_renderer_base.dart';
+import 'pdf_font_store.dart';
 
 class LogGridLayerPdfRenderer extends LayerPdfRendererBase<LogGridLayerConfig> {
   const LogGridLayerPdfRenderer({
@@ -12,6 +14,39 @@ class LogGridLayerPdfRenderer extends LayerPdfRendererBase<LogGridLayerConfig> {
     super.opacity,
     super.region,
   });
+
+  @override
+  pw.Widget build() {
+    final base = super.build();
+    final labels = <pw.Widget>[];
+    final labelStyle = pw.TextStyle(
+      font: PdfFontStore.ja,
+      fontSize: 7,
+      color: PdfColor(color.red, color.green, color.blue, opacity * 0.7),
+    );
+    final marginRight = toPoints(pageConfig.marginRightMm);
+    final marginTop = toPoints(pageConfig.marginTopMm);
+
+    if (config.xLabel.isNotEmpty) {
+      labels.add(pw.Positioned(
+        top: toPoints(pageConfig.effectiveHeightMm) - marginTop - 12,
+        right: marginRight + 3,
+        child: pw.Text(config.xLabel, style: labelStyle),
+      ));
+    }
+    if (config.yLabel.isNotEmpty) {
+      labels.add(pw.Positioned(
+        top: marginTop + 3,
+        left: toPoints(effectiveMarginLeftMm(pageConfig)) + 3,
+        child: pw.Transform.rotateBox(
+          angle: -pi / 2,
+          child: pw.Text(config.yLabel, style: labelStyle),
+        ),
+      ));
+    }
+    if (labels.isEmpty) return base;
+    return pw.Stack(children: [base, ...labels]);
+  }
 
   @override
   void paintContent(
@@ -69,13 +104,14 @@ class LogGridLayerPdfRenderer extends LayerPdfRendererBase<LogGridLayerConfig> {
     double top, {
     required bool horizontal,
   }) {
-    final step = toPoints(5.0);
+    final nominalStep = toPoints(5.0);
     final length = horizontal ? top - bottom : right - left;
+    final count = (length / nominalStep).round().clamp(1, 10000);
+    final step = length / count;
     final origin = horizontal ? bottom : left;
-    final offset = (length % step) / 2;
 
-    for (double p = origin + offset; p <= origin + length + 0.5; p += step) {
-      _drawLine(canvas, left, right, bottom, top, p, horizontal, bold: false);
+    for (int i = 0; i <= count; i++) {
+      _drawLine(canvas, left, right, bottom, top, origin + step * i, horizontal, bold: false);
     }
   }
 

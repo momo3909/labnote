@@ -38,17 +38,18 @@ class HexLayerPdfRenderer extends LayerPdfRendererBase<HexLayerConfig> {
     final w = right - left;
     final h = top - bottom;
     final colStep = hexR * 3.0 / 2.0;
-    final rowStep = hexR * sqrt(3.0);
+    final sqrt3 = sqrt(3.0);
 
-    final qStart = ((left - hexR * 2) / colStep).floor() - 1;
-    final qEnd = ((left + w + hexR * 2) / colStep).ceil() + 1;
-    final rStart = ((bottom - hexR * 2) / rowStep).floor() - 1;
-    final rEnd = ((bottom + h + hexR * 2) / rowStep).ceil() + 1;
+    final qStart = ((-hexR * 2) / colStep).floor() - 1;
+    final qEnd   = ((w + hexR * 2) / colStep).ceil() + 1;
 
     for (int q = qStart; q <= qEnd; q++) {
+      final cx   = left + colStep * q;
+      final qOff = sqrt3 / 2.0 * q;
+      final rStart = ((-1.0 - qOff) / sqrt3).floor() - 1;
+      final rEnd   = ((h / hexR + 1.0 - qOff) / sqrt3).ceil() + 1;
       for (int r = rStart; r <= rEnd; r++) {
-        final cx = left + hexR * 3.0 / 2.0 * q;
-        final cy = bottom + hexR * (sqrt(3.0) / 2.0 * q + sqrt(3.0) * r);
+        final cy = bottom + hexR * (qOff + sqrt3 * r);
         _drawHex(canvas, cx, cy, hexR, 0.0);
       }
     }
@@ -57,18 +58,19 @@ class HexLayerPdfRenderer extends LayerPdfRendererBase<HexLayerConfig> {
   void _drawPointyGrid(PdfGraphics canvas, double left, double right, double bottom, double top, double hexR) {
     final w = right - left;
     final h = top - bottom;
-    final colStep = hexR * sqrt(3.0);
     final rowStep = hexR * 3.0 / 2.0;
+    final sqrt3 = sqrt(3.0);
 
-    final qStart = ((left - hexR * 2) / colStep).floor() - 1;
-    final qEnd = ((left + w + hexR * 2) / colStep).ceil() + 1;
-    final rStart = ((bottom - hexR * 2) / rowStep).floor() - 1;
-    final rEnd = ((bottom + h + hexR * 2) / rowStep).ceil() + 1;
+    final rStart = ((-hexR * 2) / rowStep).floor() - 1;
+    final rEnd   = ((h + hexR * 2) / rowStep).ceil() + 1;
 
-    for (int q = qStart; q <= qEnd; q++) {
-      for (int r = rStart; r <= rEnd; r++) {
-        final cx = left + hexR * (sqrt(3.0) * q + sqrt(3.0) / 2.0 * r);
-        final cy = bottom + hexR * 3.0 / 2.0 * r;
+    for (int r = rStart; r <= rEnd; r++) {
+      final cy   = bottom + rowStep * r;
+      final rOff = sqrt3 / 2.0 * r;
+      final qStart = ((-1.0 - rOff) / sqrt3).floor() - 1;
+      final qEnd   = ((w / hexR + 1.0 - rOff) / sqrt3).ceil() + 1;
+      for (int q = qStart; q <= qEnd; q++) {
+        final cx = left + hexR * (sqrt3 * q + rOff);
         _drawHex(canvas, cx, cy, hexR, 30.0);
       }
     }

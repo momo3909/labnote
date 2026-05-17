@@ -6,20 +6,24 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import '../../../shared/models/layer_config.dart';
 import '../domain/editor_notifier.dart';
+import '../../export/domain/pdf_font_store.dart';
 import '../../export/presentation/export_service.dart';
 import '../../paywall/domain/entitlement_notifier.dart';
 import '../../paywall/domain/free_limits.dart';
 import '../../paywall/presentation/paywall_modal.dart';
 import 'widgets/layer_controls/layer_controls.dart';
+import 'widgets/layer_controls/stamp_controls.dart';
 import 'widgets/layer_list_panel.dart';
 import 'widgets/page_settings_panel.dart';
 import 'widgets/preview_panel.dart';
 import 'widgets/settings_bottom_sheet.dart';
+import 'widgets/layer_drag_overlay.dart';
+import 'widgets/stamp_interaction_overlay.dart';
 
 class EditorScreen extends ConsumerStatefulWidget {
-  const EditorScreen({super.key, this.templateUuid, this.presetConfig});
+  const EditorScreen({super.key, this.templateUuid, this.presetConfigs});
   final String? templateUuid;
-  final LayerConfig? presetConfig;
+  final List<LayerPreset>? presetConfigs;
 
   @override
   ConsumerState<EditorScreen> createState() => _EditorScreenState();
@@ -30,8 +34,10 @@ class _EditorScreenState extends ConsumerState<EditorScreen> {
   late final _transformController = TransformationController();
   Size? _previewSize;
   final _previewKey = GlobalKey();
+  final _paperKey = GlobalKey();
+  final _previewAreaKey = GlobalKey(); // ズーム基準点の計算に使用
 
-  EditorParam get _param => (uuid: widget.templateUuid, preset: widget.presetConfig);
+  EditorParam get _param => (uuid: widget.templateUuid, presets: widget.presetConfigs);
 
   @override
   void dispose() {
@@ -50,11 +56,23 @@ class _EditorScreenState extends ConsumerState<EditorScreen> {
     final newScale = (currentScale * factor).clamp(0.3, 6.0);
     if ((newScale - currentScale).abs() < 0.001) return;
 
+    // 紙面の現在の視覚中心を基準にズームすることで、紙面が右下に流れる現象を防ぐ
+    final paperRb  = _paperKey.currentContext?.findRenderObject() as RenderBox?;
+    final stackRb  = _previewAreaKey.currentContext?.findRenderObject() as RenderBox?;
+    double cx, cy;
+    if (paperRb != null && stackRb != null) {
+      final globalCenter = paperRb.localToGlobal(
+          Offset(paperRb.size.width / 2, paperRb.size.height / 2));
+      final local = stackRb.globalToLocal(globalCenter);
+      cx = local.dx.clamp(0.0, size.width);
+      cy = local.dy.clamp(0.0, size.height);
+    } else {
+      cx = size.width / 2;
+      cy = size.height / 2;
+    }
+
     final tx = matrix[12];
     final ty = matrix[13];
-    final cx = size.width / 2;
-    final cy = size.height / 2;
-
     final sceneCx = (cx - tx) / currentScale;
     final sceneCy = (cy - ty) / currentScale;
     final newTx = cx - sceneCx * newScale;
@@ -72,7 +90,7 @@ class _EditorScreenState extends ConsumerState<EditorScreen> {
       final boundary =
           _previewKey.currentContext?.findRenderObject() as RenderRepaintBoundary?;
       if (boundary == null || boundary.debugNeedsPaint || boundary.size.isEmpty) return null;
-      final image = await boundary.toImage(pixelRatio: 1.5);
+      final image = await boundary.toImage(pixelRatio: 1.0);
       final byteData = await image.toByteData(format: ui.ImageByteFormat.png);
       return byteData?.buffer.asUint8List();
     } catch (_) {
@@ -127,7 +145,6 @@ class _EditorScreenState extends ConsumerState<EditorScreen> {
       );
       if (picked == null || !context.mounted) return;
       pageCount = picked;
-      // 選択したページ数を保存
       notifier.updatePageConfig(state.pageConfig.copyWith(pageCount: pageCount));
     } else {
       pageCount = freeMaxPdfPages;
@@ -138,6 +155,21 @@ class _EditorScreenState extends ConsumerState<EditorScreen> {
       final template = await ref.read(templateRepositoryProvider).getByUuid(uuid);
       if (template == null || !context.mounted) return;
       await ExportService.sharePdf(template, pageCount: pageCount);
+    } on PdfFontLoadException catch (e) {
+      if (context.mounted) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: Text(e.toString()),
+            duration: const Duration(seconds: 5),
+          ),
+        );
+      }
+    } catch (e) {
+      if (context.mounted) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(content: Text('PDF出力に失敗しました: $e')),
+        );
+      }
     } finally {
       if (mounted) setState(() => _isExporting = false);
     }
@@ -233,6 +265,28 @@ class _EditorScreenState extends ConsumerState<EditorScreen> {
     if (context.mounted) context.go('/');
   }
 
+  Future<void> _confirmDiscard() async {
+    final confirmed = await showDialog<bool>(
+      context: context,
+      builder: (ctx) => AlertDialog(
+        title: const Text('編集を破棄しますか？'),
+        content: const Text('保存していない変更が失われます。'),
+        actions: [
+          TextButton(
+            onPressed: () => Navigator.pop(ctx, false),
+            child: const Text('キャンセル'),
+          ),
+          FilledButton(
+            style: FilledButton.styleFrom(backgroundColor: Colors.red),
+            onPressed: () => Navigator.pop(ctx, true),
+            child: const Text('破棄して戻る'),
+          ),
+        ],
+      ),
+    );
+    if (confirmed == true && mounted) context.pop();
+  }
+
   // ── Build ─────────────────────────────────────────────────────────────────
 
   @override
@@ -240,7 +294,24 @@ class _EditorScreenState extends ConsumerState<EditorScreen> {
     final state = ref.watch(editorNotifierProvider(_param));
     final notifier = ref.read(editorNotifierProvider(_param).notifier);
 
-    return Scaffold(
+    // アクティブレイヤーが変わったらスタンプ選択をリセット。
+    // ドラッグ目的の切替（LayerLongPressOverlay）の場合はドラッグモードを維持する。
+    ref.listen<EditorState>(editorNotifierProvider(_param), (prev, next) {
+      if (prev != null && prev.activeLayerIndex != next.activeLayerIndex) {
+        final isDragSwitch = notifier.consumePendingDragMode();
+        if (!isDragSwitch) {
+          ref.read(isLayerDragModeProvider.notifier).state = false;
+        }
+        ref.read(selectedStampIndexProvider.notifier).state = null;
+      }
+    });
+
+    return PopScope(
+      canPop: !state.isDirty,
+      onPopInvokedWithResult: (didPop, _) {
+        if (!didPop) _confirmDiscard();
+      },
+      child: Scaffold(
       appBar: AppBar(
         title: GestureDetector(
           onTap: () => _editName(state, notifier),
@@ -290,14 +361,42 @@ class _EditorScreenState extends ConsumerState<EditorScreen> {
             builder: (context, constraints) {
               _previewSize = constraints.biggest;
               return Stack(
+                key: _previewAreaKey,
                 children: [
                   InteractiveViewer(
                     transformationController: _transformController,
                     boundaryMargin: const EdgeInsets.all(double.infinity),
                     minScale: 0.3,
                     maxScale: 6.0,
-                    child: PreviewPanel(state: state, previewKey: _previewKey),
+                    child: PreviewPanel(
+                      state: state,
+                      previewKey: _previewKey,
+                      paperKey: _paperKey,
+                      overlayChild: switch (state.activeLayer?.config) {
+                          StampLayerConfig c => StampPaperOverlay(
+                              config: c,
+                              notifier: notifier,
+                              paperKey: _paperKey,
+                            ),
+                          null => null,
+                          _ => LayerDragPaperOverlay(
+                              state: state,
+                              notifier: notifier,
+                              paperKey: _paperKey,
+                            ),
+                        },
+                    ),
                   ),
+                  // LayerLongPressOverlay がレイヤードラッグ・スタンプドラッグ・
+                  // スタンプ配置をすべて担う（StampTapLongPressOverlay を統合済み）
+                  if (state.activeLayer != null)
+                    Positioned.fill(
+                      child: LayerLongPressOverlay(
+                        state: state,
+                        notifier: notifier,
+                        paperKey: _paperKey,
+                      ),
+                    ),
                   Positioned(
                     top: 8,
                     right: 8,
@@ -337,6 +436,7 @@ class _EditorScreenState extends ConsumerState<EditorScreen> {
           );
         },
       ),
+    ),
     );
   }
 
@@ -350,24 +450,25 @@ class _EditorScreenState extends ConsumerState<EditorScreen> {
         children: [
           Expanded(
             child: SingleChildScrollView(
-              padding: const EdgeInsets.all(16),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  LayerListPanel(state: state, notifier: notifier),
-                  const SizedBox(height: 8),
-                  LayerControls(
-                    config: state.activeLayer?.config,
-                    notifier: notifier,
-                    isGridLinked: state.isGridLinked,
-                  ),
-                  const SizedBox(height: 8),
-                  PageSettingsPanel(pageConfig: state.pageConfig, notifier: notifier),
-                ],
+                keyboardDismissBehavior: ScrollViewKeyboardDismissBehavior.onDrag,
+                padding: const EdgeInsets.all(16),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    LayerListPanel(state: state, notifier: notifier),
+                    const SizedBox(height: 8),
+                    LayerControls(
+                      config: state.activeLayer?.config,
+                      notifier: notifier,
+                      isGridLinked: state.isGridLinked,
+                    ),
+                    const SizedBox(height: 8),
+                    PageSettingsPanel(pageConfig: state.pageConfig, notifier: notifier),
+                  ],
+                ),
               ),
             ),
-          ),
           Padding(
             padding: EdgeInsets.fromLTRB(
               16, 8, 16, MediaQuery.of(context).padding.bottom + 16,

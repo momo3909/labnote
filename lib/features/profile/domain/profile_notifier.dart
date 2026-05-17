@@ -53,11 +53,7 @@ class UserProfileNotifier extends _$UserProfileNotifier {
   }
 
   Future<void> updateAvatarBytes(Uint8List bytes) async {
-    // 楽観的更新
-    final current = state.valueOrNull;
-    if (current != null) {
-      state = AsyncData(current.copyWith(avatarBytes: bytes));
-    }
+    // Storage アップロード → URL をプロフィールに反映
     await ref.read(userRepositoryProvider).updateAvatarBytes(uid, bytes);
     ref.invalidate(currentProfileProvider);
   }
@@ -96,4 +92,30 @@ Future<List<UserProfile>> userRanking(UserRankingRef ref) async {
 Future<List<GalleryTemplate>> ownTemplates(OwnTemplatesRef ref, String uid) async {
   final repo = ref.read(galleryRepositoryProvider);
   return repo.fetchByAuthor(uid);
+}
+
+@riverpod
+Future<List<UserProfile>> followingProfiles(FollowingProfilesRef ref, String uid) =>
+    ref.read(userRepositoryProvider).fetchFollowingProfiles(uid);
+
+@riverpod
+Future<List<UserProfile>> followerProfiles(FollowerProfilesRef ref, String uid) =>
+    ref.read(userRepositoryProvider).fetchFollowerProfiles(uid);
+
+/// 現在ユーザーが targetUid をフォローしているか
+@riverpod
+Future<bool> isFollowing(IsFollowingRef ref, String targetUid) async {
+  final user = FirebaseAuth.instance.currentUser;
+  if (user == null || user.isAnonymous) return false;
+  return ref.read(userRepositoryProvider).isFollowing(user.uid, targetUid);
+}
+
+/// フォロー中ユーザーの投稿テンプレート一覧
+@riverpod
+Future<List<GalleryTemplate>> followingFeed(FollowingFeedRef ref) async {
+  final user = FirebaseAuth.instance.currentUser;
+  if (user == null || user.isAnonymous) return [];
+  final uids = await ref.read(userRepositoryProvider).fetchFollowingUids(user.uid);
+  if (uids.isEmpty) return [];
+  return ref.read(galleryRepositoryProvider).fetchByFollowing(uids);
 }

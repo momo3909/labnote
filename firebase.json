@@ -1,1 +1,31 @@
-{"flutter":{"platforms":{"ios":{"default":{"projectId":"labnote-40d54","appId":"1:382558262467:ios:617fbe120d4754423dfe76","uploadDebugSymbols":false,"fileOutput":"ios/Runner/GoogleService-Info.plist"}},"dart":{"lib/firebase_options.dart":{"projectId":"labnote-40d54","configurations":{"ios":"1:382558262467:ios:617fbe120d4754423dfe76"}}}}}}
+{
+  "firestore": {
+    "rules": "firestore.rules"
+  },
+  "storage": [
+    {
+      "bucket": "labnote-40d54.appspot.com",
+      "rules": "storage.rules"
+    }
+  ],
+  "flutter": {
+    "platforms": {
+      "ios": {
+        "default": {
+          "projectId": "labnote-40d54",
+          "appId": "1:382558262467:ios:617fbe120d4754423dfe76",
+          "uploadDebugSymbols": false,
+          "fileOutput": "ios/Runner/GoogleService-Info.plist"
+        }
+      },
+      "dart": {
+        "lib/firebase_options.dart": {
+          "projectId": "labnote-40d54",
+          "configurations": {
+            "ios": "1:382558262467:ios:617fbe120d4754423dfe76"
+          }
+        }
+      }
+    }
+  }
+}

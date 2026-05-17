@@ -31,7 +31,7 @@ class PolarLayerPdfRenderer extends LayerPdfRendererBase<PolarLayerConfig> {
     // 同心円
     for (int i = 1; i <= config.rings; i++) {
       final r = ringStep * i;
-      canvas.drawEllipse(cx - r, cy - r, r * 2, r * 2);
+      canvas.drawEllipse(cx, cy, r, r);
       canvas.strokePath();
     }
 

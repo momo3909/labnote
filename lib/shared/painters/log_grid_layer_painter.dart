@@ -38,6 +38,7 @@ class LogGridLayerPainter extends LayerPainterBase<LogGridLayerConfig> {
     } else {
       _drawLinearAxis(canvas, clip, scale, horizontal: true, paint: paintThin);
     }
+    _drawAxisLabels(canvas, clip, scale);
   }
 
   void _drawLogAxis(
@@ -74,13 +75,15 @@ class LogGridLayerPainter extends LayerPainterBase<LogGridLayerConfig> {
     required bool horizontal,
     required Paint paint,
   }) {
-    final step = mmToPx(5.0, scale);
+    final nominalStep = mmToPx(5.0, scale);
     final length = horizontal ? clip.height : clip.width;
+    // セル数を整数に丸めて均等スケーリング → 両端まで線が届く
+    final count = (length / nominalStep).round().clamp(1, 10000);
+    final step = length / count;
     final origin = horizontal ? clip.top : clip.left;
-    final offset = (length % step) / 2;
 
-    for (double p = origin + offset; p <= origin + length + 0.5; p += step) {
-      _drawLine(canvas, clip, p, horizontal, paint);
+    for (int i = 0; i <= count; i++) {
+      _drawLine(canvas, clip, origin + step * i, horizontal, paint);
     }
   }
 
@@ -89,6 +92,31 @@ class LogGridLayerPainter extends LayerPainterBase<LogGridLayerConfig> {
       canvas.drawLine(Offset(clip.left, pos), Offset(clip.right, pos), paint);
     } else {
       canvas.drawLine(Offset(pos, clip.top), Offset(pos, clip.bottom), paint);
+    }
+  }
+
+  void _drawAxisLabels(Canvas canvas, Rect clip, double scale) {
+    final labelStyle = TextStyle(
+      color: color.withValues(alpha: opacity * 0.7),
+      fontSize: mmToPx(3.0, scale).clamp(8.0, 13.0),
+    );
+    if (config.xLabel.isNotEmpty) {
+      final tp = TextPainter(
+        text: TextSpan(text: config.xLabel, style: labelStyle),
+        textDirection: TextDirection.ltr,
+      )..layout();
+      tp.paint(canvas, Offset(clip.right - tp.width - 4, clip.bottom - tp.height - 2));
+    }
+    if (config.yLabel.isNotEmpty) {
+      final tp = TextPainter(
+        text: TextSpan(text: config.yLabel, style: labelStyle),
+        textDirection: TextDirection.ltr,
+      )..layout();
+      canvas.save();
+      canvas.translate(clip.left + tp.height + 2, clip.top + tp.width + 4);
+      canvas.rotate(-pi / 2);
+      tp.paint(canvas, Offset.zero);
+      canvas.restore();
     }
   }
 }

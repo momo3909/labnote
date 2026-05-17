@@ -1,3 +1,4 @@
+import 'dart:typed_data';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -305,19 +306,15 @@ class SettingsScreen extends ConsumerWidget {
 }
 
 class _AvatarWidget extends StatelessWidget {
-  const _AvatarWidget({
-    required this.avatarBytes,
-    required this.avatarUrl,
-    required this.radius,
-  });
-  final dynamic avatarBytes;
+  const _AvatarWidget({required this.avatarUrl, required this.radius, this.avatarBytes});
   final String? avatarUrl;
+  final Uint8List? avatarBytes;
   final double radius;
 
   @override
   Widget build(BuildContext context) {
     if (avatarBytes != null) {
-      return CircleAvatar(radius: radius, backgroundImage: MemoryImage(avatarBytes));
+      return CircleAvatar(radius: radius, backgroundImage: MemoryImage(avatarBytes!));
     }
     if (avatarUrl != null) {
       return CircleAvatar(radius: radius, backgroundImage: NetworkImage(avatarUrl!));

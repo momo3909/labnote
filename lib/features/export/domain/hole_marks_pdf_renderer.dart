@@ -30,14 +30,14 @@ class HoleMarksPdfRenderer {
 
     for (int i = 0; i < holeCount; i++) {
       final y = topY - spacing * i; // PDF y-up: 上から下へ
-      // 白塗り円
+      // 白塗り円 — drawEllipse(cx, cy, rx, ry) は中心+半径
       canvas.setFillColor(PdfColors.white);
-      canvas.drawEllipse(cx - radius, y - radius, radius * 2, radius * 2);
+      canvas.drawEllipse(cx, y, radius, radius);
       canvas.fillPath();
       // ストローク
       canvas.setStrokeColor(const PdfColor.fromInt(0xFFCCCCCC));
       canvas.setLineWidth(0.3);
-      canvas.drawEllipse(cx - radius, y - radius, radius * 2, radius * 2);
+      canvas.drawEllipse(cx, y, radius, radius);
       canvas.strokePath();
     }
 

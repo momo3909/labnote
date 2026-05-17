@@ -10,6 +10,8 @@ class UserProfile {
     required this.createdAt,
     this.avatarBytes,
     this.avatarUrl,
+    this.followerCount = 0,
+    this.followingCount = 0,
   });
 
   final String uid;
@@ -20,6 +22,8 @@ class UserProfile {
   final DateTime createdAt;
   final Uint8List? avatarBytes;
   final String? avatarUrl;
+  final int followerCount;
+  final int followingCount;
 
   UserProfile copyWith({
     String? displayName,
@@ -28,6 +32,8 @@ class UserProfile {
     int? totalLikes,
     Uint8List? avatarBytes,
     String? avatarUrl,
+    int? followerCount,
+    int? followingCount,
   }) {
     return UserProfile(
       uid: uid,
@@ -38,6 +44,8 @@ class UserProfile {
       createdAt: createdAt,
       avatarBytes: avatarBytes ?? this.avatarBytes,
       avatarUrl: avatarUrl ?? this.avatarUrl,
+      followerCount: followerCount ?? this.followerCount,
+      followingCount: followingCount ?? this.followingCount,
     );
   }
 
@@ -49,8 +57,8 @@ class UserProfile {
       'templateCount': templateCount,
       'totalLikes': totalLikes,
       'createdAt': createdAt,
-      if (avatarBytes != null) 'avatarBytes': avatarBytes,
       if (avatarUrl != null) 'avatarUrl': avatarUrl,
+      // avatarBytes は Storage 移行済みのため書き込まない
     };
   }
 }

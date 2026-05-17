@@ -1,0 +1,2 @@
+
+App Store Connectにアクセスするには、Apple Developer Programの個人／チームメンバーであるか、個人からApp Store Connectのコンテンツにアクセスできるよう招待されている必要があります。詳しく見る

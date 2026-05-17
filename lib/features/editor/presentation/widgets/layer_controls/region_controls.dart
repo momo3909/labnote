@@ -88,5 +88,13 @@ class RegionControls extends StatelessWidget {
     ManuscriptLayerConfig() => '原稿用紙',
     TimetableLayerConfig() => '時間割',
     RegionLayerConfig() => '領域分割',
+    StaffLayerConfig() => '五線譜',
+    RuledGridLayerConfig() => '方眼＋罫線',
+    StampLayerConfig() => 'スタンプ',
+    GraphAxisLayerConfig() => '座標軸',
+    TableLayerConfig() => '表',
+    CustomLineLayerConfig() => 'カスタム線',
+
+    HeaderLayerConfig() => 'ヘッダー',
   };
 }

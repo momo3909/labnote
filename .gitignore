@@ -62,3 +62,7 @@ GoogleService-Info.plist
 # *.freezed.dart
 # *.g.dart
 ios/build/
+
+# Firebase service account key (secret)
+scripts/serviceAccountKey.json
+scripts/node_modules/

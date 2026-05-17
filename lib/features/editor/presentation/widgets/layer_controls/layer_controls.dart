@@ -2,15 +2,23 @@ import 'package:flutter/material.dart';
 import '../../../../../shared/models/layer_config.dart';
 import '../../../domain/editor_notifier.dart';
 import 'cornell_controls.dart';
+import 'custom_line_controls.dart';
+import 'graph_axis_controls.dart';
+import 'table_controls.dart';
+
 import 'dot_controls.dart';
 import 'grid_controls.dart';
 import 'guide_controls.dart';
+import 'header_controls.dart';
 import 'hex_controls.dart';
 import 'isometric_controls.dart';
 import 'log_grid_controls.dart';
 import 'manuscript_controls.dart';
 import 'polar_controls.dart';
 import 'region_controls.dart';
+import 'ruled_grid_controls.dart';
+import 'staff_controls.dart';
+import 'stamp_controls.dart';
 import 'timetable_controls.dart';
 
 class LayerControls extends StatelessWidget {
@@ -43,6 +51,14 @@ class LayerControls extends StatelessWidget {
       TimetableLayerConfig c => TimetableControls(config: c, notifier: notifier),
       RegionLayerConfig c => RegionControls(config: c, notifier: notifier),
       GuideLayerConfig c => GuideControls(config: c, notifier: notifier),
+      StaffLayerConfig c => StaffControls(config: c, notifier: notifier),
+      RuledGridLayerConfig c => RuledGridControls(config: c, notifier: notifier),
+      StampLayerConfig c => StampControls(config: c, notifier: notifier),
+      CustomLineLayerConfig c => CustomLineControls(config: c, notifier: notifier),
+      GraphAxisLayerConfig c => GraphAxisControls(config: c, notifier: notifier),
+      TableLayerConfig c => TableControls(config: c, notifier: notifier),
+
+      HeaderLayerConfig c => HeaderControls(config: c, notifier: notifier),
       _ => const SizedBox.shrink(),
     };
   }

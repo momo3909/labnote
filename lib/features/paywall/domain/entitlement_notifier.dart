@@ -9,7 +9,7 @@ const _entitlementId = 'pro';
 
 // RevenueCat API key (iOS)
 // TODO: App Store Connect連携後にここを実際のキーに差し替える
-const _rcApiKeyIos = 'appl_REPLACE_WITH_YOUR_KEY';
+const _rcApiKeyIos = 'test_bRjNnUVrUjdNxuGcxoXOGtSdXaB';
 
 @riverpod
 class EntitlementNotifier extends _$EntitlementNotifier {
@@ -19,12 +19,13 @@ class EntitlementNotifier extends _$EntitlementNotifier {
   }
 
   Future<bool> _fetchIsPro() async {
-    // デバッグビルド時は Pro を強制解除（実機テスト用）
-    if (kDebugMode) return true;
-
     try {
       final info = await Purchases.getCustomerInfo();
-      return info.entitlements.active.containsKey(_entitlementId);
+      if (info.entitlements.active.containsKey(_entitlementId)) return true;
+      // デバッグ時: RevenueCat のエンタイトルメント未設定でも
+      // アクティブなサブスクリプションがあれば Pro とみなす
+      if (kDebugMode && info.activeSubscriptions.isNotEmpty) return true;
+      return false;
     } catch (_) {
       return false;
     }
@@ -38,7 +39,8 @@ class EntitlementNotifier extends _$EntitlementNotifier {
   Future<bool> purchase(Package package) async {
     try {
       final info = await Purchases.purchasePackage(package);
-      final isPro = info.entitlements.active.containsKey(_entitlementId);
+      final isPro = info.entitlements.active.containsKey(_entitlementId) ||
+          (kDebugMode && info.activeSubscriptions.isNotEmpty);
       state = AsyncData(isPro);
       return isPro;
     } on PurchasesErrorCode catch (e) {
@@ -69,6 +71,7 @@ Future<Offerings?> rcOfferings(Ref ref) async {
 }
 
 Future<void> initRevenueCat() async {
-  await Purchases.setLogLevel(LogLevel.warn);
-  await Purchases.configure(PurchasesConfiguration(_rcApiKeyIos));
+  await Purchases.setLogLevel(kDebugMode ? LogLevel.debug : LogLevel.warn);
+  final config = PurchasesConfiguration(_rcApiKeyIos);
+  await Purchases.configure(config);
 }

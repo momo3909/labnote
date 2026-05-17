@@ -15,6 +15,878 @@ final _privateConstructorUsedError = UnsupportedError(
   'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#adding-getters-and-methods-to-our-models',
 );
 
+StampItem _$StampItemFromJson(Map<String, dynamic> json) {
+  return _StampItem.fromJson(json);
+}
+
+/// @nodoc
+mixin _$StampItem {
+  String get shapeType => throw _privateConstructorUsedError;
+  double get xRatio => throw _privateConstructorUsedError;
+  double get yRatio => throw _privateConstructorUsedError;
+  double get sizeMm => throw _privateConstructorUsedError;
+  String? get groupId => throw _privateConstructorUsedError;
+  String get colorHex => throw _privateConstructorUsedError;
+  double get rotation => throw _privateConstructorUsedError;
+  double get strokeScale => throw _privateConstructorUsedError;
+  double get widthMm =>
+      throw _privateConstructorUsedError; // 0 = sizeMm にフォールバック
+  double get heightMm => throw _privateConstructorUsedError;
+
+  /// Serializes this StampItem to a JSON map.
+  Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
+
+  /// Create a copy of StampItem
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  $StampItemCopyWith<StampItem> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class $StampItemCopyWith<$Res> {
+  factory $StampItemCopyWith(StampItem value, $Res Function(StampItem) then) =
+      _$StampItemCopyWithImpl<$Res, StampItem>;
+  @useResult
+  $Res call({
+    String shapeType,
+    double xRatio,
+    double yRatio,
+    double sizeMm,
+    String? groupId,
+    String colorHex,
+    double rotation,
+    double strokeScale,
+    double widthMm,
+    double heightMm,
+  });
+}
+
+/// @nodoc
+class _$StampItemCopyWithImpl<$Res, $Val extends StampItem>
+    implements $StampItemCopyWith<$Res> {
+  _$StampItemCopyWithImpl(this._value, this._then);
+
+  // ignore: unused_field
+  final $Val _value;
+  // ignore: unused_field
+  final $Res Function($Val) _then;
+
+  /// Create a copy of StampItem
+  /// with the given fields replaced by the non-null parameter values.
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? shapeType = null,
+    Object? xRatio = null,
+    Object? yRatio = null,
+    Object? sizeMm = null,
+    Object? groupId = freezed,
+    Object? colorHex = null,
+    Object? rotation = null,
+    Object? strokeScale = null,
+    Object? widthMm = null,
+    Object? heightMm = null,
+  }) {
+    return _then(
+      _value.copyWith(
+            shapeType: null == shapeType
+                ? _value.shapeType
+                : shapeType // ignore: cast_nullable_to_non_nullable
+                      as String,
+            xRatio: null == xRatio
+                ? _value.xRatio
+                : xRatio // ignore: cast_nullable_to_non_nullable
+                      as double,
+            yRatio: null == yRatio
+                ? _value.yRatio
+                : yRatio // ignore: cast_nullable_to_non_nullable
+                      as double,
+            sizeMm: null == sizeMm
+                ? _value.sizeMm
+                : sizeMm // ignore: cast_nullable_to_non_nullable
+                      as double,
+            groupId: freezed == groupId
+                ? _value.groupId
+                : groupId // ignore: cast_nullable_to_non_nullable
+                      as String?,
+            colorHex: null == colorHex
+                ? _value.colorHex
+                : colorHex // ignore: cast_nullable_to_non_nullable
+                      as String,
+            rotation: null == rotation
+                ? _value.rotation
+                : rotation // ignore: cast_nullable_to_non_nullable
+                      as double,
+            strokeScale: null == strokeScale
+                ? _value.strokeScale
+                : strokeScale // ignore: cast_nullable_to_non_nullable
+                      as double,
+            widthMm: null == widthMm
+                ? _value.widthMm
+                : widthMm // ignore: cast_nullable_to_non_nullable
+                      as double,
+            heightMm: null == heightMm
+                ? _value.heightMm
+                : heightMm // ignore: cast_nullable_to_non_nullable
+                      as double,
+          )
+          as $Val,
+    );
+  }
+}
+
+/// @nodoc
+abstract class _$$StampItemImplCopyWith<$Res>
+    implements $StampItemCopyWith<$Res> {
+  factory _$$StampItemImplCopyWith(
+    _$StampItemImpl value,
+    $Res Function(_$StampItemImpl) then,
+  ) = __$$StampItemImplCopyWithImpl<$Res>;
+  @override
+  @useResult
+  $Res call({
+    String shapeType,
+    double xRatio,
+    double yRatio,
+    double sizeMm,
+    String? groupId,
+    String colorHex,
+    double rotation,
+    double strokeScale,
+    double widthMm,
+    double heightMm,
+  });
+}
+
+/// @nodoc
+class __$$StampItemImplCopyWithImpl<$Res>
+    extends _$StampItemCopyWithImpl<$Res, _$StampItemImpl>
+    implements _$$StampItemImplCopyWith<$Res> {
+  __$$StampItemImplCopyWithImpl(
+    _$StampItemImpl _value,
+    $Res Function(_$StampItemImpl) _then,
+  ) : super(_value, _then);
+
+  /// Create a copy of StampItem
+  /// with the given fields replaced by the non-null parameter values.
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? shapeType = null,
+    Object? xRatio = null,
+    Object? yRatio = null,
+    Object? sizeMm = null,
+    Object? groupId = freezed,
+    Object? colorHex = null,
+    Object? rotation = null,
+    Object? strokeScale = null,
+    Object? widthMm = null,
+    Object? heightMm = null,
+  }) {
+    return _then(
+      _$StampItemImpl(
+        shapeType: null == shapeType
+            ? _value.shapeType
+            : shapeType // ignore: cast_nullable_to_non_nullable
+                  as String,
+        xRatio: null == xRatio
+            ? _value.xRatio
+            : xRatio // ignore: cast_nullable_to_non_nullable
+                  as double,
+        yRatio: null == yRatio
+            ? _value.yRatio
+            : yRatio // ignore: cast_nullable_to_non_nullable
+                  as double,
+        sizeMm: null == sizeMm
+            ? _value.sizeMm
+            : sizeMm // ignore: cast_nullable_to_non_nullable
+                  as double,
+        groupId: freezed == groupId
+            ? _value.groupId
+            : groupId // ignore: cast_nullable_to_non_nullable
+                  as String?,
+        colorHex: null == colorHex
+            ? _value.colorHex
+            : colorHex // ignore: cast_nullable_to_non_nullable
+                  as String,
+        rotation: null == rotation
+            ? _value.rotation
+            : rotation // ignore: cast_nullable_to_non_nullable
+                  as double,
+        strokeScale: null == strokeScale
+            ? _value.strokeScale
+            : strokeScale // ignore: cast_nullable_to_non_nullable
+                  as double,
+        widthMm: null == widthMm
+            ? _value.widthMm
+            : widthMm // ignore: cast_nullable_to_non_nullable
+                  as double,
+        heightMm: null == heightMm
+            ? _value.heightMm
+            : heightMm // ignore: cast_nullable_to_non_nullable
+                  as double,
+      ),
+    );
+  }
+}
+
+/// @nodoc
+@JsonSerializable()
+class _$StampItemImpl implements _StampItem {
+  const _$StampItemImpl({
+    required this.shapeType,
+    required this.xRatio,
+    required this.yRatio,
+    this.sizeMm = 8.0,
+    this.groupId = null,
+    this.colorHex = '#1A1A2E',
+    this.rotation = 0.0,
+    this.strokeScale = 1.0,
+    this.widthMm = 0.0,
+    this.heightMm = 0.0,
+  });
+
+  factory _$StampItemImpl.fromJson(Map<String, dynamic> json) =>
+      _$$StampItemImplFromJson(json);
+
+  @override
+  final String shapeType;
+  @override
+  final double xRatio;
+  @override
+  final double yRatio;
+  @override
+  @JsonKey()
+  final double sizeMm;
+  @override
+  @JsonKey()
+  final String? groupId;
+  @override
+  @JsonKey()
+  final String colorHex;
+  @override
+  @JsonKey()
+  final double rotation;
+  @override
+  @JsonKey()
+  final double strokeScale;
+  @override
+  @JsonKey()
+  final double widthMm;
+  // 0 = sizeMm にフォールバック
+  @override
+  @JsonKey()
+  final double heightMm;
+
+  @override
+  String toString() {
+    return 'StampItem(shapeType: $shapeType, xRatio: $xRatio, yRatio: $yRatio, sizeMm: $sizeMm, groupId: $groupId, colorHex: $colorHex, rotation: $rotation, strokeScale: $strokeScale, widthMm: $widthMm, heightMm: $heightMm)';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$StampItemImpl &&
+            (identical(other.shapeType, shapeType) ||
+                other.shapeType == shapeType) &&
+            (identical(other.xRatio, xRatio) || other.xRatio == xRatio) &&
+            (identical(other.yRatio, yRatio) || other.yRatio == yRatio) &&
+            (identical(other.sizeMm, sizeMm) || other.sizeMm == sizeMm) &&
+            (identical(other.groupId, groupId) || other.groupId == groupId) &&
+            (identical(other.colorHex, colorHex) ||
+                other.colorHex == colorHex) &&
+            (identical(other.rotation, rotation) ||
+                other.rotation == rotation) &&
+            (identical(other.strokeScale, strokeScale) ||
+                other.strokeScale == strokeScale) &&
+            (identical(other.widthMm, widthMm) || other.widthMm == widthMm) &&
+            (identical(other.heightMm, heightMm) ||
+                other.heightMm == heightMm));
+  }
+
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  @override
+  int get hashCode => Object.hash(
+    runtimeType,
+    shapeType,
+    xRatio,
+    yRatio,
+    sizeMm,
+    groupId,
+    colorHex,
+    rotation,
+    strokeScale,
+    widthMm,
+    heightMm,
+  );
+
+  /// Create a copy of StampItem
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$StampItemImplCopyWith<_$StampItemImpl> get copyWith =>
+      __$$StampItemImplCopyWithImpl<_$StampItemImpl>(this, _$identity);
+
+  @override
+  Map<String, dynamic> toJson() {
+    return _$$StampItemImplToJson(this);
+  }
+}
+
+abstract class _StampItem implements StampItem {
+  const factory _StampItem({
+    required final String shapeType,
+    required final double xRatio,
+    required final double yRatio,
+    final double sizeMm,
+    final String? groupId,
+    final String colorHex,
+    final double rotation,
+    final double strokeScale,
+    final double widthMm,
+    final double heightMm,
+  }) = _$StampItemImpl;
+
+  factory _StampItem.fromJson(Map<String, dynamic> json) =
+      _$StampItemImpl.fromJson;
+
+  @override
+  String get shapeType;
+  @override
+  double get xRatio;
+  @override
+  double get yRatio;
+  @override
+  double get sizeMm;
+  @override
+  String? get groupId;
+  @override
+  String get colorHex;
+  @override
+  double get rotation;
+  @override
+  double get strokeScale;
+  @override
+  double get widthMm; // 0 = sizeMm にフォールバック
+  @override
+  double get heightMm;
+
+  /// Create a copy of StampItem
+  /// with the given fields replaced by the non-null parameter values.
+  @override
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  _$$StampItemImplCopyWith<_$StampItemImpl> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+LineSet _$LineSetFromJson(Map<String, dynamic> json) {
+  return _LineSet.fromJson(json);
+}
+
+/// @nodoc
+mixin _$LineSet {
+  bool get isHorizontal => throw _privateConstructorUsedError;
+  int get count => throw _privateConstructorUsedError;
+  double get spacingMm => throw _privateConstructorUsedError;
+  double get startMm => throw _privateConstructorUsedError;
+  double get strokeWidthMm => throw _privateConstructorUsedError;
+  LineStyle get lineStyle => throw _privateConstructorUsedError;
+  List<SubLineConfig> get subLines => throw _privateConstructorUsedError;
+
+  /// Serializes this LineSet to a JSON map.
+  Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
+
+  /// Create a copy of LineSet
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  $LineSetCopyWith<LineSet> get copyWith => throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class $LineSetCopyWith<$Res> {
+  factory $LineSetCopyWith(LineSet value, $Res Function(LineSet) then) =
+      _$LineSetCopyWithImpl<$Res, LineSet>;
+  @useResult
+  $Res call({
+    bool isHorizontal,
+    int count,
+    double spacingMm,
+    double startMm,
+    double strokeWidthMm,
+    LineStyle lineStyle,
+    List<SubLineConfig> subLines,
+  });
+}
+
+/// @nodoc
+class _$LineSetCopyWithImpl<$Res, $Val extends LineSet>
+    implements $LineSetCopyWith<$Res> {
+  _$LineSetCopyWithImpl(this._value, this._then);
+
+  // ignore: unused_field
+  final $Val _value;
+  // ignore: unused_field
+  final $Res Function($Val) _then;
+
+  /// Create a copy of LineSet
+  /// with the given fields replaced by the non-null parameter values.
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? isHorizontal = null,
+    Object? count = null,
+    Object? spacingMm = null,
+    Object? startMm = null,
+    Object? strokeWidthMm = null,
+    Object? lineStyle = null,
+    Object? subLines = null,
+  }) {
+    return _then(
+      _value.copyWith(
+            isHorizontal: null == isHorizontal
+                ? _value.isHorizontal
+                : isHorizontal // ignore: cast_nullable_to_non_nullable
+                      as bool,
+            count: null == count
+                ? _value.count
+                : count // ignore: cast_nullable_to_non_nullable
+                      as int,
+            spacingMm: null == spacingMm
+                ? _value.spacingMm
+                : spacingMm // ignore: cast_nullable_to_non_nullable
+                      as double,
+            startMm: null == startMm
+                ? _value.startMm
+                : startMm // ignore: cast_nullable_to_non_nullable
+                      as double,
+            strokeWidthMm: null == strokeWidthMm
+                ? _value.strokeWidthMm
+                : strokeWidthMm // ignore: cast_nullable_to_non_nullable
+                      as double,
+            lineStyle: null == lineStyle
+                ? _value.lineStyle
+                : lineStyle // ignore: cast_nullable_to_non_nullable
+                      as LineStyle,
+            subLines: null == subLines
+                ? _value.subLines
+                : subLines // ignore: cast_nullable_to_non_nullable
+                      as List<SubLineConfig>,
+          )
+          as $Val,
+    );
+  }
+}
+
+/// @nodoc
+abstract class _$$LineSetImplCopyWith<$Res> implements $LineSetCopyWith<$Res> {
+  factory _$$LineSetImplCopyWith(
+    _$LineSetImpl value,
+    $Res Function(_$LineSetImpl) then,
+  ) = __$$LineSetImplCopyWithImpl<$Res>;
+  @override
+  @useResult
+  $Res call({
+    bool isHorizontal,
+    int count,
+    double spacingMm,
+    double startMm,
+    double strokeWidthMm,
+    LineStyle lineStyle,
+    List<SubLineConfig> subLines,
+  });
+}
+
+/// @nodoc
+class __$$LineSetImplCopyWithImpl<$Res>
+    extends _$LineSetCopyWithImpl<$Res, _$LineSetImpl>
+    implements _$$LineSetImplCopyWith<$Res> {
+  __$$LineSetImplCopyWithImpl(
+    _$LineSetImpl _value,
+    $Res Function(_$LineSetImpl) _then,
+  ) : super(_value, _then);
+
+  /// Create a copy of LineSet
+  /// with the given fields replaced by the non-null parameter values.
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? isHorizontal = null,
+    Object? count = null,
+    Object? spacingMm = null,
+    Object? startMm = null,
+    Object? strokeWidthMm = null,
+    Object? lineStyle = null,
+    Object? subLines = null,
+  }) {
+    return _then(
+      _$LineSetImpl(
+        isHorizontal: null == isHorizontal
+            ? _value.isHorizontal
+            : isHorizontal // ignore: cast_nullable_to_non_nullable
+                  as bool,
+        count: null == count
+            ? _value.count
+            : count // ignore: cast_nullable_to_non_nullable
+                  as int,
+        spacingMm: null == spacingMm
+            ? _value.spacingMm
+            : spacingMm // ignore: cast_nullable_to_non_nullable
+                  as double,
+        startMm: null == startMm
+            ? _value.startMm
+            : startMm // ignore: cast_nullable_to_non_nullable
+                  as double,
+        strokeWidthMm: null == strokeWidthMm
+            ? _value.strokeWidthMm
+            : strokeWidthMm // ignore: cast_nullable_to_non_nullable
+                  as double,
+        lineStyle: null == lineStyle
+            ? _value.lineStyle
+            : lineStyle // ignore: cast_nullable_to_non_nullable
+                  as LineStyle,
+        subLines: null == subLines
+            ? _value._subLines
+            : subLines // ignore: cast_nullable_to_non_nullable
+                  as List<SubLineConfig>,
+      ),
+    );
+  }
+}
+
+/// @nodoc
+@JsonSerializable()
+class _$LineSetImpl implements _LineSet {
+  const _$LineSetImpl({
+    this.isHorizontal = true,
+    this.count = 3,
+    this.spacingMm = 7.0,
+    this.startMm = 0.0,
+    this.strokeWidthMm = 0.3,
+    this.lineStyle = LineStyle.solid,
+    final List<SubLineConfig> subLines = const [],
+  }) : _subLines = subLines;
+
+  factory _$LineSetImpl.fromJson(Map<String, dynamic> json) =>
+      _$$LineSetImplFromJson(json);
+
+  @override
+  @JsonKey()
+  final bool isHorizontal;
+  @override
+  @JsonKey()
+  final int count;
+  @override
+  @JsonKey()
+  final double spacingMm;
+  @override
+  @JsonKey()
+  final double startMm;
+  @override
+  @JsonKey()
+  final double strokeWidthMm;
+  @override
+  @JsonKey()
+  final LineStyle lineStyle;
+  final List<SubLineConfig> _subLines;
+  @override
+  @JsonKey()
+  List<SubLineConfig> get subLines {
+    if (_subLines is EqualUnmodifiableListView) return _subLines;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(_subLines);
+  }
+
+  @override
+  String toString() {
+    return 'LineSet(isHorizontal: $isHorizontal, count: $count, spacingMm: $spacingMm, startMm: $startMm, strokeWidthMm: $strokeWidthMm, lineStyle: $lineStyle, subLines: $subLines)';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$LineSetImpl &&
+            (identical(other.isHorizontal, isHorizontal) ||
+                other.isHorizontal == isHorizontal) &&
+            (identical(other.count, count) || other.count == count) &&
+            (identical(other.spacingMm, spacingMm) ||
+                other.spacingMm == spacingMm) &&
+            (identical(other.startMm, startMm) || other.startMm == startMm) &&
+            (identical(other.strokeWidthMm, strokeWidthMm) ||
+                other.strokeWidthMm == strokeWidthMm) &&
+            (identical(other.lineStyle, lineStyle) ||
+                other.lineStyle == lineStyle) &&
+            const DeepCollectionEquality().equals(other._subLines, _subLines));
+  }
+
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  @override
+  int get hashCode => Object.hash(
+    runtimeType,
+    isHorizontal,
+    count,
+    spacingMm,
+    startMm,
+    strokeWidthMm,
+    lineStyle,
+    const DeepCollectionEquality().hash(_subLines),
+  );
+
+  /// Create a copy of LineSet
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$LineSetImplCopyWith<_$LineSetImpl> get copyWith =>
+      __$$LineSetImplCopyWithImpl<_$LineSetImpl>(this, _$identity);
+
+  @override
+  Map<String, dynamic> toJson() {
+    return _$$LineSetImplToJson(this);
+  }
+}
+
+abstract class _LineSet implements LineSet {
+  const factory _LineSet({
+    final bool isHorizontal,
+    final int count,
+    final double spacingMm,
+    final double startMm,
+    final double strokeWidthMm,
+    final LineStyle lineStyle,
+    final List<SubLineConfig> subLines,
+  }) = _$LineSetImpl;
+
+  factory _LineSet.fromJson(Map<String, dynamic> json) = _$LineSetImpl.fromJson;
+
+  @override
+  bool get isHorizontal;
+  @override
+  int get count;
+  @override
+  double get spacingMm;
+  @override
+  double get startMm;
+  @override
+  double get strokeWidthMm;
+  @override
+  LineStyle get lineStyle;
+  @override
+  List<SubLineConfig> get subLines;
+
+  /// Create a copy of LineSet
+  /// with the given fields replaced by the non-null parameter values.
+  @override
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  _$$LineSetImplCopyWith<_$LineSetImpl> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+SubLineConfig _$SubLineConfigFromJson(Map<String, dynamic> json) {
+  return _SubLineConfig.fromJson(json);
+}
+
+/// @nodoc
+mixin _$SubLineConfig {
+  double get positionRatio => throw _privateConstructorUsedError;
+  double get strokeWidthMm => throw _privateConstructorUsedError;
+  LineStyle get lineStyle => throw _privateConstructorUsedError;
+
+  /// Serializes this SubLineConfig to a JSON map.
+  Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
+
+  /// Create a copy of SubLineConfig
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  $SubLineConfigCopyWith<SubLineConfig> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class $SubLineConfigCopyWith<$Res> {
+  factory $SubLineConfigCopyWith(
+    SubLineConfig value,
+    $Res Function(SubLineConfig) then,
+  ) = _$SubLineConfigCopyWithImpl<$Res, SubLineConfig>;
+  @useResult
+  $Res call({double positionRatio, double strokeWidthMm, LineStyle lineStyle});
+}
+
+/// @nodoc
+class _$SubLineConfigCopyWithImpl<$Res, $Val extends SubLineConfig>
+    implements $SubLineConfigCopyWith<$Res> {
+  _$SubLineConfigCopyWithImpl(this._value, this._then);
+
+  // ignore: unused_field
+  final $Val _value;
+  // ignore: unused_field
+  final $Res Function($Val) _then;
+
+  /// Create a copy of SubLineConfig
+  /// with the given fields replaced by the non-null parameter values.
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? positionRatio = null,
+    Object? strokeWidthMm = null,
+    Object? lineStyle = null,
+  }) {
+    return _then(
+      _value.copyWith(
+            positionRatio: null == positionRatio
+                ? _value.positionRatio
+                : positionRatio // ignore: cast_nullable_to_non_nullable
+                      as double,
+            strokeWidthMm: null == strokeWidthMm
+                ? _value.strokeWidthMm
+                : strokeWidthMm // ignore: cast_nullable_to_non_nullable
+                      as double,
+            lineStyle: null == lineStyle
+                ? _value.lineStyle
+                : lineStyle // ignore: cast_nullable_to_non_nullable
+                      as LineStyle,
+          )
+          as $Val,
+    );
+  }
+}
+
+/// @nodoc
+abstract class _$$SubLineConfigImplCopyWith<$Res>
+    implements $SubLineConfigCopyWith<$Res> {
+  factory _$$SubLineConfigImplCopyWith(
+    _$SubLineConfigImpl value,
+    $Res Function(_$SubLineConfigImpl) then,
+  ) = __$$SubLineConfigImplCopyWithImpl<$Res>;
+  @override
+  @useResult
+  $Res call({double positionRatio, double strokeWidthMm, LineStyle lineStyle});
+}
+
+/// @nodoc
+class __$$SubLineConfigImplCopyWithImpl<$Res>
+    extends _$SubLineConfigCopyWithImpl<$Res, _$SubLineConfigImpl>
+    implements _$$SubLineConfigImplCopyWith<$Res> {
+  __$$SubLineConfigImplCopyWithImpl(
+    _$SubLineConfigImpl _value,
+    $Res Function(_$SubLineConfigImpl) _then,
+  ) : super(_value, _then);
+
+  /// Create a copy of SubLineConfig
+  /// with the given fields replaced by the non-null parameter values.
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? positionRatio = null,
+    Object? strokeWidthMm = null,
+    Object? lineStyle = null,
+  }) {
+    return _then(
+      _$SubLineConfigImpl(
+        positionRatio: null == positionRatio
+            ? _value.positionRatio
+            : positionRatio // ignore: cast_nullable_to_non_nullable
+                  as double,
+        strokeWidthMm: null == strokeWidthMm
+            ? _value.strokeWidthMm
+            : strokeWidthMm // ignore: cast_nullable_to_non_nullable
+                  as double,
+        lineStyle: null == lineStyle
+            ? _value.lineStyle
+            : lineStyle // ignore: cast_nullable_to_non_nullable
+                  as LineStyle,
+      ),
+    );
+  }
+}
+
+/// @nodoc
+@JsonSerializable()
+class _$SubLineConfigImpl implements _SubLineConfig {
+  const _$SubLineConfigImpl({
+    this.positionRatio = 0.5,
+    this.strokeWidthMm = 0.15,
+    this.lineStyle = LineStyle.dashed,
+  });
+
+  factory _$SubLineConfigImpl.fromJson(Map<String, dynamic> json) =>
+      _$$SubLineConfigImplFromJson(json);
+
+  @override
+  @JsonKey()
+  final double positionRatio;
+  @override
+  @JsonKey()
+  final double strokeWidthMm;
+  @override
+  @JsonKey()
+  final LineStyle lineStyle;
+
+  @override
+  String toString() {
+    return 'SubLineConfig(positionRatio: $positionRatio, strokeWidthMm: $strokeWidthMm, lineStyle: $lineStyle)';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$SubLineConfigImpl &&
+            (identical(other.positionRatio, positionRatio) ||
+                other.positionRatio == positionRatio) &&
+            (identical(other.strokeWidthMm, strokeWidthMm) ||
+                other.strokeWidthMm == strokeWidthMm) &&
+            (identical(other.lineStyle, lineStyle) ||
+                other.lineStyle == lineStyle));
+  }
+
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  @override
+  int get hashCode =>
+      Object.hash(runtimeType, positionRatio, strokeWidthMm, lineStyle);
+
+  /// Create a copy of SubLineConfig
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$SubLineConfigImplCopyWith<_$SubLineConfigImpl> get copyWith =>
+      __$$SubLineConfigImplCopyWithImpl<_$SubLineConfigImpl>(this, _$identity);
+
+  @override
+  Map<String, dynamic> toJson() {
+    return _$$SubLineConfigImplToJson(this);
+  }
+}
+
+abstract class _SubLineConfig implements SubLineConfig {
+  const factory _SubLineConfig({
+    final double positionRatio,
+    final double strokeWidthMm,
+    final LineStyle lineStyle,
+  }) = _$SubLineConfigImpl;
+
+  factory _SubLineConfig.fromJson(Map<String, dynamic> json) =
+      _$SubLineConfigImpl.fromJson;
+
+  @override
+  double get positionRatio;
+  @override
+  double get strokeWidthMm;
+  @override
+  LineStyle get lineStyle;
+
+  /// Create a copy of SubLineConfig
+  /// with the given fields replaced by the non-null parameter values.
+  @override
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  _$$SubLineConfigImplCopyWith<_$SubLineConfigImpl> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
 LayerConfig _$LayerConfigFromJson(Map<String, dynamic> json) {
   switch (json['runtimeType']) {
     case 'grid':
@@ -39,6 +911,20 @@ LayerConfig _$LayerConfigFromJson(Map<String, dynamic> json) {
       return RegionLayerConfig.fromJson(json);
     case 'guide':
       return GuideLayerConfig.fromJson(json);
+    case 'staff':
+      return StaffLayerConfig.fromJson(json);
+    case 'ruledGrid':
+      return RuledGridLayerConfig.fromJson(json);
+    case 'stamp':
+      return StampLayerConfig.fromJson(json);
+    case 'customLine':
+      return CustomLineLayerConfig.fromJson(json);
+    case 'graphAxis':
+      return GraphAxisLayerConfig.fromJson(json);
+    case 'table':
+      return TableLayerConfig.fromJson(json);
+    case 'header':
+      return HeaderLayerConfig.fromJson(json);
 
     default:
       throw CheckedFromJsonException(
@@ -64,19 +950,28 @@ mixin _$LayerConfig {
     )
     grid,
     required TResult Function(double hexSizeMm, HexOrientation orientation) hex,
-    required TResult Function(double spacingMm) isometric,
-    required TResult Function(double spacingMm, double dotRadiusMm) dot,
+    required TResult Function(double spacingMm, LineStyle lineStyle) isometric,
+    required TResult Function(
+      double spacingMm,
+      double dotRadiusMm,
+      bool alignToOrigin,
+    )
+    dot,
     required TResult Function(
       LogScale xScale,
       LogScale yScale,
       int xDecades,
       int yDecades,
+      String xLabel,
+      String yLabel,
     )
     logGrid,
     required TResult Function(
       double leftColMm,
       double bottomRowMm,
       double lineSpacingMm,
+      String keywordLabel,
+      String summaryLabel,
     )
     cornell,
     required TResult Function(int rings, int sectors) polar,
@@ -86,6 +981,46 @@ mixin _$LayerConfig {
     required TResult Function(List<PageRegion> regions) region,
     required TResult Function(GuideType guideType, Map<String, dynamic> params)
     guide,
+    required TResult Function(double lineSpacingMm, double staffGapMm) staff,
+    required TResult Function(double cellMm, double ruledSpacingMm) ruledGrid,
+    required TResult Function(List<StampItem> items) stamp,
+    required TResult Function(List<LineSet> lineSets) customLine,
+    required TResult Function(
+      bool showXAxis,
+      bool showYAxis,
+      bool arrowTip,
+      bool showTickMarks,
+      double tickIntervalMm,
+      double tickLengthMm,
+      TickSide xTickSide,
+      TickSide yTickSide,
+      String xLabel,
+      String yLabel,
+      bool showNegative,
+    )
+    graphAxis,
+    required TResult Function(
+      int rows,
+      int cols,
+      bool showHeaderRow,
+      bool showHeaderCol,
+      double cellHeightMm,
+    )
+    table,
+    required TResult Function(
+      bool showTitle,
+      String titleLabel,
+      bool showDate,
+      String dateLabel,
+      bool showName,
+      String nameLabel,
+      bool showSubject,
+      String subjectLabel,
+      double fontSizeMm,
+      double rowHeightMm,
+      bool showBorder,
+    )
+    header,
   }) => throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
@@ -99,19 +1034,24 @@ mixin _$LayerConfig {
     )?
     grid,
     TResult? Function(double hexSizeMm, HexOrientation orientation)? hex,
-    TResult? Function(double spacingMm)? isometric,
-    TResult? Function(double spacingMm, double dotRadiusMm)? dot,
+    TResult? Function(double spacingMm, LineStyle lineStyle)? isometric,
+    TResult? Function(double spacingMm, double dotRadiusMm, bool alignToOrigin)?
+    dot,
     TResult? Function(
       LogScale xScale,
       LogScale yScale,
       int xDecades,
       int yDecades,
+      String xLabel,
+      String yLabel,
     )?
     logGrid,
     TResult? Function(
       double leftColMm,
       double bottomRowMm,
       double lineSpacingMm,
+      String keywordLabel,
+      String summaryLabel,
     )?
     cornell,
     TResult? Function(int rings, int sectors)? polar,
@@ -119,6 +1059,46 @@ mixin _$LayerConfig {
     TResult? Function(int startHour, int endHour, int daysCount)? timetable,
     TResult? Function(List<PageRegion> regions)? region,
     TResult? Function(GuideType guideType, Map<String, dynamic> params)? guide,
+    TResult? Function(double lineSpacingMm, double staffGapMm)? staff,
+    TResult? Function(double cellMm, double ruledSpacingMm)? ruledGrid,
+    TResult? Function(List<StampItem> items)? stamp,
+    TResult? Function(List<LineSet> lineSets)? customLine,
+    TResult? Function(
+      bool showXAxis,
+      bool showYAxis,
+      bool arrowTip,
+      bool showTickMarks,
+      double tickIntervalMm,
+      double tickLengthMm,
+      TickSide xTickSide,
+      TickSide yTickSide,
+      String xLabel,
+      String yLabel,
+      bool showNegative,
+    )?
+    graphAxis,
+    TResult? Function(
+      int rows,
+      int cols,
+      bool showHeaderRow,
+      bool showHeaderCol,
+      double cellHeightMm,
+    )?
+    table,
+    TResult? Function(
+      bool showTitle,
+      String titleLabel,
+      bool showDate,
+      String dateLabel,
+      bool showName,
+      String nameLabel,
+      bool showSubject,
+      String subjectLabel,
+      double fontSizeMm,
+      double rowHeightMm,
+      bool showBorder,
+    )?
+    header,
   }) => throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
@@ -132,19 +1112,24 @@ mixin _$LayerConfig {
     )?
     grid,
     TResult Function(double hexSizeMm, HexOrientation orientation)? hex,
-    TResult Function(double spacingMm)? isometric,
-    TResult Function(double spacingMm, double dotRadiusMm)? dot,
+    TResult Function(double spacingMm, LineStyle lineStyle)? isometric,
+    TResult Function(double spacingMm, double dotRadiusMm, bool alignToOrigin)?
+    dot,
     TResult Function(
       LogScale xScale,
       LogScale yScale,
       int xDecades,
       int yDecades,
+      String xLabel,
+      String yLabel,
     )?
     logGrid,
     TResult Function(
       double leftColMm,
       double bottomRowMm,
       double lineSpacingMm,
+      String keywordLabel,
+      String summaryLabel,
     )?
     cornell,
     TResult Function(int rings, int sectors)? polar,
@@ -152,6 +1137,46 @@ mixin _$LayerConfig {
     TResult Function(int startHour, int endHour, int daysCount)? timetable,
     TResult Function(List<PageRegion> regions)? region,
     TResult Function(GuideType guideType, Map<String, dynamic> params)? guide,
+    TResult Function(double lineSpacingMm, double staffGapMm)? staff,
+    TResult Function(double cellMm, double ruledSpacingMm)? ruledGrid,
+    TResult Function(List<StampItem> items)? stamp,
+    TResult Function(List<LineSet> lineSets)? customLine,
+    TResult Function(
+      bool showXAxis,
+      bool showYAxis,
+      bool arrowTip,
+      bool showTickMarks,
+      double tickIntervalMm,
+      double tickLengthMm,
+      TickSide xTickSide,
+      TickSide yTickSide,
+      String xLabel,
+      String yLabel,
+      bool showNegative,
+    )?
+    graphAxis,
+    TResult Function(
+      int rows,
+      int cols,
+      bool showHeaderRow,
+      bool showHeaderCol,
+      double cellHeightMm,
+    )?
+    table,
+    TResult Function(
+      bool showTitle,
+      String titleLabel,
+      bool showDate,
+      String dateLabel,
+      bool showName,
+      String nameLabel,
+      bool showSubject,
+      String subjectLabel,
+      double fontSizeMm,
+      double rowHeightMm,
+      bool showBorder,
+    )?
+    header,
     required TResult orElse(),
   }) => throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -167,6 +1192,13 @@ mixin _$LayerConfig {
     required TResult Function(TimetableLayerConfig value) timetable,
     required TResult Function(RegionLayerConfig value) region,
     required TResult Function(GuideLayerConfig value) guide,
+    required TResult Function(StaffLayerConfig value) staff,
+    required TResult Function(RuledGridLayerConfig value) ruledGrid,
+    required TResult Function(StampLayerConfig value) stamp,
+    required TResult Function(CustomLineLayerConfig value) customLine,
+    required TResult Function(GraphAxisLayerConfig value) graphAxis,
+    required TResult Function(TableLayerConfig value) table,
+    required TResult Function(HeaderLayerConfig value) header,
   }) => throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
@@ -181,6 +1213,13 @@ mixin _$LayerConfig {
     TResult? Function(TimetableLayerConfig value)? timetable,
     TResult? Function(RegionLayerConfig value)? region,
     TResult? Function(GuideLayerConfig value)? guide,
+    TResult? Function(StaffLayerConfig value)? staff,
+    TResult? Function(RuledGridLayerConfig value)? ruledGrid,
+    TResult? Function(StampLayerConfig value)? stamp,
+    TResult? Function(CustomLineLayerConfig value)? customLine,
+    TResult? Function(GraphAxisLayerConfig value)? graphAxis,
+    TResult? Function(TableLayerConfig value)? table,
+    TResult? Function(HeaderLayerConfig value)? header,
   }) => throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
@@ -195,6 +1234,13 @@ mixin _$LayerConfig {
     TResult Function(TimetableLayerConfig value)? timetable,
     TResult Function(RegionLayerConfig value)? region,
     TResult Function(GuideLayerConfig value)? guide,
+    TResult Function(StaffLayerConfig value)? staff,
+    TResult Function(RuledGridLayerConfig value)? ruledGrid,
+    TResult Function(StampLayerConfig value)? stamp,
+    TResult Function(CustomLineLayerConfig value)? customLine,
+    TResult Function(GraphAxisLayerConfig value)? graphAxis,
+    TResult Function(TableLayerConfig value)? table,
+    TResult Function(HeaderLayerConfig value)? header,
     required TResult orElse(),
   }) => throw _privateConstructorUsedError;
 
@@ -390,19 +1436,28 @@ class _$GridLayerConfigImpl implements GridLayerConfig {
     )
     grid,
     required TResult Function(double hexSizeMm, HexOrientation orientation) hex,
-    required TResult Function(double spacingMm) isometric,
-    required TResult Function(double spacingMm, double dotRadiusMm) dot,
+    required TResult Function(double spacingMm, LineStyle lineStyle) isometric,
+    required TResult Function(
+      double spacingMm,
+      double dotRadiusMm,
+      bool alignToOrigin,
+    )
+    dot,
     required TResult Function(
       LogScale xScale,
       LogScale yScale,
       int xDecades,
       int yDecades,
+      String xLabel,
+      String yLabel,
     )
     logGrid,
     required TResult Function(
       double leftColMm,
       double bottomRowMm,
       double lineSpacingMm,
+      String keywordLabel,
+      String summaryLabel,
     )
     cornell,
     required TResult Function(int rings, int sectors) polar,
@@ -412,6 +1467,46 @@ class _$GridLayerConfigImpl implements GridLayerConfig {
     required TResult Function(List<PageRegion> regions) region,
     required TResult Function(GuideType guideType, Map<String, dynamic> params)
     guide,
+    required TResult Function(double lineSpacingMm, double staffGapMm) staff,
+    required TResult Function(double cellMm, double ruledSpacingMm) ruledGrid,
+    required TResult Function(List<StampItem> items) stamp,
+    required TResult Function(List<LineSet> lineSets) customLine,
+    required TResult Function(
+      bool showXAxis,
+      bool showYAxis,
+      bool arrowTip,
+      bool showTickMarks,
+      double tickIntervalMm,
+      double tickLengthMm,
+      TickSide xTickSide,
+      TickSide yTickSide,
+      String xLabel,
+      String yLabel,
+      bool showNegative,
+    )
+    graphAxis,
+    required TResult Function(
+      int rows,
+      int cols,
+      bool showHeaderRow,
+      bool showHeaderCol,
+      double cellHeightMm,
+    )
+    table,
+    required TResult Function(
+      bool showTitle,
+      String titleLabel,
+      bool showDate,
+      String dateLabel,
+      bool showName,
+      String nameLabel,
+      bool showSubject,
+      String subjectLabel,
+      double fontSizeMm,
+      double rowHeightMm,
+      bool showBorder,
+    )
+    header,
   }) {
     return grid(
       cellWidthMm,
@@ -436,19 +1531,24 @@ class _$GridLayerConfigImpl implements GridLayerConfig {
     )?
     grid,
     TResult? Function(double hexSizeMm, HexOrientation orientation)? hex,
-    TResult? Function(double spacingMm)? isometric,
-    TResult? Function(double spacingMm, double dotRadiusMm)? dot,
+    TResult? Function(double spacingMm, LineStyle lineStyle)? isometric,
+    TResult? Function(double spacingMm, double dotRadiusMm, bool alignToOrigin)?
+    dot,
     TResult? Function(
       LogScale xScale,
       LogScale yScale,
       int xDecades,
       int yDecades,
+      String xLabel,
+      String yLabel,
     )?
     logGrid,
     TResult? Function(
       double leftColMm,
       double bottomRowMm,
       double lineSpacingMm,
+      String keywordLabel,
+      String summaryLabel,
     )?
     cornell,
     TResult? Function(int rings, int sectors)? polar,
@@ -456,6 +1556,46 @@ class _$GridLayerConfigImpl implements GridLayerConfig {
     TResult? Function(int startHour, int endHour, int daysCount)? timetable,
     TResult? Function(List<PageRegion> regions)? region,
     TResult? Function(GuideType guideType, Map<String, dynamic> params)? guide,
+    TResult? Function(double lineSpacingMm, double staffGapMm)? staff,
+    TResult? Function(double cellMm, double ruledSpacingMm)? ruledGrid,
+    TResult? Function(List<StampItem> items)? stamp,
+    TResult? Function(List<LineSet> lineSets)? customLine,
+    TResult? Function(
+      bool showXAxis,
+      bool showYAxis,
+      bool arrowTip,
+      bool showTickMarks,
+      double tickIntervalMm,
+      double tickLengthMm,
+      TickSide xTickSide,
+      TickSide yTickSide,
+      String xLabel,
+      String yLabel,
+      bool showNegative,
+    )?
+    graphAxis,
+    TResult? Function(
+      int rows,
+      int cols,
+      bool showHeaderRow,
+      bool showHeaderCol,
+      double cellHeightMm,
+    )?
+    table,
+    TResult? Function(
+      bool showTitle,
+      String titleLabel,
+      bool showDate,
+      String dateLabel,
+      bool showName,
+      String nameLabel,
+      bool showSubject,
+      String subjectLabel,
+      double fontSizeMm,
+      double rowHeightMm,
+      bool showBorder,
+    )?
+    header,
   }) {
     return grid?.call(
       cellWidthMm,
@@ -480,19 +1620,24 @@ class _$GridLayerConfigImpl implements GridLayerConfig {
     )?
     grid,
     TResult Function(double hexSizeMm, HexOrientation orientation)? hex,
-    TResult Function(double spacingMm)? isometric,
-    TResult Function(double spacingMm, double dotRadiusMm)? dot,
+    TResult Function(double spacingMm, LineStyle lineStyle)? isometric,
+    TResult Function(double spacingMm, double dotRadiusMm, bool alignToOrigin)?
+    dot,
     TResult Function(
       LogScale xScale,
       LogScale yScale,
       int xDecades,
       int yDecades,
+      String xLabel,
+      String yLabel,
     )?
     logGrid,
     TResult Function(
       double leftColMm,
       double bottomRowMm,
       double lineSpacingMm,
+      String keywordLabel,
+      String summaryLabel,
     )?
     cornell,
     TResult Function(int rings, int sectors)? polar,
@@ -500,6 +1645,46 @@ class _$GridLayerConfigImpl implements GridLayerConfig {
     TResult Function(int startHour, int endHour, int daysCount)? timetable,
     TResult Function(List<PageRegion> regions)? region,
     TResult Function(GuideType guideType, Map<String, dynamic> params)? guide,
+    TResult Function(double lineSpacingMm, double staffGapMm)? staff,
+    TResult Function(double cellMm, double ruledSpacingMm)? ruledGrid,
+    TResult Function(List<StampItem> items)? stamp,
+    TResult Function(List<LineSet> lineSets)? customLine,
+    TResult Function(
+      bool showXAxis,
+      bool showYAxis,
+      bool arrowTip,
+      bool showTickMarks,
+      double tickIntervalMm,
+      double tickLengthMm,
+      TickSide xTickSide,
+      TickSide yTickSide,
+      String xLabel,
+      String yLabel,
+      bool showNegative,
+    )?
+    graphAxis,
+    TResult Function(
+      int rows,
+      int cols,
+      bool showHeaderRow,
+      bool showHeaderCol,
+      double cellHeightMm,
+    )?
+    table,
+    TResult Function(
+      bool showTitle,
+      String titleLabel,
+      bool showDate,
+      String dateLabel,
+      bool showName,
+      String nameLabel,
+      bool showSubject,
+      String subjectLabel,
+      double fontSizeMm,
+      double rowHeightMm,
+      bool showBorder,
+    )?
+    header,
     required TResult orElse(),
   }) {
     if (grid != null) {
@@ -529,6 +1714,13 @@ class _$GridLayerConfigImpl implements GridLayerConfig {
     required TResult Function(TimetableLayerConfig value) timetable,
     required TResult Function(RegionLayerConfig value) region,
     required TResult Function(GuideLayerConfig value) guide,
+    required TResult Function(StaffLayerConfig value) staff,
+    required TResult Function(RuledGridLayerConfig value) ruledGrid,
+    required TResult Function(StampLayerConfig value) stamp,
+    required TResult Function(CustomLineLayerConfig value) customLine,
+    required TResult Function(GraphAxisLayerConfig value) graphAxis,
+    required TResult Function(TableLayerConfig value) table,
+    required TResult Function(HeaderLayerConfig value) header,
   }) {
     return grid(this);
   }
@@ -547,6 +1739,13 @@ class _$GridLayerConfigImpl implements GridLayerConfig {
     TResult? Function(TimetableLayerConfig value)? timetable,
     TResult? Function(RegionLayerConfig value)? region,
     TResult? Function(GuideLayerConfig value)? guide,
+    TResult? Function(StaffLayerConfig value)? staff,
+    TResult? Function(RuledGridLayerConfig value)? ruledGrid,
+    TResult? Function(StampLayerConfig value)? stamp,
+    TResult? Function(CustomLineLayerConfig value)? customLine,
+    TResult? Function(GraphAxisLayerConfig value)? graphAxis,
+    TResult? Function(TableLayerConfig value)? table,
+    TResult? Function(HeaderLayerConfig value)? header,
   }) {
     return grid?.call(this);
   }
@@ -565,6 +1764,13 @@ class _$GridLayerConfigImpl implements GridLayerConfig {
     TResult Function(TimetableLayerConfig value)? timetable,
     TResult Function(RegionLayerConfig value)? region,
     TResult Function(GuideLayerConfig value)? guide,
+    TResult Function(StaffLayerConfig value)? staff,
+    TResult Function(RuledGridLayerConfig value)? ruledGrid,
+    TResult Function(StampLayerConfig value)? stamp,
+    TResult Function(CustomLineLayerConfig value)? customLine,
+    TResult Function(GraphAxisLayerConfig value)? graphAxis,
+    TResult Function(TableLayerConfig value)? table,
+    TResult Function(HeaderLayerConfig value)? header,
     required TResult orElse(),
   }) {
     if (grid != null) {
@@ -711,19 +1917,28 @@ class _$HexLayerConfigImpl implements HexLayerConfig {
     )
     grid,
     required TResult Function(double hexSizeMm, HexOrientation orientation) hex,
-    required TResult Function(double spacingMm) isometric,
-    required TResult Function(double spacingMm, double dotRadiusMm) dot,
+    required TResult Function(double spacingMm, LineStyle lineStyle) isometric,
+    required TResult Function(
+      double spacingMm,
+      double dotRadiusMm,
+      bool alignToOrigin,
+    )
+    dot,
     required TResult Function(
       LogScale xScale,
       LogScale yScale,
       int xDecades,
       int yDecades,
+      String xLabel,
+      String yLabel,
     )
     logGrid,
     required TResult Function(
       double leftColMm,
       double bottomRowMm,
       double lineSpacingMm,
+      String keywordLabel,
+      String summaryLabel,
     )
     cornell,
     required TResult Function(int rings, int sectors) polar,
@@ -733,6 +1948,46 @@ class _$HexLayerConfigImpl implements HexLayerConfig {
     required TResult Function(List<PageRegion> regions) region,
     required TResult Function(GuideType guideType, Map<String, dynamic> params)
     guide,
+    required TResult Function(double lineSpacingMm, double staffGapMm) staff,
+    required TResult Function(double cellMm, double ruledSpacingMm) ruledGrid,
+    required TResult Function(List<StampItem> items) stamp,
+    required TResult Function(List<LineSet> lineSets) customLine,
+    required TResult Function(
+      bool showXAxis,
+      bool showYAxis,
+      bool arrowTip,
+      bool showTickMarks,
+      double tickIntervalMm,
+      double tickLengthMm,
+      TickSide xTickSide,
+      TickSide yTickSide,
+      String xLabel,
+      String yLabel,
+      bool showNegative,
+    )
+    graphAxis,
+    required TResult Function(
+      int rows,
+      int cols,
+      bool showHeaderRow,
+      bool showHeaderCol,
+      double cellHeightMm,
+    )
+    table,
+    required TResult Function(
+      bool showTitle,
+      String titleLabel,
+      bool showDate,
+      String dateLabel,
+      bool showName,
+      String nameLabel,
+      bool showSubject,
+      String subjectLabel,
+      double fontSizeMm,
+      double rowHeightMm,
+      bool showBorder,
+    )
+    header,
   }) {
     return hex(hexSizeMm, orientation);
   }
@@ -750,19 +2005,24 @@ class _$HexLayerConfigImpl implements HexLayerConfig {
     )?
     grid,
     TResult? Function(double hexSizeMm, HexOrientation orientation)? hex,
-    TResult? Function(double spacingMm)? isometric,
-    TResult? Function(double spacingMm, double dotRadiusMm)? dot,
+    TResult? Function(double spacingMm, LineStyle lineStyle)? isometric,
+    TResult? Function(double spacingMm, double dotRadiusMm, bool alignToOrigin)?
+    dot,
     TResult? Function(
       LogScale xScale,
       LogScale yScale,
       int xDecades,
       int yDecades,
+      String xLabel,
+      String yLabel,
     )?
     logGrid,
     TResult? Function(
       double leftColMm,
       double bottomRowMm,
       double lineSpacingMm,
+      String keywordLabel,
+      String summaryLabel,
     )?
     cornell,
     TResult? Function(int rings, int sectors)? polar,
@@ -770,6 +2030,46 @@ class _$HexLayerConfigImpl implements HexLayerConfig {
     TResult? Function(int startHour, int endHour, int daysCount)? timetable,
     TResult? Function(List<PageRegion> regions)? region,
     TResult? Function(GuideType guideType, Map<String, dynamic> params)? guide,
+    TResult? Function(double lineSpacingMm, double staffGapMm)? staff,
+    TResult? Function(double cellMm, double ruledSpacingMm)? ruledGrid,
+    TResult? Function(List<StampItem> items)? stamp,
+    TResult? Function(List<LineSet> lineSets)? customLine,
+    TResult? Function(
+      bool showXAxis,
+      bool showYAxis,
+      bool arrowTip,
+      bool showTickMarks,
+      double tickIntervalMm,
+      double tickLengthMm,
+      TickSide xTickSide,
+      TickSide yTickSide,
+      String xLabel,
+      String yLabel,
+      bool showNegative,
+    )?
+    graphAxis,
+    TResult? Function(
+      int rows,
+      int cols,
+      bool showHeaderRow,
+      bool showHeaderCol,
+      double cellHeightMm,
+    )?
+    table,
+    TResult? Function(
+      bool showTitle,
+      String titleLabel,
+      bool showDate,
+      String dateLabel,
+      bool showName,
+      String nameLabel,
+      bool showSubject,
+      String subjectLabel,
+      double fontSizeMm,
+      double rowHeightMm,
+      bool showBorder,
+    )?
+    header,
   }) {
     return hex?.call(hexSizeMm, orientation);
   }
@@ -787,19 +2087,24 @@ class _$HexLayerConfigImpl implements HexLayerConfig {
     )?
     grid,
     TResult Function(double hexSizeMm, HexOrientation orientation)? hex,
-    TResult Function(double spacingMm)? isometric,
-    TResult Function(double spacingMm, double dotRadiusMm)? dot,
+    TResult Function(double spacingMm, LineStyle lineStyle)? isometric,
+    TResult Function(double spacingMm, double dotRadiusMm, bool alignToOrigin)?
+    dot,
     TResult Function(
       LogScale xScale,
       LogScale yScale,
       int xDecades,
       int yDecades,
+      String xLabel,
+      String yLabel,
     )?
     logGrid,
     TResult Function(
       double leftColMm,
       double bottomRowMm,
       double lineSpacingMm,
+      String keywordLabel,
+      String summaryLabel,
     )?
     cornell,
     TResult Function(int rings, int sectors)? polar,
@@ -807,6 +2112,46 @@ class _$HexLayerConfigImpl implements HexLayerConfig {
     TResult Function(int startHour, int endHour, int daysCount)? timetable,
     TResult Function(List<PageRegion> regions)? region,
     TResult Function(GuideType guideType, Map<String, dynamic> params)? guide,
+    TResult Function(double lineSpacingMm, double staffGapMm)? staff,
+    TResult Function(double cellMm, double ruledSpacingMm)? ruledGrid,
+    TResult Function(List<StampItem> items)? stamp,
+    TResult Function(List<LineSet> lineSets)? customLine,
+    TResult Function(
+      bool showXAxis,
+      bool showYAxis,
+      bool arrowTip,
+      bool showTickMarks,
+      double tickIntervalMm,
+      double tickLengthMm,
+      TickSide xTickSide,
+      TickSide yTickSide,
+      String xLabel,
+      String yLabel,
+      bool showNegative,
+    )?
+    graphAxis,
+    TResult Function(
+      int rows,
+      int cols,
+      bool showHeaderRow,
+      bool showHeaderCol,
+      double cellHeightMm,
+    )?
+    table,
+    TResult Function(
+      bool showTitle,
+      String titleLabel,
+      bool showDate,
+      String dateLabel,
+      bool showName,
+      String nameLabel,
+      bool showSubject,
+      String subjectLabel,
+      double fontSizeMm,
+      double rowHeightMm,
+      bool showBorder,
+    )?
+    header,
     required TResult orElse(),
   }) {
     if (hex != null) {
@@ -829,6 +2174,13 @@ class _$HexLayerConfigImpl implements HexLayerConfig {
     required TResult Function(TimetableLayerConfig value) timetable,
     required TResult Function(RegionLayerConfig value) region,
     required TResult Function(GuideLayerConfig value) guide,
+    required TResult Function(StaffLayerConfig value) staff,
+    required TResult Function(RuledGridLayerConfig value) ruledGrid,
+    required TResult Function(StampLayerConfig value) stamp,
+    required TResult Function(CustomLineLayerConfig value) customLine,
+    required TResult Function(GraphAxisLayerConfig value) graphAxis,
+    required TResult Function(TableLayerConfig value) table,
+    required TResult Function(HeaderLayerConfig value) header,
   }) {
     return hex(this);
   }
@@ -847,6 +2199,13 @@ class _$HexLayerConfigImpl implements HexLayerConfig {
     TResult? Function(TimetableLayerConfig value)? timetable,
     TResult? Function(RegionLayerConfig value)? region,
     TResult? Function(GuideLayerConfig value)? guide,
+    TResult? Function(StaffLayerConfig value)? staff,
+    TResult? Function(RuledGridLayerConfig value)? ruledGrid,
+    TResult? Function(StampLayerConfig value)? stamp,
+    TResult? Function(CustomLineLayerConfig value)? customLine,
+    TResult? Function(GraphAxisLayerConfig value)? graphAxis,
+    TResult? Function(TableLayerConfig value)? table,
+    TResult? Function(HeaderLayerConfig value)? header,
   }) {
     return hex?.call(this);
   }
@@ -865,6 +2224,13 @@ class _$HexLayerConfigImpl implements HexLayerConfig {
     TResult Function(TimetableLayerConfig value)? timetable,
     TResult Function(RegionLayerConfig value)? region,
     TResult Function(GuideLayerConfig value)? guide,
+    TResult Function(StaffLayerConfig value)? staff,
+    TResult Function(RuledGridLayerConfig value)? ruledGrid,
+    TResult Function(StampLayerConfig value)? stamp,
+    TResult Function(CustomLineLayerConfig value)? customLine,
+    TResult Function(GraphAxisLayerConfig value)? graphAxis,
+    TResult Function(TableLayerConfig value)? table,
+    TResult Function(HeaderLayerConfig value)? header,
     required TResult orElse(),
   }) {
     if (hex != null) {
@@ -905,7 +2271,7 @@ abstract class _$$IsometricLayerConfigImplCopyWith<$Res> {
     $Res Function(_$IsometricLayerConfigImpl) then,
   ) = __$$IsometricLayerConfigImplCopyWithImpl<$Res>;
   @useResult
-  $Res call({double spacingMm});
+  $Res call({double spacingMm, LineStyle lineStyle});
 }
 
 /// @nodoc
@@ -921,13 +2287,17 @@ class __$$IsometricLayerConfigImplCopyWithImpl<$Res>
   /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
-  $Res call({Object? spacingMm = null}) {
+  $Res call({Object? spacingMm = null, Object? lineStyle = null}) {
     return _then(
       _$IsometricLayerConfigImpl(
         spacingMm: null == spacingMm
             ? _value.spacingMm
             : spacingMm // ignore: cast_nullable_to_non_nullable
                   as double,
+        lineStyle: null == lineStyle
+            ? _value.lineStyle
+            : lineStyle // ignore: cast_nullable_to_non_nullable
+                  as LineStyle,
       ),
     );
   }
@@ -936,8 +2306,11 @@ class __$$IsometricLayerConfigImplCopyWithImpl<$Res>
 /// @nodoc
 @JsonSerializable()
 class _$IsometricLayerConfigImpl implements IsometricLayerConfig {
-  const _$IsometricLayerConfigImpl({this.spacingMm = 5.0, final String? $type})
-    : $type = $type ?? 'isometric';
+  const _$IsometricLayerConfigImpl({
+    this.spacingMm = 5.0,
+    this.lineStyle = LineStyle.solid,
+    final String? $type,
+  }) : $type = $type ?? 'isometric';
 
   factory _$IsometricLayerConfigImpl.fromJson(Map<String, dynamic> json) =>
       _$$IsometricLayerConfigImplFromJson(json);
@@ -945,13 +2318,16 @@ class _$IsometricLayerConfigImpl implements IsometricLayerConfig {
   @override
   @JsonKey()
   final double spacingMm;
+  @override
+  @JsonKey()
+  final LineStyle lineStyle;
 
   @JsonKey(name: 'runtimeType')
   final String $type;
 
   @override
   String toString() {
-    return 'LayerConfig.isometric(spacingMm: $spacingMm)';
+    return 'LayerConfig.isometric(spacingMm: $spacingMm, lineStyle: $lineStyle)';
   }
 
   @override
@@ -960,12 +2336,14 @@ class _$IsometricLayerConfigImpl implements IsometricLayerConfig {
         (other.runtimeType == runtimeType &&
             other is _$IsometricLayerConfigImpl &&
             (identical(other.spacingMm, spacingMm) ||
-                other.spacingMm == spacingMm));
+                other.spacingMm == spacingMm) &&
+            (identical(other.lineStyle, lineStyle) ||
+                other.lineStyle == lineStyle));
   }
 
   @JsonKey(includeFromJson: false, includeToJson: false)
   @override
-  int get hashCode => Object.hash(runtimeType, spacingMm);
+  int get hashCode => Object.hash(runtimeType, spacingMm, lineStyle);
 
   /// Create a copy of LayerConfig
   /// with the given fields replaced by the non-null parameter values.
@@ -992,19 +2370,28 @@ class _$IsometricLayerConfigImpl implements IsometricLayerConfig {
     )
     grid,
     required TResult Function(double hexSizeMm, HexOrientation orientation) hex,
-    required TResult Function(double spacingMm) isometric,
-    required TResult Function(double spacingMm, double dotRadiusMm) dot,
+    required TResult Function(double spacingMm, LineStyle lineStyle) isometric,
+    required TResult Function(
+      double spacingMm,
+      double dotRadiusMm,
+      bool alignToOrigin,
+    )
+    dot,
     required TResult Function(
       LogScale xScale,
       LogScale yScale,
       int xDecades,
       int yDecades,
+      String xLabel,
+      String yLabel,
     )
     logGrid,
     required TResult Function(
       double leftColMm,
       double bottomRowMm,
       double lineSpacingMm,
+      String keywordLabel,
+      String summaryLabel,
     )
     cornell,
     required TResult Function(int rings, int sectors) polar,
@@ -1014,8 +2401,48 @@ class _$IsometricLayerConfigImpl implements IsometricLayerConfig {
     required TResult Function(List<PageRegion> regions) region,
     required TResult Function(GuideType guideType, Map<String, dynamic> params)
     guide,
+    required TResult Function(double lineSpacingMm, double staffGapMm) staff,
+    required TResult Function(double cellMm, double ruledSpacingMm) ruledGrid,
+    required TResult Function(List<StampItem> items) stamp,
+    required TResult Function(List<LineSet> lineSets) customLine,
+    required TResult Function(
+      bool showXAxis,
+      bool showYAxis,
+      bool arrowTip,
+      bool showTickMarks,
+      double tickIntervalMm,
+      double tickLengthMm,
+      TickSide xTickSide,
+      TickSide yTickSide,
+      String xLabel,
+      String yLabel,
+      bool showNegative,
+    )
+    graphAxis,
+    required TResult Function(
+      int rows,
+      int cols,
+      bool showHeaderRow,
+      bool showHeaderCol,
+      double cellHeightMm,
+    )
+    table,
+    required TResult Function(
+      bool showTitle,
+      String titleLabel,
+      bool showDate,
+      String dateLabel,
+      bool showName,
+      String nameLabel,
+      bool showSubject,
+      String subjectLabel,
+      double fontSizeMm,
+      double rowHeightMm,
+      bool showBorder,
+    )
+    header,
   }) {
-    return isometric(spacingMm);
+    return isometric(spacingMm, lineStyle);
   }
 
   @override
@@ -1031,19 +2458,24 @@ class _$IsometricLayerConfigImpl implements IsometricLayerConfig {
     )?
     grid,
     TResult? Function(double hexSizeMm, HexOrientation orientation)? hex,
-    TResult? Function(double spacingMm)? isometric,
-    TResult? Function(double spacingMm, double dotRadiusMm)? dot,
+    TResult? Function(double spacingMm, LineStyle lineStyle)? isometric,
+    TResult? Function(double spacingMm, double dotRadiusMm, bool alignToOrigin)?
+    dot,
     TResult? Function(
       LogScale xScale,
       LogScale yScale,
       int xDecades,
       int yDecades,
+      String xLabel,
+      String yLabel,
     )?
     logGrid,
     TResult? Function(
       double leftColMm,
       double bottomRowMm,
       double lineSpacingMm,
+      String keywordLabel,
+      String summaryLabel,
     )?
     cornell,
     TResult? Function(int rings, int sectors)? polar,
@@ -1051,8 +2483,48 @@ class _$IsometricLayerConfigImpl implements IsometricLayerConfig {
     TResult? Function(int startHour, int endHour, int daysCount)? timetable,
     TResult? Function(List<PageRegion> regions)? region,
     TResult? Function(GuideType guideType, Map<String, dynamic> params)? guide,
+    TResult? Function(double lineSpacingMm, double staffGapMm)? staff,
+    TResult? Function(double cellMm, double ruledSpacingMm)? ruledGrid,
+    TResult? Function(List<StampItem> items)? stamp,
+    TResult? Function(List<LineSet> lineSets)? customLine,
+    TResult? Function(
+      bool showXAxis,
+      bool showYAxis,
+      bool arrowTip,
+      bool showTickMarks,
+      double tickIntervalMm,
+      double tickLengthMm,
+      TickSide xTickSide,
+      TickSide yTickSide,
+      String xLabel,
+      String yLabel,
+      bool showNegative,
+    )?
+    graphAxis,
+    TResult? Function(
+      int rows,
+      int cols,
+      bool showHeaderRow,
+      bool showHeaderCol,
+      double cellHeightMm,
+    )?
+    table,
+    TResult? Function(
+      bool showTitle,
+      String titleLabel,
+      bool showDate,
+      String dateLabel,
+      bool showName,
+      String nameLabel,
+      bool showSubject,
+      String subjectLabel,
+      double fontSizeMm,
+      double rowHeightMm,
+      bool showBorder,
+    )?
+    header,
   }) {
-    return isometric?.call(spacingMm);
+    return isometric?.call(spacingMm, lineStyle);
   }
 
   @override
@@ -1068,19 +2540,24 @@ class _$IsometricLayerConfigImpl implements IsometricLayerConfig {
     )?
     grid,
     TResult Function(double hexSizeMm, HexOrientation orientation)? hex,
-    TResult Function(double spacingMm)? isometric,
-    TResult Function(double spacingMm, double dotRadiusMm)? dot,
+    TResult Function(double spacingMm, LineStyle lineStyle)? isometric,
+    TResult Function(double spacingMm, double dotRadiusMm, bool alignToOrigin)?
+    dot,
     TResult Function(
       LogScale xScale,
       LogScale yScale,
       int xDecades,
       int yDecades,
+      String xLabel,
+      String yLabel,
     )?
     logGrid,
     TResult Function(
       double leftColMm,
       double bottomRowMm,
       double lineSpacingMm,
+      String keywordLabel,
+      String summaryLabel,
     )?
     cornell,
     TResult Function(int rings, int sectors)? polar,
@@ -1088,10 +2565,50 @@ class _$IsometricLayerConfigImpl implements IsometricLayerConfig {
     TResult Function(int startHour, int endHour, int daysCount)? timetable,
     TResult Function(List<PageRegion> regions)? region,
     TResult Function(GuideType guideType, Map<String, dynamic> params)? guide,
+    TResult Function(double lineSpacingMm, double staffGapMm)? staff,
+    TResult Function(double cellMm, double ruledSpacingMm)? ruledGrid,
+    TResult Function(List<StampItem> items)? stamp,
+    TResult Function(List<LineSet> lineSets)? customLine,
+    TResult Function(
+      bool showXAxis,
+      bool showYAxis,
+      bool arrowTip,
+      bool showTickMarks,
+      double tickIntervalMm,
+      double tickLengthMm,
+      TickSide xTickSide,
+      TickSide yTickSide,
+      String xLabel,
+      String yLabel,
+      bool showNegative,
+    )?
+    graphAxis,
+    TResult Function(
+      int rows,
+      int cols,
+      bool showHeaderRow,
+      bool showHeaderCol,
+      double cellHeightMm,
+    )?
+    table,
+    TResult Function(
+      bool showTitle,
+      String titleLabel,
+      bool showDate,
+      String dateLabel,
+      bool showName,
+      String nameLabel,
+      bool showSubject,
+      String subjectLabel,
+      double fontSizeMm,
+      double rowHeightMm,
+      bool showBorder,
+    )?
+    header,
     required TResult orElse(),
   }) {
     if (isometric != null) {
-      return isometric(spacingMm);
+      return isometric(spacingMm, lineStyle);
     }
     return orElse();
   }
@@ -1110,6 +2627,13 @@ class _$IsometricLayerConfigImpl implements IsometricLayerConfig {
     required TResult Function(TimetableLayerConfig value) timetable,
     required TResult Function(RegionLayerConfig value) region,
     required TResult Function(GuideLayerConfig value) guide,
+    required TResult Function(StaffLayerConfig value) staff,
+    required TResult Function(RuledGridLayerConfig value) ruledGrid,
+    required TResult Function(StampLayerConfig value) stamp,
+    required TResult Function(CustomLineLayerConfig value) customLine,
+    required TResult Function(GraphAxisLayerConfig value) graphAxis,
+    required TResult Function(TableLayerConfig value) table,
+    required TResult Function(HeaderLayerConfig value) header,
   }) {
     return isometric(this);
   }
@@ -1128,6 +2652,13 @@ class _$IsometricLayerConfigImpl implements IsometricLayerConfig {
     TResult? Function(TimetableLayerConfig value)? timetable,
     TResult? Function(RegionLayerConfig value)? region,
     TResult? Function(GuideLayerConfig value)? guide,
+    TResult? Function(StaffLayerConfig value)? staff,
+    TResult? Function(RuledGridLayerConfig value)? ruledGrid,
+    TResult? Function(StampLayerConfig value)? stamp,
+    TResult? Function(CustomLineLayerConfig value)? customLine,
+    TResult? Function(GraphAxisLayerConfig value)? graphAxis,
+    TResult? Function(TableLayerConfig value)? table,
+    TResult? Function(HeaderLayerConfig value)? header,
   }) {
     return isometric?.call(this);
   }
@@ -1146,6 +2677,13 @@ class _$IsometricLayerConfigImpl implements IsometricLayerConfig {
     TResult Function(TimetableLayerConfig value)? timetable,
     TResult Function(RegionLayerConfig value)? region,
     TResult Function(GuideLayerConfig value)? guide,
+    TResult Function(StaffLayerConfig value)? staff,
+    TResult Function(RuledGridLayerConfig value)? ruledGrid,
+    TResult Function(StampLayerConfig value)? stamp,
+    TResult Function(CustomLineLayerConfig value)? customLine,
+    TResult Function(GraphAxisLayerConfig value)? graphAxis,
+    TResult Function(TableLayerConfig value)? table,
+    TResult Function(HeaderLayerConfig value)? header,
     required TResult orElse(),
   }) {
     if (isometric != null) {
@@ -1161,13 +2699,16 @@ class _$IsometricLayerConfigImpl implements IsometricLayerConfig {
 }
 
 abstract class IsometricLayerConfig implements LayerConfig {
-  const factory IsometricLayerConfig({final double spacingMm}) =
-      _$IsometricLayerConfigImpl;
+  const factory IsometricLayerConfig({
+    final double spacingMm,
+    final LineStyle lineStyle,
+  }) = _$IsometricLayerConfigImpl;
 
   factory IsometricLayerConfig.fromJson(Map<String, dynamic> json) =
       _$IsometricLayerConfigImpl.fromJson;
 
   double get spacingMm;
+  LineStyle get lineStyle;
 
   /// Create a copy of LayerConfig
   /// with the given fields replaced by the non-null parameter values.
@@ -1183,7 +2724,7 @@ abstract class _$$DotLayerConfigImplCopyWith<$Res> {
     $Res Function(_$DotLayerConfigImpl) then,
   ) = __$$DotLayerConfigImplCopyWithImpl<$Res>;
   @useResult
-  $Res call({double spacingMm, double dotRadiusMm});
+  $Res call({double spacingMm, double dotRadiusMm, bool alignToOrigin});
 }
 
 /// @nodoc
@@ -1199,7 +2740,11 @@ class __$$DotLayerConfigImplCopyWithImpl<$Res>
   /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
-  $Res call({Object? spacingMm = null, Object? dotRadiusMm = null}) {
+  $Res call({
+    Object? spacingMm = null,
+    Object? dotRadiusMm = null,
+    Object? alignToOrigin = null,
+  }) {
     return _then(
       _$DotLayerConfigImpl(
         spacingMm: null == spacingMm
@@ -1210,6 +2755,10 @@ class __$$DotLayerConfigImplCopyWithImpl<$Res>
             ? _value.dotRadiusMm
             : dotRadiusMm // ignore: cast_nullable_to_non_nullable
                   as double,
+        alignToOrigin: null == alignToOrigin
+            ? _value.alignToOrigin
+            : alignToOrigin // ignore: cast_nullable_to_non_nullable
+                  as bool,
       ),
     );
   }
@@ -1221,6 +2770,7 @@ class _$DotLayerConfigImpl implements DotLayerConfig {
   const _$DotLayerConfigImpl({
     this.spacingMm = 5.0,
     this.dotRadiusMm = 0.5,
+    this.alignToOrigin = false,
     final String? $type,
   }) : $type = $type ?? 'dot';
 
@@ -1233,13 +2783,16 @@ class _$DotLayerConfigImpl implements DotLayerConfig {
   @override
   @JsonKey()
   final double dotRadiusMm;
+  @override
+  @JsonKey()
+  final bool alignToOrigin;
 
   @JsonKey(name: 'runtimeType')
   final String $type;
 
   @override
   String toString() {
-    return 'LayerConfig.dot(spacingMm: $spacingMm, dotRadiusMm: $dotRadiusMm)';
+    return 'LayerConfig.dot(spacingMm: $spacingMm, dotRadiusMm: $dotRadiusMm, alignToOrigin: $alignToOrigin)';
   }
 
   @override
@@ -1250,12 +2803,15 @@ class _$DotLayerConfigImpl implements DotLayerConfig {
             (identical(other.spacingMm, spacingMm) ||
                 other.spacingMm == spacingMm) &&
             (identical(other.dotRadiusMm, dotRadiusMm) ||
-                other.dotRadiusMm == dotRadiusMm));
+                other.dotRadiusMm == dotRadiusMm) &&
+            (identical(other.alignToOrigin, alignToOrigin) ||
+                other.alignToOrigin == alignToOrigin));
   }
 
   @JsonKey(includeFromJson: false, includeToJson: false)
   @override
-  int get hashCode => Object.hash(runtimeType, spacingMm, dotRadiusMm);
+  int get hashCode =>
+      Object.hash(runtimeType, spacingMm, dotRadiusMm, alignToOrigin);
 
   /// Create a copy of LayerConfig
   /// with the given fields replaced by the non-null parameter values.
@@ -1281,19 +2837,28 @@ class _$DotLayerConfigImpl implements DotLayerConfig {
     )
     grid,
     required TResult Function(double hexSizeMm, HexOrientation orientation) hex,
-    required TResult Function(double spacingMm) isometric,
-    required TResult Function(double spacingMm, double dotRadiusMm) dot,
+    required TResult Function(double spacingMm, LineStyle lineStyle) isometric,
+    required TResult Function(
+      double spacingMm,
+      double dotRadiusMm,
+      bool alignToOrigin,
+    )
+    dot,
     required TResult Function(
       LogScale xScale,
       LogScale yScale,
       int xDecades,
       int yDecades,
+      String xLabel,
+      String yLabel,
     )
     logGrid,
     required TResult Function(
       double leftColMm,
       double bottomRowMm,
       double lineSpacingMm,
+      String keywordLabel,
+      String summaryLabel,
     )
     cornell,
     required TResult Function(int rings, int sectors) polar,
@@ -1303,8 +2868,48 @@ class _$DotLayerConfigImpl implements DotLayerConfig {
     required TResult Function(List<PageRegion> regions) region,
     required TResult Function(GuideType guideType, Map<String, dynamic> params)
     guide,
+    required TResult Function(double lineSpacingMm, double staffGapMm) staff,
+    required TResult Function(double cellMm, double ruledSpacingMm) ruledGrid,
+    required TResult Function(List<StampItem> items) stamp,
+    required TResult Function(List<LineSet> lineSets) customLine,
+    required TResult Function(
+      bool showXAxis,
+      bool showYAxis,
+      bool arrowTip,
+      bool showTickMarks,
+      double tickIntervalMm,
+      double tickLengthMm,
+      TickSide xTickSide,
+      TickSide yTickSide,
+      String xLabel,
+      String yLabel,
+      bool showNegative,
+    )
+    graphAxis,
+    required TResult Function(
+      int rows,
+      int cols,
+      bool showHeaderRow,
+      bool showHeaderCol,
+      double cellHeightMm,
+    )
+    table,
+    required TResult Function(
+      bool showTitle,
+      String titleLabel,
+      bool showDate,
+      String dateLabel,
+      bool showName,
+      String nameLabel,
+      bool showSubject,
+      String subjectLabel,
+      double fontSizeMm,
+      double rowHeightMm,
+      bool showBorder,
+    )
+    header,
   }) {
-    return dot(spacingMm, dotRadiusMm);
+    return dot(spacingMm, dotRadiusMm, alignToOrigin);
   }
 
   @override
@@ -1320,19 +2925,24 @@ class _$DotLayerConfigImpl implements DotLayerConfig {
     )?
     grid,
     TResult? Function(double hexSizeMm, HexOrientation orientation)? hex,
-    TResult? Function(double spacingMm)? isometric,
-    TResult? Function(double spacingMm, double dotRadiusMm)? dot,
+    TResult? Function(double spacingMm, LineStyle lineStyle)? isometric,
+    TResult? Function(double spacingMm, double dotRadiusMm, bool alignToOrigin)?
+    dot,
     TResult? Function(
       LogScale xScale,
       LogScale yScale,
       int xDecades,
       int yDecades,
+      String xLabel,
+      String yLabel,
     )?
     logGrid,
     TResult? Function(
       double leftColMm,
       double bottomRowMm,
       double lineSpacingMm,
+      String keywordLabel,
+      String summaryLabel,
     )?
     cornell,
     TResult? Function(int rings, int sectors)? polar,
@@ -1340,8 +2950,48 @@ class _$DotLayerConfigImpl implements DotLayerConfig {
     TResult? Function(int startHour, int endHour, int daysCount)? timetable,
     TResult? Function(List<PageRegion> regions)? region,
     TResult? Function(GuideType guideType, Map<String, dynamic> params)? guide,
+    TResult? Function(double lineSpacingMm, double staffGapMm)? staff,
+    TResult? Function(double cellMm, double ruledSpacingMm)? ruledGrid,
+    TResult? Function(List<StampItem> items)? stamp,
+    TResult? Function(List<LineSet> lineSets)? customLine,
+    TResult? Function(
+      bool showXAxis,
+      bool showYAxis,
+      bool arrowTip,
+      bool showTickMarks,
+      double tickIntervalMm,
+      double tickLengthMm,
+      TickSide xTickSide,
+      TickSide yTickSide,
+      String xLabel,
+      String yLabel,
+      bool showNegative,
+    )?
+    graphAxis,
+    TResult? Function(
+      int rows,
+      int cols,
+      bool showHeaderRow,
+      bool showHeaderCol,
+      double cellHeightMm,
+    )?
+    table,
+    TResult? Function(
+      bool showTitle,
+      String titleLabel,
+      bool showDate,
+      String dateLabel,
+      bool showName,
+      String nameLabel,
+      bool showSubject,
+      String subjectLabel,
+      double fontSizeMm,
+      double rowHeightMm,
+      bool showBorder,
+    )?
+    header,
   }) {
-    return dot?.call(spacingMm, dotRadiusMm);
+    return dot?.call(spacingMm, dotRadiusMm, alignToOrigin);
   }
 
   @override
@@ -1357,19 +3007,24 @@ class _$DotLayerConfigImpl implements DotLayerConfig {
     )?
     grid,
     TResult Function(double hexSizeMm, HexOrientation orientation)? hex,
-    TResult Function(double spacingMm)? isometric,
-    TResult Function(double spacingMm, double dotRadiusMm)? dot,
+    TResult Function(double spacingMm, LineStyle lineStyle)? isometric,
+    TResult Function(double spacingMm, double dotRadiusMm, bool alignToOrigin)?
+    dot,
     TResult Function(
       LogScale xScale,
       LogScale yScale,
       int xDecades,
       int yDecades,
+      String xLabel,
+      String yLabel,
     )?
     logGrid,
     TResult Function(
       double leftColMm,
       double bottomRowMm,
       double lineSpacingMm,
+      String keywordLabel,
+      String summaryLabel,
     )?
     cornell,
     TResult Function(int rings, int sectors)? polar,
@@ -1377,10 +3032,50 @@ class _$DotLayerConfigImpl implements DotLayerConfig {
     TResult Function(int startHour, int endHour, int daysCount)? timetable,
     TResult Function(List<PageRegion> regions)? region,
     TResult Function(GuideType guideType, Map<String, dynamic> params)? guide,
+    TResult Function(double lineSpacingMm, double staffGapMm)? staff,
+    TResult Function(double cellMm, double ruledSpacingMm)? ruledGrid,
+    TResult Function(List<StampItem> items)? stamp,
+    TResult Function(List<LineSet> lineSets)? customLine,
+    TResult Function(
+      bool showXAxis,
+      bool showYAxis,
+      bool arrowTip,
+      bool showTickMarks,
+      double tickIntervalMm,
+      double tickLengthMm,
+      TickSide xTickSide,
+      TickSide yTickSide,
+      String xLabel,
+      String yLabel,
+      bool showNegative,
+    )?
+    graphAxis,
+    TResult Function(
+      int rows,
+      int cols,
+      bool showHeaderRow,
+      bool showHeaderCol,
+      double cellHeightMm,
+    )?
+    table,
+    TResult Function(
+      bool showTitle,
+      String titleLabel,
+      bool showDate,
+      String dateLabel,
+      bool showName,
+      String nameLabel,
+      bool showSubject,
+      String subjectLabel,
+      double fontSizeMm,
+      double rowHeightMm,
+      bool showBorder,
+    )?
+    header,
     required TResult orElse(),
   }) {
     if (dot != null) {
-      return dot(spacingMm, dotRadiusMm);
+      return dot(spacingMm, dotRadiusMm, alignToOrigin);
     }
     return orElse();
   }
@@ -1399,6 +3094,13 @@ class _$DotLayerConfigImpl implements DotLayerConfig {
     required TResult Function(TimetableLayerConfig value) timetable,
     required TResult Function(RegionLayerConfig value) region,
     required TResult Function(GuideLayerConfig value) guide,
+    required TResult Function(StaffLayerConfig value) staff,
+    required TResult Function(RuledGridLayerConfig value) ruledGrid,
+    required TResult Function(StampLayerConfig value) stamp,
+    required TResult Function(CustomLineLayerConfig value) customLine,
+    required TResult Function(GraphAxisLayerConfig value) graphAxis,
+    required TResult Function(TableLayerConfig value) table,
+    required TResult Function(HeaderLayerConfig value) header,
   }) {
     return dot(this);
   }
@@ -1417,6 +3119,13 @@ class _$DotLayerConfigImpl implements DotLayerConfig {
     TResult? Function(TimetableLayerConfig value)? timetable,
     TResult? Function(RegionLayerConfig value)? region,
     TResult? Function(GuideLayerConfig value)? guide,
+    TResult? Function(StaffLayerConfig value)? staff,
+    TResult? Function(RuledGridLayerConfig value)? ruledGrid,
+    TResult? Function(StampLayerConfig value)? stamp,
+    TResult? Function(CustomLineLayerConfig value)? customLine,
+    TResult? Function(GraphAxisLayerConfig value)? graphAxis,
+    TResult? Function(TableLayerConfig value)? table,
+    TResult? Function(HeaderLayerConfig value)? header,
   }) {
     return dot?.call(this);
   }
@@ -1435,6 +3144,13 @@ class _$DotLayerConfigImpl implements DotLayerConfig {
     TResult Function(TimetableLayerConfig value)? timetable,
     TResult Function(RegionLayerConfig value)? region,
     TResult Function(GuideLayerConfig value)? guide,
+    TResult Function(StaffLayerConfig value)? staff,
+    TResult Function(RuledGridLayerConfig value)? ruledGrid,
+    TResult Function(StampLayerConfig value)? stamp,
+    TResult Function(CustomLineLayerConfig value)? customLine,
+    TResult Function(GraphAxisLayerConfig value)? graphAxis,
+    TResult Function(TableLayerConfig value)? table,
+    TResult Function(HeaderLayerConfig value)? header,
     required TResult orElse(),
   }) {
     if (dot != null) {
@@ -1453,6 +3169,7 @@ abstract class DotLayerConfig implements LayerConfig {
   const factory DotLayerConfig({
     final double spacingMm,
     final double dotRadiusMm,
+    final bool alignToOrigin,
   }) = _$DotLayerConfigImpl;
 
   factory DotLayerConfig.fromJson(Map<String, dynamic> json) =
@@ -1460,6 +3177,7 @@ abstract class DotLayerConfig implements LayerConfig {
 
   double get spacingMm;
   double get dotRadiusMm;
+  bool get alignToOrigin;
 
   /// Create a copy of LayerConfig
   /// with the given fields replaced by the non-null parameter values.
@@ -1475,7 +3193,14 @@ abstract class _$$LogGridLayerConfigImplCopyWith<$Res> {
     $Res Function(_$LogGridLayerConfigImpl) then,
   ) = __$$LogGridLayerConfigImplCopyWithImpl<$Res>;
   @useResult
-  $Res call({LogScale xScale, LogScale yScale, int xDecades, int yDecades});
+  $Res call({
+    LogScale xScale,
+    LogScale yScale,
+    int xDecades,
+    int yDecades,
+    String xLabel,
+    String yLabel,
+  });
 }
 
 /// @nodoc
@@ -1496,6 +3221,8 @@ class __$$LogGridLayerConfigImplCopyWithImpl<$Res>
     Object? yScale = null,
     Object? xDecades = null,
     Object? yDecades = null,
+    Object? xLabel = null,
+    Object? yLabel = null,
   }) {
     return _then(
       _$LogGridLayerConfigImpl(
@@ -1515,6 +3242,14 @@ class __$$LogGridLayerConfigImplCopyWithImpl<$Res>
             ? _value.yDecades
             : yDecades // ignore: cast_nullable_to_non_nullable
                   as int,
+        xLabel: null == xLabel
+            ? _value.xLabel
+            : xLabel // ignore: cast_nullable_to_non_nullable
+                  as String,
+        yLabel: null == yLabel
+            ? _value.yLabel
+            : yLabel // ignore: cast_nullable_to_non_nullable
+                  as String,
       ),
     );
   }
@@ -1528,6 +3263,8 @@ class _$LogGridLayerConfigImpl implements LogGridLayerConfig {
     this.yScale = LogScale.log,
     this.xDecades = 1,
     this.yDecades = 3,
+    this.xLabel = '',
+    this.yLabel = '',
     final String? $type,
   }) : $type = $type ?? 'logGrid';
 
@@ -1546,13 +3283,19 @@ class _$LogGridLayerConfigImpl implements LogGridLayerConfig {
   @override
   @JsonKey()
   final int yDecades;
+  @override
+  @JsonKey()
+  final String xLabel;
+  @override
+  @JsonKey()
+  final String yLabel;
 
   @JsonKey(name: 'runtimeType')
   final String $type;
 
   @override
   String toString() {
-    return 'LayerConfig.logGrid(xScale: $xScale, yScale: $yScale, xDecades: $xDecades, yDecades: $yDecades)';
+    return 'LayerConfig.logGrid(xScale: $xScale, yScale: $yScale, xDecades: $xDecades, yDecades: $yDecades, xLabel: $xLabel, yLabel: $yLabel)';
   }
 
   @override
@@ -1565,13 +3308,22 @@ class _$LogGridLayerConfigImpl implements LogGridLayerConfig {
             (identical(other.xDecades, xDecades) ||
                 other.xDecades == xDecades) &&
             (identical(other.yDecades, yDecades) ||
-                other.yDecades == yDecades));
+                other.yDecades == yDecades) &&
+            (identical(other.xLabel, xLabel) || other.xLabel == xLabel) &&
+            (identical(other.yLabel, yLabel) || other.yLabel == yLabel));
   }
 
   @JsonKey(includeFromJson: false, includeToJson: false)
   @override
-  int get hashCode =>
-      Object.hash(runtimeType, xScale, yScale, xDecades, yDecades);
+  int get hashCode => Object.hash(
+    runtimeType,
+    xScale,
+    yScale,
+    xDecades,
+    yDecades,
+    xLabel,
+    yLabel,
+  );
 
   /// Create a copy of LayerConfig
   /// with the given fields replaced by the non-null parameter values.
@@ -1597,19 +3349,28 @@ class _$LogGridLayerConfigImpl implements LogGridLayerConfig {
     )
     grid,
     required TResult Function(double hexSizeMm, HexOrientation orientation) hex,
-    required TResult Function(double spacingMm) isometric,
-    required TResult Function(double spacingMm, double dotRadiusMm) dot,
+    required TResult Function(double spacingMm, LineStyle lineStyle) isometric,
+    required TResult Function(
+      double spacingMm,
+      double dotRadiusMm,
+      bool alignToOrigin,
+    )
+    dot,
     required TResult Function(
       LogScale xScale,
       LogScale yScale,
       int xDecades,
       int yDecades,
+      String xLabel,
+      String yLabel,
     )
     logGrid,
     required TResult Function(
       double leftColMm,
       double bottomRowMm,
       double lineSpacingMm,
+      String keywordLabel,
+      String summaryLabel,
     )
     cornell,
     required TResult Function(int rings, int sectors) polar,
@@ -1619,8 +3380,48 @@ class _$LogGridLayerConfigImpl implements LogGridLayerConfig {
     required TResult Function(List<PageRegion> regions) region,
     required TResult Function(GuideType guideType, Map<String, dynamic> params)
     guide,
+    required TResult Function(double lineSpacingMm, double staffGapMm) staff,
+    required TResult Function(double cellMm, double ruledSpacingMm) ruledGrid,
+    required TResult Function(List<StampItem> items) stamp,
+    required TResult Function(List<LineSet> lineSets) customLine,
+    required TResult Function(
+      bool showXAxis,
+      bool showYAxis,
+      bool arrowTip,
+      bool showTickMarks,
+      double tickIntervalMm,
+      double tickLengthMm,
+      TickSide xTickSide,
+      TickSide yTickSide,
+      String xLabel,
+      String yLabel,
+      bool showNegative,
+    )
+    graphAxis,
+    required TResult Function(
+      int rows,
+      int cols,
+      bool showHeaderRow,
+      bool showHeaderCol,
+      double cellHeightMm,
+    )
+    table,
+    required TResult Function(
+      bool showTitle,
+      String titleLabel,
+      bool showDate,
+      String dateLabel,
+      bool showName,
+      String nameLabel,
+      bool showSubject,
+      String subjectLabel,
+      double fontSizeMm,
+      double rowHeightMm,
+      bool showBorder,
+    )
+    header,
   }) {
-    return logGrid(xScale, yScale, xDecades, yDecades);
+    return logGrid(xScale, yScale, xDecades, yDecades, xLabel, yLabel);
   }
 
   @override
@@ -1636,19 +3437,24 @@ class _$LogGridLayerConfigImpl implements LogGridLayerConfig {
     )?
     grid,
     TResult? Function(double hexSizeMm, HexOrientation orientation)? hex,
-    TResult? Function(double spacingMm)? isometric,
-    TResult? Function(double spacingMm, double dotRadiusMm)? dot,
+    TResult? Function(double spacingMm, LineStyle lineStyle)? isometric,
+    TResult? Function(double spacingMm, double dotRadiusMm, bool alignToOrigin)?
+    dot,
     TResult? Function(
       LogScale xScale,
       LogScale yScale,
       int xDecades,
       int yDecades,
+      String xLabel,
+      String yLabel,
     )?
     logGrid,
     TResult? Function(
       double leftColMm,
       double bottomRowMm,
       double lineSpacingMm,
+      String keywordLabel,
+      String summaryLabel,
     )?
     cornell,
     TResult? Function(int rings, int sectors)? polar,
@@ -1656,8 +3462,48 @@ class _$LogGridLayerConfigImpl implements LogGridLayerConfig {
     TResult? Function(int startHour, int endHour, int daysCount)? timetable,
     TResult? Function(List<PageRegion> regions)? region,
     TResult? Function(GuideType guideType, Map<String, dynamic> params)? guide,
+    TResult? Function(double lineSpacingMm, double staffGapMm)? staff,
+    TResult? Function(double cellMm, double ruledSpacingMm)? ruledGrid,
+    TResult? Function(List<StampItem> items)? stamp,
+    TResult? Function(List<LineSet> lineSets)? customLine,
+    TResult? Function(
+      bool showXAxis,
+      bool showYAxis,
+      bool arrowTip,
+      bool showTickMarks,
+      double tickIntervalMm,
+      double tickLengthMm,
+      TickSide xTickSide,
+      TickSide yTickSide,
+      String xLabel,
+      String yLabel,
+      bool showNegative,
+    )?
+    graphAxis,
+    TResult? Function(
+      int rows,
+      int cols,
+      bool showHeaderRow,
+      bool showHeaderCol,
+      double cellHeightMm,
+    )?
+    table,
+    TResult? Function(
+      bool showTitle,
+      String titleLabel,
+      bool showDate,
+      String dateLabel,
+      bool showName,
+      String nameLabel,
+      bool showSubject,
+      String subjectLabel,
+      double fontSizeMm,
+      double rowHeightMm,
+      bool showBorder,
+    )?
+    header,
   }) {
-    return logGrid?.call(xScale, yScale, xDecades, yDecades);
+    return logGrid?.call(xScale, yScale, xDecades, yDecades, xLabel, yLabel);
   }
 
   @override
@@ -1673,19 +3519,24 @@ class _$LogGridLayerConfigImpl implements LogGridLayerConfig {
     )?
     grid,
     TResult Function(double hexSizeMm, HexOrientation orientation)? hex,
-    TResult Function(double spacingMm)? isometric,
-    TResult Function(double spacingMm, double dotRadiusMm)? dot,
+    TResult Function(double spacingMm, LineStyle lineStyle)? isometric,
+    TResult Function(double spacingMm, double dotRadiusMm, bool alignToOrigin)?
+    dot,
     TResult Function(
       LogScale xScale,
       LogScale yScale,
       int xDecades,
       int yDecades,
+      String xLabel,
+      String yLabel,
     )?
     logGrid,
     TResult Function(
       double leftColMm,
       double bottomRowMm,
       double lineSpacingMm,
+      String keywordLabel,
+      String summaryLabel,
     )?
     cornell,
     TResult Function(int rings, int sectors)? polar,
@@ -1693,10 +3544,50 @@ class _$LogGridLayerConfigImpl implements LogGridLayerConfig {
     TResult Function(int startHour, int endHour, int daysCount)? timetable,
     TResult Function(List<PageRegion> regions)? region,
     TResult Function(GuideType guideType, Map<String, dynamic> params)? guide,
+    TResult Function(double lineSpacingMm, double staffGapMm)? staff,
+    TResult Function(double cellMm, double ruledSpacingMm)? ruledGrid,
+    TResult Function(List<StampItem> items)? stamp,
+    TResult Function(List<LineSet> lineSets)? customLine,
+    TResult Function(
+      bool showXAxis,
+      bool showYAxis,
+      bool arrowTip,
+      bool showTickMarks,
+      double tickIntervalMm,
+      double tickLengthMm,
+      TickSide xTickSide,
+      TickSide yTickSide,
+      String xLabel,
+      String yLabel,
+      bool showNegative,
+    )?
+    graphAxis,
+    TResult Function(
+      int rows,
+      int cols,
+      bool showHeaderRow,
+      bool showHeaderCol,
+      double cellHeightMm,
+    )?
+    table,
+    TResult Function(
+      bool showTitle,
+      String titleLabel,
+      bool showDate,
+      String dateLabel,
+      bool showName,
+      String nameLabel,
+      bool showSubject,
+      String subjectLabel,
+      double fontSizeMm,
+      double rowHeightMm,
+      bool showBorder,
+    )?
+    header,
     required TResult orElse(),
   }) {
     if (logGrid != null) {
-      return logGrid(xScale, yScale, xDecades, yDecades);
+      return logGrid(xScale, yScale, xDecades, yDecades, xLabel, yLabel);
     }
     return orElse();
   }
@@ -1715,6 +3606,13 @@ class _$LogGridLayerConfigImpl implements LogGridLayerConfig {
     required TResult Function(TimetableLayerConfig value) timetable,
     required TResult Function(RegionLayerConfig value) region,
     required TResult Function(GuideLayerConfig value) guide,
+    required TResult Function(StaffLayerConfig value) staff,
+    required TResult Function(RuledGridLayerConfig value) ruledGrid,
+    required TResult Function(StampLayerConfig value) stamp,
+    required TResult Function(CustomLineLayerConfig value) customLine,
+    required TResult Function(GraphAxisLayerConfig value) graphAxis,
+    required TResult Function(TableLayerConfig value) table,
+    required TResult Function(HeaderLayerConfig value) header,
   }) {
     return logGrid(this);
   }
@@ -1733,6 +3631,13 @@ class _$LogGridLayerConfigImpl implements LogGridLayerConfig {
     TResult? Function(TimetableLayerConfig value)? timetable,
     TResult? Function(RegionLayerConfig value)? region,
     TResult? Function(GuideLayerConfig value)? guide,
+    TResult? Function(StaffLayerConfig value)? staff,
+    TResult? Function(RuledGridLayerConfig value)? ruledGrid,
+    TResult? Function(StampLayerConfig value)? stamp,
+    TResult? Function(CustomLineLayerConfig value)? customLine,
+    TResult? Function(GraphAxisLayerConfig value)? graphAxis,
+    TResult? Function(TableLayerConfig value)? table,
+    TResult? Function(HeaderLayerConfig value)? header,
   }) {
     return logGrid?.call(this);
   }
@@ -1751,6 +3656,13 @@ class _$LogGridLayerConfigImpl implements LogGridLayerConfig {
     TResult Function(TimetableLayerConfig value)? timetable,
     TResult Function(RegionLayerConfig value)? region,
     TResult Function(GuideLayerConfig value)? guide,
+    TResult Function(StaffLayerConfig value)? staff,
+    TResult Function(RuledGridLayerConfig value)? ruledGrid,
+    TResult Function(StampLayerConfig value)? stamp,
+    TResult Function(CustomLineLayerConfig value)? customLine,
+    TResult Function(GraphAxisLayerConfig value)? graphAxis,
+    TResult Function(TableLayerConfig value)? table,
+    TResult Function(HeaderLayerConfig value)? header,
     required TResult orElse(),
   }) {
     if (logGrid != null) {
@@ -1771,6 +3683,8 @@ abstract class LogGridLayerConfig implements LayerConfig {
     final LogScale yScale,
     final int xDecades,
     final int yDecades,
+    final String xLabel,
+    final String yLabel,
   }) = _$LogGridLayerConfigImpl;
 
   factory LogGridLayerConfig.fromJson(Map<String, dynamic> json) =
@@ -1780,6 +3694,8 @@ abstract class LogGridLayerConfig implements LayerConfig {
   LogScale get yScale;
   int get xDecades;
   int get yDecades;
+  String get xLabel;
+  String get yLabel;
 
   /// Create a copy of LayerConfig
   /// with the given fields replaced by the non-null parameter values.
@@ -1795,7 +3711,13 @@ abstract class _$$CornellLayerConfigImplCopyWith<$Res> {
     $Res Function(_$CornellLayerConfigImpl) then,
   ) = __$$CornellLayerConfigImplCopyWithImpl<$Res>;
   @useResult
-  $Res call({double leftColMm, double bottomRowMm, double lineSpacingMm});
+  $Res call({
+    double leftColMm,
+    double bottomRowMm,
+    double lineSpacingMm,
+    String keywordLabel,
+    String summaryLabel,
+  });
 }
 
 /// @nodoc
@@ -1815,6 +3737,8 @@ class __$$CornellLayerConfigImplCopyWithImpl<$Res>
     Object? leftColMm = null,
     Object? bottomRowMm = null,
     Object? lineSpacingMm = null,
+    Object? keywordLabel = null,
+    Object? summaryLabel = null,
   }) {
     return _then(
       _$CornellLayerConfigImpl(
@@ -1830,6 +3754,14 @@ class __$$CornellLayerConfigImplCopyWithImpl<$Res>
             ? _value.lineSpacingMm
             : lineSpacingMm // ignore: cast_nullable_to_non_nullable
                   as double,
+        keywordLabel: null == keywordLabel
+            ? _value.keywordLabel
+            : keywordLabel // ignore: cast_nullable_to_non_nullable
+                  as String,
+        summaryLabel: null == summaryLabel
+            ? _value.summaryLabel
+            : summaryLabel // ignore: cast_nullable_to_non_nullable
+                  as String,
       ),
     );
   }
@@ -1842,6 +3774,8 @@ class _$CornellLayerConfigImpl implements CornellLayerConfig {
     this.leftColMm = 40.0,
     this.bottomRowMm = 25.0,
     this.lineSpacingMm = 6.0,
+    this.keywordLabel = 'キーワード',
+    this.summaryLabel = 'サマリー',
     final String? $type,
   }) : $type = $type ?? 'cornell';
 
@@ -1857,13 +3791,19 @@ class _$CornellLayerConfigImpl implements CornellLayerConfig {
   @override
   @JsonKey()
   final double lineSpacingMm;
+  @override
+  @JsonKey()
+  final String keywordLabel;
+  @override
+  @JsonKey()
+  final String summaryLabel;
 
   @JsonKey(name: 'runtimeType')
   final String $type;
 
   @override
   String toString() {
-    return 'LayerConfig.cornell(leftColMm: $leftColMm, bottomRowMm: $bottomRowMm, lineSpacingMm: $lineSpacingMm)';
+    return 'LayerConfig.cornell(leftColMm: $leftColMm, bottomRowMm: $bottomRowMm, lineSpacingMm: $lineSpacingMm, keywordLabel: $keywordLabel, summaryLabel: $summaryLabel)';
   }
 
   @override
@@ -1876,13 +3816,23 @@ class _$CornellLayerConfigImpl implements CornellLayerConfig {
             (identical(other.bottomRowMm, bottomRowMm) ||
                 other.bottomRowMm == bottomRowMm) &&
             (identical(other.lineSpacingMm, lineSpacingMm) ||
-                other.lineSpacingMm == lineSpacingMm));
+                other.lineSpacingMm == lineSpacingMm) &&
+            (identical(other.keywordLabel, keywordLabel) ||
+                other.keywordLabel == keywordLabel) &&
+            (identical(other.summaryLabel, summaryLabel) ||
+                other.summaryLabel == summaryLabel));
   }
 
   @JsonKey(includeFromJson: false, includeToJson: false)
   @override
-  int get hashCode =>
-      Object.hash(runtimeType, leftColMm, bottomRowMm, lineSpacingMm);
+  int get hashCode => Object.hash(
+    runtimeType,
+    leftColMm,
+    bottomRowMm,
+    lineSpacingMm,
+    keywordLabel,
+    summaryLabel,
+  );
 
   /// Create a copy of LayerConfig
   /// with the given fields replaced by the non-null parameter values.
@@ -1908,19 +3858,28 @@ class _$CornellLayerConfigImpl implements CornellLayerConfig {
     )
     grid,
     required TResult Function(double hexSizeMm, HexOrientation orientation) hex,
-    required TResult Function(double spacingMm) isometric,
-    required TResult Function(double spacingMm, double dotRadiusMm) dot,
+    required TResult Function(double spacingMm, LineStyle lineStyle) isometric,
+    required TResult Function(
+      double spacingMm,
+      double dotRadiusMm,
+      bool alignToOrigin,
+    )
+    dot,
     required TResult Function(
       LogScale xScale,
       LogScale yScale,
       int xDecades,
       int yDecades,
+      String xLabel,
+      String yLabel,
     )
     logGrid,
     required TResult Function(
       double leftColMm,
       double bottomRowMm,
       double lineSpacingMm,
+      String keywordLabel,
+      String summaryLabel,
     )
     cornell,
     required TResult Function(int rings, int sectors) polar,
@@ -1930,8 +3889,54 @@ class _$CornellLayerConfigImpl implements CornellLayerConfig {
     required TResult Function(List<PageRegion> regions) region,
     required TResult Function(GuideType guideType, Map<String, dynamic> params)
     guide,
+    required TResult Function(double lineSpacingMm, double staffGapMm) staff,
+    required TResult Function(double cellMm, double ruledSpacingMm) ruledGrid,
+    required TResult Function(List<StampItem> items) stamp,
+    required TResult Function(List<LineSet> lineSets) customLine,
+    required TResult Function(
+      bool showXAxis,
+      bool showYAxis,
+      bool arrowTip,
+      bool showTickMarks,
+      double tickIntervalMm,
+      double tickLengthMm,
+      TickSide xTickSide,
+      TickSide yTickSide,
+      String xLabel,
+      String yLabel,
+      bool showNegative,
+    )
+    graphAxis,
+    required TResult Function(
+      int rows,
+      int cols,
+      bool showHeaderRow,
+      bool showHeaderCol,
+      double cellHeightMm,
+    )
+    table,
+    required TResult Function(
+      bool showTitle,
+      String titleLabel,
+      bool showDate,
+      String dateLabel,
+      bool showName,
+      String nameLabel,
+      bool showSubject,
+      String subjectLabel,
+      double fontSizeMm,
+      double rowHeightMm,
+      bool showBorder,
+    )
+    header,
   }) {
-    return cornell(leftColMm, bottomRowMm, lineSpacingMm);
+    return cornell(
+      leftColMm,
+      bottomRowMm,
+      lineSpacingMm,
+      keywordLabel,
+      summaryLabel,
+    );
   }
 
   @override
@@ -1947,19 +3952,24 @@ class _$CornellLayerConfigImpl implements CornellLayerConfig {
     )?
     grid,
     TResult? Function(double hexSizeMm, HexOrientation orientation)? hex,
-    TResult? Function(double spacingMm)? isometric,
-    TResult? Function(double spacingMm, double dotRadiusMm)? dot,
+    TResult? Function(double spacingMm, LineStyle lineStyle)? isometric,
+    TResult? Function(double spacingMm, double dotRadiusMm, bool alignToOrigin)?
+    dot,
     TResult? Function(
       LogScale xScale,
       LogScale yScale,
       int xDecades,
       int yDecades,
+      String xLabel,
+      String yLabel,
     )?
     logGrid,
     TResult? Function(
       double leftColMm,
       double bottomRowMm,
       double lineSpacingMm,
+      String keywordLabel,
+      String summaryLabel,
     )?
     cornell,
     TResult? Function(int rings, int sectors)? polar,
@@ -1967,8 +3977,54 @@ class _$CornellLayerConfigImpl implements CornellLayerConfig {
     TResult? Function(int startHour, int endHour, int daysCount)? timetable,
     TResult? Function(List<PageRegion> regions)? region,
     TResult? Function(GuideType guideType, Map<String, dynamic> params)? guide,
+    TResult? Function(double lineSpacingMm, double staffGapMm)? staff,
+    TResult? Function(double cellMm, double ruledSpacingMm)? ruledGrid,
+    TResult? Function(List<StampItem> items)? stamp,
+    TResult? Function(List<LineSet> lineSets)? customLine,
+    TResult? Function(
+      bool showXAxis,
+      bool showYAxis,
+      bool arrowTip,
+      bool showTickMarks,
+      double tickIntervalMm,
+      double tickLengthMm,
+      TickSide xTickSide,
+      TickSide yTickSide,
+      String xLabel,
+      String yLabel,
+      bool showNegative,
+    )?
+    graphAxis,
+    TResult? Function(
+      int rows,
+      int cols,
+      bool showHeaderRow,
+      bool showHeaderCol,
+      double cellHeightMm,
+    )?
+    table,
+    TResult? Function(
+      bool showTitle,
+      String titleLabel,
+      bool showDate,
+      String dateLabel,
+      bool showName,
+      String nameLabel,
+      bool showSubject,
+      String subjectLabel,
+      double fontSizeMm,
+      double rowHeightMm,
+      bool showBorder,
+    )?
+    header,
   }) {
-    return cornell?.call(leftColMm, bottomRowMm, lineSpacingMm);
+    return cornell?.call(
+      leftColMm,
+      bottomRowMm,
+      lineSpacingMm,
+      keywordLabel,
+      summaryLabel,
+    );
   }
 
   @override
@@ -1984,19 +4040,24 @@ class _$CornellLayerConfigImpl implements CornellLayerConfig {
     )?
     grid,
     TResult Function(double hexSizeMm, HexOrientation orientation)? hex,
-    TResult Function(double spacingMm)? isometric,
-    TResult Function(double spacingMm, double dotRadiusMm)? dot,
+    TResult Function(double spacingMm, LineStyle lineStyle)? isometric,
+    TResult Function(double spacingMm, double dotRadiusMm, bool alignToOrigin)?
+    dot,
     TResult Function(
       LogScale xScale,
       LogScale yScale,
       int xDecades,
       int yDecades,
+      String xLabel,
+      String yLabel,
     )?
     logGrid,
     TResult Function(
       double leftColMm,
       double bottomRowMm,
       double lineSpacingMm,
+      String keywordLabel,
+      String summaryLabel,
     )?
     cornell,
     TResult Function(int rings, int sectors)? polar,
@@ -2004,10 +4065,56 @@ class _$CornellLayerConfigImpl implements CornellLayerConfig {
     TResult Function(int startHour, int endHour, int daysCount)? timetable,
     TResult Function(List<PageRegion> regions)? region,
     TResult Function(GuideType guideType, Map<String, dynamic> params)? guide,
+    TResult Function(double lineSpacingMm, double staffGapMm)? staff,
+    TResult Function(double cellMm, double ruledSpacingMm)? ruledGrid,
+    TResult Function(List<StampItem> items)? stamp,
+    TResult Function(List<LineSet> lineSets)? customLine,
+    TResult Function(
+      bool showXAxis,
+      bool showYAxis,
+      bool arrowTip,
+      bool showTickMarks,
+      double tickIntervalMm,
+      double tickLengthMm,
+      TickSide xTickSide,
+      TickSide yTickSide,
+      String xLabel,
+      String yLabel,
+      bool showNegative,
+    )?
+    graphAxis,
+    TResult Function(
+      int rows,
+      int cols,
+      bool showHeaderRow,
+      bool showHeaderCol,
+      double cellHeightMm,
+    )?
+    table,
+    TResult Function(
+      bool showTitle,
+      String titleLabel,
+      bool showDate,
+      String dateLabel,
+      bool showName,
+      String nameLabel,
+      bool showSubject,
+      String subjectLabel,
+      double fontSizeMm,
+      double rowHeightMm,
+      bool showBorder,
+    )?
+    header,
     required TResult orElse(),
   }) {
     if (cornell != null) {
-      return cornell(leftColMm, bottomRowMm, lineSpacingMm);
+      return cornell(
+        leftColMm,
+        bottomRowMm,
+        lineSpacingMm,
+        keywordLabel,
+        summaryLabel,
+      );
     }
     return orElse();
   }
@@ -2026,6 +4133,13 @@ class _$CornellLayerConfigImpl implements CornellLayerConfig {
     required TResult Function(TimetableLayerConfig value) timetable,
     required TResult Function(RegionLayerConfig value) region,
     required TResult Function(GuideLayerConfig value) guide,
+    required TResult Function(StaffLayerConfig value) staff,
+    required TResult Function(RuledGridLayerConfig value) ruledGrid,
+    required TResult Function(StampLayerConfig value) stamp,
+    required TResult Function(CustomLineLayerConfig value) customLine,
+    required TResult Function(GraphAxisLayerConfig value) graphAxis,
+    required TResult Function(TableLayerConfig value) table,
+    required TResult Function(HeaderLayerConfig value) header,
   }) {
     return cornell(this);
   }
@@ -2044,6 +4158,13 @@ class _$CornellLayerConfigImpl implements CornellLayerConfig {
     TResult? Function(TimetableLayerConfig value)? timetable,
     TResult? Function(RegionLayerConfig value)? region,
     TResult? Function(GuideLayerConfig value)? guide,
+    TResult? Function(StaffLayerConfig value)? staff,
+    TResult? Function(RuledGridLayerConfig value)? ruledGrid,
+    TResult? Function(StampLayerConfig value)? stamp,
+    TResult? Function(CustomLineLayerConfig value)? customLine,
+    TResult? Function(GraphAxisLayerConfig value)? graphAxis,
+    TResult? Function(TableLayerConfig value)? table,
+    TResult? Function(HeaderLayerConfig value)? header,
   }) {
     return cornell?.call(this);
   }
@@ -2062,6 +4183,13 @@ class _$CornellLayerConfigImpl implements CornellLayerConfig {
     TResult Function(TimetableLayerConfig value)? timetable,
     TResult Function(RegionLayerConfig value)? region,
     TResult Function(GuideLayerConfig value)? guide,
+    TResult Function(StaffLayerConfig value)? staff,
+    TResult Function(RuledGridLayerConfig value)? ruledGrid,
+    TResult Function(StampLayerConfig value)? stamp,
+    TResult Function(CustomLineLayerConfig value)? customLine,
+    TResult Function(GraphAxisLayerConfig value)? graphAxis,
+    TResult Function(TableLayerConfig value)? table,
+    TResult Function(HeaderLayerConfig value)? header,
     required TResult orElse(),
   }) {
     if (cornell != null) {
@@ -2081,6 +4209,8 @@ abstract class CornellLayerConfig implements LayerConfig {
     final double leftColMm,
     final double bottomRowMm,
     final double lineSpacingMm,
+    final String keywordLabel,
+    final String summaryLabel,
   }) = _$CornellLayerConfigImpl;
 
   factory CornellLayerConfig.fromJson(Map<String, dynamic> json) =
@@ -2089,6 +4219,8 @@ abstract class CornellLayerConfig implements LayerConfig {
   double get leftColMm;
   double get bottomRowMm;
   double get lineSpacingMm;
+  String get keywordLabel;
+  String get summaryLabel;
 
   /// Create a copy of LayerConfig
   /// with the given fields replaced by the non-null parameter values.
@@ -2200,19 +4332,28 @@ class _$PolarLayerConfigImpl implements PolarLayerConfig {
     )
     grid,
     required TResult Function(double hexSizeMm, HexOrientation orientation) hex,
-    required TResult Function(double spacingMm) isometric,
-    required TResult Function(double spacingMm, double dotRadiusMm) dot,
+    required TResult Function(double spacingMm, LineStyle lineStyle) isometric,
+    required TResult Function(
+      double spacingMm,
+      double dotRadiusMm,
+      bool alignToOrigin,
+    )
+    dot,
     required TResult Function(
       LogScale xScale,
       LogScale yScale,
       int xDecades,
       int yDecades,
+      String xLabel,
+      String yLabel,
     )
     logGrid,
     required TResult Function(
       double leftColMm,
       double bottomRowMm,
       double lineSpacingMm,
+      String keywordLabel,
+      String summaryLabel,
     )
     cornell,
     required TResult Function(int rings, int sectors) polar,
@@ -2222,6 +4363,46 @@ class _$PolarLayerConfigImpl implements PolarLayerConfig {
     required TResult Function(List<PageRegion> regions) region,
     required TResult Function(GuideType guideType, Map<String, dynamic> params)
     guide,
+    required TResult Function(double lineSpacingMm, double staffGapMm) staff,
+    required TResult Function(double cellMm, double ruledSpacingMm) ruledGrid,
+    required TResult Function(List<StampItem> items) stamp,
+    required TResult Function(List<LineSet> lineSets) customLine,
+    required TResult Function(
+      bool showXAxis,
+      bool showYAxis,
+      bool arrowTip,
+      bool showTickMarks,
+      double tickIntervalMm,
+      double tickLengthMm,
+      TickSide xTickSide,
+      TickSide yTickSide,
+      String xLabel,
+      String yLabel,
+      bool showNegative,
+    )
+    graphAxis,
+    required TResult Function(
+      int rows,
+      int cols,
+      bool showHeaderRow,
+      bool showHeaderCol,
+      double cellHeightMm,
+    )
+    table,
+    required TResult Function(
+      bool showTitle,
+      String titleLabel,
+      bool showDate,
+      String dateLabel,
+      bool showName,
+      String nameLabel,
+      bool showSubject,
+      String subjectLabel,
+      double fontSizeMm,
+      double rowHeightMm,
+      bool showBorder,
+    )
+    header,
   }) {
     return polar(rings, sectors);
   }
@@ -2239,19 +4420,24 @@ class _$PolarLayerConfigImpl implements PolarLayerConfig {
     )?
     grid,
     TResult? Function(double hexSizeMm, HexOrientation orientation)? hex,
-    TResult? Function(double spacingMm)? isometric,
-    TResult? Function(double spacingMm, double dotRadiusMm)? dot,
+    TResult? Function(double spacingMm, LineStyle lineStyle)? isometric,
+    TResult? Function(double spacingMm, double dotRadiusMm, bool alignToOrigin)?
+    dot,
     TResult? Function(
       LogScale xScale,
       LogScale yScale,
       int xDecades,
       int yDecades,
+      String xLabel,
+      String yLabel,
     )?
     logGrid,
     TResult? Function(
       double leftColMm,
       double bottomRowMm,
       double lineSpacingMm,
+      String keywordLabel,
+      String summaryLabel,
     )?
     cornell,
     TResult? Function(int rings, int sectors)? polar,
@@ -2259,6 +4445,46 @@ class _$PolarLayerConfigImpl implements PolarLayerConfig {
     TResult? Function(int startHour, int endHour, int daysCount)? timetable,
     TResult? Function(List<PageRegion> regions)? region,
     TResult? Function(GuideType guideType, Map<String, dynamic> params)? guide,
+    TResult? Function(double lineSpacingMm, double staffGapMm)? staff,
+    TResult? Function(double cellMm, double ruledSpacingMm)? ruledGrid,
+    TResult? Function(List<StampItem> items)? stamp,
+    TResult? Function(List<LineSet> lineSets)? customLine,
+    TResult? Function(
+      bool showXAxis,
+      bool showYAxis,
+      bool arrowTip,
+      bool showTickMarks,
+      double tickIntervalMm,
+      double tickLengthMm,
+      TickSide xTickSide,
+      TickSide yTickSide,
+      String xLabel,
+      String yLabel,
+      bool showNegative,
+    )?
+    graphAxis,
+    TResult? Function(
+      int rows,
+      int cols,
+      bool showHeaderRow,
+      bool showHeaderCol,
+      double cellHeightMm,
+    )?
+    table,
+    TResult? Function(
+      bool showTitle,
+      String titleLabel,
+      bool showDate,
+      String dateLabel,
+      bool showName,
+      String nameLabel,
+      bool showSubject,
+      String subjectLabel,
+      double fontSizeMm,
+      double rowHeightMm,
+      bool showBorder,
+    )?
+    header,
   }) {
     return polar?.call(rings, sectors);
   }
@@ -2276,19 +4502,24 @@ class _$PolarLayerConfigImpl implements PolarLayerConfig {
     )?
     grid,
     TResult Function(double hexSizeMm, HexOrientation orientation)? hex,
-    TResult Function(double spacingMm)? isometric,
-    TResult Function(double spacingMm, double dotRadiusMm)? dot,
+    TResult Function(double spacingMm, LineStyle lineStyle)? isometric,
+    TResult Function(double spacingMm, double dotRadiusMm, bool alignToOrigin)?
+    dot,
     TResult Function(
       LogScale xScale,
       LogScale yScale,
       int xDecades,
       int yDecades,
+      String xLabel,
+      String yLabel,
     )?
     logGrid,
     TResult Function(
       double leftColMm,
       double bottomRowMm,
       double lineSpacingMm,
+      String keywordLabel,
+      String summaryLabel,
     )?
     cornell,
     TResult Function(int rings, int sectors)? polar,
@@ -2296,6 +4527,46 @@ class _$PolarLayerConfigImpl implements PolarLayerConfig {
     TResult Function(int startHour, int endHour, int daysCount)? timetable,
     TResult Function(List<PageRegion> regions)? region,
     TResult Function(GuideType guideType, Map<String, dynamic> params)? guide,
+    TResult Function(double lineSpacingMm, double staffGapMm)? staff,
+    TResult Function(double cellMm, double ruledSpacingMm)? ruledGrid,
+    TResult Function(List<StampItem> items)? stamp,
+    TResult Function(List<LineSet> lineSets)? customLine,
+    TResult Function(
+      bool showXAxis,
+      bool showYAxis,
+      bool arrowTip,
+      bool showTickMarks,
+      double tickIntervalMm,
+      double tickLengthMm,
+      TickSide xTickSide,
+      TickSide yTickSide,
+      String xLabel,
+      String yLabel,
+      bool showNegative,
+    )?
+    graphAxis,
+    TResult Function(
+      int rows,
+      int cols,
+      bool showHeaderRow,
+      bool showHeaderCol,
+      double cellHeightMm,
+    )?
+    table,
+    TResult Function(
+      bool showTitle,
+      String titleLabel,
+      bool showDate,
+      String dateLabel,
+      bool showName,
+      String nameLabel,
+      bool showSubject,
+      String subjectLabel,
+      double fontSizeMm,
+      double rowHeightMm,
+      bool showBorder,
+    )?
+    header,
     required TResult orElse(),
   }) {
     if (polar != null) {
@@ -2318,6 +4589,13 @@ class _$PolarLayerConfigImpl implements PolarLayerConfig {
     required TResult Function(TimetableLayerConfig value) timetable,
     required TResult Function(RegionLayerConfig value) region,
     required TResult Function(GuideLayerConfig value) guide,
+    required TResult Function(StaffLayerConfig value) staff,
+    required TResult Function(RuledGridLayerConfig value) ruledGrid,
+    required TResult Function(StampLayerConfig value) stamp,
+    required TResult Function(CustomLineLayerConfig value) customLine,
+    required TResult Function(GraphAxisLayerConfig value) graphAxis,
+    required TResult Function(TableLayerConfig value) table,
+    required TResult Function(HeaderLayerConfig value) header,
   }) {
     return polar(this);
   }
@@ -2336,6 +4614,13 @@ class _$PolarLayerConfigImpl implements PolarLayerConfig {
     TResult? Function(TimetableLayerConfig value)? timetable,
     TResult? Function(RegionLayerConfig value)? region,
     TResult? Function(GuideLayerConfig value)? guide,
+    TResult? Function(StaffLayerConfig value)? staff,
+    TResult? Function(RuledGridLayerConfig value)? ruledGrid,
+    TResult? Function(StampLayerConfig value)? stamp,
+    TResult? Function(CustomLineLayerConfig value)? customLine,
+    TResult? Function(GraphAxisLayerConfig value)? graphAxis,
+    TResult? Function(TableLayerConfig value)? table,
+    TResult? Function(HeaderLayerConfig value)? header,
   }) {
     return polar?.call(this);
   }
@@ -2354,6 +4639,13 @@ class _$PolarLayerConfigImpl implements PolarLayerConfig {
     TResult Function(TimetableLayerConfig value)? timetable,
     TResult Function(RegionLayerConfig value)? region,
     TResult Function(GuideLayerConfig value)? guide,
+    TResult Function(StaffLayerConfig value)? staff,
+    TResult Function(RuledGridLayerConfig value)? ruledGrid,
+    TResult Function(StampLayerConfig value)? stamp,
+    TResult Function(CustomLineLayerConfig value)? customLine,
+    TResult Function(GraphAxisLayerConfig value)? graphAxis,
+    TResult Function(TableLayerConfig value)? table,
+    TResult Function(HeaderLayerConfig value)? header,
     required TResult orElse(),
   }) {
     if (polar != null) {
@@ -2489,19 +4781,28 @@ class _$ManuscriptLayerConfigImpl implements ManuscriptLayerConfig {
     )
     grid,
     required TResult Function(double hexSizeMm, HexOrientation orientation) hex,
-    required TResult Function(double spacingMm) isometric,
-    required TResult Function(double spacingMm, double dotRadiusMm) dot,
+    required TResult Function(double spacingMm, LineStyle lineStyle) isometric,
+    required TResult Function(
+      double spacingMm,
+      double dotRadiusMm,
+      bool alignToOrigin,
+    )
+    dot,
     required TResult Function(
       LogScale xScale,
       LogScale yScale,
       int xDecades,
       int yDecades,
+      String xLabel,
+      String yLabel,
     )
     logGrid,
     required TResult Function(
       double leftColMm,
       double bottomRowMm,
       double lineSpacingMm,
+      String keywordLabel,
+      String summaryLabel,
     )
     cornell,
     required TResult Function(int rings, int sectors) polar,
@@ -2511,6 +4812,46 @@ class _$ManuscriptLayerConfigImpl implements ManuscriptLayerConfig {
     required TResult Function(List<PageRegion> regions) region,
     required TResult Function(GuideType guideType, Map<String, dynamic> params)
     guide,
+    required TResult Function(double lineSpacingMm, double staffGapMm) staff,
+    required TResult Function(double cellMm, double ruledSpacingMm) ruledGrid,
+    required TResult Function(List<StampItem> items) stamp,
+    required TResult Function(List<LineSet> lineSets) customLine,
+    required TResult Function(
+      bool showXAxis,
+      bool showYAxis,
+      bool arrowTip,
+      bool showTickMarks,
+      double tickIntervalMm,
+      double tickLengthMm,
+      TickSide xTickSide,
+      TickSide yTickSide,
+      String xLabel,
+      String yLabel,
+      bool showNegative,
+    )
+    graphAxis,
+    required TResult Function(
+      int rows,
+      int cols,
+      bool showHeaderRow,
+      bool showHeaderCol,
+      double cellHeightMm,
+    )
+    table,
+    required TResult Function(
+      bool showTitle,
+      String titleLabel,
+      bool showDate,
+      String dateLabel,
+      bool showName,
+      String nameLabel,
+      bool showSubject,
+      String subjectLabel,
+      double fontSizeMm,
+      double rowHeightMm,
+      bool showBorder,
+    )
+    header,
   }) {
     return manuscript(columns, rows);
   }
@@ -2528,19 +4869,24 @@ class _$ManuscriptLayerConfigImpl implements ManuscriptLayerConfig {
     )?
     grid,
     TResult? Function(double hexSizeMm, HexOrientation orientation)? hex,
-    TResult? Function(double spacingMm)? isometric,
-    TResult? Function(double spacingMm, double dotRadiusMm)? dot,
+    TResult? Function(double spacingMm, LineStyle lineStyle)? isometric,
+    TResult? Function(double spacingMm, double dotRadiusMm, bool alignToOrigin)?
+    dot,
     TResult? Function(
       LogScale xScale,
       LogScale yScale,
       int xDecades,
       int yDecades,
+      String xLabel,
+      String yLabel,
     )?
     logGrid,
     TResult? Function(
       double leftColMm,
       double bottomRowMm,
       double lineSpacingMm,
+      String keywordLabel,
+      String summaryLabel,
     )?
     cornell,
     TResult? Function(int rings, int sectors)? polar,
@@ -2548,6 +4894,46 @@ class _$ManuscriptLayerConfigImpl implements ManuscriptLayerConfig {
     TResult? Function(int startHour, int endHour, int daysCount)? timetable,
     TResult? Function(List<PageRegion> regions)? region,
     TResult? Function(GuideType guideType, Map<String, dynamic> params)? guide,
+    TResult? Function(double lineSpacingMm, double staffGapMm)? staff,
+    TResult? Function(double cellMm, double ruledSpacingMm)? ruledGrid,
+    TResult? Function(List<StampItem> items)? stamp,
+    TResult? Function(List<LineSet> lineSets)? customLine,
+    TResult? Function(
+      bool showXAxis,
+      bool showYAxis,
+      bool arrowTip,
+      bool showTickMarks,
+      double tickIntervalMm,
+      double tickLengthMm,
+      TickSide xTickSide,
+      TickSide yTickSide,
+      String xLabel,
+      String yLabel,
+      bool showNegative,
+    )?
+    graphAxis,
+    TResult? Function(
+      int rows,
+      int cols,
+      bool showHeaderRow,
+      bool showHeaderCol,
+      double cellHeightMm,
+    )?
+    table,
+    TResult? Function(
+      bool showTitle,
+      String titleLabel,
+      bool showDate,
+      String dateLabel,
+      bool showName,
+      String nameLabel,
+      bool showSubject,
+      String subjectLabel,
+      double fontSizeMm,
+      double rowHeightMm,
+      bool showBorder,
+    )?
+    header,
   }) {
     return manuscript?.call(columns, rows);
   }
@@ -2565,19 +4951,24 @@ class _$ManuscriptLayerConfigImpl implements ManuscriptLayerConfig {
     )?
     grid,
     TResult Function(double hexSizeMm, HexOrientation orientation)? hex,
-    TResult Function(double spacingMm)? isometric,
-    TResult Function(double spacingMm, double dotRadiusMm)? dot,
+    TResult Function(double spacingMm, LineStyle lineStyle)? isometric,
+    TResult Function(double spacingMm, double dotRadiusMm, bool alignToOrigin)?
+    dot,
     TResult Function(
       LogScale xScale,
       LogScale yScale,
       int xDecades,
       int yDecades,
+      String xLabel,
+      String yLabel,
     )?
     logGrid,
     TResult Function(
       double leftColMm,
       double bottomRowMm,
       double lineSpacingMm,
+      String keywordLabel,
+      String summaryLabel,
     )?
     cornell,
     TResult Function(int rings, int sectors)? polar,
@@ -2585,6 +4976,46 @@ class _$ManuscriptLayerConfigImpl implements ManuscriptLayerConfig {
     TResult Function(int startHour, int endHour, int daysCount)? timetable,
     TResult Function(List<PageRegion> regions)? region,
     TResult Function(GuideType guideType, Map<String, dynamic> params)? guide,
+    TResult Function(double lineSpacingMm, double staffGapMm)? staff,
+    TResult Function(double cellMm, double ruledSpacingMm)? ruledGrid,
+    TResult Function(List<StampItem> items)? stamp,
+    TResult Function(List<LineSet> lineSets)? customLine,
+    TResult Function(
+      bool showXAxis,
+      bool showYAxis,
+      bool arrowTip,
+      bool showTickMarks,
+      double tickIntervalMm,
+      double tickLengthMm,
+      TickSide xTickSide,
+      TickSide yTickSide,
+      String xLabel,
+      String yLabel,
+      bool showNegative,
+    )?
+    graphAxis,
+    TResult Function(
+      int rows,
+      int cols,
+      bool showHeaderRow,
+      bool showHeaderCol,
+      double cellHeightMm,
+    )?
+    table,
+    TResult Function(
+      bool showTitle,
+      String titleLabel,
+      bool showDate,
+      String dateLabel,
+      bool showName,
+      String nameLabel,
+      bool showSubject,
+      String subjectLabel,
+      double fontSizeMm,
+      double rowHeightMm,
+      bool showBorder,
+    )?
+    header,
     required TResult orElse(),
   }) {
     if (manuscript != null) {
@@ -2607,6 +5038,13 @@ class _$ManuscriptLayerConfigImpl implements ManuscriptLayerConfig {
     required TResult Function(TimetableLayerConfig value) timetable,
     required TResult Function(RegionLayerConfig value) region,
     required TResult Function(GuideLayerConfig value) guide,
+    required TResult Function(StaffLayerConfig value) staff,
+    required TResult Function(RuledGridLayerConfig value) ruledGrid,
+    required TResult Function(StampLayerConfig value) stamp,
+    required TResult Function(CustomLineLayerConfig value) customLine,
+    required TResult Function(GraphAxisLayerConfig value) graphAxis,
+    required TResult Function(TableLayerConfig value) table,
+    required TResult Function(HeaderLayerConfig value) header,
   }) {
     return manuscript(this);
   }
@@ -2625,6 +5063,13 @@ class _$ManuscriptLayerConfigImpl implements ManuscriptLayerConfig {
     TResult? Function(TimetableLayerConfig value)? timetable,
     TResult? Function(RegionLayerConfig value)? region,
     TResult? Function(GuideLayerConfig value)? guide,
+    TResult? Function(StaffLayerConfig value)? staff,
+    TResult? Function(RuledGridLayerConfig value)? ruledGrid,
+    TResult? Function(StampLayerConfig value)? stamp,
+    TResult? Function(CustomLineLayerConfig value)? customLine,
+    TResult? Function(GraphAxisLayerConfig value)? graphAxis,
+    TResult? Function(TableLayerConfig value)? table,
+    TResult? Function(HeaderLayerConfig value)? header,
   }) {
     return manuscript?.call(this);
   }
@@ -2643,6 +5088,13 @@ class _$ManuscriptLayerConfigImpl implements ManuscriptLayerConfig {
     TResult Function(TimetableLayerConfig value)? timetable,
     TResult Function(RegionLayerConfig value)? region,
     TResult Function(GuideLayerConfig value)? guide,
+    TResult Function(StaffLayerConfig value)? staff,
+    TResult Function(RuledGridLayerConfig value)? ruledGrid,
+    TResult Function(StampLayerConfig value)? stamp,
+    TResult Function(CustomLineLayerConfig value)? customLine,
+    TResult Function(GraphAxisLayerConfig value)? graphAxis,
+    TResult Function(TableLayerConfig value)? table,
+    TResult Function(HeaderLayerConfig value)? header,
     required TResult orElse(),
   }) {
     if (manuscript != null) {
@@ -2793,19 +5245,28 @@ class _$TimetableLayerConfigImpl implements TimetableLayerConfig {
     )
     grid,
     required TResult Function(double hexSizeMm, HexOrientation orientation) hex,
-    required TResult Function(double spacingMm) isometric,
-    required TResult Function(double spacingMm, double dotRadiusMm) dot,
+    required TResult Function(double spacingMm, LineStyle lineStyle) isometric,
+    required TResult Function(
+      double spacingMm,
+      double dotRadiusMm,
+      bool alignToOrigin,
+    )
+    dot,
     required TResult Function(
       LogScale xScale,
       LogScale yScale,
       int xDecades,
       int yDecades,
+      String xLabel,
+      String yLabel,
     )
     logGrid,
     required TResult Function(
       double leftColMm,
       double bottomRowMm,
       double lineSpacingMm,
+      String keywordLabel,
+      String summaryLabel,
     )
     cornell,
     required TResult Function(int rings, int sectors) polar,
@@ -2815,6 +5276,46 @@ class _$TimetableLayerConfigImpl implements TimetableLayerConfig {
     required TResult Function(List<PageRegion> regions) region,
     required TResult Function(GuideType guideType, Map<String, dynamic> params)
     guide,
+    required TResult Function(double lineSpacingMm, double staffGapMm) staff,
+    required TResult Function(double cellMm, double ruledSpacingMm) ruledGrid,
+    required TResult Function(List<StampItem> items) stamp,
+    required TResult Function(List<LineSet> lineSets) customLine,
+    required TResult Function(
+      bool showXAxis,
+      bool showYAxis,
+      bool arrowTip,
+      bool showTickMarks,
+      double tickIntervalMm,
+      double tickLengthMm,
+      TickSide xTickSide,
+      TickSide yTickSide,
+      String xLabel,
+      String yLabel,
+      bool showNegative,
+    )
+    graphAxis,
+    required TResult Function(
+      int rows,
+      int cols,
+      bool showHeaderRow,
+      bool showHeaderCol,
+      double cellHeightMm,
+    )
+    table,
+    required TResult Function(
+      bool showTitle,
+      String titleLabel,
+      bool showDate,
+      String dateLabel,
+      bool showName,
+      String nameLabel,
+      bool showSubject,
+      String subjectLabel,
+      double fontSizeMm,
+      double rowHeightMm,
+      bool showBorder,
+    )
+    header,
   }) {
     return timetable(startHour, endHour, daysCount);
   }
@@ -2832,19 +5333,24 @@ class _$TimetableLayerConfigImpl implements TimetableLayerConfig {
     )?
     grid,
     TResult? Function(double hexSizeMm, HexOrientation orientation)? hex,
-    TResult? Function(double spacingMm)? isometric,
-    TResult? Function(double spacingMm, double dotRadiusMm)? dot,
+    TResult? Function(double spacingMm, LineStyle lineStyle)? isometric,
+    TResult? Function(double spacingMm, double dotRadiusMm, bool alignToOrigin)?
+    dot,
     TResult? Function(
       LogScale xScale,
       LogScale yScale,
       int xDecades,
       int yDecades,
+      String xLabel,
+      String yLabel,
     )?
     logGrid,
     TResult? Function(
       double leftColMm,
       double bottomRowMm,
       double lineSpacingMm,
+      String keywordLabel,
+      String summaryLabel,
     )?
     cornell,
     TResult? Function(int rings, int sectors)? polar,
@@ -2852,6 +5358,46 @@ class _$TimetableLayerConfigImpl implements TimetableLayerConfig {
     TResult? Function(int startHour, int endHour, int daysCount)? timetable,
     TResult? Function(List<PageRegion> regions)? region,
     TResult? Function(GuideType guideType, Map<String, dynamic> params)? guide,
+    TResult? Function(double lineSpacingMm, double staffGapMm)? staff,
+    TResult? Function(double cellMm, double ruledSpacingMm)? ruledGrid,
+    TResult? Function(List<StampItem> items)? stamp,
+    TResult? Function(List<LineSet> lineSets)? customLine,
+    TResult? Function(
+      bool showXAxis,
+      bool showYAxis,
+      bool arrowTip,
+      bool showTickMarks,
+      double tickIntervalMm,
+      double tickLengthMm,
+      TickSide xTickSide,
+      TickSide yTickSide,
+      String xLabel,
+      String yLabel,
+      bool showNegative,
+    )?
+    graphAxis,
+    TResult? Function(
+      int rows,
+      int cols,
+      bool showHeaderRow,
+      bool showHeaderCol,
+      double cellHeightMm,
+    )?
+    table,
+    TResult? Function(
+      bool showTitle,
+      String titleLabel,
+      bool showDate,
+      String dateLabel,
+      bool showName,
+      String nameLabel,
+      bool showSubject,
+      String subjectLabel,
+      double fontSizeMm,
+      double rowHeightMm,
+      bool showBorder,
+    )?
+    header,
   }) {
     return timetable?.call(startHour, endHour, daysCount);
   }
@@ -2869,19 +5415,24 @@ class _$TimetableLayerConfigImpl implements TimetableLayerConfig {
     )?
     grid,
     TResult Function(double hexSizeMm, HexOrientation orientation)? hex,
-    TResult Function(double spacingMm)? isometric,
-    TResult Function(double spacingMm, double dotRadiusMm)? dot,
+    TResult Function(double spacingMm, LineStyle lineStyle)? isometric,
+    TResult Function(double spacingMm, double dotRadiusMm, bool alignToOrigin)?
+    dot,
     TResult Function(
       LogScale xScale,
       LogScale yScale,
       int xDecades,
       int yDecades,
+      String xLabel,
+      String yLabel,
     )?
     logGrid,
     TResult Function(
       double leftColMm,
       double bottomRowMm,
       double lineSpacingMm,
+      String keywordLabel,
+      String summaryLabel,
     )?
     cornell,
     TResult Function(int rings, int sectors)? polar,
@@ -2889,6 +5440,46 @@ class _$TimetableLayerConfigImpl implements TimetableLayerConfig {
     TResult Function(int startHour, int endHour, int daysCount)? timetable,
     TResult Function(List<PageRegion> regions)? region,
     TResult Function(GuideType guideType, Map<String, dynamic> params)? guide,
+    TResult Function(double lineSpacingMm, double staffGapMm)? staff,
+    TResult Function(double cellMm, double ruledSpacingMm)? ruledGrid,
+    TResult Function(List<StampItem> items)? stamp,
+    TResult Function(List<LineSet> lineSets)? customLine,
+    TResult Function(
+      bool showXAxis,
+      bool showYAxis,
+      bool arrowTip,
+      bool showTickMarks,
+      double tickIntervalMm,
+      double tickLengthMm,
+      TickSide xTickSide,
+      TickSide yTickSide,
+      String xLabel,
+      String yLabel,
+      bool showNegative,
+    )?
+    graphAxis,
+    TResult Function(
+      int rows,
+      int cols,
+      bool showHeaderRow,
+      bool showHeaderCol,
+      double cellHeightMm,
+    )?
+    table,
+    TResult Function(
+      bool showTitle,
+      String titleLabel,
+      bool showDate,
+      String dateLabel,
+      bool showName,
+      String nameLabel,
+      bool showSubject,
+      String subjectLabel,
+      double fontSizeMm,
+      double rowHeightMm,
+      bool showBorder,
+    )?
+    header,
     required TResult orElse(),
   }) {
     if (timetable != null) {
@@ -2911,6 +5502,13 @@ class _$TimetableLayerConfigImpl implements TimetableLayerConfig {
     required TResult Function(TimetableLayerConfig value) timetable,
     required TResult Function(RegionLayerConfig value) region,
     required TResult Function(GuideLayerConfig value) guide,
+    required TResult Function(StaffLayerConfig value) staff,
+    required TResult Function(RuledGridLayerConfig value) ruledGrid,
+    required TResult Function(StampLayerConfig value) stamp,
+    required TResult Function(CustomLineLayerConfig value) customLine,
+    required TResult Function(GraphAxisLayerConfig value) graphAxis,
+    required TResult Function(TableLayerConfig value) table,
+    required TResult Function(HeaderLayerConfig value) header,
   }) {
     return timetable(this);
   }
@@ -2929,6 +5527,13 @@ class _$TimetableLayerConfigImpl implements TimetableLayerConfig {
     TResult? Function(TimetableLayerConfig value)? timetable,
     TResult? Function(RegionLayerConfig value)? region,
     TResult? Function(GuideLayerConfig value)? guide,
+    TResult? Function(StaffLayerConfig value)? staff,
+    TResult? Function(RuledGridLayerConfig value)? ruledGrid,
+    TResult? Function(StampLayerConfig value)? stamp,
+    TResult? Function(CustomLineLayerConfig value)? customLine,
+    TResult? Function(GraphAxisLayerConfig value)? graphAxis,
+    TResult? Function(TableLayerConfig value)? table,
+    TResult? Function(HeaderLayerConfig value)? header,
   }) {
     return timetable?.call(this);
   }
@@ -2947,6 +5552,13 @@ class _$TimetableLayerConfigImpl implements TimetableLayerConfig {
     TResult Function(TimetableLayerConfig value)? timetable,
     TResult Function(RegionLayerConfig value)? region,
     TResult Function(GuideLayerConfig value)? guide,
+    TResult Function(StaffLayerConfig value)? staff,
+    TResult Function(RuledGridLayerConfig value)? ruledGrid,
+    TResult Function(StampLayerConfig value)? stamp,
+    TResult Function(CustomLineLayerConfig value)? customLine,
+    TResult Function(GraphAxisLayerConfig value)? graphAxis,
+    TResult Function(TableLayerConfig value)? table,
+    TResult Function(HeaderLayerConfig value)? header,
     required TResult orElse(),
   }) {
     if (timetable != null) {
@@ -3083,19 +5695,28 @@ class _$RegionLayerConfigImpl implements RegionLayerConfig {
     )
     grid,
     required TResult Function(double hexSizeMm, HexOrientation orientation) hex,
-    required TResult Function(double spacingMm) isometric,
-    required TResult Function(double spacingMm, double dotRadiusMm) dot,
+    required TResult Function(double spacingMm, LineStyle lineStyle) isometric,
+    required TResult Function(
+      double spacingMm,
+      double dotRadiusMm,
+      bool alignToOrigin,
+    )
+    dot,
     required TResult Function(
       LogScale xScale,
       LogScale yScale,
       int xDecades,
       int yDecades,
+      String xLabel,
+      String yLabel,
     )
     logGrid,
     required TResult Function(
       double leftColMm,
       double bottomRowMm,
       double lineSpacingMm,
+      String keywordLabel,
+      String summaryLabel,
     )
     cornell,
     required TResult Function(int rings, int sectors) polar,
@@ -3105,6 +5726,46 @@ class _$RegionLayerConfigImpl implements RegionLayerConfig {
     required TResult Function(List<PageRegion> regions) region,
     required TResult Function(GuideType guideType, Map<String, dynamic> params)
     guide,
+    required TResult Function(double lineSpacingMm, double staffGapMm) staff,
+    required TResult Function(double cellMm, double ruledSpacingMm) ruledGrid,
+    required TResult Function(List<StampItem> items) stamp,
+    required TResult Function(List<LineSet> lineSets) customLine,
+    required TResult Function(
+      bool showXAxis,
+      bool showYAxis,
+      bool arrowTip,
+      bool showTickMarks,
+      double tickIntervalMm,
+      double tickLengthMm,
+      TickSide xTickSide,
+      TickSide yTickSide,
+      String xLabel,
+      String yLabel,
+      bool showNegative,
+    )
+    graphAxis,
+    required TResult Function(
+      int rows,
+      int cols,
+      bool showHeaderRow,
+      bool showHeaderCol,
+      double cellHeightMm,
+    )
+    table,
+    required TResult Function(
+      bool showTitle,
+      String titleLabel,
+      bool showDate,
+      String dateLabel,
+      bool showName,
+      String nameLabel,
+      bool showSubject,
+      String subjectLabel,
+      double fontSizeMm,
+      double rowHeightMm,
+      bool showBorder,
+    )
+    header,
   }) {
     return region(regions);
   }
@@ -3122,19 +5783,24 @@ class _$RegionLayerConfigImpl implements RegionLayerConfig {
     )?
     grid,
     TResult? Function(double hexSizeMm, HexOrientation orientation)? hex,
-    TResult? Function(double spacingMm)? isometric,
-    TResult? Function(double spacingMm, double dotRadiusMm)? dot,
+    TResult? Function(double spacingMm, LineStyle lineStyle)? isometric,
+    TResult? Function(double spacingMm, double dotRadiusMm, bool alignToOrigin)?
+    dot,
     TResult? Function(
       LogScale xScale,
       LogScale yScale,
       int xDecades,
       int yDecades,
+      String xLabel,
+      String yLabel,
     )?
     logGrid,
     TResult? Function(
       double leftColMm,
       double bottomRowMm,
       double lineSpacingMm,
+      String keywordLabel,
+      String summaryLabel,
     )?
     cornell,
     TResult? Function(int rings, int sectors)? polar,
@@ -3142,6 +5808,46 @@ class _$RegionLayerConfigImpl implements RegionLayerConfig {
     TResult? Function(int startHour, int endHour, int daysCount)? timetable,
     TResult? Function(List<PageRegion> regions)? region,
     TResult? Function(GuideType guideType, Map<String, dynamic> params)? guide,
+    TResult? Function(double lineSpacingMm, double staffGapMm)? staff,
+    TResult? Function(double cellMm, double ruledSpacingMm)? ruledGrid,
+    TResult? Function(List<StampItem> items)? stamp,
+    TResult? Function(List<LineSet> lineSets)? customLine,
+    TResult? Function(
+      bool showXAxis,
+      bool showYAxis,
+      bool arrowTip,
+      bool showTickMarks,
+      double tickIntervalMm,
+      double tickLengthMm,
+      TickSide xTickSide,
+      TickSide yTickSide,
+      String xLabel,
+      String yLabel,
+      bool showNegative,
+    )?
+    graphAxis,
+    TResult? Function(
+      int rows,
+      int cols,
+      bool showHeaderRow,
+      bool showHeaderCol,
+      double cellHeightMm,
+    )?
+    table,
+    TResult? Function(
+      bool showTitle,
+      String titleLabel,
+      bool showDate,
+      String dateLabel,
+      bool showName,
+      String nameLabel,
+      bool showSubject,
+      String subjectLabel,
+      double fontSizeMm,
+      double rowHeightMm,
+      bool showBorder,
+    )?
+    header,
   }) {
     return region?.call(regions);
   }
@@ -3159,19 +5865,24 @@ class _$RegionLayerConfigImpl implements RegionLayerConfig {
     )?
     grid,
     TResult Function(double hexSizeMm, HexOrientation orientation)? hex,
-    TResult Function(double spacingMm)? isometric,
-    TResult Function(double spacingMm, double dotRadiusMm)? dot,
+    TResult Function(double spacingMm, LineStyle lineStyle)? isometric,
+    TResult Function(double spacingMm, double dotRadiusMm, bool alignToOrigin)?
+    dot,
     TResult Function(
       LogScale xScale,
       LogScale yScale,
       int xDecades,
       int yDecades,
+      String xLabel,
+      String yLabel,
     )?
     logGrid,
     TResult Function(
       double leftColMm,
       double bottomRowMm,
       double lineSpacingMm,
+      String keywordLabel,
+      String summaryLabel,
     )?
     cornell,
     TResult Function(int rings, int sectors)? polar,
@@ -3179,6 +5890,46 @@ class _$RegionLayerConfigImpl implements RegionLayerConfig {
     TResult Function(int startHour, int endHour, int daysCount)? timetable,
     TResult Function(List<PageRegion> regions)? region,
     TResult Function(GuideType guideType, Map<String, dynamic> params)? guide,
+    TResult Function(double lineSpacingMm, double staffGapMm)? staff,
+    TResult Function(double cellMm, double ruledSpacingMm)? ruledGrid,
+    TResult Function(List<StampItem> items)? stamp,
+    TResult Function(List<LineSet> lineSets)? customLine,
+    TResult Function(
+      bool showXAxis,
+      bool showYAxis,
+      bool arrowTip,
+      bool showTickMarks,
+      double tickIntervalMm,
+      double tickLengthMm,
+      TickSide xTickSide,
+      TickSide yTickSide,
+      String xLabel,
+      String yLabel,
+      bool showNegative,
+    )?
+    graphAxis,
+    TResult Function(
+      int rows,
+      int cols,
+      bool showHeaderRow,
+      bool showHeaderCol,
+      double cellHeightMm,
+    )?
+    table,
+    TResult Function(
+      bool showTitle,
+      String titleLabel,
+      bool showDate,
+      String dateLabel,
+      bool showName,
+      String nameLabel,
+      bool showSubject,
+      String subjectLabel,
+      double fontSizeMm,
+      double rowHeightMm,
+      bool showBorder,
+    )?
+    header,
     required TResult orElse(),
   }) {
     if (region != null) {
@@ -3201,6 +5952,13 @@ class _$RegionLayerConfigImpl implements RegionLayerConfig {
     required TResult Function(TimetableLayerConfig value) timetable,
     required TResult Function(RegionLayerConfig value) region,
     required TResult Function(GuideLayerConfig value) guide,
+    required TResult Function(StaffLayerConfig value) staff,
+    required TResult Function(RuledGridLayerConfig value) ruledGrid,
+    required TResult Function(StampLayerConfig value) stamp,
+    required TResult Function(CustomLineLayerConfig value) customLine,
+    required TResult Function(GraphAxisLayerConfig value) graphAxis,
+    required TResult Function(TableLayerConfig value) table,
+    required TResult Function(HeaderLayerConfig value) header,
   }) {
     return region(this);
   }
@@ -3219,6 +5977,13 @@ class _$RegionLayerConfigImpl implements RegionLayerConfig {
     TResult? Function(TimetableLayerConfig value)? timetable,
     TResult? Function(RegionLayerConfig value)? region,
     TResult? Function(GuideLayerConfig value)? guide,
+    TResult? Function(StaffLayerConfig value)? staff,
+    TResult? Function(RuledGridLayerConfig value)? ruledGrid,
+    TResult? Function(StampLayerConfig value)? stamp,
+    TResult? Function(CustomLineLayerConfig value)? customLine,
+    TResult? Function(GraphAxisLayerConfig value)? graphAxis,
+    TResult? Function(TableLayerConfig value)? table,
+    TResult? Function(HeaderLayerConfig value)? header,
   }) {
     return region?.call(this);
   }
@@ -3237,6 +6002,13 @@ class _$RegionLayerConfigImpl implements RegionLayerConfig {
     TResult Function(TimetableLayerConfig value)? timetable,
     TResult Function(RegionLayerConfig value)? region,
     TResult Function(GuideLayerConfig value)? guide,
+    TResult Function(StaffLayerConfig value)? staff,
+    TResult Function(RuledGridLayerConfig value)? ruledGrid,
+    TResult Function(StampLayerConfig value)? stamp,
+    TResult Function(CustomLineLayerConfig value)? customLine,
+    TResult Function(GraphAxisLayerConfig value)? graphAxis,
+    TResult Function(TableLayerConfig value)? table,
+    TResult Function(HeaderLayerConfig value)? header,
     required TResult orElse(),
   }) {
     if (region != null) {
@@ -3380,19 +6152,28 @@ class _$GuideLayerConfigImpl implements GuideLayerConfig {
     )
     grid,
     required TResult Function(double hexSizeMm, HexOrientation orientation) hex,
-    required TResult Function(double spacingMm) isometric,
-    required TResult Function(double spacingMm, double dotRadiusMm) dot,
+    required TResult Function(double spacingMm, LineStyle lineStyle) isometric,
+    required TResult Function(
+      double spacingMm,
+      double dotRadiusMm,
+      bool alignToOrigin,
+    )
+    dot,
     required TResult Function(
       LogScale xScale,
       LogScale yScale,
       int xDecades,
       int yDecades,
+      String xLabel,
+      String yLabel,
     )
     logGrid,
     required TResult Function(
       double leftColMm,
       double bottomRowMm,
       double lineSpacingMm,
+      String keywordLabel,
+      String summaryLabel,
     )
     cornell,
     required TResult Function(int rings, int sectors) polar,
@@ -3402,6 +6183,46 @@ class _$GuideLayerConfigImpl implements GuideLayerConfig {
     required TResult Function(List<PageRegion> regions) region,
     required TResult Function(GuideType guideType, Map<String, dynamic> params)
     guide,
+    required TResult Function(double lineSpacingMm, double staffGapMm) staff,
+    required TResult Function(double cellMm, double ruledSpacingMm) ruledGrid,
+    required TResult Function(List<StampItem> items) stamp,
+    required TResult Function(List<LineSet> lineSets) customLine,
+    required TResult Function(
+      bool showXAxis,
+      bool showYAxis,
+      bool arrowTip,
+      bool showTickMarks,
+      double tickIntervalMm,
+      double tickLengthMm,
+      TickSide xTickSide,
+      TickSide yTickSide,
+      String xLabel,
+      String yLabel,
+      bool showNegative,
+    )
+    graphAxis,
+    required TResult Function(
+      int rows,
+      int cols,
+      bool showHeaderRow,
+      bool showHeaderCol,
+      double cellHeightMm,
+    )
+    table,
+    required TResult Function(
+      bool showTitle,
+      String titleLabel,
+      bool showDate,
+      String dateLabel,
+      bool showName,
+      String nameLabel,
+      bool showSubject,
+      String subjectLabel,
+      double fontSizeMm,
+      double rowHeightMm,
+      bool showBorder,
+    )
+    header,
   }) {
     return guide(guideType, params);
   }
@@ -3419,19 +6240,24 @@ class _$GuideLayerConfigImpl implements GuideLayerConfig {
     )?
     grid,
     TResult? Function(double hexSizeMm, HexOrientation orientation)? hex,
-    TResult? Function(double spacingMm)? isometric,
-    TResult? Function(double spacingMm, double dotRadiusMm)? dot,
+    TResult? Function(double spacingMm, LineStyle lineStyle)? isometric,
+    TResult? Function(double spacingMm, double dotRadiusMm, bool alignToOrigin)?
+    dot,
     TResult? Function(
       LogScale xScale,
       LogScale yScale,
       int xDecades,
       int yDecades,
+      String xLabel,
+      String yLabel,
     )?
     logGrid,
     TResult? Function(
       double leftColMm,
       double bottomRowMm,
       double lineSpacingMm,
+      String keywordLabel,
+      String summaryLabel,
     )?
     cornell,
     TResult? Function(int rings, int sectors)? polar,
@@ -3439,6 +6265,46 @@ class _$GuideLayerConfigImpl implements GuideLayerConfig {
     TResult? Function(int startHour, int endHour, int daysCount)? timetable,
     TResult? Function(List<PageRegion> regions)? region,
     TResult? Function(GuideType guideType, Map<String, dynamic> params)? guide,
+    TResult? Function(double lineSpacingMm, double staffGapMm)? staff,
+    TResult? Function(double cellMm, double ruledSpacingMm)? ruledGrid,
+    TResult? Function(List<StampItem> items)? stamp,
+    TResult? Function(List<LineSet> lineSets)? customLine,
+    TResult? Function(
+      bool showXAxis,
+      bool showYAxis,
+      bool arrowTip,
+      bool showTickMarks,
+      double tickIntervalMm,
+      double tickLengthMm,
+      TickSide xTickSide,
+      TickSide yTickSide,
+      String xLabel,
+      String yLabel,
+      bool showNegative,
+    )?
+    graphAxis,
+    TResult? Function(
+      int rows,
+      int cols,
+      bool showHeaderRow,
+      bool showHeaderCol,
+      double cellHeightMm,
+    )?
+    table,
+    TResult? Function(
+      bool showTitle,
+      String titleLabel,
+      bool showDate,
+      String dateLabel,
+      bool showName,
+      String nameLabel,
+      bool showSubject,
+      String subjectLabel,
+      double fontSizeMm,
+      double rowHeightMm,
+      bool showBorder,
+    )?
+    header,
   }) {
     return guide?.call(guideType, params);
   }
@@ -3456,19 +6322,24 @@ class _$GuideLayerConfigImpl implements GuideLayerConfig {
     )?
     grid,
     TResult Function(double hexSizeMm, HexOrientation orientation)? hex,
-    TResult Function(double spacingMm)? isometric,
-    TResult Function(double spacingMm, double dotRadiusMm)? dot,
+    TResult Function(double spacingMm, LineStyle lineStyle)? isometric,
+    TResult Function(double spacingMm, double dotRadiusMm, bool alignToOrigin)?
+    dot,
     TResult Function(
       LogScale xScale,
       LogScale yScale,
       int xDecades,
       int yDecades,
+      String xLabel,
+      String yLabel,
     )?
     logGrid,
     TResult Function(
       double leftColMm,
       double bottomRowMm,
       double lineSpacingMm,
+      String keywordLabel,
+      String summaryLabel,
     )?
     cornell,
     TResult Function(int rings, int sectors)? polar,
@@ -3476,6 +6347,46 @@ class _$GuideLayerConfigImpl implements GuideLayerConfig {
     TResult Function(int startHour, int endHour, int daysCount)? timetable,
     TResult Function(List<PageRegion> regions)? region,
     TResult Function(GuideType guideType, Map<String, dynamic> params)? guide,
+    TResult Function(double lineSpacingMm, double staffGapMm)? staff,
+    TResult Function(double cellMm, double ruledSpacingMm)? ruledGrid,
+    TResult Function(List<StampItem> items)? stamp,
+    TResult Function(List<LineSet> lineSets)? customLine,
+    TResult Function(
+      bool showXAxis,
+      bool showYAxis,
+      bool arrowTip,
+      bool showTickMarks,
+      double tickIntervalMm,
+      double tickLengthMm,
+      TickSide xTickSide,
+      TickSide yTickSide,
+      String xLabel,
+      String yLabel,
+      bool showNegative,
+    )?
+    graphAxis,
+    TResult Function(
+      int rows,
+      int cols,
+      bool showHeaderRow,
+      bool showHeaderCol,
+      double cellHeightMm,
+    )?
+    table,
+    TResult Function(
+      bool showTitle,
+      String titleLabel,
+      bool showDate,
+      String dateLabel,
+      bool showName,
+      String nameLabel,
+      bool showSubject,
+      String subjectLabel,
+      double fontSizeMm,
+      double rowHeightMm,
+      bool showBorder,
+    )?
+    header,
     required TResult orElse(),
   }) {
     if (guide != null) {
@@ -3498,6 +6409,13 @@ class _$GuideLayerConfigImpl implements GuideLayerConfig {
     required TResult Function(TimetableLayerConfig value) timetable,
     required TResult Function(RegionLayerConfig value) region,
     required TResult Function(GuideLayerConfig value) guide,
+    required TResult Function(StaffLayerConfig value) staff,
+    required TResult Function(RuledGridLayerConfig value) ruledGrid,
+    required TResult Function(StampLayerConfig value) stamp,
+    required TResult Function(CustomLineLayerConfig value) customLine,
+    required TResult Function(GraphAxisLayerConfig value) graphAxis,
+    required TResult Function(TableLayerConfig value) table,
+    required TResult Function(HeaderLayerConfig value) header,
   }) {
     return guide(this);
   }
@@ -3516,6 +6434,13 @@ class _$GuideLayerConfigImpl implements GuideLayerConfig {
     TResult? Function(TimetableLayerConfig value)? timetable,
     TResult? Function(RegionLayerConfig value)? region,
     TResult? Function(GuideLayerConfig value)? guide,
+    TResult? Function(StaffLayerConfig value)? staff,
+    TResult? Function(RuledGridLayerConfig value)? ruledGrid,
+    TResult? Function(StampLayerConfig value)? stamp,
+    TResult? Function(CustomLineLayerConfig value)? customLine,
+    TResult? Function(GraphAxisLayerConfig value)? graphAxis,
+    TResult? Function(TableLayerConfig value)? table,
+    TResult? Function(HeaderLayerConfig value)? header,
   }) {
     return guide?.call(this);
   }
@@ -3534,6 +6459,13 @@ class _$GuideLayerConfigImpl implements GuideLayerConfig {
     TResult Function(TimetableLayerConfig value)? timetable,
     TResult Function(RegionLayerConfig value)? region,
     TResult Function(GuideLayerConfig value)? guide,
+    TResult Function(StaffLayerConfig value)? staff,
+    TResult Function(RuledGridLayerConfig value)? ruledGrid,
+    TResult Function(StampLayerConfig value)? stamp,
+    TResult Function(CustomLineLayerConfig value)? customLine,
+    TResult Function(GraphAxisLayerConfig value)? graphAxis,
+    TResult Function(TableLayerConfig value)? table,
+    TResult Function(HeaderLayerConfig value)? header,
     required TResult orElse(),
   }) {
     if (guide != null) {
@@ -3564,6 +6496,3571 @@ abstract class GuideLayerConfig implements LayerConfig {
   /// with the given fields replaced by the non-null parameter values.
   @JsonKey(includeFromJson: false, includeToJson: false)
   _$$GuideLayerConfigImplCopyWith<_$GuideLayerConfigImpl> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class _$$StaffLayerConfigImplCopyWith<$Res> {
+  factory _$$StaffLayerConfigImplCopyWith(
+    _$StaffLayerConfigImpl value,
+    $Res Function(_$StaffLayerConfigImpl) then,
+  ) = __$$StaffLayerConfigImplCopyWithImpl<$Res>;
+  @useResult
+  $Res call({double lineSpacingMm, double staffGapMm});
+}
+
+/// @nodoc
+class __$$StaffLayerConfigImplCopyWithImpl<$Res>
+    extends _$LayerConfigCopyWithImpl<$Res, _$StaffLayerConfigImpl>
+    implements _$$StaffLayerConfigImplCopyWith<$Res> {
+  __$$StaffLayerConfigImplCopyWithImpl(
+    _$StaffLayerConfigImpl _value,
+    $Res Function(_$StaffLayerConfigImpl) _then,
+  ) : super(_value, _then);
+
+  /// Create a copy of LayerConfig
+  /// with the given fields replaced by the non-null parameter values.
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({Object? lineSpacingMm = null, Object? staffGapMm = null}) {
+    return _then(
+      _$StaffLayerConfigImpl(
+        lineSpacingMm: null == lineSpacingMm
+            ? _value.lineSpacingMm
+            : lineSpacingMm // ignore: cast_nullable_to_non_nullable
+                  as double,
+        staffGapMm: null == staffGapMm
+            ? _value.staffGapMm
+            : staffGapMm // ignore: cast_nullable_to_non_nullable
+                  as double,
+      ),
+    );
+  }
+}
+
+/// @nodoc
+@JsonSerializable()
+class _$StaffLayerConfigImpl implements StaffLayerConfig {
+  const _$StaffLayerConfigImpl({
+    this.lineSpacingMm = 2.0,
+    this.staffGapMm = 12.0,
+    final String? $type,
+  }) : $type = $type ?? 'staff';
+
+  factory _$StaffLayerConfigImpl.fromJson(Map<String, dynamic> json) =>
+      _$$StaffLayerConfigImplFromJson(json);
+
+  @override
+  @JsonKey()
+  final double lineSpacingMm;
+  @override
+  @JsonKey()
+  final double staffGapMm;
+
+  @JsonKey(name: 'runtimeType')
+  final String $type;
+
+  @override
+  String toString() {
+    return 'LayerConfig.staff(lineSpacingMm: $lineSpacingMm, staffGapMm: $staffGapMm)';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$StaffLayerConfigImpl &&
+            (identical(other.lineSpacingMm, lineSpacingMm) ||
+                other.lineSpacingMm == lineSpacingMm) &&
+            (identical(other.staffGapMm, staffGapMm) ||
+                other.staffGapMm == staffGapMm));
+  }
+
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  @override
+  int get hashCode => Object.hash(runtimeType, lineSpacingMm, staffGapMm);
+
+  /// Create a copy of LayerConfig
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$StaffLayerConfigImplCopyWith<_$StaffLayerConfigImpl> get copyWith =>
+      __$$StaffLayerConfigImplCopyWithImpl<_$StaffLayerConfigImpl>(
+        this,
+        _$identity,
+      );
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function(
+      double cellWidthMm,
+      double cellHeightMm,
+      LineStyle lineStyle,
+      int? boldEvery,
+      bool showHorizontal,
+      bool showVertical,
+    )
+    grid,
+    required TResult Function(double hexSizeMm, HexOrientation orientation) hex,
+    required TResult Function(double spacingMm, LineStyle lineStyle) isometric,
+    required TResult Function(
+      double spacingMm,
+      double dotRadiusMm,
+      bool alignToOrigin,
+    )
+    dot,
+    required TResult Function(
+      LogScale xScale,
+      LogScale yScale,
+      int xDecades,
+      int yDecades,
+      String xLabel,
+      String yLabel,
+    )
+    logGrid,
+    required TResult Function(
+      double leftColMm,
+      double bottomRowMm,
+      double lineSpacingMm,
+      String keywordLabel,
+      String summaryLabel,
+    )
+    cornell,
+    required TResult Function(int rings, int sectors) polar,
+    required TResult Function(int columns, int rows) manuscript,
+    required TResult Function(int startHour, int endHour, int daysCount)
+    timetable,
+    required TResult Function(List<PageRegion> regions) region,
+    required TResult Function(GuideType guideType, Map<String, dynamic> params)
+    guide,
+    required TResult Function(double lineSpacingMm, double staffGapMm) staff,
+    required TResult Function(double cellMm, double ruledSpacingMm) ruledGrid,
+    required TResult Function(List<StampItem> items) stamp,
+    required TResult Function(List<LineSet> lineSets) customLine,
+    required TResult Function(
+      bool showXAxis,
+      bool showYAxis,
+      bool arrowTip,
+      bool showTickMarks,
+      double tickIntervalMm,
+      double tickLengthMm,
+      TickSide xTickSide,
+      TickSide yTickSide,
+      String xLabel,
+      String yLabel,
+      bool showNegative,
+    )
+    graphAxis,
+    required TResult Function(
+      int rows,
+      int cols,
+      bool showHeaderRow,
+      bool showHeaderCol,
+      double cellHeightMm,
+    )
+    table,
+    required TResult Function(
+      bool showTitle,
+      String titleLabel,
+      bool showDate,
+      String dateLabel,
+      bool showName,
+      String nameLabel,
+      bool showSubject,
+      String subjectLabel,
+      double fontSizeMm,
+      double rowHeightMm,
+      bool showBorder,
+    )
+    header,
+  }) {
+    return staff(lineSpacingMm, staffGapMm);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function(
+      double cellWidthMm,
+      double cellHeightMm,
+      LineStyle lineStyle,
+      int? boldEvery,
+      bool showHorizontal,
+      bool showVertical,
+    )?
+    grid,
+    TResult? Function(double hexSizeMm, HexOrientation orientation)? hex,
+    TResult? Function(double spacingMm, LineStyle lineStyle)? isometric,
+    TResult? Function(double spacingMm, double dotRadiusMm, bool alignToOrigin)?
+    dot,
+    TResult? Function(
+      LogScale xScale,
+      LogScale yScale,
+      int xDecades,
+      int yDecades,
+      String xLabel,
+      String yLabel,
+    )?
+    logGrid,
+    TResult? Function(
+      double leftColMm,
+      double bottomRowMm,
+      double lineSpacingMm,
+      String keywordLabel,
+      String summaryLabel,
+    )?
+    cornell,
+    TResult? Function(int rings, int sectors)? polar,
+    TResult? Function(int columns, int rows)? manuscript,
+    TResult? Function(int startHour, int endHour, int daysCount)? timetable,
+    TResult? Function(List<PageRegion> regions)? region,
+    TResult? Function(GuideType guideType, Map<String, dynamic> params)? guide,
+    TResult? Function(double lineSpacingMm, double staffGapMm)? staff,
+    TResult? Function(double cellMm, double ruledSpacingMm)? ruledGrid,
+    TResult? Function(List<StampItem> items)? stamp,
+    TResult? Function(List<LineSet> lineSets)? customLine,
+    TResult? Function(
+      bool showXAxis,
+      bool showYAxis,
+      bool arrowTip,
+      bool showTickMarks,
+      double tickIntervalMm,
+      double tickLengthMm,
+      TickSide xTickSide,
+      TickSide yTickSide,
+      String xLabel,
+      String yLabel,
+      bool showNegative,
+    )?
+    graphAxis,
+    TResult? Function(
+      int rows,
+      int cols,
+      bool showHeaderRow,
+      bool showHeaderCol,
+      double cellHeightMm,
+    )?
+    table,
+    TResult? Function(
+      bool showTitle,
+      String titleLabel,
+      bool showDate,
+      String dateLabel,
+      bool showName,
+      String nameLabel,
+      bool showSubject,
+      String subjectLabel,
+      double fontSizeMm,
+      double rowHeightMm,
+      bool showBorder,
+    )?
+    header,
+  }) {
+    return staff?.call(lineSpacingMm, staffGapMm);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function(
+      double cellWidthMm,
+      double cellHeightMm,
+      LineStyle lineStyle,
+      int? boldEvery,
+      bool showHorizontal,
+      bool showVertical,
+    )?
+    grid,
+    TResult Function(double hexSizeMm, HexOrientation orientation)? hex,
+    TResult Function(double spacingMm, LineStyle lineStyle)? isometric,
+    TResult Function(double spacingMm, double dotRadiusMm, bool alignToOrigin)?
+    dot,
+    TResult Function(
+      LogScale xScale,
+      LogScale yScale,
+      int xDecades,
+      int yDecades,
+      String xLabel,
+      String yLabel,
+    )?
+    logGrid,
+    TResult Function(
+      double leftColMm,
+      double bottomRowMm,
+      double lineSpacingMm,
+      String keywordLabel,
+      String summaryLabel,
+    )?
+    cornell,
+    TResult Function(int rings, int sectors)? polar,
+    TResult Function(int columns, int rows)? manuscript,
+    TResult Function(int startHour, int endHour, int daysCount)? timetable,
+    TResult Function(List<PageRegion> regions)? region,
+    TResult Function(GuideType guideType, Map<String, dynamic> params)? guide,
+    TResult Function(double lineSpacingMm, double staffGapMm)? staff,
+    TResult Function(double cellMm, double ruledSpacingMm)? ruledGrid,
+    TResult Function(List<StampItem> items)? stamp,
+    TResult Function(List<LineSet> lineSets)? customLine,
+    TResult Function(
+      bool showXAxis,
+      bool showYAxis,
+      bool arrowTip,
+      bool showTickMarks,
+      double tickIntervalMm,
+      double tickLengthMm,
+      TickSide xTickSide,
+      TickSide yTickSide,
+      String xLabel,
+      String yLabel,
+      bool showNegative,
+    )?
+    graphAxis,
+    TResult Function(
+      int rows,
+      int cols,
+      bool showHeaderRow,
+      bool showHeaderCol,
+      double cellHeightMm,
+    )?
+    table,
+    TResult Function(
+      bool showTitle,
+      String titleLabel,
+      bool showDate,
+      String dateLabel,
+      bool showName,
+      String nameLabel,
+      bool showSubject,
+      String subjectLabel,
+      double fontSizeMm,
+      double rowHeightMm,
+      bool showBorder,
+    )?
+    header,
+    required TResult orElse(),
+  }) {
+    if (staff != null) {
+      return staff(lineSpacingMm, staffGapMm);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(GridLayerConfig value) grid,
+    required TResult Function(HexLayerConfig value) hex,
+    required TResult Function(IsometricLayerConfig value) isometric,
+    required TResult Function(DotLayerConfig value) dot,
+    required TResult Function(LogGridLayerConfig value) logGrid,
+    required TResult Function(CornellLayerConfig value) cornell,
+    required TResult Function(PolarLayerConfig value) polar,
+    required TResult Function(ManuscriptLayerConfig value) manuscript,
+    required TResult Function(TimetableLayerConfig value) timetable,
+    required TResult Function(RegionLayerConfig value) region,
+    required TResult Function(GuideLayerConfig value) guide,
+    required TResult Function(StaffLayerConfig value) staff,
+    required TResult Function(RuledGridLayerConfig value) ruledGrid,
+    required TResult Function(StampLayerConfig value) stamp,
+    required TResult Function(CustomLineLayerConfig value) customLine,
+    required TResult Function(GraphAxisLayerConfig value) graphAxis,
+    required TResult Function(TableLayerConfig value) table,
+    required TResult Function(HeaderLayerConfig value) header,
+  }) {
+    return staff(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(GridLayerConfig value)? grid,
+    TResult? Function(HexLayerConfig value)? hex,
+    TResult? Function(IsometricLayerConfig value)? isometric,
+    TResult? Function(DotLayerConfig value)? dot,
+    TResult? Function(LogGridLayerConfig value)? logGrid,
+    TResult? Function(CornellLayerConfig value)? cornell,
+    TResult? Function(PolarLayerConfig value)? polar,
+    TResult? Function(ManuscriptLayerConfig value)? manuscript,
+    TResult? Function(TimetableLayerConfig value)? timetable,
+    TResult? Function(RegionLayerConfig value)? region,
+    TResult? Function(GuideLayerConfig value)? guide,
+    TResult? Function(StaffLayerConfig value)? staff,
+    TResult? Function(RuledGridLayerConfig value)? ruledGrid,
+    TResult? Function(StampLayerConfig value)? stamp,
+    TResult? Function(CustomLineLayerConfig value)? customLine,
+    TResult? Function(GraphAxisLayerConfig value)? graphAxis,
+    TResult? Function(TableLayerConfig value)? table,
+    TResult? Function(HeaderLayerConfig value)? header,
+  }) {
+    return staff?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(GridLayerConfig value)? grid,
+    TResult Function(HexLayerConfig value)? hex,
+    TResult Function(IsometricLayerConfig value)? isometric,
+    TResult Function(DotLayerConfig value)? dot,
+    TResult Function(LogGridLayerConfig value)? logGrid,
+    TResult Function(CornellLayerConfig value)? cornell,
+    TResult Function(PolarLayerConfig value)? polar,
+    TResult Function(ManuscriptLayerConfig value)? manuscript,
+    TResult Function(TimetableLayerConfig value)? timetable,
+    TResult Function(RegionLayerConfig value)? region,
+    TResult Function(GuideLayerConfig value)? guide,
+    TResult Function(StaffLayerConfig value)? staff,
+    TResult Function(RuledGridLayerConfig value)? ruledGrid,
+    TResult Function(StampLayerConfig value)? stamp,
+    TResult Function(CustomLineLayerConfig value)? customLine,
+    TResult Function(GraphAxisLayerConfig value)? graphAxis,
+    TResult Function(TableLayerConfig value)? table,
+    TResult Function(HeaderLayerConfig value)? header,
+    required TResult orElse(),
+  }) {
+    if (staff != null) {
+      return staff(this);
+    }
+    return orElse();
+  }
+
+  @override
+  Map<String, dynamic> toJson() {
+    return _$$StaffLayerConfigImplToJson(this);
+  }
+}
+
+abstract class StaffLayerConfig implements LayerConfig {
+  const factory StaffLayerConfig({
+    final double lineSpacingMm,
+    final double staffGapMm,
+  }) = _$StaffLayerConfigImpl;
+
+  factory StaffLayerConfig.fromJson(Map<String, dynamic> json) =
+      _$StaffLayerConfigImpl.fromJson;
+
+  double get lineSpacingMm;
+  double get staffGapMm;
+
+  /// Create a copy of LayerConfig
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  _$$StaffLayerConfigImplCopyWith<_$StaffLayerConfigImpl> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class _$$RuledGridLayerConfigImplCopyWith<$Res> {
+  factory _$$RuledGridLayerConfigImplCopyWith(
+    _$RuledGridLayerConfigImpl value,
+    $Res Function(_$RuledGridLayerConfigImpl) then,
+  ) = __$$RuledGridLayerConfigImplCopyWithImpl<$Res>;
+  @useResult
+  $Res call({double cellMm, double ruledSpacingMm});
+}
+
+/// @nodoc
+class __$$RuledGridLayerConfigImplCopyWithImpl<$Res>
+    extends _$LayerConfigCopyWithImpl<$Res, _$RuledGridLayerConfigImpl>
+    implements _$$RuledGridLayerConfigImplCopyWith<$Res> {
+  __$$RuledGridLayerConfigImplCopyWithImpl(
+    _$RuledGridLayerConfigImpl _value,
+    $Res Function(_$RuledGridLayerConfigImpl) _then,
+  ) : super(_value, _then);
+
+  /// Create a copy of LayerConfig
+  /// with the given fields replaced by the non-null parameter values.
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({Object? cellMm = null, Object? ruledSpacingMm = null}) {
+    return _then(
+      _$RuledGridLayerConfigImpl(
+        cellMm: null == cellMm
+            ? _value.cellMm
+            : cellMm // ignore: cast_nullable_to_non_nullable
+                  as double,
+        ruledSpacingMm: null == ruledSpacingMm
+            ? _value.ruledSpacingMm
+            : ruledSpacingMm // ignore: cast_nullable_to_non_nullable
+                  as double,
+      ),
+    );
+  }
+}
+
+/// @nodoc
+@JsonSerializable()
+class _$RuledGridLayerConfigImpl implements RuledGridLayerConfig {
+  const _$RuledGridLayerConfigImpl({
+    this.cellMm = 5.0,
+    this.ruledSpacingMm = 7.0,
+    final String? $type,
+  }) : $type = $type ?? 'ruledGrid';
+
+  factory _$RuledGridLayerConfigImpl.fromJson(Map<String, dynamic> json) =>
+      _$$RuledGridLayerConfigImplFromJson(json);
+
+  @override
+  @JsonKey()
+  final double cellMm;
+  @override
+  @JsonKey()
+  final double ruledSpacingMm;
+
+  @JsonKey(name: 'runtimeType')
+  final String $type;
+
+  @override
+  String toString() {
+    return 'LayerConfig.ruledGrid(cellMm: $cellMm, ruledSpacingMm: $ruledSpacingMm)';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$RuledGridLayerConfigImpl &&
+            (identical(other.cellMm, cellMm) || other.cellMm == cellMm) &&
+            (identical(other.ruledSpacingMm, ruledSpacingMm) ||
+                other.ruledSpacingMm == ruledSpacingMm));
+  }
+
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  @override
+  int get hashCode => Object.hash(runtimeType, cellMm, ruledSpacingMm);
+
+  /// Create a copy of LayerConfig
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$RuledGridLayerConfigImplCopyWith<_$RuledGridLayerConfigImpl>
+  get copyWith =>
+      __$$RuledGridLayerConfigImplCopyWithImpl<_$RuledGridLayerConfigImpl>(
+        this,
+        _$identity,
+      );
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function(
+      double cellWidthMm,
+      double cellHeightMm,
+      LineStyle lineStyle,
+      int? boldEvery,
+      bool showHorizontal,
+      bool showVertical,
+    )
+    grid,
+    required TResult Function(double hexSizeMm, HexOrientation orientation) hex,
+    required TResult Function(double spacingMm, LineStyle lineStyle) isometric,
+    required TResult Function(
+      double spacingMm,
+      double dotRadiusMm,
+      bool alignToOrigin,
+    )
+    dot,
+    required TResult Function(
+      LogScale xScale,
+      LogScale yScale,
+      int xDecades,
+      int yDecades,
+      String xLabel,
+      String yLabel,
+    )
+    logGrid,
+    required TResult Function(
+      double leftColMm,
+      double bottomRowMm,
+      double lineSpacingMm,
+      String keywordLabel,
+      String summaryLabel,
+    )
+    cornell,
+    required TResult Function(int rings, int sectors) polar,
+    required TResult Function(int columns, int rows) manuscript,
+    required TResult Function(int startHour, int endHour, int daysCount)
+    timetable,
+    required TResult Function(List<PageRegion> regions) region,
+    required TResult Function(GuideType guideType, Map<String, dynamic> params)
+    guide,
+    required TResult Function(double lineSpacingMm, double staffGapMm) staff,
+    required TResult Function(double cellMm, double ruledSpacingMm) ruledGrid,
+    required TResult Function(List<StampItem> items) stamp,
+    required TResult Function(List<LineSet> lineSets) customLine,
+    required TResult Function(
+      bool showXAxis,
+      bool showYAxis,
+      bool arrowTip,
+      bool showTickMarks,
+      double tickIntervalMm,
+      double tickLengthMm,
+      TickSide xTickSide,
+      TickSide yTickSide,
+      String xLabel,
+      String yLabel,
+      bool showNegative,
+    )
+    graphAxis,
+    required TResult Function(
+      int rows,
+      int cols,
+      bool showHeaderRow,
+      bool showHeaderCol,
+      double cellHeightMm,
+    )
+    table,
+    required TResult Function(
+      bool showTitle,
+      String titleLabel,
+      bool showDate,
+      String dateLabel,
+      bool showName,
+      String nameLabel,
+      bool showSubject,
+      String subjectLabel,
+      double fontSizeMm,
+      double rowHeightMm,
+      bool showBorder,
+    )
+    header,
+  }) {
+    return ruledGrid(cellMm, ruledSpacingMm);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function(
+      double cellWidthMm,
+      double cellHeightMm,
+      LineStyle lineStyle,
+      int? boldEvery,
+      bool showHorizontal,
+      bool showVertical,
+    )?
+    grid,
+    TResult? Function(double hexSizeMm, HexOrientation orientation)? hex,
+    TResult? Function(double spacingMm, LineStyle lineStyle)? isometric,
+    TResult? Function(double spacingMm, double dotRadiusMm, bool alignToOrigin)?
+    dot,
+    TResult? Function(
+      LogScale xScale,
+      LogScale yScale,
+      int xDecades,
+      int yDecades,
+      String xLabel,
+      String yLabel,
+    )?
+    logGrid,
+    TResult? Function(
+      double leftColMm,
+      double bottomRowMm,
+      double lineSpacingMm,
+      String keywordLabel,
+      String summaryLabel,
+    )?
+    cornell,
+    TResult? Function(int rings, int sectors)? polar,
+    TResult? Function(int columns, int rows)? manuscript,
+    TResult? Function(int startHour, int endHour, int daysCount)? timetable,
+    TResult? Function(List<PageRegion> regions)? region,
+    TResult? Function(GuideType guideType, Map<String, dynamic> params)? guide,
+    TResult? Function(double lineSpacingMm, double staffGapMm)? staff,
+    TResult? Function(double cellMm, double ruledSpacingMm)? ruledGrid,
+    TResult? Function(List<StampItem> items)? stamp,
+    TResult? Function(List<LineSet> lineSets)? customLine,
+    TResult? Function(
+      bool showXAxis,
+      bool showYAxis,
+      bool arrowTip,
+      bool showTickMarks,
+      double tickIntervalMm,
+      double tickLengthMm,
+      TickSide xTickSide,
+      TickSide yTickSide,
+      String xLabel,
+      String yLabel,
+      bool showNegative,
+    )?
+    graphAxis,
+    TResult? Function(
+      int rows,
+      int cols,
+      bool showHeaderRow,
+      bool showHeaderCol,
+      double cellHeightMm,
+    )?
+    table,
+    TResult? Function(
+      bool showTitle,
+      String titleLabel,
+      bool showDate,
+      String dateLabel,
+      bool showName,
+      String nameLabel,
+      bool showSubject,
+      String subjectLabel,
+      double fontSizeMm,
+      double rowHeightMm,
+      bool showBorder,
+    )?
+    header,
+  }) {
+    return ruledGrid?.call(cellMm, ruledSpacingMm);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function(
+      double cellWidthMm,
+      double cellHeightMm,
+      LineStyle lineStyle,
+      int? boldEvery,
+      bool showHorizontal,
+      bool showVertical,
+    )?
+    grid,
+    TResult Function(double hexSizeMm, HexOrientation orientation)? hex,
+    TResult Function(double spacingMm, LineStyle lineStyle)? isometric,
+    TResult Function(double spacingMm, double dotRadiusMm, bool alignToOrigin)?
+    dot,
+    TResult Function(
+      LogScale xScale,
+      LogScale yScale,
+      int xDecades,
+      int yDecades,
+      String xLabel,
+      String yLabel,
+    )?
+    logGrid,
+    TResult Function(
+      double leftColMm,
+      double bottomRowMm,
+      double lineSpacingMm,
+      String keywordLabel,
+      String summaryLabel,
+    )?
+    cornell,
+    TResult Function(int rings, int sectors)? polar,
+    TResult Function(int columns, int rows)? manuscript,
+    TResult Function(int startHour, int endHour, int daysCount)? timetable,
+    TResult Function(List<PageRegion> regions)? region,
+    TResult Function(GuideType guideType, Map<String, dynamic> params)? guide,
+    TResult Function(double lineSpacingMm, double staffGapMm)? staff,
+    TResult Function(double cellMm, double ruledSpacingMm)? ruledGrid,
+    TResult Function(List<StampItem> items)? stamp,
+    TResult Function(List<LineSet> lineSets)? customLine,
+    TResult Function(
+      bool showXAxis,
+      bool showYAxis,
+      bool arrowTip,
+      bool showTickMarks,
+      double tickIntervalMm,
+      double tickLengthMm,
+      TickSide xTickSide,
+      TickSide yTickSide,
+      String xLabel,
+      String yLabel,
+      bool showNegative,
+    )?
+    graphAxis,
+    TResult Function(
+      int rows,
+      int cols,
+      bool showHeaderRow,
+      bool showHeaderCol,
+      double cellHeightMm,
+    )?
+    table,
+    TResult Function(
+      bool showTitle,
+      String titleLabel,
+      bool showDate,
+      String dateLabel,
+      bool showName,
+      String nameLabel,
+      bool showSubject,
+      String subjectLabel,
+      double fontSizeMm,
+      double rowHeightMm,
+      bool showBorder,
+    )?
+    header,
+    required TResult orElse(),
+  }) {
+    if (ruledGrid != null) {
+      return ruledGrid(cellMm, ruledSpacingMm);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(GridLayerConfig value) grid,
+    required TResult Function(HexLayerConfig value) hex,
+    required TResult Function(IsometricLayerConfig value) isometric,
+    required TResult Function(DotLayerConfig value) dot,
+    required TResult Function(LogGridLayerConfig value) logGrid,
+    required TResult Function(CornellLayerConfig value) cornell,
+    required TResult Function(PolarLayerConfig value) polar,
+    required TResult Function(ManuscriptLayerConfig value) manuscript,
+    required TResult Function(TimetableLayerConfig value) timetable,
+    required TResult Function(RegionLayerConfig value) region,
+    required TResult Function(GuideLayerConfig value) guide,
+    required TResult Function(StaffLayerConfig value) staff,
+    required TResult Function(RuledGridLayerConfig value) ruledGrid,
+    required TResult Function(StampLayerConfig value) stamp,
+    required TResult Function(CustomLineLayerConfig value) customLine,
+    required TResult Function(GraphAxisLayerConfig value) graphAxis,
+    required TResult Function(TableLayerConfig value) table,
+    required TResult Function(HeaderLayerConfig value) header,
+  }) {
+    return ruledGrid(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(GridLayerConfig value)? grid,
+    TResult? Function(HexLayerConfig value)? hex,
+    TResult? Function(IsometricLayerConfig value)? isometric,
+    TResult? Function(DotLayerConfig value)? dot,
+    TResult? Function(LogGridLayerConfig value)? logGrid,
+    TResult? Function(CornellLayerConfig value)? cornell,
+    TResult? Function(PolarLayerConfig value)? polar,
+    TResult? Function(ManuscriptLayerConfig value)? manuscript,
+    TResult? Function(TimetableLayerConfig value)? timetable,
+    TResult? Function(RegionLayerConfig value)? region,
+    TResult? Function(GuideLayerConfig value)? guide,
+    TResult? Function(StaffLayerConfig value)? staff,
+    TResult? Function(RuledGridLayerConfig value)? ruledGrid,
+    TResult? Function(StampLayerConfig value)? stamp,
+    TResult? Function(CustomLineLayerConfig value)? customLine,
+    TResult? Function(GraphAxisLayerConfig value)? graphAxis,
+    TResult? Function(TableLayerConfig value)? table,
+    TResult? Function(HeaderLayerConfig value)? header,
+  }) {
+    return ruledGrid?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(GridLayerConfig value)? grid,
+    TResult Function(HexLayerConfig value)? hex,
+    TResult Function(IsometricLayerConfig value)? isometric,
+    TResult Function(DotLayerConfig value)? dot,
+    TResult Function(LogGridLayerConfig value)? logGrid,
+    TResult Function(CornellLayerConfig value)? cornell,
+    TResult Function(PolarLayerConfig value)? polar,
+    TResult Function(ManuscriptLayerConfig value)? manuscript,
+    TResult Function(TimetableLayerConfig value)? timetable,
+    TResult Function(RegionLayerConfig value)? region,
+    TResult Function(GuideLayerConfig value)? guide,
+    TResult Function(StaffLayerConfig value)? staff,
+    TResult Function(RuledGridLayerConfig value)? ruledGrid,
+    TResult Function(StampLayerConfig value)? stamp,
+    TResult Function(CustomLineLayerConfig value)? customLine,
+    TResult Function(GraphAxisLayerConfig value)? graphAxis,
+    TResult Function(TableLayerConfig value)? table,
+    TResult Function(HeaderLayerConfig value)? header,
+    required TResult orElse(),
+  }) {
+    if (ruledGrid != null) {
+      return ruledGrid(this);
+    }
+    return orElse();
+  }
+
+  @override
+  Map<String, dynamic> toJson() {
+    return _$$RuledGridLayerConfigImplToJson(this);
+  }
+}
+
+abstract class RuledGridLayerConfig implements LayerConfig {
+  const factory RuledGridLayerConfig({
+    final double cellMm,
+    final double ruledSpacingMm,
+  }) = _$RuledGridLayerConfigImpl;
+
+  factory RuledGridLayerConfig.fromJson(Map<String, dynamic> json) =
+      _$RuledGridLayerConfigImpl.fromJson;
+
+  double get cellMm;
+  double get ruledSpacingMm;
+
+  /// Create a copy of LayerConfig
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  _$$RuledGridLayerConfigImplCopyWith<_$RuledGridLayerConfigImpl>
+  get copyWith => throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class _$$StampLayerConfigImplCopyWith<$Res> {
+  factory _$$StampLayerConfigImplCopyWith(
+    _$StampLayerConfigImpl value,
+    $Res Function(_$StampLayerConfigImpl) then,
+  ) = __$$StampLayerConfigImplCopyWithImpl<$Res>;
+  @useResult
+  $Res call({List<StampItem> items});
+}
+
+/// @nodoc
+class __$$StampLayerConfigImplCopyWithImpl<$Res>
+    extends _$LayerConfigCopyWithImpl<$Res, _$StampLayerConfigImpl>
+    implements _$$StampLayerConfigImplCopyWith<$Res> {
+  __$$StampLayerConfigImplCopyWithImpl(
+    _$StampLayerConfigImpl _value,
+    $Res Function(_$StampLayerConfigImpl) _then,
+  ) : super(_value, _then);
+
+  /// Create a copy of LayerConfig
+  /// with the given fields replaced by the non-null parameter values.
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({Object? items = null}) {
+    return _then(
+      _$StampLayerConfigImpl(
+        items: null == items
+            ? _value._items
+            : items // ignore: cast_nullable_to_non_nullable
+                  as List<StampItem>,
+      ),
+    );
+  }
+}
+
+/// @nodoc
+@JsonSerializable()
+class _$StampLayerConfigImpl implements StampLayerConfig {
+  const _$StampLayerConfigImpl({
+    final List<StampItem> items = const [],
+    final String? $type,
+  }) : _items = items,
+       $type = $type ?? 'stamp';
+
+  factory _$StampLayerConfigImpl.fromJson(Map<String, dynamic> json) =>
+      _$$StampLayerConfigImplFromJson(json);
+
+  final List<StampItem> _items;
+  @override
+  @JsonKey()
+  List<StampItem> get items {
+    if (_items is EqualUnmodifiableListView) return _items;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(_items);
+  }
+
+  @JsonKey(name: 'runtimeType')
+  final String $type;
+
+  @override
+  String toString() {
+    return 'LayerConfig.stamp(items: $items)';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$StampLayerConfigImpl &&
+            const DeepCollectionEquality().equals(other._items, _items));
+  }
+
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  @override
+  int get hashCode =>
+      Object.hash(runtimeType, const DeepCollectionEquality().hash(_items));
+
+  /// Create a copy of LayerConfig
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$StampLayerConfigImplCopyWith<_$StampLayerConfigImpl> get copyWith =>
+      __$$StampLayerConfigImplCopyWithImpl<_$StampLayerConfigImpl>(
+        this,
+        _$identity,
+      );
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function(
+      double cellWidthMm,
+      double cellHeightMm,
+      LineStyle lineStyle,
+      int? boldEvery,
+      bool showHorizontal,
+      bool showVertical,
+    )
+    grid,
+    required TResult Function(double hexSizeMm, HexOrientation orientation) hex,
+    required TResult Function(double spacingMm, LineStyle lineStyle) isometric,
+    required TResult Function(
+      double spacingMm,
+      double dotRadiusMm,
+      bool alignToOrigin,
+    )
+    dot,
+    required TResult Function(
+      LogScale xScale,
+      LogScale yScale,
+      int xDecades,
+      int yDecades,
+      String xLabel,
+      String yLabel,
+    )
+    logGrid,
+    required TResult Function(
+      double leftColMm,
+      double bottomRowMm,
+      double lineSpacingMm,
+      String keywordLabel,
+      String summaryLabel,
+    )
+    cornell,
+    required TResult Function(int rings, int sectors) polar,
+    required TResult Function(int columns, int rows) manuscript,
+    required TResult Function(int startHour, int endHour, int daysCount)
+    timetable,
+    required TResult Function(List<PageRegion> regions) region,
+    required TResult Function(GuideType guideType, Map<String, dynamic> params)
+    guide,
+    required TResult Function(double lineSpacingMm, double staffGapMm) staff,
+    required TResult Function(double cellMm, double ruledSpacingMm) ruledGrid,
+    required TResult Function(List<StampItem> items) stamp,
+    required TResult Function(List<LineSet> lineSets) customLine,
+    required TResult Function(
+      bool showXAxis,
+      bool showYAxis,
+      bool arrowTip,
+      bool showTickMarks,
+      double tickIntervalMm,
+      double tickLengthMm,
+      TickSide xTickSide,
+      TickSide yTickSide,
+      String xLabel,
+      String yLabel,
+      bool showNegative,
+    )
+    graphAxis,
+    required TResult Function(
+      int rows,
+      int cols,
+      bool showHeaderRow,
+      bool showHeaderCol,
+      double cellHeightMm,
+    )
+    table,
+    required TResult Function(
+      bool showTitle,
+      String titleLabel,
+      bool showDate,
+      String dateLabel,
+      bool showName,
+      String nameLabel,
+      bool showSubject,
+      String subjectLabel,
+      double fontSizeMm,
+      double rowHeightMm,
+      bool showBorder,
+    )
+    header,
+  }) {
+    return stamp(items);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function(
+      double cellWidthMm,
+      double cellHeightMm,
+      LineStyle lineStyle,
+      int? boldEvery,
+      bool showHorizontal,
+      bool showVertical,
+    )?
+    grid,
+    TResult? Function(double hexSizeMm, HexOrientation orientation)? hex,
+    TResult? Function(double spacingMm, LineStyle lineStyle)? isometric,
+    TResult? Function(double spacingMm, double dotRadiusMm, bool alignToOrigin)?
+    dot,
+    TResult? Function(
+      LogScale xScale,
+      LogScale yScale,
+      int xDecades,
+      int yDecades,
+      String xLabel,
+      String yLabel,
+    )?
+    logGrid,
+    TResult? Function(
+      double leftColMm,
+      double bottomRowMm,
+      double lineSpacingMm,
+      String keywordLabel,
+      String summaryLabel,
+    )?
+    cornell,
+    TResult? Function(int rings, int sectors)? polar,
+    TResult? Function(int columns, int rows)? manuscript,
+    TResult? Function(int startHour, int endHour, int daysCount)? timetable,
+    TResult? Function(List<PageRegion> regions)? region,
+    TResult? Function(GuideType guideType, Map<String, dynamic> params)? guide,
+    TResult? Function(double lineSpacingMm, double staffGapMm)? staff,
+    TResult? Function(double cellMm, double ruledSpacingMm)? ruledGrid,
+    TResult? Function(List<StampItem> items)? stamp,
+    TResult? Function(List<LineSet> lineSets)? customLine,
+    TResult? Function(
+      bool showXAxis,
+      bool showYAxis,
+      bool arrowTip,
+      bool showTickMarks,
+      double tickIntervalMm,
+      double tickLengthMm,
+      TickSide xTickSide,
+      TickSide yTickSide,
+      String xLabel,
+      String yLabel,
+      bool showNegative,
+    )?
+    graphAxis,
+    TResult? Function(
+      int rows,
+      int cols,
+      bool showHeaderRow,
+      bool showHeaderCol,
+      double cellHeightMm,
+    )?
+    table,
+    TResult? Function(
+      bool showTitle,
+      String titleLabel,
+      bool showDate,
+      String dateLabel,
+      bool showName,
+      String nameLabel,
+      bool showSubject,
+      String subjectLabel,
+      double fontSizeMm,
+      double rowHeightMm,
+      bool showBorder,
+    )?
+    header,
+  }) {
+    return stamp?.call(items);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function(
+      double cellWidthMm,
+      double cellHeightMm,
+      LineStyle lineStyle,
+      int? boldEvery,
+      bool showHorizontal,
+      bool showVertical,
+    )?
+    grid,
+    TResult Function(double hexSizeMm, HexOrientation orientation)? hex,
+    TResult Function(double spacingMm, LineStyle lineStyle)? isometric,
+    TResult Function(double spacingMm, double dotRadiusMm, bool alignToOrigin)?
+    dot,
+    TResult Function(
+      LogScale xScale,
+      LogScale yScale,
+      int xDecades,
+      int yDecades,
+      String xLabel,
+      String yLabel,
+    )?
+    logGrid,
+    TResult Function(
+      double leftColMm,
+      double bottomRowMm,
+      double lineSpacingMm,
+      String keywordLabel,
+      String summaryLabel,
+    )?
+    cornell,
+    TResult Function(int rings, int sectors)? polar,
+    TResult Function(int columns, int rows)? manuscript,
+    TResult Function(int startHour, int endHour, int daysCount)? timetable,
+    TResult Function(List<PageRegion> regions)? region,
+    TResult Function(GuideType guideType, Map<String, dynamic> params)? guide,
+    TResult Function(double lineSpacingMm, double staffGapMm)? staff,
+    TResult Function(double cellMm, double ruledSpacingMm)? ruledGrid,
+    TResult Function(List<StampItem> items)? stamp,
+    TResult Function(List<LineSet> lineSets)? customLine,
+    TResult Function(
+      bool showXAxis,
+      bool showYAxis,
+      bool arrowTip,
+      bool showTickMarks,
+      double tickIntervalMm,
+      double tickLengthMm,
+      TickSide xTickSide,
+      TickSide yTickSide,
+      String xLabel,
+      String yLabel,
+      bool showNegative,
+    )?
+    graphAxis,
+    TResult Function(
+      int rows,
+      int cols,
+      bool showHeaderRow,
+      bool showHeaderCol,
+      double cellHeightMm,
+    )?
+    table,
+    TResult Function(
+      bool showTitle,
+      String titleLabel,
+      bool showDate,
+      String dateLabel,
+      bool showName,
+      String nameLabel,
+      bool showSubject,
+      String subjectLabel,
+      double fontSizeMm,
+      double rowHeightMm,
+      bool showBorder,
+    )?
+    header,
+    required TResult orElse(),
+  }) {
+    if (stamp != null) {
+      return stamp(items);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(GridLayerConfig value) grid,
+    required TResult Function(HexLayerConfig value) hex,
+    required TResult Function(IsometricLayerConfig value) isometric,
+    required TResult Function(DotLayerConfig value) dot,
+    required TResult Function(LogGridLayerConfig value) logGrid,
+    required TResult Function(CornellLayerConfig value) cornell,
+    required TResult Function(PolarLayerConfig value) polar,
+    required TResult Function(ManuscriptLayerConfig value) manuscript,
+    required TResult Function(TimetableLayerConfig value) timetable,
+    required TResult Function(RegionLayerConfig value) region,
+    required TResult Function(GuideLayerConfig value) guide,
+    required TResult Function(StaffLayerConfig value) staff,
+    required TResult Function(RuledGridLayerConfig value) ruledGrid,
+    required TResult Function(StampLayerConfig value) stamp,
+    required TResult Function(CustomLineLayerConfig value) customLine,
+    required TResult Function(GraphAxisLayerConfig value) graphAxis,
+    required TResult Function(TableLayerConfig value) table,
+    required TResult Function(HeaderLayerConfig value) header,
+  }) {
+    return stamp(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(GridLayerConfig value)? grid,
+    TResult? Function(HexLayerConfig value)? hex,
+    TResult? Function(IsometricLayerConfig value)? isometric,
+    TResult? Function(DotLayerConfig value)? dot,
+    TResult? Function(LogGridLayerConfig value)? logGrid,
+    TResult? Function(CornellLayerConfig value)? cornell,
+    TResult? Function(PolarLayerConfig value)? polar,
+    TResult? Function(ManuscriptLayerConfig value)? manuscript,
+    TResult? Function(TimetableLayerConfig value)? timetable,
+    TResult? Function(RegionLayerConfig value)? region,
+    TResult? Function(GuideLayerConfig value)? guide,
+    TResult? Function(StaffLayerConfig value)? staff,
+    TResult? Function(RuledGridLayerConfig value)? ruledGrid,
+    TResult? Function(StampLayerConfig value)? stamp,
+    TResult? Function(CustomLineLayerConfig value)? customLine,
+    TResult? Function(GraphAxisLayerConfig value)? graphAxis,
+    TResult? Function(TableLayerConfig value)? table,
+    TResult? Function(HeaderLayerConfig value)? header,
+  }) {
+    return stamp?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(GridLayerConfig value)? grid,
+    TResult Function(HexLayerConfig value)? hex,
+    TResult Function(IsometricLayerConfig value)? isometric,
+    TResult Function(DotLayerConfig value)? dot,
+    TResult Function(LogGridLayerConfig value)? logGrid,
+    TResult Function(CornellLayerConfig value)? cornell,
+    TResult Function(PolarLayerConfig value)? polar,
+    TResult Function(ManuscriptLayerConfig value)? manuscript,
+    TResult Function(TimetableLayerConfig value)? timetable,
+    TResult Function(RegionLayerConfig value)? region,
+    TResult Function(GuideLayerConfig value)? guide,
+    TResult Function(StaffLayerConfig value)? staff,
+    TResult Function(RuledGridLayerConfig value)? ruledGrid,
+    TResult Function(StampLayerConfig value)? stamp,
+    TResult Function(CustomLineLayerConfig value)? customLine,
+    TResult Function(GraphAxisLayerConfig value)? graphAxis,
+    TResult Function(TableLayerConfig value)? table,
+    TResult Function(HeaderLayerConfig value)? header,
+    required TResult orElse(),
+  }) {
+    if (stamp != null) {
+      return stamp(this);
+    }
+    return orElse();
+  }
+
+  @override
+  Map<String, dynamic> toJson() {
+    return _$$StampLayerConfigImplToJson(this);
+  }
+}
+
+abstract class StampLayerConfig implements LayerConfig {
+  const factory StampLayerConfig({final List<StampItem> items}) =
+      _$StampLayerConfigImpl;
+
+  factory StampLayerConfig.fromJson(Map<String, dynamic> json) =
+      _$StampLayerConfigImpl.fromJson;
+
+  List<StampItem> get items;
+
+  /// Create a copy of LayerConfig
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  _$$StampLayerConfigImplCopyWith<_$StampLayerConfigImpl> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class _$$CustomLineLayerConfigImplCopyWith<$Res> {
+  factory _$$CustomLineLayerConfigImplCopyWith(
+    _$CustomLineLayerConfigImpl value,
+    $Res Function(_$CustomLineLayerConfigImpl) then,
+  ) = __$$CustomLineLayerConfigImplCopyWithImpl<$Res>;
+  @useResult
+  $Res call({List<LineSet> lineSets});
+}
+
+/// @nodoc
+class __$$CustomLineLayerConfigImplCopyWithImpl<$Res>
+    extends _$LayerConfigCopyWithImpl<$Res, _$CustomLineLayerConfigImpl>
+    implements _$$CustomLineLayerConfigImplCopyWith<$Res> {
+  __$$CustomLineLayerConfigImplCopyWithImpl(
+    _$CustomLineLayerConfigImpl _value,
+    $Res Function(_$CustomLineLayerConfigImpl) _then,
+  ) : super(_value, _then);
+
+  /// Create a copy of LayerConfig
+  /// with the given fields replaced by the non-null parameter values.
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({Object? lineSets = null}) {
+    return _then(
+      _$CustomLineLayerConfigImpl(
+        lineSets: null == lineSets
+            ? _value._lineSets
+            : lineSets // ignore: cast_nullable_to_non_nullable
+                  as List<LineSet>,
+      ),
+    );
+  }
+}
+
+/// @nodoc
+@JsonSerializable()
+class _$CustomLineLayerConfigImpl implements CustomLineLayerConfig {
+  const _$CustomLineLayerConfigImpl({
+    final List<LineSet> lineSets = const [],
+    final String? $type,
+  }) : _lineSets = lineSets,
+       $type = $type ?? 'customLine';
+
+  factory _$CustomLineLayerConfigImpl.fromJson(Map<String, dynamic> json) =>
+      _$$CustomLineLayerConfigImplFromJson(json);
+
+  final List<LineSet> _lineSets;
+  @override
+  @JsonKey()
+  List<LineSet> get lineSets {
+    if (_lineSets is EqualUnmodifiableListView) return _lineSets;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(_lineSets);
+  }
+
+  @JsonKey(name: 'runtimeType')
+  final String $type;
+
+  @override
+  String toString() {
+    return 'LayerConfig.customLine(lineSets: $lineSets)';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$CustomLineLayerConfigImpl &&
+            const DeepCollectionEquality().equals(other._lineSets, _lineSets));
+  }
+
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  @override
+  int get hashCode =>
+      Object.hash(runtimeType, const DeepCollectionEquality().hash(_lineSets));
+
+  /// Create a copy of LayerConfig
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$CustomLineLayerConfigImplCopyWith<_$CustomLineLayerConfigImpl>
+  get copyWith =>
+      __$$CustomLineLayerConfigImplCopyWithImpl<_$CustomLineLayerConfigImpl>(
+        this,
+        _$identity,
+      );
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function(
+      double cellWidthMm,
+      double cellHeightMm,
+      LineStyle lineStyle,
+      int? boldEvery,
+      bool showHorizontal,
+      bool showVertical,
+    )
+    grid,
+    required TResult Function(double hexSizeMm, HexOrientation orientation) hex,
+    required TResult Function(double spacingMm, LineStyle lineStyle) isometric,
+    required TResult Function(
+      double spacingMm,
+      double dotRadiusMm,
+      bool alignToOrigin,
+    )
+    dot,
+    required TResult Function(
+      LogScale xScale,
+      LogScale yScale,
+      int xDecades,
+      int yDecades,
+      String xLabel,
+      String yLabel,
+    )
+    logGrid,
+    required TResult Function(
+      double leftColMm,
+      double bottomRowMm,
+      double lineSpacingMm,
+      String keywordLabel,
+      String summaryLabel,
+    )
+    cornell,
+    required TResult Function(int rings, int sectors) polar,
+    required TResult Function(int columns, int rows) manuscript,
+    required TResult Function(int startHour, int endHour, int daysCount)
+    timetable,
+    required TResult Function(List<PageRegion> regions) region,
+    required TResult Function(GuideType guideType, Map<String, dynamic> params)
+    guide,
+    required TResult Function(double lineSpacingMm, double staffGapMm) staff,
+    required TResult Function(double cellMm, double ruledSpacingMm) ruledGrid,
+    required TResult Function(List<StampItem> items) stamp,
+    required TResult Function(List<LineSet> lineSets) customLine,
+    required TResult Function(
+      bool showXAxis,
+      bool showYAxis,
+      bool arrowTip,
+      bool showTickMarks,
+      double tickIntervalMm,
+      double tickLengthMm,
+      TickSide xTickSide,
+      TickSide yTickSide,
+      String xLabel,
+      String yLabel,
+      bool showNegative,
+    )
+    graphAxis,
+    required TResult Function(
+      int rows,
+      int cols,
+      bool showHeaderRow,
+      bool showHeaderCol,
+      double cellHeightMm,
+    )
+    table,
+    required TResult Function(
+      bool showTitle,
+      String titleLabel,
+      bool showDate,
+      String dateLabel,
+      bool showName,
+      String nameLabel,
+      bool showSubject,
+      String subjectLabel,
+      double fontSizeMm,
+      double rowHeightMm,
+      bool showBorder,
+    )
+    header,
+  }) {
+    return customLine(lineSets);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function(
+      double cellWidthMm,
+      double cellHeightMm,
+      LineStyle lineStyle,
+      int? boldEvery,
+      bool showHorizontal,
+      bool showVertical,
+    )?
+    grid,
+    TResult? Function(double hexSizeMm, HexOrientation orientation)? hex,
+    TResult? Function(double spacingMm, LineStyle lineStyle)? isometric,
+    TResult? Function(double spacingMm, double dotRadiusMm, bool alignToOrigin)?
+    dot,
+    TResult? Function(
+      LogScale xScale,
+      LogScale yScale,
+      int xDecades,
+      int yDecades,
+      String xLabel,
+      String yLabel,
+    )?
+    logGrid,
+    TResult? Function(
+      double leftColMm,
+      double bottomRowMm,
+      double lineSpacingMm,
+      String keywordLabel,
+      String summaryLabel,
+    )?
+    cornell,
+    TResult? Function(int rings, int sectors)? polar,
+    TResult? Function(int columns, int rows)? manuscript,
+    TResult? Function(int startHour, int endHour, int daysCount)? timetable,
+    TResult? Function(List<PageRegion> regions)? region,
+    TResult? Function(GuideType guideType, Map<String, dynamic> params)? guide,
+    TResult? Function(double lineSpacingMm, double staffGapMm)? staff,
+    TResult? Function(double cellMm, double ruledSpacingMm)? ruledGrid,
+    TResult? Function(List<StampItem> items)? stamp,
+    TResult? Function(List<LineSet> lineSets)? customLine,
+    TResult? Function(
+      bool showXAxis,
+      bool showYAxis,
+      bool arrowTip,
+      bool showTickMarks,
+      double tickIntervalMm,
+      double tickLengthMm,
+      TickSide xTickSide,
+      TickSide yTickSide,
+      String xLabel,
+      String yLabel,
+      bool showNegative,
+    )?
+    graphAxis,
+    TResult? Function(
+      int rows,
+      int cols,
+      bool showHeaderRow,
+      bool showHeaderCol,
+      double cellHeightMm,
+    )?
+    table,
+    TResult? Function(
+      bool showTitle,
+      String titleLabel,
+      bool showDate,
+      String dateLabel,
+      bool showName,
+      String nameLabel,
+      bool showSubject,
+      String subjectLabel,
+      double fontSizeMm,
+      double rowHeightMm,
+      bool showBorder,
+    )?
+    header,
+  }) {
+    return customLine?.call(lineSets);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function(
+      double cellWidthMm,
+      double cellHeightMm,
+      LineStyle lineStyle,
+      int? boldEvery,
+      bool showHorizontal,
+      bool showVertical,
+    )?
+    grid,
+    TResult Function(double hexSizeMm, HexOrientation orientation)? hex,
+    TResult Function(double spacingMm, LineStyle lineStyle)? isometric,
+    TResult Function(double spacingMm, double dotRadiusMm, bool alignToOrigin)?
+    dot,
+    TResult Function(
+      LogScale xScale,
+      LogScale yScale,
+      int xDecades,
+      int yDecades,
+      String xLabel,
+      String yLabel,
+    )?
+    logGrid,
+    TResult Function(
+      double leftColMm,
+      double bottomRowMm,
+      double lineSpacingMm,
+      String keywordLabel,
+      String summaryLabel,
+    )?
+    cornell,
+    TResult Function(int rings, int sectors)? polar,
+    TResult Function(int columns, int rows)? manuscript,
+    TResult Function(int startHour, int endHour, int daysCount)? timetable,
+    TResult Function(List<PageRegion> regions)? region,
+    TResult Function(GuideType guideType, Map<String, dynamic> params)? guide,
+    TResult Function(double lineSpacingMm, double staffGapMm)? staff,
+    TResult Function(double cellMm, double ruledSpacingMm)? ruledGrid,
+    TResult Function(List<StampItem> items)? stamp,
+    TResult Function(List<LineSet> lineSets)? customLine,
+    TResult Function(
+      bool showXAxis,
+      bool showYAxis,
+      bool arrowTip,
+      bool showTickMarks,
+      double tickIntervalMm,
+      double tickLengthMm,
+      TickSide xTickSide,
+      TickSide yTickSide,
+      String xLabel,
+      String yLabel,
+      bool showNegative,
+    )?
+    graphAxis,
+    TResult Function(
+      int rows,
+      int cols,
+      bool showHeaderRow,
+      bool showHeaderCol,
+      double cellHeightMm,
+    )?
+    table,
+    TResult Function(
+      bool showTitle,
+      String titleLabel,
+      bool showDate,
+      String dateLabel,
+      bool showName,
+      String nameLabel,
+      bool showSubject,
+      String subjectLabel,
+      double fontSizeMm,
+      double rowHeightMm,
+      bool showBorder,
+    )?
+    header,
+    required TResult orElse(),
+  }) {
+    if (customLine != null) {
+      return customLine(lineSets);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(GridLayerConfig value) grid,
+    required TResult Function(HexLayerConfig value) hex,
+    required TResult Function(IsometricLayerConfig value) isometric,
+    required TResult Function(DotLayerConfig value) dot,
+    required TResult Function(LogGridLayerConfig value) logGrid,
+    required TResult Function(CornellLayerConfig value) cornell,
+    required TResult Function(PolarLayerConfig value) polar,
+    required TResult Function(ManuscriptLayerConfig value) manuscript,
+    required TResult Function(TimetableLayerConfig value) timetable,
+    required TResult Function(RegionLayerConfig value) region,
+    required TResult Function(GuideLayerConfig value) guide,
+    required TResult Function(StaffLayerConfig value) staff,
+    required TResult Function(RuledGridLayerConfig value) ruledGrid,
+    required TResult Function(StampLayerConfig value) stamp,
+    required TResult Function(CustomLineLayerConfig value) customLine,
+    required TResult Function(GraphAxisLayerConfig value) graphAxis,
+    required TResult Function(TableLayerConfig value) table,
+    required TResult Function(HeaderLayerConfig value) header,
+  }) {
+    return customLine(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(GridLayerConfig value)? grid,
+    TResult? Function(HexLayerConfig value)? hex,
+    TResult? Function(IsometricLayerConfig value)? isometric,
+    TResult? Function(DotLayerConfig value)? dot,
+    TResult? Function(LogGridLayerConfig value)? logGrid,
+    TResult? Function(CornellLayerConfig value)? cornell,
+    TResult? Function(PolarLayerConfig value)? polar,
+    TResult? Function(ManuscriptLayerConfig value)? manuscript,
+    TResult? Function(TimetableLayerConfig value)? timetable,
+    TResult? Function(RegionLayerConfig value)? region,
+    TResult? Function(GuideLayerConfig value)? guide,
+    TResult? Function(StaffLayerConfig value)? staff,
+    TResult? Function(RuledGridLayerConfig value)? ruledGrid,
+    TResult? Function(StampLayerConfig value)? stamp,
+    TResult? Function(CustomLineLayerConfig value)? customLine,
+    TResult? Function(GraphAxisLayerConfig value)? graphAxis,
+    TResult? Function(TableLayerConfig value)? table,
+    TResult? Function(HeaderLayerConfig value)? header,
+  }) {
+    return customLine?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(GridLayerConfig value)? grid,
+    TResult Function(HexLayerConfig value)? hex,
+    TResult Function(IsometricLayerConfig value)? isometric,
+    TResult Function(DotLayerConfig value)? dot,
+    TResult Function(LogGridLayerConfig value)? logGrid,
+    TResult Function(CornellLayerConfig value)? cornell,
+    TResult Function(PolarLayerConfig value)? polar,
+    TResult Function(ManuscriptLayerConfig value)? manuscript,
+    TResult Function(TimetableLayerConfig value)? timetable,
+    TResult Function(RegionLayerConfig value)? region,
+    TResult Function(GuideLayerConfig value)? guide,
+    TResult Function(StaffLayerConfig value)? staff,
+    TResult Function(RuledGridLayerConfig value)? ruledGrid,
+    TResult Function(StampLayerConfig value)? stamp,
+    TResult Function(CustomLineLayerConfig value)? customLine,
+    TResult Function(GraphAxisLayerConfig value)? graphAxis,
+    TResult Function(TableLayerConfig value)? table,
+    TResult Function(HeaderLayerConfig value)? header,
+    required TResult orElse(),
+  }) {
+    if (customLine != null) {
+      return customLine(this);
+    }
+    return orElse();
+  }
+
+  @override
+  Map<String, dynamic> toJson() {
+    return _$$CustomLineLayerConfigImplToJson(this);
+  }
+}
+
+abstract class CustomLineLayerConfig implements LayerConfig {
+  const factory CustomLineLayerConfig({final List<LineSet> lineSets}) =
+      _$CustomLineLayerConfigImpl;
+
+  factory CustomLineLayerConfig.fromJson(Map<String, dynamic> json) =
+      _$CustomLineLayerConfigImpl.fromJson;
+
+  List<LineSet> get lineSets;
+
+  /// Create a copy of LayerConfig
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  _$$CustomLineLayerConfigImplCopyWith<_$CustomLineLayerConfigImpl>
+  get copyWith => throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class _$$GraphAxisLayerConfigImplCopyWith<$Res> {
+  factory _$$GraphAxisLayerConfigImplCopyWith(
+    _$GraphAxisLayerConfigImpl value,
+    $Res Function(_$GraphAxisLayerConfigImpl) then,
+  ) = __$$GraphAxisLayerConfigImplCopyWithImpl<$Res>;
+  @useResult
+  $Res call({
+    bool showXAxis,
+    bool showYAxis,
+    bool arrowTip,
+    bool showTickMarks,
+    double tickIntervalMm,
+    double tickLengthMm,
+    TickSide xTickSide,
+    TickSide yTickSide,
+    String xLabel,
+    String yLabel,
+    bool showNegative,
+  });
+}
+
+/// @nodoc
+class __$$GraphAxisLayerConfigImplCopyWithImpl<$Res>
+    extends _$LayerConfigCopyWithImpl<$Res, _$GraphAxisLayerConfigImpl>
+    implements _$$GraphAxisLayerConfigImplCopyWith<$Res> {
+  __$$GraphAxisLayerConfigImplCopyWithImpl(
+    _$GraphAxisLayerConfigImpl _value,
+    $Res Function(_$GraphAxisLayerConfigImpl) _then,
+  ) : super(_value, _then);
+
+  /// Create a copy of LayerConfig
+  /// with the given fields replaced by the non-null parameter values.
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? showXAxis = null,
+    Object? showYAxis = null,
+    Object? arrowTip = null,
+    Object? showTickMarks = null,
+    Object? tickIntervalMm = null,
+    Object? tickLengthMm = null,
+    Object? xTickSide = null,
+    Object? yTickSide = null,
+    Object? xLabel = null,
+    Object? yLabel = null,
+    Object? showNegative = null,
+  }) {
+    return _then(
+      _$GraphAxisLayerConfigImpl(
+        showXAxis: null == showXAxis
+            ? _value.showXAxis
+            : showXAxis // ignore: cast_nullable_to_non_nullable
+                  as bool,
+        showYAxis: null == showYAxis
+            ? _value.showYAxis
+            : showYAxis // ignore: cast_nullable_to_non_nullable
+                  as bool,
+        arrowTip: null == arrowTip
+            ? _value.arrowTip
+            : arrowTip // ignore: cast_nullable_to_non_nullable
+                  as bool,
+        showTickMarks: null == showTickMarks
+            ? _value.showTickMarks
+            : showTickMarks // ignore: cast_nullable_to_non_nullable
+                  as bool,
+        tickIntervalMm: null == tickIntervalMm
+            ? _value.tickIntervalMm
+            : tickIntervalMm // ignore: cast_nullable_to_non_nullable
+                  as double,
+        tickLengthMm: null == tickLengthMm
+            ? _value.tickLengthMm
+            : tickLengthMm // ignore: cast_nullable_to_non_nullable
+                  as double,
+        xTickSide: null == xTickSide
+            ? _value.xTickSide
+            : xTickSide // ignore: cast_nullable_to_non_nullable
+                  as TickSide,
+        yTickSide: null == yTickSide
+            ? _value.yTickSide
+            : yTickSide // ignore: cast_nullable_to_non_nullable
+                  as TickSide,
+        xLabel: null == xLabel
+            ? _value.xLabel
+            : xLabel // ignore: cast_nullable_to_non_nullable
+                  as String,
+        yLabel: null == yLabel
+            ? _value.yLabel
+            : yLabel // ignore: cast_nullable_to_non_nullable
+                  as String,
+        showNegative: null == showNegative
+            ? _value.showNegative
+            : showNegative // ignore: cast_nullable_to_non_nullable
+                  as bool,
+      ),
+    );
+  }
+}
+
+/// @nodoc
+@JsonSerializable()
+class _$GraphAxisLayerConfigImpl implements GraphAxisLayerConfig {
+  const _$GraphAxisLayerConfigImpl({
+    this.showXAxis = true,
+    this.showYAxis = true,
+    this.arrowTip = true,
+    this.showTickMarks = true,
+    this.tickIntervalMm = 10.0,
+    this.tickLengthMm = 1.5,
+    this.xTickSide = TickSide.both,
+    this.yTickSide = TickSide.both,
+    this.xLabel = 'x',
+    this.yLabel = 'y',
+    this.showNegative = false,
+    final String? $type,
+  }) : $type = $type ?? 'graphAxis';
+
+  factory _$GraphAxisLayerConfigImpl.fromJson(Map<String, dynamic> json) =>
+      _$$GraphAxisLayerConfigImplFromJson(json);
+
+  @override
+  @JsonKey()
+  final bool showXAxis;
+  @override
+  @JsonKey()
+  final bool showYAxis;
+  @override
+  @JsonKey()
+  final bool arrowTip;
+  @override
+  @JsonKey()
+  final bool showTickMarks;
+  @override
+  @JsonKey()
+  final double tickIntervalMm;
+  @override
+  @JsonKey()
+  final double tickLengthMm;
+  @override
+  @JsonKey()
+  final TickSide xTickSide;
+  @override
+  @JsonKey()
+  final TickSide yTickSide;
+  @override
+  @JsonKey()
+  final String xLabel;
+  @override
+  @JsonKey()
+  final String yLabel;
+  @override
+  @JsonKey()
+  final bool showNegative;
+
+  @JsonKey(name: 'runtimeType')
+  final String $type;
+
+  @override
+  String toString() {
+    return 'LayerConfig.graphAxis(showXAxis: $showXAxis, showYAxis: $showYAxis, arrowTip: $arrowTip, showTickMarks: $showTickMarks, tickIntervalMm: $tickIntervalMm, tickLengthMm: $tickLengthMm, xTickSide: $xTickSide, yTickSide: $yTickSide, xLabel: $xLabel, yLabel: $yLabel, showNegative: $showNegative)';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$GraphAxisLayerConfigImpl &&
+            (identical(other.showXAxis, showXAxis) ||
+                other.showXAxis == showXAxis) &&
+            (identical(other.showYAxis, showYAxis) ||
+                other.showYAxis == showYAxis) &&
+            (identical(other.arrowTip, arrowTip) ||
+                other.arrowTip == arrowTip) &&
+            (identical(other.showTickMarks, showTickMarks) ||
+                other.showTickMarks == showTickMarks) &&
+            (identical(other.tickIntervalMm, tickIntervalMm) ||
+                other.tickIntervalMm == tickIntervalMm) &&
+            (identical(other.tickLengthMm, tickLengthMm) ||
+                other.tickLengthMm == tickLengthMm) &&
+            (identical(other.xTickSide, xTickSide) ||
+                other.xTickSide == xTickSide) &&
+            (identical(other.yTickSide, yTickSide) ||
+                other.yTickSide == yTickSide) &&
+            (identical(other.xLabel, xLabel) || other.xLabel == xLabel) &&
+            (identical(other.yLabel, yLabel) || other.yLabel == yLabel) &&
+            (identical(other.showNegative, showNegative) ||
+                other.showNegative == showNegative));
+  }
+
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  @override
+  int get hashCode => Object.hash(
+    runtimeType,
+    showXAxis,
+    showYAxis,
+    arrowTip,
+    showTickMarks,
+    tickIntervalMm,
+    tickLengthMm,
+    xTickSide,
+    yTickSide,
+    xLabel,
+    yLabel,
+    showNegative,
+  );
+
+  /// Create a copy of LayerConfig
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$GraphAxisLayerConfigImplCopyWith<_$GraphAxisLayerConfigImpl>
+  get copyWith =>
+      __$$GraphAxisLayerConfigImplCopyWithImpl<_$GraphAxisLayerConfigImpl>(
+        this,
+        _$identity,
+      );
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function(
+      double cellWidthMm,
+      double cellHeightMm,
+      LineStyle lineStyle,
+      int? boldEvery,
+      bool showHorizontal,
+      bool showVertical,
+    )
+    grid,
+    required TResult Function(double hexSizeMm, HexOrientation orientation) hex,
+    required TResult Function(double spacingMm, LineStyle lineStyle) isometric,
+    required TResult Function(
+      double spacingMm,
+      double dotRadiusMm,
+      bool alignToOrigin,
+    )
+    dot,
+    required TResult Function(
+      LogScale xScale,
+      LogScale yScale,
+      int xDecades,
+      int yDecades,
+      String xLabel,
+      String yLabel,
+    )
+    logGrid,
+    required TResult Function(
+      double leftColMm,
+      double bottomRowMm,
+      double lineSpacingMm,
+      String keywordLabel,
+      String summaryLabel,
+    )
+    cornell,
+    required TResult Function(int rings, int sectors) polar,
+    required TResult Function(int columns, int rows) manuscript,
+    required TResult Function(int startHour, int endHour, int daysCount)
+    timetable,
+    required TResult Function(List<PageRegion> regions) region,
+    required TResult Function(GuideType guideType, Map<String, dynamic> params)
+    guide,
+    required TResult Function(double lineSpacingMm, double staffGapMm) staff,
+    required TResult Function(double cellMm, double ruledSpacingMm) ruledGrid,
+    required TResult Function(List<StampItem> items) stamp,
+    required TResult Function(List<LineSet> lineSets) customLine,
+    required TResult Function(
+      bool showXAxis,
+      bool showYAxis,
+      bool arrowTip,
+      bool showTickMarks,
+      double tickIntervalMm,
+      double tickLengthMm,
+      TickSide xTickSide,
+      TickSide yTickSide,
+      String xLabel,
+      String yLabel,
+      bool showNegative,
+    )
+    graphAxis,
+    required TResult Function(
+      int rows,
+      int cols,
+      bool showHeaderRow,
+      bool showHeaderCol,
+      double cellHeightMm,
+    )
+    table,
+    required TResult Function(
+      bool showTitle,
+      String titleLabel,
+      bool showDate,
+      String dateLabel,
+      bool showName,
+      String nameLabel,
+      bool showSubject,
+      String subjectLabel,
+      double fontSizeMm,
+      double rowHeightMm,
+      bool showBorder,
+    )
+    header,
+  }) {
+    return graphAxis(
+      showXAxis,
+      showYAxis,
+      arrowTip,
+      showTickMarks,
+      tickIntervalMm,
+      tickLengthMm,
+      xTickSide,
+      yTickSide,
+      xLabel,
+      yLabel,
+      showNegative,
+    );
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function(
+      double cellWidthMm,
+      double cellHeightMm,
+      LineStyle lineStyle,
+      int? boldEvery,
+      bool showHorizontal,
+      bool showVertical,
+    )?
+    grid,
+    TResult? Function(double hexSizeMm, HexOrientation orientation)? hex,
+    TResult? Function(double spacingMm, LineStyle lineStyle)? isometric,
+    TResult? Function(double spacingMm, double dotRadiusMm, bool alignToOrigin)?
+    dot,
+    TResult? Function(
+      LogScale xScale,
+      LogScale yScale,
+      int xDecades,
+      int yDecades,
+      String xLabel,
+      String yLabel,
+    )?
+    logGrid,
+    TResult? Function(
+      double leftColMm,
+      double bottomRowMm,
+      double lineSpacingMm,
+      String keywordLabel,
+      String summaryLabel,
+    )?
+    cornell,
+    TResult? Function(int rings, int sectors)? polar,
+    TResult? Function(int columns, int rows)? manuscript,
+    TResult? Function(int startHour, int endHour, int daysCount)? timetable,
+    TResult? Function(List<PageRegion> regions)? region,
+    TResult? Function(GuideType guideType, Map<String, dynamic> params)? guide,
+    TResult? Function(double lineSpacingMm, double staffGapMm)? staff,
+    TResult? Function(double cellMm, double ruledSpacingMm)? ruledGrid,
+    TResult? Function(List<StampItem> items)? stamp,
+    TResult? Function(List<LineSet> lineSets)? customLine,
+    TResult? Function(
+      bool showXAxis,
+      bool showYAxis,
+      bool arrowTip,
+      bool showTickMarks,
+      double tickIntervalMm,
+      double tickLengthMm,
+      TickSide xTickSide,
+      TickSide yTickSide,
+      String xLabel,
+      String yLabel,
+      bool showNegative,
+    )?
+    graphAxis,
+    TResult? Function(
+      int rows,
+      int cols,
+      bool showHeaderRow,
+      bool showHeaderCol,
+      double cellHeightMm,
+    )?
+    table,
+    TResult? Function(
+      bool showTitle,
+      String titleLabel,
+      bool showDate,
+      String dateLabel,
+      bool showName,
+      String nameLabel,
+      bool showSubject,
+      String subjectLabel,
+      double fontSizeMm,
+      double rowHeightMm,
+      bool showBorder,
+    )?
+    header,
+  }) {
+    return graphAxis?.call(
+      showXAxis,
+      showYAxis,
+      arrowTip,
+      showTickMarks,
+      tickIntervalMm,
+      tickLengthMm,
+      xTickSide,
+      yTickSide,
+      xLabel,
+      yLabel,
+      showNegative,
+    );
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function(
+      double cellWidthMm,
+      double cellHeightMm,
+      LineStyle lineStyle,
+      int? boldEvery,
+      bool showHorizontal,
+      bool showVertical,
+    )?
+    grid,
+    TResult Function(double hexSizeMm, HexOrientation orientation)? hex,
+    TResult Function(double spacingMm, LineStyle lineStyle)? isometric,
+    TResult Function(double spacingMm, double dotRadiusMm, bool alignToOrigin)?
+    dot,
+    TResult Function(
+      LogScale xScale,
+      LogScale yScale,
+      int xDecades,
+      int yDecades,
+      String xLabel,
+      String yLabel,
+    )?
+    logGrid,
+    TResult Function(
+      double leftColMm,
+      double bottomRowMm,
+      double lineSpacingMm,
+      String keywordLabel,
+      String summaryLabel,
+    )?
+    cornell,
+    TResult Function(int rings, int sectors)? polar,
+    TResult Function(int columns, int rows)? manuscript,
+    TResult Function(int startHour, int endHour, int daysCount)? timetable,
+    TResult Function(List<PageRegion> regions)? region,
+    TResult Function(GuideType guideType, Map<String, dynamic> params)? guide,
+    TResult Function(double lineSpacingMm, double staffGapMm)? staff,
+    TResult Function(double cellMm, double ruledSpacingMm)? ruledGrid,
+    TResult Function(List<StampItem> items)? stamp,
+    TResult Function(List<LineSet> lineSets)? customLine,
+    TResult Function(
+      bool showXAxis,
+      bool showYAxis,
+      bool arrowTip,
+      bool showTickMarks,
+      double tickIntervalMm,
+      double tickLengthMm,
+      TickSide xTickSide,
+      TickSide yTickSide,
+      String xLabel,
+      String yLabel,
+      bool showNegative,
+    )?
+    graphAxis,
+    TResult Function(
+      int rows,
+      int cols,
+      bool showHeaderRow,
+      bool showHeaderCol,
+      double cellHeightMm,
+    )?
+    table,
+    TResult Function(
+      bool showTitle,
+      String titleLabel,
+      bool showDate,
+      String dateLabel,
+      bool showName,
+      String nameLabel,
+      bool showSubject,
+      String subjectLabel,
+      double fontSizeMm,
+      double rowHeightMm,
+      bool showBorder,
+    )?
+    header,
+    required TResult orElse(),
+  }) {
+    if (graphAxis != null) {
+      return graphAxis(
+        showXAxis,
+        showYAxis,
+        arrowTip,
+        showTickMarks,
+        tickIntervalMm,
+        tickLengthMm,
+        xTickSide,
+        yTickSide,
+        xLabel,
+        yLabel,
+        showNegative,
+      );
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(GridLayerConfig value) grid,
+    required TResult Function(HexLayerConfig value) hex,
+    required TResult Function(IsometricLayerConfig value) isometric,
+    required TResult Function(DotLayerConfig value) dot,
+    required TResult Function(LogGridLayerConfig value) logGrid,
+    required TResult Function(CornellLayerConfig value) cornell,
+    required TResult Function(PolarLayerConfig value) polar,
+    required TResult Function(ManuscriptLayerConfig value) manuscript,
+    required TResult Function(TimetableLayerConfig value) timetable,
+    required TResult Function(RegionLayerConfig value) region,
+    required TResult Function(GuideLayerConfig value) guide,
+    required TResult Function(StaffLayerConfig value) staff,
+    required TResult Function(RuledGridLayerConfig value) ruledGrid,
+    required TResult Function(StampLayerConfig value) stamp,
+    required TResult Function(CustomLineLayerConfig value) customLine,
+    required TResult Function(GraphAxisLayerConfig value) graphAxis,
+    required TResult Function(TableLayerConfig value) table,
+    required TResult Function(HeaderLayerConfig value) header,
+  }) {
+    return graphAxis(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(GridLayerConfig value)? grid,
+    TResult? Function(HexLayerConfig value)? hex,
+    TResult? Function(IsometricLayerConfig value)? isometric,
+    TResult? Function(DotLayerConfig value)? dot,
+    TResult? Function(LogGridLayerConfig value)? logGrid,
+    TResult? Function(CornellLayerConfig value)? cornell,
+    TResult? Function(PolarLayerConfig value)? polar,
+    TResult? Function(ManuscriptLayerConfig value)? manuscript,
+    TResult? Function(TimetableLayerConfig value)? timetable,
+    TResult? Function(RegionLayerConfig value)? region,
+    TResult? Function(GuideLayerConfig value)? guide,
+    TResult? Function(StaffLayerConfig value)? staff,
+    TResult? Function(RuledGridLayerConfig value)? ruledGrid,
+    TResult? Function(StampLayerConfig value)? stamp,
+    TResult? Function(CustomLineLayerConfig value)? customLine,
+    TResult? Function(GraphAxisLayerConfig value)? graphAxis,
+    TResult? Function(TableLayerConfig value)? table,
+    TResult? Function(HeaderLayerConfig value)? header,
+  }) {
+    return graphAxis?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(GridLayerConfig value)? grid,
+    TResult Function(HexLayerConfig value)? hex,
+    TResult Function(IsometricLayerConfig value)? isometric,
+    TResult Function(DotLayerConfig value)? dot,
+    TResult Function(LogGridLayerConfig value)? logGrid,
+    TResult Function(CornellLayerConfig value)? cornell,
+    TResult Function(PolarLayerConfig value)? polar,
+    TResult Function(ManuscriptLayerConfig value)? manuscript,
+    TResult Function(TimetableLayerConfig value)? timetable,
+    TResult Function(RegionLayerConfig value)? region,
+    TResult Function(GuideLayerConfig value)? guide,
+    TResult Function(StaffLayerConfig value)? staff,
+    TResult Function(RuledGridLayerConfig value)? ruledGrid,
+    TResult Function(StampLayerConfig value)? stamp,
+    TResult Function(CustomLineLayerConfig value)? customLine,
+    TResult Function(GraphAxisLayerConfig value)? graphAxis,
+    TResult Function(TableLayerConfig value)? table,
+    TResult Function(HeaderLayerConfig value)? header,
+    required TResult orElse(),
+  }) {
+    if (graphAxis != null) {
+      return graphAxis(this);
+    }
+    return orElse();
+  }
+
+  @override
+  Map<String, dynamic> toJson() {
+    return _$$GraphAxisLayerConfigImplToJson(this);
+  }
+}
+
+abstract class GraphAxisLayerConfig implements LayerConfig {
+  const factory GraphAxisLayerConfig({
+    final bool showXAxis,
+    final bool showYAxis,
+    final bool arrowTip,
+    final bool showTickMarks,
+    final double tickIntervalMm,
+    final double tickLengthMm,
+    final TickSide xTickSide,
+    final TickSide yTickSide,
+    final String xLabel,
+    final String yLabel,
+    final bool showNegative,
+  }) = _$GraphAxisLayerConfigImpl;
+
+  factory GraphAxisLayerConfig.fromJson(Map<String, dynamic> json) =
+      _$GraphAxisLayerConfigImpl.fromJson;
+
+  bool get showXAxis;
+  bool get showYAxis;
+  bool get arrowTip;
+  bool get showTickMarks;
+  double get tickIntervalMm;
+  double get tickLengthMm;
+  TickSide get xTickSide;
+  TickSide get yTickSide;
+  String get xLabel;
+  String get yLabel;
+  bool get showNegative;
+
+  /// Create a copy of LayerConfig
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  _$$GraphAxisLayerConfigImplCopyWith<_$GraphAxisLayerConfigImpl>
+  get copyWith => throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class _$$TableLayerConfigImplCopyWith<$Res> {
+  factory _$$TableLayerConfigImplCopyWith(
+    _$TableLayerConfigImpl value,
+    $Res Function(_$TableLayerConfigImpl) then,
+  ) = __$$TableLayerConfigImplCopyWithImpl<$Res>;
+  @useResult
+  $Res call({
+    int rows,
+    int cols,
+    bool showHeaderRow,
+    bool showHeaderCol,
+    double cellHeightMm,
+  });
+}
+
+/// @nodoc
+class __$$TableLayerConfigImplCopyWithImpl<$Res>
+    extends _$LayerConfigCopyWithImpl<$Res, _$TableLayerConfigImpl>
+    implements _$$TableLayerConfigImplCopyWith<$Res> {
+  __$$TableLayerConfigImplCopyWithImpl(
+    _$TableLayerConfigImpl _value,
+    $Res Function(_$TableLayerConfigImpl) _then,
+  ) : super(_value, _then);
+
+  /// Create a copy of LayerConfig
+  /// with the given fields replaced by the non-null parameter values.
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? rows = null,
+    Object? cols = null,
+    Object? showHeaderRow = null,
+    Object? showHeaderCol = null,
+    Object? cellHeightMm = null,
+  }) {
+    return _then(
+      _$TableLayerConfigImpl(
+        rows: null == rows
+            ? _value.rows
+            : rows // ignore: cast_nullable_to_non_nullable
+                  as int,
+        cols: null == cols
+            ? _value.cols
+            : cols // ignore: cast_nullable_to_non_nullable
+                  as int,
+        showHeaderRow: null == showHeaderRow
+            ? _value.showHeaderRow
+            : showHeaderRow // ignore: cast_nullable_to_non_nullable
+                  as bool,
+        showHeaderCol: null == showHeaderCol
+            ? _value.showHeaderCol
+            : showHeaderCol // ignore: cast_nullable_to_non_nullable
+                  as bool,
+        cellHeightMm: null == cellHeightMm
+            ? _value.cellHeightMm
+            : cellHeightMm // ignore: cast_nullable_to_non_nullable
+                  as double,
+      ),
+    );
+  }
+}
+
+/// @nodoc
+@JsonSerializable()
+class _$TableLayerConfigImpl implements TableLayerConfig {
+  const _$TableLayerConfigImpl({
+    this.rows = 4,
+    this.cols = 3,
+    this.showHeaderRow = true,
+    this.showHeaderCol = false,
+    this.cellHeightMm = 8.0,
+    final String? $type,
+  }) : $type = $type ?? 'table';
+
+  factory _$TableLayerConfigImpl.fromJson(Map<String, dynamic> json) =>
+      _$$TableLayerConfigImplFromJson(json);
+
+  @override
+  @JsonKey()
+  final int rows;
+  @override
+  @JsonKey()
+  final int cols;
+  @override
+  @JsonKey()
+  final bool showHeaderRow;
+  @override
+  @JsonKey()
+  final bool showHeaderCol;
+  @override
+  @JsonKey()
+  final double cellHeightMm;
+
+  @JsonKey(name: 'runtimeType')
+  final String $type;
+
+  @override
+  String toString() {
+    return 'LayerConfig.table(rows: $rows, cols: $cols, showHeaderRow: $showHeaderRow, showHeaderCol: $showHeaderCol, cellHeightMm: $cellHeightMm)';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$TableLayerConfigImpl &&
+            (identical(other.rows, rows) || other.rows == rows) &&
+            (identical(other.cols, cols) || other.cols == cols) &&
+            (identical(other.showHeaderRow, showHeaderRow) ||
+                other.showHeaderRow == showHeaderRow) &&
+            (identical(other.showHeaderCol, showHeaderCol) ||
+                other.showHeaderCol == showHeaderCol) &&
+            (identical(other.cellHeightMm, cellHeightMm) ||
+                other.cellHeightMm == cellHeightMm));
+  }
+
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  @override
+  int get hashCode => Object.hash(
+    runtimeType,
+    rows,
+    cols,
+    showHeaderRow,
+    showHeaderCol,
+    cellHeightMm,
+  );
+
+  /// Create a copy of LayerConfig
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$TableLayerConfigImplCopyWith<_$TableLayerConfigImpl> get copyWith =>
+      __$$TableLayerConfigImplCopyWithImpl<_$TableLayerConfigImpl>(
+        this,
+        _$identity,
+      );
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function(
+      double cellWidthMm,
+      double cellHeightMm,
+      LineStyle lineStyle,
+      int? boldEvery,
+      bool showHorizontal,
+      bool showVertical,
+    )
+    grid,
+    required TResult Function(double hexSizeMm, HexOrientation orientation) hex,
+    required TResult Function(double spacingMm, LineStyle lineStyle) isometric,
+    required TResult Function(
+      double spacingMm,
+      double dotRadiusMm,
+      bool alignToOrigin,
+    )
+    dot,
+    required TResult Function(
+      LogScale xScale,
+      LogScale yScale,
+      int xDecades,
+      int yDecades,
+      String xLabel,
+      String yLabel,
+    )
+    logGrid,
+    required TResult Function(
+      double leftColMm,
+      double bottomRowMm,
+      double lineSpacingMm,
+      String keywordLabel,
+      String summaryLabel,
+    )
+    cornell,
+    required TResult Function(int rings, int sectors) polar,
+    required TResult Function(int columns, int rows) manuscript,
+    required TResult Function(int startHour, int endHour, int daysCount)
+    timetable,
+    required TResult Function(List<PageRegion> regions) region,
+    required TResult Function(GuideType guideType, Map<String, dynamic> params)
+    guide,
+    required TResult Function(double lineSpacingMm, double staffGapMm) staff,
+    required TResult Function(double cellMm, double ruledSpacingMm) ruledGrid,
+    required TResult Function(List<StampItem> items) stamp,
+    required TResult Function(List<LineSet> lineSets) customLine,
+    required TResult Function(
+      bool showXAxis,
+      bool showYAxis,
+      bool arrowTip,
+      bool showTickMarks,
+      double tickIntervalMm,
+      double tickLengthMm,
+      TickSide xTickSide,
+      TickSide yTickSide,
+      String xLabel,
+      String yLabel,
+      bool showNegative,
+    )
+    graphAxis,
+    required TResult Function(
+      int rows,
+      int cols,
+      bool showHeaderRow,
+      bool showHeaderCol,
+      double cellHeightMm,
+    )
+    table,
+    required TResult Function(
+      bool showTitle,
+      String titleLabel,
+      bool showDate,
+      String dateLabel,
+      bool showName,
+      String nameLabel,
+      bool showSubject,
+      String subjectLabel,
+      double fontSizeMm,
+      double rowHeightMm,
+      bool showBorder,
+    )
+    header,
+  }) {
+    return table(rows, cols, showHeaderRow, showHeaderCol, cellHeightMm);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function(
+      double cellWidthMm,
+      double cellHeightMm,
+      LineStyle lineStyle,
+      int? boldEvery,
+      bool showHorizontal,
+      bool showVertical,
+    )?
+    grid,
+    TResult? Function(double hexSizeMm, HexOrientation orientation)? hex,
+    TResult? Function(double spacingMm, LineStyle lineStyle)? isometric,
+    TResult? Function(double spacingMm, double dotRadiusMm, bool alignToOrigin)?
+    dot,
+    TResult? Function(
+      LogScale xScale,
+      LogScale yScale,
+      int xDecades,
+      int yDecades,
+      String xLabel,
+      String yLabel,
+    )?
+    logGrid,
+    TResult? Function(
+      double leftColMm,
+      double bottomRowMm,
+      double lineSpacingMm,
+      String keywordLabel,
+      String summaryLabel,
+    )?
+    cornell,
+    TResult? Function(int rings, int sectors)? polar,
+    TResult? Function(int columns, int rows)? manuscript,
+    TResult? Function(int startHour, int endHour, int daysCount)? timetable,
+    TResult? Function(List<PageRegion> regions)? region,
+    TResult? Function(GuideType guideType, Map<String, dynamic> params)? guide,
+    TResult? Function(double lineSpacingMm, double staffGapMm)? staff,
+    TResult? Function(double cellMm, double ruledSpacingMm)? ruledGrid,
+    TResult? Function(List<StampItem> items)? stamp,
+    TResult? Function(List<LineSet> lineSets)? customLine,
+    TResult? Function(
+      bool showXAxis,
+      bool showYAxis,
+      bool arrowTip,
+      bool showTickMarks,
+      double tickIntervalMm,
+      double tickLengthMm,
+      TickSide xTickSide,
+      TickSide yTickSide,
+      String xLabel,
+      String yLabel,
+      bool showNegative,
+    )?
+    graphAxis,
+    TResult? Function(
+      int rows,
+      int cols,
+      bool showHeaderRow,
+      bool showHeaderCol,
+      double cellHeightMm,
+    )?
+    table,
+    TResult? Function(
+      bool showTitle,
+      String titleLabel,
+      bool showDate,
+      String dateLabel,
+      bool showName,
+      String nameLabel,
+      bool showSubject,
+      String subjectLabel,
+      double fontSizeMm,
+      double rowHeightMm,
+      bool showBorder,
+    )?
+    header,
+  }) {
+    return table?.call(rows, cols, showHeaderRow, showHeaderCol, cellHeightMm);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function(
+      double cellWidthMm,
+      double cellHeightMm,
+      LineStyle lineStyle,
+      int? boldEvery,
+      bool showHorizontal,
+      bool showVertical,
+    )?
+    grid,
+    TResult Function(double hexSizeMm, HexOrientation orientation)? hex,
+    TResult Function(double spacingMm, LineStyle lineStyle)? isometric,
+    TResult Function(double spacingMm, double dotRadiusMm, bool alignToOrigin)?
+    dot,
+    TResult Function(
+      LogScale xScale,
+      LogScale yScale,
+      int xDecades,
+      int yDecades,
+      String xLabel,
+      String yLabel,
+    )?
+    logGrid,
+    TResult Function(
+      double leftColMm,
+      double bottomRowMm,
+      double lineSpacingMm,
+      String keywordLabel,
+      String summaryLabel,
+    )?
+    cornell,
+    TResult Function(int rings, int sectors)? polar,
+    TResult Function(int columns, int rows)? manuscript,
+    TResult Function(int startHour, int endHour, int daysCount)? timetable,
+    TResult Function(List<PageRegion> regions)? region,
+    TResult Function(GuideType guideType, Map<String, dynamic> params)? guide,
+    TResult Function(double lineSpacingMm, double staffGapMm)? staff,
+    TResult Function(double cellMm, double ruledSpacingMm)? ruledGrid,
+    TResult Function(List<StampItem> items)? stamp,
+    TResult Function(List<LineSet> lineSets)? customLine,
+    TResult Function(
+      bool showXAxis,
+      bool showYAxis,
+      bool arrowTip,
+      bool showTickMarks,
+      double tickIntervalMm,
+      double tickLengthMm,
+      TickSide xTickSide,
+      TickSide yTickSide,
+      String xLabel,
+      String yLabel,
+      bool showNegative,
+    )?
+    graphAxis,
+    TResult Function(
+      int rows,
+      int cols,
+      bool showHeaderRow,
+      bool showHeaderCol,
+      double cellHeightMm,
+    )?
+    table,
+    TResult Function(
+      bool showTitle,
+      String titleLabel,
+      bool showDate,
+      String dateLabel,
+      bool showName,
+      String nameLabel,
+      bool showSubject,
+      String subjectLabel,
+      double fontSizeMm,
+      double rowHeightMm,
+      bool showBorder,
+    )?
+    header,
+    required TResult orElse(),
+  }) {
+    if (table != null) {
+      return table(rows, cols, showHeaderRow, showHeaderCol, cellHeightMm);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(GridLayerConfig value) grid,
+    required TResult Function(HexLayerConfig value) hex,
+    required TResult Function(IsometricLayerConfig value) isometric,
+    required TResult Function(DotLayerConfig value) dot,
+    required TResult Function(LogGridLayerConfig value) logGrid,
+    required TResult Function(CornellLayerConfig value) cornell,
+    required TResult Function(PolarLayerConfig value) polar,
+    required TResult Function(ManuscriptLayerConfig value) manuscript,
+    required TResult Function(TimetableLayerConfig value) timetable,
+    required TResult Function(RegionLayerConfig value) region,
+    required TResult Function(GuideLayerConfig value) guide,
+    required TResult Function(StaffLayerConfig value) staff,
+    required TResult Function(RuledGridLayerConfig value) ruledGrid,
+    required TResult Function(StampLayerConfig value) stamp,
+    required TResult Function(CustomLineLayerConfig value) customLine,
+    required TResult Function(GraphAxisLayerConfig value) graphAxis,
+    required TResult Function(TableLayerConfig value) table,
+    required TResult Function(HeaderLayerConfig value) header,
+  }) {
+    return table(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(GridLayerConfig value)? grid,
+    TResult? Function(HexLayerConfig value)? hex,
+    TResult? Function(IsometricLayerConfig value)? isometric,
+    TResult? Function(DotLayerConfig value)? dot,
+    TResult? Function(LogGridLayerConfig value)? logGrid,
+    TResult? Function(CornellLayerConfig value)? cornell,
+    TResult? Function(PolarLayerConfig value)? polar,
+    TResult? Function(ManuscriptLayerConfig value)? manuscript,
+    TResult? Function(TimetableLayerConfig value)? timetable,
+    TResult? Function(RegionLayerConfig value)? region,
+    TResult? Function(GuideLayerConfig value)? guide,
+    TResult? Function(StaffLayerConfig value)? staff,
+    TResult? Function(RuledGridLayerConfig value)? ruledGrid,
+    TResult? Function(StampLayerConfig value)? stamp,
+    TResult? Function(CustomLineLayerConfig value)? customLine,
+    TResult? Function(GraphAxisLayerConfig value)? graphAxis,
+    TResult? Function(TableLayerConfig value)? table,
+    TResult? Function(HeaderLayerConfig value)? header,
+  }) {
+    return table?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(GridLayerConfig value)? grid,
+    TResult Function(HexLayerConfig value)? hex,
+    TResult Function(IsometricLayerConfig value)? isometric,
+    TResult Function(DotLayerConfig value)? dot,
+    TResult Function(LogGridLayerConfig value)? logGrid,
+    TResult Function(CornellLayerConfig value)? cornell,
+    TResult Function(PolarLayerConfig value)? polar,
+    TResult Function(ManuscriptLayerConfig value)? manuscript,
+    TResult Function(TimetableLayerConfig value)? timetable,
+    TResult Function(RegionLayerConfig value)? region,
+    TResult Function(GuideLayerConfig value)? guide,
+    TResult Function(StaffLayerConfig value)? staff,
+    TResult Function(RuledGridLayerConfig value)? ruledGrid,
+    TResult Function(StampLayerConfig value)? stamp,
+    TResult Function(CustomLineLayerConfig value)? customLine,
+    TResult Function(GraphAxisLayerConfig value)? graphAxis,
+    TResult Function(TableLayerConfig value)? table,
+    TResult Function(HeaderLayerConfig value)? header,
+    required TResult orElse(),
+  }) {
+    if (table != null) {
+      return table(this);
+    }
+    return orElse();
+  }
+
+  @override
+  Map<String, dynamic> toJson() {
+    return _$$TableLayerConfigImplToJson(this);
+  }
+}
+
+abstract class TableLayerConfig implements LayerConfig {
+  const factory TableLayerConfig({
+    final int rows,
+    final int cols,
+    final bool showHeaderRow,
+    final bool showHeaderCol,
+    final double cellHeightMm,
+  }) = _$TableLayerConfigImpl;
+
+  factory TableLayerConfig.fromJson(Map<String, dynamic> json) =
+      _$TableLayerConfigImpl.fromJson;
+
+  int get rows;
+  int get cols;
+  bool get showHeaderRow;
+  bool get showHeaderCol;
+  double get cellHeightMm;
+
+  /// Create a copy of LayerConfig
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  _$$TableLayerConfigImplCopyWith<_$TableLayerConfigImpl> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class _$$HeaderLayerConfigImplCopyWith<$Res> {
+  factory _$$HeaderLayerConfigImplCopyWith(
+    _$HeaderLayerConfigImpl value,
+    $Res Function(_$HeaderLayerConfigImpl) then,
+  ) = __$$HeaderLayerConfigImplCopyWithImpl<$Res>;
+  @useResult
+  $Res call({
+    bool showTitle,
+    String titleLabel,
+    bool showDate,
+    String dateLabel,
+    bool showName,
+    String nameLabel,
+    bool showSubject,
+    String subjectLabel,
+    double fontSizeMm,
+    double rowHeightMm,
+    bool showBorder,
+  });
+}
+
+/// @nodoc
+class __$$HeaderLayerConfigImplCopyWithImpl<$Res>
+    extends _$LayerConfigCopyWithImpl<$Res, _$HeaderLayerConfigImpl>
+    implements _$$HeaderLayerConfigImplCopyWith<$Res> {
+  __$$HeaderLayerConfigImplCopyWithImpl(
+    _$HeaderLayerConfigImpl _value,
+    $Res Function(_$HeaderLayerConfigImpl) _then,
+  ) : super(_value, _then);
+
+  /// Create a copy of LayerConfig
+  /// with the given fields replaced by the non-null parameter values.
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? showTitle = null,
+    Object? titleLabel = null,
+    Object? showDate = null,
+    Object? dateLabel = null,
+    Object? showName = null,
+    Object? nameLabel = null,
+    Object? showSubject = null,
+    Object? subjectLabel = null,
+    Object? fontSizeMm = null,
+    Object? rowHeightMm = null,
+    Object? showBorder = null,
+  }) {
+    return _then(
+      _$HeaderLayerConfigImpl(
+        showTitle: null == showTitle
+            ? _value.showTitle
+            : showTitle // ignore: cast_nullable_to_non_nullable
+                  as bool,
+        titleLabel: null == titleLabel
+            ? _value.titleLabel
+            : titleLabel // ignore: cast_nullable_to_non_nullable
+                  as String,
+        showDate: null == showDate
+            ? _value.showDate
+            : showDate // ignore: cast_nullable_to_non_nullable
+                  as bool,
+        dateLabel: null == dateLabel
+            ? _value.dateLabel
+            : dateLabel // ignore: cast_nullable_to_non_nullable
+                  as String,
+        showName: null == showName
+            ? _value.showName
+            : showName // ignore: cast_nullable_to_non_nullable
+                  as bool,
+        nameLabel: null == nameLabel
+            ? _value.nameLabel
+            : nameLabel // ignore: cast_nullable_to_non_nullable
+                  as String,
+        showSubject: null == showSubject
+            ? _value.showSubject
+            : showSubject // ignore: cast_nullable_to_non_nullable
+                  as bool,
+        subjectLabel: null == subjectLabel
+            ? _value.subjectLabel
+            : subjectLabel // ignore: cast_nullable_to_non_nullable
+                  as String,
+        fontSizeMm: null == fontSizeMm
+            ? _value.fontSizeMm
+            : fontSizeMm // ignore: cast_nullable_to_non_nullable
+                  as double,
+        rowHeightMm: null == rowHeightMm
+            ? _value.rowHeightMm
+            : rowHeightMm // ignore: cast_nullable_to_non_nullable
+                  as double,
+        showBorder: null == showBorder
+            ? _value.showBorder
+            : showBorder // ignore: cast_nullable_to_non_nullable
+                  as bool,
+      ),
+    );
+  }
+}
+
+/// @nodoc
+@JsonSerializable()
+class _$HeaderLayerConfigImpl implements HeaderLayerConfig {
+  const _$HeaderLayerConfigImpl({
+    this.showTitle = true,
+    this.titleLabel = 'タイトル',
+    this.showDate = true,
+    this.dateLabel = '日付',
+    this.showName = true,
+    this.nameLabel = '名前',
+    this.showSubject = false,
+    this.subjectLabel = '科目',
+    this.fontSizeMm = 3.5,
+    this.rowHeightMm = 8.0,
+    this.showBorder = true,
+    final String? $type,
+  }) : $type = $type ?? 'header';
+
+  factory _$HeaderLayerConfigImpl.fromJson(Map<String, dynamic> json) =>
+      _$$HeaderLayerConfigImplFromJson(json);
+
+  @override
+  @JsonKey()
+  final bool showTitle;
+  @override
+  @JsonKey()
+  final String titleLabel;
+  @override
+  @JsonKey()
+  final bool showDate;
+  @override
+  @JsonKey()
+  final String dateLabel;
+  @override
+  @JsonKey()
+  final bool showName;
+  @override
+  @JsonKey()
+  final String nameLabel;
+  @override
+  @JsonKey()
+  final bool showSubject;
+  @override
+  @JsonKey()
+  final String subjectLabel;
+  @override
+  @JsonKey()
+  final double fontSizeMm;
+  @override
+  @JsonKey()
+  final double rowHeightMm;
+  @override
+  @JsonKey()
+  final bool showBorder;
+
+  @JsonKey(name: 'runtimeType')
+  final String $type;
+
+  @override
+  String toString() {
+    return 'LayerConfig.header(showTitle: $showTitle, titleLabel: $titleLabel, showDate: $showDate, dateLabel: $dateLabel, showName: $showName, nameLabel: $nameLabel, showSubject: $showSubject, subjectLabel: $subjectLabel, fontSizeMm: $fontSizeMm, rowHeightMm: $rowHeightMm, showBorder: $showBorder)';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$HeaderLayerConfigImpl &&
+            (identical(other.showTitle, showTitle) ||
+                other.showTitle == showTitle) &&
+            (identical(other.titleLabel, titleLabel) ||
+                other.titleLabel == titleLabel) &&
+            (identical(other.showDate, showDate) ||
+                other.showDate == showDate) &&
+            (identical(other.dateLabel, dateLabel) ||
+                other.dateLabel == dateLabel) &&
+            (identical(other.showName, showName) ||
+                other.showName == showName) &&
+            (identical(other.nameLabel, nameLabel) ||
+                other.nameLabel == nameLabel) &&
+            (identical(other.showSubject, showSubject) ||
+                other.showSubject == showSubject) &&
+            (identical(other.subjectLabel, subjectLabel) ||
+                other.subjectLabel == subjectLabel) &&
+            (identical(other.fontSizeMm, fontSizeMm) ||
+                other.fontSizeMm == fontSizeMm) &&
+            (identical(other.rowHeightMm, rowHeightMm) ||
+                other.rowHeightMm == rowHeightMm) &&
+            (identical(other.showBorder, showBorder) ||
+                other.showBorder == showBorder));
+  }
+
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  @override
+  int get hashCode => Object.hash(
+    runtimeType,
+    showTitle,
+    titleLabel,
+    showDate,
+    dateLabel,
+    showName,
+    nameLabel,
+    showSubject,
+    subjectLabel,
+    fontSizeMm,
+    rowHeightMm,
+    showBorder,
+  );
+
+  /// Create a copy of LayerConfig
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$HeaderLayerConfigImplCopyWith<_$HeaderLayerConfigImpl> get copyWith =>
+      __$$HeaderLayerConfigImplCopyWithImpl<_$HeaderLayerConfigImpl>(
+        this,
+        _$identity,
+      );
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function(
+      double cellWidthMm,
+      double cellHeightMm,
+      LineStyle lineStyle,
+      int? boldEvery,
+      bool showHorizontal,
+      bool showVertical,
+    )
+    grid,
+    required TResult Function(double hexSizeMm, HexOrientation orientation) hex,
+    required TResult Function(double spacingMm, LineStyle lineStyle) isometric,
+    required TResult Function(
+      double spacingMm,
+      double dotRadiusMm,
+      bool alignToOrigin,
+    )
+    dot,
+    required TResult Function(
+      LogScale xScale,
+      LogScale yScale,
+      int xDecades,
+      int yDecades,
+      String xLabel,
+      String yLabel,
+    )
+    logGrid,
+    required TResult Function(
+      double leftColMm,
+      double bottomRowMm,
+      double lineSpacingMm,
+      String keywordLabel,
+      String summaryLabel,
+    )
+    cornell,
+    required TResult Function(int rings, int sectors) polar,
+    required TResult Function(int columns, int rows) manuscript,
+    required TResult Function(int startHour, int endHour, int daysCount)
+    timetable,
+    required TResult Function(List<PageRegion> regions) region,
+    required TResult Function(GuideType guideType, Map<String, dynamic> params)
+    guide,
+    required TResult Function(double lineSpacingMm, double staffGapMm) staff,
+    required TResult Function(double cellMm, double ruledSpacingMm) ruledGrid,
+    required TResult Function(List<StampItem> items) stamp,
+    required TResult Function(List<LineSet> lineSets) customLine,
+    required TResult Function(
+      bool showXAxis,
+      bool showYAxis,
+      bool arrowTip,
+      bool showTickMarks,
+      double tickIntervalMm,
+      double tickLengthMm,
+      TickSide xTickSide,
+      TickSide yTickSide,
+      String xLabel,
+      String yLabel,
+      bool showNegative,
+    )
+    graphAxis,
+    required TResult Function(
+      int rows,
+      int cols,
+      bool showHeaderRow,
+      bool showHeaderCol,
+      double cellHeightMm,
+    )
+    table,
+    required TResult Function(
+      bool showTitle,
+      String titleLabel,
+      bool showDate,
+      String dateLabel,
+      bool showName,
+      String nameLabel,
+      bool showSubject,
+      String subjectLabel,
+      double fontSizeMm,
+      double rowHeightMm,
+      bool showBorder,
+    )
+    header,
+  }) {
+    return header(
+      showTitle,
+      titleLabel,
+      showDate,
+      dateLabel,
+      showName,
+      nameLabel,
+      showSubject,
+      subjectLabel,
+      fontSizeMm,
+      rowHeightMm,
+      showBorder,
+    );
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function(
+      double cellWidthMm,
+      double cellHeightMm,
+      LineStyle lineStyle,
+      int? boldEvery,
+      bool showHorizontal,
+      bool showVertical,
+    )?
+    grid,
+    TResult? Function(double hexSizeMm, HexOrientation orientation)? hex,
+    TResult? Function(double spacingMm, LineStyle lineStyle)? isometric,
+    TResult? Function(double spacingMm, double dotRadiusMm, bool alignToOrigin)?
+    dot,
+    TResult? Function(
+      LogScale xScale,
+      LogScale yScale,
+      int xDecades,
+      int yDecades,
+      String xLabel,
+      String yLabel,
+    )?
+    logGrid,
+    TResult? Function(
+      double leftColMm,
+      double bottomRowMm,
+      double lineSpacingMm,
+      String keywordLabel,
+      String summaryLabel,
+    )?
+    cornell,
+    TResult? Function(int rings, int sectors)? polar,
+    TResult? Function(int columns, int rows)? manuscript,
+    TResult? Function(int startHour, int endHour, int daysCount)? timetable,
+    TResult? Function(List<PageRegion> regions)? region,
+    TResult? Function(GuideType guideType, Map<String, dynamic> params)? guide,
+    TResult? Function(double lineSpacingMm, double staffGapMm)? staff,
+    TResult? Function(double cellMm, double ruledSpacingMm)? ruledGrid,
+    TResult? Function(List<StampItem> items)? stamp,
+    TResult? Function(List<LineSet> lineSets)? customLine,
+    TResult? Function(
+      bool showXAxis,
+      bool showYAxis,
+      bool arrowTip,
+      bool showTickMarks,
+      double tickIntervalMm,
+      double tickLengthMm,
+      TickSide xTickSide,
+      TickSide yTickSide,
+      String xLabel,
+      String yLabel,
+      bool showNegative,
+    )?
+    graphAxis,
+    TResult? Function(
+      int rows,
+      int cols,
+      bool showHeaderRow,
+      bool showHeaderCol,
+      double cellHeightMm,
+    )?
+    table,
+    TResult? Function(
+      bool showTitle,
+      String titleLabel,
+      bool showDate,
+      String dateLabel,
+      bool showName,
+      String nameLabel,
+      bool showSubject,
+      String subjectLabel,
+      double fontSizeMm,
+      double rowHeightMm,
+      bool showBorder,
+    )?
+    header,
+  }) {
+    return header?.call(
+      showTitle,
+      titleLabel,
+      showDate,
+      dateLabel,
+      showName,
+      nameLabel,
+      showSubject,
+      subjectLabel,
+      fontSizeMm,
+      rowHeightMm,
+      showBorder,
+    );
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function(
+      double cellWidthMm,
+      double cellHeightMm,
+      LineStyle lineStyle,
+      int? boldEvery,
+      bool showHorizontal,
+      bool showVertical,
+    )?
+    grid,
+    TResult Function(double hexSizeMm, HexOrientation orientation)? hex,
+    TResult Function(double spacingMm, LineStyle lineStyle)? isometric,
+    TResult Function(double spacingMm, double dotRadiusMm, bool alignToOrigin)?
+    dot,
+    TResult Function(
+      LogScale xScale,
+      LogScale yScale,
+      int xDecades,
+      int yDecades,
+      String xLabel,
+      String yLabel,
+    )?
+    logGrid,
+    TResult Function(
+      double leftColMm,
+      double bottomRowMm,
+      double lineSpacingMm,
+      String keywordLabel,
+      String summaryLabel,
+    )?
+    cornell,
+    TResult Function(int rings, int sectors)? polar,
+    TResult Function(int columns, int rows)? manuscript,
+    TResult Function(int startHour, int endHour, int daysCount)? timetable,
+    TResult Function(List<PageRegion> regions)? region,
+    TResult Function(GuideType guideType, Map<String, dynamic> params)? guide,
+    TResult Function(double lineSpacingMm, double staffGapMm)? staff,
+    TResult Function(double cellMm, double ruledSpacingMm)? ruledGrid,
+    TResult Function(List<StampItem> items)? stamp,
+    TResult Function(List<LineSet> lineSets)? customLine,
+    TResult Function(
+      bool showXAxis,
+      bool showYAxis,
+      bool arrowTip,
+      bool showTickMarks,
+      double tickIntervalMm,
+      double tickLengthMm,
+      TickSide xTickSide,
+      TickSide yTickSide,
+      String xLabel,
+      String yLabel,
+      bool showNegative,
+    )?
+    graphAxis,
+    TResult Function(
+      int rows,
+      int cols,
+      bool showHeaderRow,
+      bool showHeaderCol,
+      double cellHeightMm,
+    )?
+    table,
+    TResult Function(
+      bool showTitle,
+      String titleLabel,
+      bool showDate,
+      String dateLabel,
+      bool showName,
+      String nameLabel,
+      bool showSubject,
+      String subjectLabel,
+      double fontSizeMm,
+      double rowHeightMm,
+      bool showBorder,
+    )?
+    header,
+    required TResult orElse(),
+  }) {
+    if (header != null) {
+      return header(
+        showTitle,
+        titleLabel,
+        showDate,
+        dateLabel,
+        showName,
+        nameLabel,
+        showSubject,
+        subjectLabel,
+        fontSizeMm,
+        rowHeightMm,
+        showBorder,
+      );
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(GridLayerConfig value) grid,
+    required TResult Function(HexLayerConfig value) hex,
+    required TResult Function(IsometricLayerConfig value) isometric,
+    required TResult Function(DotLayerConfig value) dot,
+    required TResult Function(LogGridLayerConfig value) logGrid,
+    required TResult Function(CornellLayerConfig value) cornell,
+    required TResult Function(PolarLayerConfig value) polar,
+    required TResult Function(ManuscriptLayerConfig value) manuscript,
+    required TResult Function(TimetableLayerConfig value) timetable,
+    required TResult Function(RegionLayerConfig value) region,
+    required TResult Function(GuideLayerConfig value) guide,
+    required TResult Function(StaffLayerConfig value) staff,
+    required TResult Function(RuledGridLayerConfig value) ruledGrid,
+    required TResult Function(StampLayerConfig value) stamp,
+    required TResult Function(CustomLineLayerConfig value) customLine,
+    required TResult Function(GraphAxisLayerConfig value) graphAxis,
+    required TResult Function(TableLayerConfig value) table,
+    required TResult Function(HeaderLayerConfig value) header,
+  }) {
+    return header(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(GridLayerConfig value)? grid,
+    TResult? Function(HexLayerConfig value)? hex,
+    TResult? Function(IsometricLayerConfig value)? isometric,
+    TResult? Function(DotLayerConfig value)? dot,
+    TResult? Function(LogGridLayerConfig value)? logGrid,
+    TResult? Function(CornellLayerConfig value)? cornell,
+    TResult? Function(PolarLayerConfig value)? polar,
+    TResult? Function(ManuscriptLayerConfig value)? manuscript,
+    TResult? Function(TimetableLayerConfig value)? timetable,
+    TResult? Function(RegionLayerConfig value)? region,
+    TResult? Function(GuideLayerConfig value)? guide,
+    TResult? Function(StaffLayerConfig value)? staff,
+    TResult? Function(RuledGridLayerConfig value)? ruledGrid,
+    TResult? Function(StampLayerConfig value)? stamp,
+    TResult? Function(CustomLineLayerConfig value)? customLine,
+    TResult? Function(GraphAxisLayerConfig value)? graphAxis,
+    TResult? Function(TableLayerConfig value)? table,
+    TResult? Function(HeaderLayerConfig value)? header,
+  }) {
+    return header?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(GridLayerConfig value)? grid,
+    TResult Function(HexLayerConfig value)? hex,
+    TResult Function(IsometricLayerConfig value)? isometric,
+    TResult Function(DotLayerConfig value)? dot,
+    TResult Function(LogGridLayerConfig value)? logGrid,
+    TResult Function(CornellLayerConfig value)? cornell,
+    TResult Function(PolarLayerConfig value)? polar,
+    TResult Function(ManuscriptLayerConfig value)? manuscript,
+    TResult Function(TimetableLayerConfig value)? timetable,
+    TResult Function(RegionLayerConfig value)? region,
+    TResult Function(GuideLayerConfig value)? guide,
+    TResult Function(StaffLayerConfig value)? staff,
+    TResult Function(RuledGridLayerConfig value)? ruledGrid,
+    TResult Function(StampLayerConfig value)? stamp,
+    TResult Function(CustomLineLayerConfig value)? customLine,
+    TResult Function(GraphAxisLayerConfig value)? graphAxis,
+    TResult Function(TableLayerConfig value)? table,
+    TResult Function(HeaderLayerConfig value)? header,
+    required TResult orElse(),
+  }) {
+    if (header != null) {
+      return header(this);
+    }
+    return orElse();
+  }
+
+  @override
+  Map<String, dynamic> toJson() {
+    return _$$HeaderLayerConfigImplToJson(this);
+  }
+}
+
+abstract class HeaderLayerConfig implements LayerConfig {
+  const factory HeaderLayerConfig({
+    final bool showTitle,
+    final String titleLabel,
+    final bool showDate,
+    final String dateLabel,
+    final bool showName,
+    final String nameLabel,
+    final bool showSubject,
+    final String subjectLabel,
+    final double fontSizeMm,
+    final double rowHeightMm,
+    final bool showBorder,
+  }) = _$HeaderLayerConfigImpl;
+
+  factory HeaderLayerConfig.fromJson(Map<String, dynamic> json) =
+      _$HeaderLayerConfigImpl.fromJson;
+
+  bool get showTitle;
+  String get titleLabel;
+  bool get showDate;
+  String get dateLabel;
+  bool get showName;
+  String get nameLabel;
+  bool get showSubject;
+  String get subjectLabel;
+  double get fontSizeMm;
+  double get rowHeightMm;
+  bool get showBorder;
+
+  /// Create a copy of LayerConfig
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  _$$HeaderLayerConfigImplCopyWith<_$HeaderLayerConfigImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
 

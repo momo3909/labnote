@@ -35,6 +35,7 @@ class TemplateRepository {
       tags: Value(jsonEncode(template.tags)),
       authorId: Value(template.authorId),
       isPublic: Value(template.isPublic),
+      remoteId: Value(template.remoteId),
       pageConfigJson: Value(template.pageConfigJson),
       layersJson: Value(jsonEncode(template.layersJson)),
       thumbnailPng: Value(template.thumbnailPng),
@@ -80,6 +81,7 @@ class TemplateRepository {
       ..tags = (jsonDecode(row.tags) as List).cast<String>()
       ..authorId = row.authorId
       ..isPublic = row.isPublic
+      ..remoteId = row.remoteId
       ..pageConfigJson = row.pageConfigJson
       ..layersJson = (jsonDecode(row.layersJson) as List).cast<String>()
       ..thumbnailPng = row.thumbnailPng;

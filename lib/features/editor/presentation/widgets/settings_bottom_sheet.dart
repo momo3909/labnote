@@ -71,6 +71,7 @@ class _SettingsBottomSheetState extends State<SettingsBottomSheet> {
                   ? ConstrainedBox(
                       constraints: BoxConstraints(maxHeight: widget.maxSheetContentH),
                       child: SingleChildScrollView(
+                        keyboardDismissBehavior: ScrollViewKeyboardDismissBehavior.onDrag,
                         padding: const EdgeInsets.fromLTRB(16, 0, 16, 8),
                         child: Column(
                           mainAxisSize: MainAxisSize.min,

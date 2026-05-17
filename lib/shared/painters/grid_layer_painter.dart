@@ -14,9 +14,15 @@ class GridLayerPainter extends LayerPainterBase<GridLayerConfig> {
 
   @override
   void paintContent(Canvas canvas, Rect clip, double scale) {
-    final cellW = mmToPx(config.cellWidthMm, scale);
-    final cellH = mmToPx(config.cellHeightMm, scale);
-    if (cellW <= 0 || cellH <= 0) return;
+    final nominalW = mmToPx(config.cellWidthMm, scale);
+    final nominalH = mmToPx(config.cellHeightMm, scale);
+    if (nominalW <= 0 || nominalH <= 0) return;
+
+    // セル数を整数に丸めて均等スケーリング → 端数セルなし・枠いっぱいに描画
+    final cols = (clip.width  / nominalW).round().clamp(1, 10000);
+    final rows = (clip.height / nominalH).round().clamp(1, 10000);
+    final cellW = clip.width  / cols;
+    final cellH = clip.height / rows;
 
     final baseStroke = config.lineStyle == LineStyle.solid ? 0.5 : 0.4;
     final paintColor = color.withValues(alpha: opacity);
@@ -26,59 +32,22 @@ class GridLayerPainter extends LayerPainterBase<GridLayerConfig> {
       ..strokeWidth = bold ? baseStroke * 2 : baseStroke
       ..style = PaintingStyle.stroke;
 
-    final offsetX = (clip.width % cellW) / 2;
-    final offsetY = (clip.height % cellH) / 2;
-
     if (config.showVertical) {
-      int col = 0;
-      for (double x = clip.left + offsetX; x <= clip.right + 0.5; x += cellW) {
-        final bold = config.boldEvery != null && col % config.boldEvery! == 0;
-        _drawLine(canvas, Offset(x, clip.top), Offset(x, clip.bottom), makePaint(bold));
-        col++;
+      for (int c = 0; c <= cols; c++) {
+        final x = clip.left + cellW * c;
+        final bold = config.boldEvery != null && c % config.boldEvery! == 0;
+        drawDashHVLine(canvas, Offset(x, clip.top), Offset(x, clip.bottom),
+            makePaint(bold), config.lineStyle);
       }
     }
 
     if (config.showHorizontal) {
-      int row = 0;
-      for (double y = clip.top + offsetY; y <= clip.bottom + 0.5; y += cellH) {
-        final bold = config.boldEvery != null && row % config.boldEvery! == 0;
-        _drawLine(canvas, Offset(clip.left, y), Offset(clip.right, y), makePaint(bold));
-        row++;
+      for (int r = 0; r <= rows; r++) {
+        final y = clip.top + cellH * r;
+        final bold = config.boldEvery != null && r % config.boldEvery! == 0;
+        drawDashHVLine(canvas, Offset(clip.left, y), Offset(clip.right, y),
+            makePaint(bold), config.lineStyle);
       }
-    }
-  }
-
-  void _drawLine(Canvas canvas, Offset start, Offset end, Paint paint) {
-    if (config.lineStyle == LineStyle.solid) {
-      canvas.drawLine(start, end, paint);
-      return;
-    }
-
-    final dashLen = config.lineStyle == LineStyle.dotted ? 1.5 : 4.0;
-    final gapLen = config.lineStyle == LineStyle.dotted ? 2.0 : 3.0;
-    final isHorizontal = (end.dy - start.dy).abs() < (end.dx - start.dx).abs();
-    final totalLen = isHorizontal
-        ? (end.dx - start.dx).abs()
-        : (end.dy - start.dy).abs();
-    final sign = isHorizontal
-        ? (end.dx >= start.dx ? 1.0 : -1.0)
-        : (end.dy >= start.dy ? 1.0 : -1.0);
-
-    double pos = 0;
-    bool drawing = true;
-    while (pos < totalLen) {
-      final next = (pos + (drawing ? dashLen : gapLen)).clamp(0.0, totalLen);
-      if (drawing) {
-        final s = isHorizontal
-            ? Offset(start.dx + pos * sign, start.dy)
-            : Offset(start.dx, start.dy + pos * sign);
-        final e = isHorizontal
-            ? Offset(start.dx + next * sign, start.dy)
-            : Offset(start.dx, start.dy + next * sign);
-        canvas.drawLine(s, e, paint);
-      }
-      pos = next;
-      drawing = !drawing;
     }
   }
 }

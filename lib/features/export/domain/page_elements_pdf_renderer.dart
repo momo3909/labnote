@@ -4,6 +4,7 @@ import '../../../core/constants/print_constants.dart';
 import '../../../shared/models/layer_config.dart';
 import '../../../shared/models/notebook_template.dart';
 import '../../../shared/models/page_config.dart';
+import 'pdf_font_store.dart';
 
 class PageElementsPdfRenderer {
   const PageElementsPdfRenderer({
@@ -37,7 +38,7 @@ class PageElementsPdfRenderer {
       child: pw.Text(
         '$pageNumber / $totalPages',
         style: pw.TextStyle(
-          font: pw.Font.helvetica(),
+          font: PdfFontStore.ja,
           fontSize: 8,
           color: PdfColors.grey600,
         ),
@@ -55,41 +56,37 @@ class PageElementsPdfRenderer {
       if (cfg is CornellLayerConfig) { cellHeightMm = cfg.lineSpacingMm; break; }
     }
 
-    final cellH = toPoints(cellHeightMm);
-    if (cellH <= 0) return [];
+    final nominalCellH = toPoints(cellHeightMm);
+    if (nominalCellH <= 0) return [];
 
     final marginT = toPoints(pageConfig.marginTopMm);
     final marginB = toPoints(pageConfig.marginBottomMm);
     final marginL = toPoints(pageConfig.marginLeftMm);
+    final paperW = toPoints(pageConfig.effectiveWidthMm);
     final paperH = toPoints(pageConfig.effectiveHeightMm);
     final contentH = paperH - marginT - marginB;
 
-    // グリッドペインターと同じセンタリングオフセット（Flutter y-down 換算）
-    final offsetY = contentH % cellH / 2;
-    // 最初の罫線: marginTop + offsetY + cellH（ペインターに合わせる）
-    final firstLineFromTop = marginT + offsetY + cellH;
+    // GridLayerPdfRenderer と同じスケーリング方式
+    final rowCount = (contentH / nominalCellH).round().clamp(1, 10000);
+    final cellH = contentH / rowCount;
 
     final style = pw.TextStyle(
-      font: pw.Font.helvetica(),
+      font: PdfFontStore.ja,
       fontSize: 6,
       color: PdfColors.grey500,
     );
 
     final result = <pw.Widget>[];
-    int lineNum = 1;
-    double fromTop = firstLineFromTop;
-    while (fromTop <= paperH - marginB - 1) {
-      final num = lineNum;
-      final top = fromTop;
+    for (int n = 1; n <= rowCount; n++) {
+      final fromTop = marginT + n * cellH;
+      if (fromTop > paperH - marginB + 1) break;
       result.add(
         pw.Positioned(
-          top: top - 4, // テキスト高さの半分を補正
-          left: marginL - toPoints(7.0),
-          child: pw.Text('$num', style: style),
+          top: fromTop - 4,
+          right: paperW - marginL + toPoints(1.0),
+          child: pw.Text('$n', style: style),
         ),
       );
-      lineNum++;
-      fromTop += cellH;
     }
     return result;
   }

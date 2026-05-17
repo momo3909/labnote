@@ -6,11 +6,11 @@ part of 'editor_notifier.dart';
 // RiverpodGenerator
 // **************************************************************************
 
-String _$appDatabaseHash() => r'd45cc0b6c7795466b6a12d864805fefa097f39cd';
+String _$appDatabaseHash() => r'98a09c6cfd43966155dfbdb0787fa18c85438e13';
 
 /// See also [appDatabase].
 @ProviderFor(appDatabase)
-final appDatabaseProvider = AutoDisposeProvider<AppDatabase>.internal(
+final appDatabaseProvider = Provider<AppDatabase>.internal(
   appDatabase,
   name: r'appDatabaseProvider',
   debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
@@ -22,26 +22,25 @@ final appDatabaseProvider = AutoDisposeProvider<AppDatabase>.internal(
 
 @Deprecated('Will be removed in 3.0. Use Ref instead')
 // ignore: unused_element
-typedef AppDatabaseRef = AutoDisposeProviderRef<AppDatabase>;
+typedef AppDatabaseRef = ProviderRef<AppDatabase>;
 String _$templateRepositoryHash() =>
-    r'1b4b1eba204ef73c4ce1e0eb2812e8be6564c23c';
+    r'449d1e2cdeeee672dfc3e30f734d4ae2e95bfbc0';
 
 /// See also [templateRepository].
 @ProviderFor(templateRepository)
-final templateRepositoryProvider =
-    AutoDisposeProvider<TemplateRepository>.internal(
-      templateRepository,
-      name: r'templateRepositoryProvider',
-      debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
-          ? null
-          : _$templateRepositoryHash,
-      dependencies: null,
-      allTransitiveDependencies: null,
-    );
+final templateRepositoryProvider = Provider<TemplateRepository>.internal(
+  templateRepository,
+  name: r'templateRepositoryProvider',
+  debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
+      ? null
+      : _$templateRepositoryHash,
+  dependencies: null,
+  allTransitiveDependencies: null,
+);
 
 @Deprecated('Will be removed in 3.0. Use Ref instead')
 // ignore: unused_element
-typedef TemplateRepositoryRef = AutoDisposeProviderRef<TemplateRepository>;
+typedef TemplateRepositoryRef = ProviderRef<TemplateRepository>;
 String _$templatesHash() => r'c446f888683b6e9c508ea720611a0270bb69a29d';
 
 /// See also [templates].
@@ -60,7 +59,7 @@ final templatesProvider =
 @Deprecated('Will be removed in 3.0. Use Ref instead')
 // ignore: unused_element
 typedef TemplatesRef = AutoDisposeFutureProviderRef<List<NotebookTemplate>>;
-String _$editorNotifierHash() => r'd660f5a374031983a8823ca8a647303e15163813';
+String _$editorNotifierHash() => r'545e4403b8dd85b65d2858ff8d6ca19b2e84cb22';
 
 /// Copied from Dart SDK
 class _SystemHash {
@@ -85,9 +84,35 @@ class _SystemHash {
 
 abstract class _$EditorNotifier
     extends BuildlessAutoDisposeNotifier<EditorState> {
-  late final ({LayerConfig? preset, String? uuid}) param;
+  late final ({
+    List<
+      ({
+        String? colorHex,
+        LayerConfig config,
+        double heightRatio,
+        double yRatio,
+      })
+    >?
+    presets,
+    String? uuid,
+  })
+  param;
 
-  EditorState build(({LayerConfig? preset, String? uuid}) param);
+  EditorState build(
+    ({
+      List<
+        ({
+          String? colorHex,
+          LayerConfig config,
+          double heightRatio,
+          double yRatio,
+        })
+      >?
+      presets,
+      String? uuid,
+    })
+    param,
+  );
 }
 
 /// See also [EditorNotifier].
@@ -100,7 +125,21 @@ class EditorNotifierFamily extends Family<EditorState> {
   const EditorNotifierFamily();
 
   /// See also [EditorNotifier].
-  EditorNotifierProvider call(({LayerConfig? preset, String? uuid}) param) {
+  EditorNotifierProvider call(
+    ({
+      List<
+        ({
+          String? colorHex,
+          LayerConfig config,
+          double heightRatio,
+          double yRatio,
+        })
+      >?
+      presets,
+      String? uuid,
+    })
+    param,
+  ) {
     return EditorNotifierProvider(param);
   }
 
@@ -130,8 +169,21 @@ class EditorNotifierFamily extends Family<EditorState> {
 class EditorNotifierProvider
     extends AutoDisposeNotifierProviderImpl<EditorNotifier, EditorState> {
   /// See also [EditorNotifier].
-  EditorNotifierProvider(({LayerConfig? preset, String? uuid}) param)
-    : this._internal(
+  EditorNotifierProvider(
+    ({
+      List<
+        ({
+          String? colorHex,
+          LayerConfig config,
+          double heightRatio,
+          double yRatio,
+        })
+      >?
+      presets,
+      String? uuid,
+    })
+    param,
+  ) : this._internal(
         () => EditorNotifier()..param = param,
         from: editorNotifierProvider,
         name: r'editorNotifierProvider',
@@ -154,7 +206,19 @@ class EditorNotifierProvider
     required this.param,
   }) : super.internal();
 
-  final ({LayerConfig? preset, String? uuid}) param;
+  final ({
+    List<
+      ({
+        String? colorHex,
+        LayerConfig config,
+        double heightRatio,
+        double yRatio,
+      })
+    >?
+    presets,
+    String? uuid,
+  })
+  param;
 
   @override
   EditorState runNotifierBuild(covariant EditorNotifier notifier) {
@@ -201,7 +265,19 @@ class EditorNotifierProvider
 // ignore: unused_element
 mixin EditorNotifierRef on AutoDisposeNotifierProviderRef<EditorState> {
   /// The parameter `param` of this provider.
-  ({LayerConfig? preset, String? uuid}) get param;
+  ({
+    List<
+      ({
+        String? colorHex,
+        LayerConfig config,
+        double heightRatio,
+        double yRatio,
+      })
+    >?
+    presets,
+    String? uuid,
+  })
+  get param;
 }
 
 class _EditorNotifierProviderElement
@@ -210,8 +286,19 @@ class _EditorNotifierProviderElement
   _EditorNotifierProviderElement(super.provider);
 
   @override
-  ({LayerConfig? preset, String? uuid}) get param =>
-      (origin as EditorNotifierProvider).param;
+  ({
+    List<
+      ({
+        String? colorHex,
+        LayerConfig config,
+        double heightRatio,
+        double yRatio,
+      })
+    >?
+    presets,
+    String? uuid,
+  })
+  get param => (origin as EditorNotifierProvider).param;
 }
 
 // ignore_for_file: type=lint

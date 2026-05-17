@@ -1,8 +1,11 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../gallery/presentation/gallery_preview_sheet.dart';
+import '../data/user_repository.dart';
 import '../domain/profile_notifier.dart';
 import '../domain/user_profile.dart';
+import 'profile_screen.dart' show galleryThumbnailWidget;
 
 class UserProfileScreen extends ConsumerWidget {
   const UserProfileScreen({super.key, required this.uid});
@@ -40,23 +43,19 @@ class UserProfileScreen extends ConsumerWidget {
                   style: const TextStyle(fontSize: 14, color: Colors.black54),
                 ),
               ),
+            const SizedBox(height: 12),
+            // フォローボタン
+            if (profile != null)
+              _FollowButton(targetUid: profile.uid),
             const SizedBox(height: 16),
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 32),
               child: Row(
                 children: [
-                  Expanded(
-                    child: _StatTile(
-                      label: 'テンプレート数',
-                      value: '${profile?.templateCount ?? 0}',
-                    ),
-                  ),
-                  Expanded(
-                    child: _StatTile(
-                      label: 'いいね数',
-                      value: '${profile?.totalLikes ?? 0}',
-                    ),
-                  ),
+                  Expanded(child: _StatTile(label: 'テンプレート', value: '${profile?.templateCount ?? 0}')),
+                  Expanded(child: _StatTile(label: 'いいね', value: '${profile?.totalLikes ?? 0}')),
+                  Expanded(child: _StatTile(label: 'フォロワー', value: '${profile?.followerCount ?? 0}')),
+                  Expanded(child: _StatTile(label: 'フォロー中', value: '${profile?.followingCount ?? 0}')),
                 ],
               ),
             ),
@@ -95,17 +94,10 @@ class UserProfileScreen extends ConsumerWidget {
                   itemBuilder: (ctx, i) {
                     final t = templates[i];
                     return ListTile(
-                      leading: t.thumbnailBytes != null
-                          ? ClipRRect(
-                              borderRadius: BorderRadius.circular(4),
-                              child: Image.memory(
-                                t.thumbnailBytes!,
-                                width: 40,
-                                height: 40,
-                                fit: BoxFit.cover,
-                              ),
-                            )
-                          : const Icon(Icons.description_outlined),
+                      leading: ClipRRect(
+                        borderRadius: BorderRadius.circular(4),
+                        child: SizedBox(width: 40, height: 40, child: galleryThumbnailWidget(t)),
+                      ),
                       title: Text(t.name),
                       subtitle: Text('いいね ${t.likeCount}'),
                       onTap: () => showGalleryPreview(ctx, ref, t),
@@ -135,6 +127,76 @@ class _StatTile extends StatelessWidget {
         const SizedBox(height: 2),
         Text(label, style: const TextStyle(fontSize: 12, color: Colors.black54)),
       ],
+    );
+  }
+}
+
+class _FollowButton extends ConsumerStatefulWidget {
+  const _FollowButton({required this.targetUid});
+  final String targetUid;
+
+  @override
+  ConsumerState<_FollowButton> createState() => _FollowButtonState();
+}
+
+class _FollowButtonState extends ConsumerState<_FollowButton> {
+  bool? _optimisticFollowing;
+  bool _loading = false;
+
+  Future<void> _toggle(String currentUid, bool isFollowing) async {
+    setState(() {
+      _optimisticFollowing = !isFollowing;
+      _loading = true;
+    });
+    try {
+      final repo = ref.read(userRepositoryProvider);
+      if (isFollowing) {
+        await repo.unfollowUser(currentUid, widget.targetUid);
+      } else {
+        await repo.followUser(currentUid, widget.targetUid);
+      }
+      ref.invalidate(isFollowingProvider(widget.targetUid));
+      ref.invalidate(userProfileNotifierProvider(widget.targetUid));
+      ref.invalidate(followingFeedProvider);
+      // フォロー中/フォロワー一覧を更新
+      ref.invalidate(followingProfilesProvider(currentUid));
+      ref.invalidate(followerProfilesProvider(widget.targetUid));
+    } catch (_) {
+      if (mounted) setState(() => _optimisticFollowing = isFollowing);
+    } finally {
+      if (mounted) setState(() => _loading = false);
+    }
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    final currentUid = FirebaseAuth.instance.currentUser?.uid;
+    final isAnon = FirebaseAuth.instance.currentUser?.isAnonymous ?? true;
+    if (currentUid == null || isAnon || currentUid == widget.targetUid) {
+      return const SizedBox.shrink();
+    }
+
+    final followAsync = ref.watch(isFollowingProvider(widget.targetUid));
+    final isFollowing = _optimisticFollowing ?? followAsync.valueOrNull;
+
+    if (isFollowing == null) {
+      return const SizedBox(height: 36);
+    }
+
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 48),
+      child: SizedBox(
+        width: double.infinity,
+        child: isFollowing
+            ? OutlinedButton(
+                onPressed: _loading ? null : () => _toggle(currentUid, isFollowing),
+                child: const Text('フォロー中'),
+              )
+            : FilledButton(
+                onPressed: _loading ? null : () => _toggle(currentUid, isFollowing),
+                child: const Text('フォローする'),
+              ),
+      ),
     );
   }
 }

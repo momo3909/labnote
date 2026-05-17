@@ -1,3 +1,5 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../data/gallery_repository.dart';
@@ -5,10 +7,14 @@ import 'gallery_template.dart';
 
 part 'gallery_notifier.g.dart';
 
-enum GallerySortMode { newest, popular }
+enum GallerySortMode { newest, popular, downloads, following }
+enum GalleryViewMode { list, grid2, grid4 }
 
 final galleryLikedIdsProvider =
     StateProvider<Set<String>>((_) => const {});
+
+final galleryViewModeProvider =
+    StateProvider<GalleryViewMode>((_) => GalleryViewMode.list);
 
 final gallerySearchQueryProvider = StateProvider<String>((_) => '');
 
@@ -18,28 +24,61 @@ final gallerySelectedTagsProvider =
 @riverpod
 class GalleryNotifier extends _$GalleryNotifier {
   GallerySortMode _sortMode = GallerySortMode.newest;
+  DocumentSnapshot? _lastDoc;   // ページネーションカーソル
+  bool _hasMore = true;
 
   GallerySortMode get sortMode => _sortMode;
+  bool get hasMore => _hasMore;
 
   @override
-  Future<List<GalleryTemplate>> build() => _fetch();
+  Future<List<GalleryTemplate>> build() async {
+    // ログイン済みならいいね状態を Firestore から復元
+    final user = FirebaseAuth.instance.currentUser;
+    if (user != null && !user.isAnonymous) {
+      final ids = await ref.read(galleryRepositoryProvider).fetchLikedIds(user.uid);
+      ref.read(galleryLikedIdsProvider.notifier).state = ids;
+    }
+    return _fetchFirst();
+  }
 
-  Future<List<GalleryTemplate>> _fetch() {
+  Future<List<GalleryTemplate>> _fetchFirst() async {
+    _lastDoc = null;
+    _hasMore = true;
     final repo = ref.read(galleryRepositoryProvider);
-    return _sortMode == GallerySortMode.newest
-        ? repo.fetchLatest()
-        : repo.fetchTopRanked();
+    final (items, cursor) = await repo.fetchPage(sortMode: _sortMode);
+    _lastDoc = cursor;
+    _hasMore = items.length >= 20;
+    return items;
   }
 
   Future<void> refresh() async {
     state = const AsyncLoading();
-    state = await AsyncValue.guard(_fetch);
+    state = await AsyncValue.guard(_fetchFirst);
+  }
+
+  /// 次ページを追加ロード
+  Future<void> loadMore() async {
+    if (!_hasMore) return;
+    final current = state.valueOrNull;
+    if (current == null) return;
+    final repo = ref.read(galleryRepositoryProvider);
+    final (items, cursor) = await repo.fetchPage(
+      sortMode: _sortMode,
+      startAfter: _lastDoc,
+    );
+    _lastDoc = cursor;
+    _hasMore = items.length >= 20;
+    state = AsyncData([...current, ...items]);
   }
 
   Future<void> setSortMode(GallerySortMode mode) async {
     if (_sortMode == mode) return;
     _sortMode = mode;
-    await refresh();
+    if (mode != GallerySortMode.following) {
+      await refresh();
+    } else {
+      state = state;
+    }
   }
 
   Future<void> deleteTemplate(String docId) async {
@@ -78,6 +117,12 @@ class GalleryNotifier extends _$GalleryNotifier {
     }
   }
 }
+
+// いいねしたテンプレート一覧
+final likedTemplatesProvider =
+    FutureProvider.family<List<GalleryTemplate>, String>((ref, uid) {
+  return ref.read(galleryRepositoryProvider).fetchLikedTemplates(uid);
+});
 
 // 全テンプレートから一意のタグ一覧を返す
 final allGalleryTagsProvider = Provider<List<String>>((ref) {

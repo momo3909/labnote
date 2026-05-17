@@ -15,6 +15,16 @@ const _lineColorSwatches = [
   ('#37474F', '墨'),
 ];
 
+const _bgColorSwatches = [
+  ('', '透明'),
+  ('#FFFDE7', '薄黄'),
+  ('#E3F2FD', '薄青'),
+  ('#E8F5E9', '薄緑'),
+  ('#FCE4EC', '薄ピンク'),
+  ('#F3E5F5', '薄紫'),
+  ('#FFFFFF', '白'),
+];
+
 const _addableLayerTypes = [
   (label: '方眼', config: LayerConfig.grid()),
   (label: 'ドット', config: LayerConfig.dot()),
@@ -28,6 +38,13 @@ const _addableLayerTypes = [
   (label: '時間割', config: LayerConfig.timetable()),
   (label: '領域分割', config: LayerConfig.region()),
   (label: 'ガイド', config: LayerConfig.guide(guideType: GuideType.axis)),
+  (label: '五線譜', config: LayerConfig.staff()),
+  (label: '方眼＋罫線', config: LayerConfig.ruledGrid()),
+  (label: 'スタンプ', config: LayerConfig.stamp()),
+  (label: 'カスタム線', config: LayerConfig.customLine()),
+  (label: '表', config: LayerConfig.table()),
+  (label: '座標軸', config: LayerConfig.graphAxis()),
+  (label: 'ヘッダー', config: LayerConfig.header()),
 ];
 
 String _layerLabel(LayerEntity layer) => switch (layer.layerType) {
@@ -42,6 +59,13 @@ String _layerLabel(LayerEntity layer) => switch (layer.layerType) {
       'timetable' => '時間割',
       'region' => '領域分割',
       'guide' => 'ガイド',
+      'staff' => '五線譜',
+      'ruledGrid' => '方眼＋罫線',
+      'stamp' => 'スタンプ',
+      'customLine' => 'カスタム線',
+      'table' => '表',
+      'graphAxis' => '座標軸',
+      'header' => 'ヘッダー',
       _ => layer.layerType,
     };
 
@@ -136,40 +160,6 @@ class LayerListPanel extends StatelessWidget {
                           ),
                         ),
                       ),
-                      if (isActive) ...[
-                        const SizedBox(width: 4),
-                        ..._lineColorSwatches.map((s) {
-                          final (hex, _) = s;
-                          final selected =
-                              layer.colorHex.toUpperCase() == hex.toUpperCase();
-                          return GestureDetector(
-                            onTap: () => notifier.updateLayerColor(i, hex),
-                            child: Container(
-                              width: 16,
-                              height: 16,
-                              margin: const EdgeInsets.only(right: 3),
-                              decoration: BoxDecoration(
-                                color: colorFromHex(hex),
-                                shape: BoxShape.circle,
-                                border: Border.all(
-                                  color: selected ? Colors.black87 : Colors.transparent,
-                                  width: 1.5,
-                                ),
-                              ),
-                            ),
-                          );
-                        }),
-                        SizedBox(
-                          width: 64,
-                          child: Slider(
-                            value: layer.opacity,
-                            min: 0.1,
-                            max: 1.0,
-                            onChanged: (v) => notifier.updateLayerOpacity(i, v),
-                            onChangeEnd: (v) => notifier.commitLayerOpacity(i, v),
-                          ),
-                        ),
-                      ],
                       GestureDetector(
                         onTap: () => notifier.toggleLayerVisibility(i),
                         child: Icon(
@@ -188,14 +178,65 @@ class LayerListPanel extends StatelessWidget {
                   ),
                 ),
               ),
-              if (isActive)
+              if (isActive) ...[
+                if (state.layers.length > 1)
+                  _LayerZOrderBar(index: i, total: state.layers.length, notifier: notifier),
+                _LayerColorPanel(index: i, layer: layer, notifier: notifier),
                 _LayerPositionPanel(index: i, layer: layer, notifier: notifier),
+              ],
             ],
           );
         }),
       ],
     );
   }
+}
+
+class _LayerZOrderBar extends StatelessWidget {
+  const _LayerZOrderBar({
+    required this.index,
+    required this.total,
+    required this.notifier,
+  });
+
+  final int index;
+  final int total;
+  final EditorNotifier notifier;
+
+  @override
+  Widget build(BuildContext context) {
+    final isBack  = index == 0;
+    final isFront = index == total - 1;
+
+    return Padding(
+      padding: const EdgeInsets.fromLTRB(0, 2, 0, 4),
+      child: Row(
+        children: [
+          const Text('順序:', style: TextStyle(fontSize: 11, color: Colors.black45)),
+          const SizedBox(width: 6),
+          _btn(Icons.vertical_align_bottom, '最背面', isBack  ? null : () => notifier.moveLayerToBack(index)),
+          _btn(Icons.keyboard_arrow_down,   '背面へ', isBack  ? null : () => notifier.moveLayerDown(index)),
+          _btn(Icons.keyboard_arrow_up,     '前面へ', isFront ? null : () => notifier.moveLayerUp(index)),
+          _btn(Icons.vertical_align_top,    '最前面', isFront ? null : () => notifier.moveLayerToFront(index)),
+        ],
+      ),
+    );
+  }
+
+  Widget _btn(IconData icon, String tooltip, VoidCallback? onTap) => Tooltip(
+        message: tooltip,
+        child: GestureDetector(
+          onTap: onTap,
+          child: Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 3),
+            child: Icon(
+              icon,
+              size: 18,
+              color: onTap != null ? const Color(0xFF1A1A2E) : Colors.black12,
+            ),
+          ),
+        ),
+      );
 }
 
 class _LayerPositionPanel extends StatefulWidget {
@@ -336,6 +377,110 @@ class _LayerPositionPanelState extends State<_LayerPositionPanel> {
                     )
                   : const SizedBox.shrink(),
             ),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+class _LayerColorPanel extends StatelessWidget {
+  const _LayerColorPanel({
+    required this.index,
+    required this.layer,
+    required this.notifier,
+  });
+
+  final int index;
+  final LayerEntity layer;
+  final EditorNotifier notifier;
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      margin: const EdgeInsets.only(bottom: 2),
+      padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+      decoration: BoxDecoration(
+        color: const Color(0xFF1A1A2E).withValues(alpha: 0.04),
+        borderRadius: BorderRadius.circular(6),
+      ),
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Row(
+            children: [
+              const SizedBox(
+                width: 40,
+                child: Text('線色', style: TextStyle(fontSize: 11, color: Colors.black54)),
+              ),
+              ..._lineColorSwatches.map((s) {
+                final (hex, _) = s;
+                final selected = layer.colorHex.toUpperCase() == hex.toUpperCase();
+                return GestureDetector(
+                  onTap: () => notifier.updateLayerColor(index, hex),
+                  child: Container(
+                    width: 18,
+                    height: 18,
+                    margin: const EdgeInsets.only(right: 4),
+                    decoration: BoxDecoration(
+                      color: colorFromHex(hex),
+                      shape: BoxShape.circle,
+                      border: Border.all(
+                        color: selected ? Colors.black87 : Colors.transparent,
+                        width: 1.5,
+                      ),
+                    ),
+                  ),
+                );
+              }),
+              const Spacer(),
+              SizedBox(
+                width: 72,
+                child: Slider(
+                  value: layer.opacity,
+                  min: 0.1,
+                  max: 1.0,
+                  onChanged: (v) => notifier.updateLayerOpacity(index, v),
+                  onChangeEnd: (v) => notifier.commitLayerOpacity(index, v),
+                ),
+              ),
+            ],
+          ),
+          const SizedBox(height: 2),
+          Row(
+            children: [
+              const SizedBox(
+                width: 40,
+                child: Text('背景', style: TextStyle(fontSize: 11, color: Colors.black54)),
+              ),
+              ..._bgColorSwatches.map((s) {
+                final (hex, _) = s;
+                final selected = layer.bgColorHex == hex;
+                return GestureDetector(
+                  onTap: () => notifier.updateLayerBgColor(index, hex),
+                  child: Container(
+                    width: 18,
+                    height: 18,
+                    margin: const EdgeInsets.only(right: 4),
+                    decoration: BoxDecoration(
+                      color: hex.isEmpty ? Colors.transparent : colorFromHex(hex),
+                      shape: BoxShape.circle,
+                      border: Border.all(
+                        color: selected ? Colors.black87 : Colors.black26,
+                        width: selected ? 1.5 : 0.5,
+                      ),
+                    ),
+                    child: hex.isEmpty
+                        ? const Center(
+                            child: Text('×',
+                                style: TextStyle(fontSize: 9, color: Colors.black38)),
+                          )
+                        : null,
+                  ),
+                );
+              }),
+            ],
           ),
         ],
       ),

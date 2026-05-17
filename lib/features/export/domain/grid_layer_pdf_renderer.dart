@@ -20,33 +20,35 @@ class GridLayerPdfRenderer extends LayerPdfRendererBase<GridLayerConfig> {
     required double bottom,
     required double top,
   }) {
-    final cellW = toPoints(config.cellWidthMm);
-    final cellH = toPoints(config.cellHeightMm);
-    if (cellW <= 0 || cellH <= 0) return;
+    final nominalW = toPoints(config.cellWidthMm);
+    final nominalH = toPoints(config.cellHeightMm);
+    if (nominalW <= 0 || nominalH <= 0) return;
+
+    final w = right - left;
+    final h = top - bottom;
+    final cols = (w / nominalW).round().clamp(1, 10000);
+    final rows = (h / nominalH).round().clamp(1, 10000);
+    final cellW = w / cols;
+    final cellH = h / rows;
 
     final baseStroke = config.lineStyle == LineStyle.solid ? 0.3 : 0.25;
     canvas.setStrokeColor(color);
 
-    final offsetX = ((right - left) % cellW) / 2;
-    final offsetY = ((top - bottom) % cellH) / 2;
-
     if (config.showVertical) {
-      int col = 0;
-      for (double x = left + offsetX; x <= right + 0.5; x += cellW) {
-        final bold = config.boldEvery != null && col % config.boldEvery! == 0;
+      for (int c = 0; c <= cols; c++) {
+        final x = left + cellW * c;
+        final bold = config.boldEvery != null && c % config.boldEvery! == 0;
         canvas.setLineWidth(bold ? baseStroke * 2 : baseStroke);
         _drawLine(canvas, x, bottom, x, top, vertical: true);
-        col++;
       }
     }
 
     if (config.showHorizontal) {
-      int row = 0;
-      for (double y = bottom + offsetY; y <= top + 0.5; y += cellH) {
-        final bold = config.boldEvery != null && row % config.boldEvery! == 0;
+      for (int r = 0; r <= rows; r++) {
+        final y = bottom + cellH * r;  // PDF y-up: bottom + offset
+        final bold = config.boldEvery != null && r % config.boldEvery! == 0;
         canvas.setLineWidth(bold ? baseStroke * 2 : baseStroke);
         _drawLine(canvas, left, y, right, y, vertical: false);
-        row++;
       }
     }
   }

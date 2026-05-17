@@ -3,6 +3,7 @@ import 'package:pdf/widgets.dart' as pw;
 import '../../../core/constants/print_constants.dart';
 import '../../../shared/models/layer_config.dart';
 import 'layer_pdf_renderer_base.dart';
+import 'pdf_font_store.dart';
 
 const _dayLabels = ['月', '火', '水', '木', '金', '土', '日'];
 
@@ -50,7 +51,7 @@ class TimetableLayerPdfRenderer extends LayerPdfRendererBase<TimetableLayerConfi
     final rowH = (r.bottom - gridTop) / slots;
 
     final style = pw.TextStyle(
-      font: pw.Font.helvetica(),
+      font: PdfFontStore.ja,
       fontSize: 7,
       color: PdfColor(color.red, color.green, color.blue),
     );

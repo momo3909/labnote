@@ -62,31 +62,30 @@ class PageElementsPainter extends CustomPainter {
       }
     }
 
-    final cellH = mmToPx(cellHeightMm, scale);
-    if (cellH <= 0) return;
+    final nominalCellH = mmToPx(cellHeightMm, scale);
+    if (nominalCellH <= 0) return;
 
     final marginT = mmToPx(pageConfig.marginTopMm, scale);
     final marginB = mmToPx(pageConfig.marginBottomMm, scale);
     final marginL = mmToPx(pageConfig.marginLeftMm, scale);
     final contentH = size.height - marginT - marginB;
 
-    final offsetY = contentH % cellH / 2;
-    final firstLineY = marginT + offsetY + cellH;
+    // GridLayerPainter と同じスケーリング方式で cellH を決定
+    final rowCount = (contentH / nominalCellH).round().clamp(1, 10000);
+    final cellH = contentH / rowCount;
 
     final style = TextStyle(fontSize: 6 * scale, color: Colors.grey.shade500);
 
-    int lineNum = 1;
-    double y = firstLineY;
-    while (y <= size.height - marginB - 1) {
+    // 行番号 n はグリッド n 本目の線（= 行の下辺）に縦中央揃えで配置
+    for (int n = 1; n <= rowCount; n++) {
+      final lineY = marginT + n * cellH;
+      if (lineY > size.height - marginB + 1) break;
       final tp = TextPainter(
-        text: TextSpan(text: '$lineNum', style: style),
+        text: TextSpan(text: '$n', style: style),
         textDirection: TextDirection.ltr,
       )..layout();
-
       final x = (marginL - tp.width - mmToPx(1.0, scale)).clamp(0.0, marginL);
-      tp.paint(canvas, Offset(x, y - tp.height / 2));
-      lineNum++;
-      y += cellH;
+      tp.paint(canvas, Offset(x, lineY - tp.height / 2));
     }
   }
 

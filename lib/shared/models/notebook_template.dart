@@ -40,6 +40,7 @@ class LayerEntity {
   final bool isVisible;
   final double opacity;
   final String colorHex;
+  final String bgColorHex;
   final String layerType;
   final String configJson;
   // コンテンツ領域に対する配置比率 (0.0〜1.0)
@@ -54,6 +55,7 @@ class LayerEntity {
     this.isVisible = true,
     this.opacity = 1.0,
     this.colorHex = '#CCCCCC',
+    this.bgColorHex = '',
     required this.layerType,
     required this.configJson,
     this.xRatio = 0.0,
@@ -71,6 +73,7 @@ class LayerEntity {
     bool? isVisible,
     double? opacity,
     String? colorHex,
+    String? bgColorHex,
     String? layerType,
     String? configJson,
     double? xRatio,
@@ -84,6 +87,7 @@ class LayerEntity {
         isVisible: isVisible ?? this.isVisible,
         opacity: opacity ?? this.opacity,
         colorHex: colorHex ?? this.colorHex,
+        bgColorHex: bgColorHex ?? this.bgColorHex,
         layerType: layerType ?? this.layerType,
         configJson: configJson ?? this.configJson,
         xRatio: xRatio ?? this.xRatio,
@@ -98,6 +102,7 @@ class LayerEntity {
         isVisible: json['isVisible'] as bool? ?? true,
         opacity: (json['opacity'] as num?)?.toDouble() ?? 1.0,
         colorHex: json['colorHex'] as String? ?? '#CCCCCC',
+        bgColorHex: json['bgColorHex'] as String? ?? '',
         layerType: json['layerType'] as String,
         configJson: json['configJson'] as String,
         xRatio: (json['xRatio'] as num?)?.toDouble() ?? 0.0,
@@ -112,6 +117,7 @@ class LayerEntity {
         'isVisible': isVisible,
         'opacity': opacity,
         'colorHex': colorHex,
+        'bgColorHex': bgColorHex,
         'layerType': layerType,
         'configJson': configJson,
         'xRatio': xRatio,

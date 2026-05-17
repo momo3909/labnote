@@ -6,6 +6,7 @@ import 'package:uuid/uuid.dart';
 import '../../../shared/models/layer_config.dart';
 import '../../../shared/models/notebook_template.dart';
 import '../../../shared/models/page_config.dart';
+import '../../../core/constants/print_constants.dart';
 import '../../templates/data/template_repository.dart';
 import '../data/app_database.dart';
 
@@ -22,6 +23,7 @@ class EditorState {
     this.isGridLinked = true,
     this.canUndo = false,
     this.canRedo = false,
+    this.isDirty = false,
   });
 
   final String name;
@@ -33,6 +35,7 @@ class EditorState {
   final bool isGridLinked;
   final bool canUndo;
   final bool canRedo;
+  final bool isDirty;
 
   EditorState copyWith({
     String? name,
@@ -44,6 +47,7 @@ class EditorState {
     bool? isGridLinked,
     bool? canUndo,
     bool? canRedo,
+    bool? isDirty,
   }) =>
       EditorState(
         name: name ?? this.name,
@@ -55,13 +59,17 @@ class EditorState {
         isGridLinked: isGridLinked ?? this.isGridLinked,
         canUndo: canUndo ?? this.canUndo,
         canRedo: canRedo ?? this.canRedo,
+        isDirty: isDirty ?? this.isDirty,
       );
 
   LayerEntity? get activeLayer =>
       layers.isEmpty ? null : layers[activeLayerIndex.clamp(0, layers.length - 1)];
 }
 
-typedef EditorParam = ({String? uuid, LayerConfig? preset});
+/// プリセット1レイヤー分の定義。yRatio/heightRatio でページ内の初期位置、colorHex で色を指定する。
+typedef LayerPreset = ({LayerConfig config, double yRatio, double heightRatio, String? colorHex});
+
+typedef EditorParam = ({String? uuid, List<LayerPreset>? presets});
 
 @riverpod
 class EditorNotifier extends _$EditorNotifier {
@@ -69,17 +77,22 @@ class EditorNotifier extends _$EditorNotifier {
   final List<EditorState> _history = [];
   final List<EditorState> _future = [];
   static const _maxHistory = 50;
+  // ドラッグ/スライダー操作開始前の状態（undo の起点として使う）
+  EditorState? _preDragState;
+  // ドラッグ目的のレイヤー切替フラグ（ref.listen でのリセットを抑制する）
+  bool _pendingDragMode = false;
 
   @override
   EditorState build(EditorParam param) {
-    final initialLayer = param.preset != null
-        ? _layerFromConfig(param.preset!)
-        : _defaultGridLayer();
+    final presets = param.presets;
+    final initialLayers = (presets != null && presets.isNotEmpty)
+        ? presets.map((p) => _layerFromConfig(p.config, yRatio: p.yRatio, heightRatio: p.heightRatio, colorHex: p.colorHex)).toList()
+        : <LayerEntity>[];
     if (param.uuid != null) _loadTemplate(param.uuid!);
     return EditorState(
       name: '新しいテンプレート',
       pageConfig: const PageConfig(),
-      layers: [initialLayer],
+      layers: initialLayers,
     );
   }
 
@@ -87,7 +100,7 @@ class EditorNotifier extends _$EditorNotifier {
     _history.add(state);
     if (_history.length > _maxHistory) _history.removeAt(0);
     _future.clear();
-    state = next.copyWith(canUndo: true, canRedo: false);
+    state = next.copyWith(canUndo: true, canRedo: false, isDirty: true);
   }
 
   void undo() {
@@ -133,9 +146,171 @@ class EditorNotifier extends _$EditorNotifier {
     _commit(state.copyWith(layers: updated));
   }
 
+  /// 表レイヤー専用: config を更新し、全行が収まる高さを自動計算して同時コミット。
+  void updateTableConfig(TableLayerConfig config) {
+    if (state.layers.isEmpty) return;
+    final idx = state.activeLayerIndex.clamp(0, state.layers.length - 1);
+    final layer = state.layers[idx];
+    final pageH = state.pageConfig.effectiveHeightMm;
+    final totalHeightMm = config.rows * config.cellHeightMm;
+    final newH = (totalHeightMm / pageH).clamp(0.05, 1.0 - layer.yRatio);
+    final updated = state.layers.toList();
+    updated[idx] = updated[idx].copyWith(
+      layerType: _layerType(config),
+      configJson: jsonEncode(config.toJson()),
+      heightRatio: newH,
+    );
+    _commit(state.copyWith(layers: updated));
+  }
+
+  void addStampItem(double xRatio, double yRatio, String shapeType, double widthMm, double heightMm) {
+    final config = state.activeLayer?.config;
+    if (config is! StampLayerConfig) return;
+    final item = StampItem(
+      shapeType: shapeType,
+      xRatio: xRatio,
+      yRatio: yRatio,
+      sizeMm: widthMm,
+      widthMm: widthMm,
+      heightMm: heightMm,
+    );
+    updateActiveLayerConfig(config.copyWith(items: [...config.items, item]));
+  }
+
+  void updateStampSize(int itemIndex, double widthMm, double heightMm) {
+    final config = state.activeLayer?.config;
+    if (config is! StampLayerConfig) return;
+    final items = config.items.toList();
+    items[itemIndex] = items[itemIndex].copyWith(widthMm: widthMm, heightMm: heightMm);
+    updateActiveLayerConfig(config.copyWith(items: items));
+  }
+
+  void removeStampItem(int itemIndex) {
+    final config = state.activeLayer?.config;
+    if (config is! StampLayerConfig) return;
+    final items = [...config.items]..removeAt(itemIndex);
+    updateActiveLayerConfig(config.copyWith(items: items));
+  }
+
+  void ungroupStamps(int stampIndex) {
+    final config = state.activeLayer?.config;
+    if (config is! StampLayerConfig) return;
+    final groupId = config.items[stampIndex].groupId;
+    if (groupId == null) return;
+    final updated = config.items
+        .map((item) => item.groupId == groupId ? item.copyWith(groupId: null) : item)
+        .toList();
+    updateActiveLayerConfig(config.copyWith(items: updated));
+  }
+
+  void clearStampItems() {
+    final config = state.activeLayer?.config;
+    if (config is! StampLayerConfig) return;
+    updateActiveLayerConfig(config.copyWith(items: const []));
+  }
+
+  void addStampGrid({
+    required String shapeType,
+    required double widthMm,
+    required double heightMm,
+    required int columns,
+    required int rows,
+    required double hSpacingMm,
+    required double vSpacingMm,
+  }) {
+    final config = state.activeLayer?.config;
+    if (config is! StampLayerConfig) return;
+    final pageW = state.pageConfig.effectiveWidthMm;
+    final pageH = state.pageConfig.effectiveHeightMm;
+    final totalW = columns * widthMm + (columns - 1) * hSpacingMm;
+    final totalH = rows * heightMm + (rows - 1) * vSpacingMm;
+    final startX = (pageW - totalW) / 2 + widthMm / 2;
+    final startY = (pageH - totalH) / 2 + heightMm / 2;
+    final groupId = _uuid.v4();
+    final newItems = <StampItem>[
+      for (var r = 0; r < rows; r++)
+        for (var c = 0; c < columns; c++)
+          StampItem(
+            shapeType: shapeType,
+            xRatio: ((startX + c * (widthMm + hSpacingMm)) / pageW).clamp(0.0, 1.0),
+            yRatio: ((startY + r * (heightMm + vSpacingMm)) / pageH).clamp(0.0, 1.0),
+            sizeMm: widthMm,
+            widthMm: widthMm,
+            heightMm: heightMm,
+            groupId: groupId,
+          ),
+    ];
+    updateActiveLayerConfig(config.copyWith(items: [...config.items, ...newItems]));
+  }
+
+  void updateStampColor(int itemIndex, String colorHex) {
+    final config = state.activeLayer?.config;
+    if (config is! StampLayerConfig) return;
+    final items = config.items.toList();
+    items[itemIndex] = items[itemIndex].copyWith(colorHex: colorHex);
+    updateActiveLayerConfig(config.copyWith(items: items));
+  }
+
+  void updateStampRotation(int itemIndex, double rotation) {
+    final config = state.activeLayer?.config;
+    if (config is! StampLayerConfig) return;
+    final items = config.items.toList();
+    items[itemIndex] = items[itemIndex].copyWith(rotation: rotation % 360);
+    updateActiveLayerConfig(config.copyWith(items: items));
+  }
+
+  void updateStampStrokeScale(int itemIndex, double strokeScale) {
+    final config = state.activeLayer?.config;
+    if (config is! StampLayerConfig) return;
+    final items = config.items.toList();
+    items[itemIndex] = items[itemIndex].copyWith(strokeScale: strokeScale);
+    updateActiveLayerConfig(config.copyWith(items: items));
+  }
+
+  void previewStampItems(List<StampItem> items) {
+    final config = state.activeLayer?.config;
+    if (config is! StampLayerConfig || state.layers.isEmpty) return;
+    // 連続操作の初回でドラッグ前状態を保存
+    _preDragState ??= state;
+    final idx = state.activeLayerIndex.clamp(0, state.layers.length - 1);
+    final updated = state.layers.toList();
+    updated[idx] = updated[idx].copyWith(
+      configJson: jsonEncode(config.copyWith(items: items).toJson()),
+    );
+    state = state.copyWith(layers: updated);
+  }
+
+  void commitStampItems() {
+    final pre = _preDragState;
+    if (pre != null) {
+      _history.add(pre);
+      if (_history.length > _maxHistory) _history.removeAt(0);
+      _future.clear();
+      state = state.copyWith(canUndo: true, canRedo: false, isDirty: true);
+      _preDragState = null;
+    } else {
+      _commit(state);
+    }
+  }
+
   void setActiveLayerIndex(int index) {
     if (index < 0 || index >= state.layers.length) return;
-    _commit(state.copyWith(activeLayerIndex: index));
+    // レイヤー選択はデザイン変更ではないためundoスタックに積まない
+    state = state.copyWith(activeLayerIndex: index);
+  }
+
+  /// ドラッグモード移行を伴うレイヤー切替（ref.listen のリセットを抑制）
+  void setActiveLayerIndexForDrag(int index) {
+    if (index < 0 || index >= state.layers.length) return;
+    _pendingDragMode = true;
+    state = state.copyWith(activeLayerIndex: index);
+  }
+
+  /// ref.listen からドラッグ目的フラグを確認・消費する
+  bool consumePendingDragMode() {
+    final v = _pendingDragMode;
+    _pendingDragMode = false;
+    return v;
   }
 
   void addLayer(LayerConfig config) {
@@ -147,6 +322,20 @@ class EditorNotifier extends _$EditorNotifier {
     );
     final updated = [...state.layers, newLayer];
     _commit(state.copyWith(layers: updated, activeLayerIndex: updated.length - 1));
+  }
+
+  void moveLayerToFront(int index) => _moveLayer(index, state.layers.length - 1);
+  void moveLayerToBack(int index) => _moveLayer(index, 0);
+  void moveLayerUp(int index) => _moveLayer(index, index + 1);
+  void moveLayerDown(int index) => _moveLayer(index, index - 1);
+
+  void _moveLayer(int from, int to) {
+    final last = state.layers.length - 1;
+    if (from < 0 || from > last || to < 0 || to > last || from == to) return;
+    final updated = state.layers.toList();
+    final layer = updated.removeAt(from);
+    updated.insert(to, layer);
+    _commit(state.copyWith(layers: updated, activeLayerIndex: to));
   }
 
   void removeLayer(int index) {
@@ -187,6 +376,8 @@ class EditorNotifier extends _$EditorNotifier {
     double? heightRatio,
   }) {
     if (index < 0 || index >= state.layers.length) return;
+    // 連続操作の初回呼び出しでドラッグ前状態を保存（undo 起点）
+    _preDragState ??= state;
     final updated = state.layers.toList();
     final old = updated[index];
     final newW = (widthRatio ?? old.widthRatio).clamp(0.01, 1.0);
@@ -196,18 +387,31 @@ class EditorNotifier extends _$EditorNotifier {
     updated[index] = old.copyWith(
       xRatio: newX, yRatio: newY, widthRatio: newW, heightRatio: newH,
     );
-    // スライダー連続操作のため直接更新
     state = state.copyWith(layers: updated);
   }
 
   void commitLayerRegion(int index) {
-    _commit(state);
+    final pre = _preDragState;
+    if (pre == null) return;
+    // ドラッグ前状態を history に積み、現在の最終位置を確定
+    _history.add(pre);
+    if (_history.length > _maxHistory) _history.removeAt(0);
+    _future.clear();
+    state = state.copyWith(canUndo: true, canRedo: false, isDirty: true);
+    _preDragState = null;
   }
 
   void updateLayerColor(int index, String colorHex) {
     if (index < 0 || index >= state.layers.length) return;
     final updated = state.layers.toList();
     updated[index] = updated[index].copyWith(colorHex: colorHex);
+    _commit(state.copyWith(layers: updated));
+  }
+
+  void updateLayerBgColor(int index, String bgColorHex) {
+    if (index < 0 || index >= state.layers.length) return;
+    final updated = state.layers.toList();
+    updated[index] = updated[index].copyWith(bgColorHex: bgColorHex);
     _commit(state.copyWith(layers: updated));
   }
 
@@ -273,17 +477,20 @@ class EditorNotifier extends _$EditorNotifier {
       );
     }
 
-    state = state.copyWith(isSaving: false, savedUuid: template.uuid);
+    state = state.copyWith(isSaving: false, savedUuid: template.uuid, isDirty: false);
     return template.uuid;
   }
 
-  LayerEntity _defaultGridLayer() => _layerFromConfig(const LayerConfig.grid());
-
-  LayerEntity _layerFromConfig(LayerConfig config) => LayerEntity(
+  LayerEntity _layerFromConfig(LayerConfig config,
+          {double yRatio = 0, double heightRatio = 1, String? colorHex}) =>
+      LayerEntity(
         uuid: _uuid.v4(),
         sortOrder: 0,
         layerType: _layerType(config),
         configJson: jsonEncode(config.toJson()),
+        yRatio: yRatio,
+        heightRatio: heightRatio,
+        colorHex: colorHex ?? '#CCCCCC',
       );
 
   String _layerType(LayerConfig config) => switch (config) {
@@ -298,13 +505,21 @@ class EditorNotifier extends _$EditorNotifier {
         TimetableLayerConfig() => 'timetable',
         RegionLayerConfig() => 'region',
         GuideLayerConfig() => 'guide',
+        StaffLayerConfig() => 'staff',
+        RuledGridLayerConfig() => 'ruledGrid',
+        StampLayerConfig() => 'stamp',
+        GraphAxisLayerConfig() => 'graphAxis',
+        TableLayerConfig() => 'table',
+        CustomLineLayerConfig() => 'customLine',
+
+        HeaderLayerConfig() => 'header',
       };
 }
 
-@riverpod
+@Riverpod(keepAlive: true)
 AppDatabase appDatabase(Ref ref) => AppDatabase();
 
-@riverpod
+@Riverpod(keepAlive: true)
 TemplateRepository templateRepository(Ref ref) =>
     TemplateRepository(ref.watch(appDatabaseProvider));
 

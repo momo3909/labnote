@@ -2,6 +2,7 @@ import 'package:go_router/go_router.dart';
 import 'package:flutter/material.dart';
 import '../../features/auth/presentation/login_screen.dart';
 import '../../features/templates/presentation/home_screen.dart';
+import '../../features/editor/domain/editor_notifier.dart' show LayerPreset;
 import '../../features/editor/presentation/editor_screen.dart';
 import '../../features/templates/presentation/saved_list_screen.dart';
 import '../../features/gallery/presentation/gallery_screen.dart';
@@ -10,7 +11,7 @@ import '../../features/profile/presentation/user_profile_screen.dart';
 import '../../features/profile/presentation/ranking_screen.dart';
 import '../../features/settings/presentation/settings_screen.dart';
 import '../../features/settings/presentation/privacy_policy_screen.dart';
-import '../../shared/models/layer_config.dart';
+
 
 CustomTransitionPage<void> _fadeRoute(GoRouterState state, Widget child) {
   return CustomTransitionPage<void>(
@@ -81,7 +82,7 @@ final appRouter = GoRouter(
         state,
         EditorScreen(
           templateUuid: null,
-          presetConfig: state.extra as LayerConfig?,
+          presetConfigs: state.extra as List<LayerPreset>?,
         ),
       ),
     ),

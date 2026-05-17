@@ -48,14 +48,44 @@ Color colorFromHex(String hex) {
 }
 
 Paint buildLinePaint(LineStyle style, Color color, double strokeWidth) {
-  final paint = Paint()
+  return Paint()
     ..color = color
     ..strokeWidth = strokeWidth
     ..style = PaintingStyle.stroke;
+}
 
-  if (style == LineStyle.dashed || style == LineStyle.dotted) {
-    // CustomPainter側でPath.dashPath相当の処理を行う
-    // DashPatternはPainterに委譲
+/// 水平・垂直線専用の破線描画（axis-aligned のみ）。
+/// [isHorizontal] が true なら start→end は水平方向、false なら垂直方向。
+void drawDashHVLine(
+  Canvas canvas,
+  Offset start,
+  Offset end,
+  Paint paint,
+  LineStyle style,
+) {
+  if (style == LineStyle.solid) {
+    canvas.drawLine(start, end, paint);
+    return;
   }
-  return paint;
+  final dashLen = style == LineStyle.dotted ? 1.5 : 4.0;
+  final gapLen  = style == LineStyle.dotted ? 2.0 : 3.0;
+  final isH = (end.dx - start.dx).abs() > (end.dy - start.dy).abs();
+  final total = isH ? (end.dx - start.dx).abs() : (end.dy - start.dy).abs();
+  final sign  = isH
+      ? (end.dx >= start.dx ? 1.0 : -1.0)
+      : (end.dy >= start.dy ? 1.0 : -1.0);
+  double pos = 0;
+  bool on = true;
+  while (pos < total) {
+    final next = (pos + (on ? dashLen : gapLen)).clamp(0.0, total);
+    if (on) {
+      final s = isH ? Offset(start.dx + pos * sign, start.dy)
+                    : Offset(start.dx, start.dy + pos * sign);
+      final e = isH ? Offset(start.dx + next * sign, start.dy)
+                    : Offset(start.dx, start.dy + next * sign);
+      canvas.drawLine(s, e, paint);
+    }
+    pos = next;
+    on = !on;
+  }
 }

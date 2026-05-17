@@ -1,4 +1,3 @@
-import 'dart:typed_data';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
@@ -8,33 +7,62 @@ import '../../../features/paywall/domain/free_limits.dart';
 import '../../../features/paywall/presentation/paywall_modal.dart';
 import '../../../shared/models/layer_config.dart';
 import '../../../shared/models/notebook_template.dart';
+import '../../../shared/widgets/layer_stack_preview.dart';
 
 class HomeScreen extends ConsumerWidget {
   const HomeScreen({super.key});
 
-  static const _presets = [
-    (label: '方眼', icon: Icons.grid_on, layerType: 'grid'),
-    (label: 'ドット', icon: Icons.grain, layerType: 'dot'),
-    (label: '片対数', icon: Icons.show_chart, layerType: 'log_semi'),
-    (label: '両対数', icon: Icons.multiline_chart, layerType: 'log_log'),
-    (label: '六角形', icon: Icons.hexagon_outlined, layerType: 'hex'),
-    (label: '製図', icon: Icons.architecture, layerType: 'isometric'),
-    (label: '計算用紙', icon: Icons.calculate_outlined, layerType: 'grid_calc'),
-    (label: '実験ノート', icon: Icons.science_outlined, layerType: 'grid_exp'),
-    (label: 'コーネル', icon: Icons.view_agenda_outlined, layerType: 'cornell'),
+  // heightRatio の目安（A4, 上下マージン各10mm → 有効高さ約277mm）:
+  //   ヘッダー2フィールド1行 ≈ 9mm/277mm ≈ 0.05
+  //   ヘッダー4フィールド2行 ≈ 20mm/277mm ≈ 0.10
+  static final _presets = <({String label, IconData icon, String layerType, List<LayerPreset> configs})>[
+    // 基本（フルページ）
+    (label: '方眼',     icon: Icons.grid_on,              layerType: 'grid',
+     configs: <LayerPreset>[(config: const LayerConfig.grid(), yRatio: 0.0, heightRatio: 1.0, colorHex: null)]),
+    (label: 'ドット',   icon: Icons.grain,                layerType: 'dot',
+     configs: <LayerPreset>[(config: const LayerConfig.dot(), yRatio: 0.0, heightRatio: 1.0, colorHex: null)]),
+    (label: 'コーネル', icon: Icons.view_agenda_outlined,  layerType: 'cornell',
+     configs: <LayerPreset>[(config: const LayerConfig.cornell(), yRatio: 0.0, heightRatio: 1.0, colorHex: null)]),
+    (label: '片対数',   icon: Icons.show_chart,            layerType: 'log_semi',
+     configs: <LayerPreset>[(config: const LayerConfig.logGrid(xScale: LogScale.linear, yScale: LogScale.log, yDecades: 3), yRatio: 0.0, heightRatio: 1.0, colorHex: null)]),
+    (label: '両対数',   icon: Icons.multiline_chart,       layerType: 'log_log',
+     configs: <LayerPreset>[(config: const LayerConfig.logGrid(xScale: LogScale.log, yScale: LogScale.log, xDecades: 2, yDecades: 3), yRatio: 0.0, heightRatio: 1.0, colorHex: null)]),
+    (label: '六角形',   icon: Icons.hexagon_outlined,      layerType: 'hex',
+     configs: <LayerPreset>[(config: const LayerConfig.hex(), yRatio: 0.0, heightRatio: 1.0, colorHex: null)]),
+    (label: '製図',     icon: Icons.architecture,          layerType: 'isometric',
+     configs: <LayerPreset>[(config: const LayerConfig.isometric(), yRatio: 0.0, heightRatio: 1.0, colorHex: null)]),
+    // 理系特化（v7）— ヘッダーを上部に、コンテンツを下部に配置
+    (label: '実験ノート', icon: Icons.science_outlined, layerType: 'header', configs: <LayerPreset>[
+      (config: const LayerConfig.header(titleLabel: '目的', dateLabel: '方法', nameLabel: '結果', showSubject: true, subjectLabel: '考察', rowHeightMm: 10.0),
+       yRatio: 0.0, heightRatio: 0.10, colorHex: null),
+      (config: const LayerConfig.grid(cellWidthMm: 5.0, cellHeightMm: 5.0, boldEvery: 5),
+       yRatio: 0.10, heightRatio: 0.90, colorHex: null),
+    ]),
+    (label: '講義ノート', icon: Icons.menu_book_outlined, layerType: 'cornell', configs: <LayerPreset>[
+      (config: const LayerConfig.header(showName: false, titleLabel: '科目', showDate: true, dateLabel: '日付', rowHeightMm: 9.0),
+       yRatio: 0.0, heightRatio: 0.05, colorHex: null),
+      (config: const LayerConfig.cornell(), yRatio: 0.05, heightRatio: 0.95, colorHex: null),
+    ]),
+    (label: '演習シート', icon: Icons.edit_note, layerType: 'grid', configs: <LayerPreset>[
+      (config: const LayerConfig.header(titleLabel: '科目', dateLabel: '日付', showName: true, rowHeightMm: 9.0),
+       yRatio: 0.0, heightRatio: 0.08, colorHex: null),
+      (config: const LayerConfig.grid(cellWidthMm: 5.0, cellHeightMm: 8.0),
+       yRatio: 0.08, heightRatio: 0.92, colorHex: null),
+    ]),
+    // グラフ用紙: ドット（背面）+ 黒い座標軸（最前面、負方向あり）
+    (label: 'グラフ用紙', icon: Icons.scatter_plot_outlined, layerType: 'graphAxis', configs: <LayerPreset>[
+      (config: const LayerConfig.dot(spacingMm: 5.0, alignToOrigin: true), yRatio: 0.0, heightRatio: 1.0, colorHex: null),
+      (config: const LayerConfig.graphAxis(showNegative: true, tickIntervalMm: 5.0), yRatio: 0.0, heightRatio: 1.0, colorHex: '#000000'),
+    ]),
+    (label: '数式罫線', icon: Icons.horizontal_rule, layerType: 'customLine', configs: <LayerPreset>[
+      (config: LayerConfig.customLine(lineSets: [
+        LineSet(isHorizontal: true, count: 50, spacingMm: 12.0, subLines: [
+          SubLineConfig(positionRatio: 0.33),
+          SubLineConfig(positionRatio: 0.67),
+        ]),
+      ]), yRatio: 0.0, heightRatio: 1.0, colorHex: null),
+    ]),
   ];
-
-  static LayerConfig _presetConfig(String layerType) => switch (layerType) {
-    'dot' => const LayerConfig.dot(),
-    'log_semi' => const LayerConfig.logGrid(xScale: LogScale.linear, yScale: LogScale.log, yDecades: 3),
-    'log_log' => const LayerConfig.logGrid(xScale: LogScale.log, yScale: LogScale.log, xDecades: 2, yDecades: 3),
-    'hex' => const LayerConfig.hex(),
-    'isometric' => const LayerConfig.isometric(),
-    'grid_calc' => const LayerConfig.grid(cellWidthMm: 5.0, cellHeightMm: 10.0),
-    'grid_exp' => const LayerConfig.grid(cellWidthMm: 5.0, cellHeightMm: 5.0, boldEvery: 5),
-    'cornell' => const LayerConfig.cornell(),
-    _ => const LayerConfig.grid(),
-  };
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -88,7 +116,7 @@ class HomeScreen extends ConsumerWidget {
                     return;
                   }
                   if (context.mounted) {
-                    context.push('/editor', extra: _presetConfig(p.layerType));
+                    context.push('/editor', extra: p.configs);
                   }
                 },
               );
@@ -139,10 +167,7 @@ class HomeScreen extends ConsumerWidget {
               itemBuilder: (context, i) {
                 final t = templates[i];
                 return ListTile(
-                  leading: _TemplateThumbnail(
-                    thumbnail: t.thumbnailPng,
-                    fallbackIcon: _templateIcon(t.layersJson),
-                  ),
+                  leading: _TemplateThumbnail(template: t),
                   title: Text(t.name),
                   subtitle: Text(
                     _formatDate(t.updatedAt),
@@ -159,40 +184,30 @@ class HomeScreen extends ConsumerWidget {
     );
   }
 
-  IconData _templateIcon(List<String> layersJson) {
-    if (layersJson.isEmpty) return Icons.grid_on_outlined;
-    final first = layersJson.first.toLowerCase();
-    if (first.contains('"hex"')) return Icons.hexagon_outlined;
-    if (first.contains('"isometric"')) return Icons.architecture;
-    if (first.contains('"dot"')) return Icons.grain;
-    if (first.contains('"log_grid"')) return Icons.show_chart;
-    if (first.contains('"cornell"')) return Icons.view_agenda_outlined;
-    return Icons.grid_on_outlined;
-  }
-
   String _formatDate(DateTime dt) =>
       '${dt.year}/${dt.month.toString().padLeft(2, '0')}/${dt.day.toString().padLeft(2, '0')}';
 }
 
 class _TemplateThumbnail extends StatelessWidget {
-  const _TemplateThumbnail({required this.thumbnail, required this.fallbackIcon});
-  final Uint8List? thumbnail;
-  final IconData fallbackIcon;
+  const _TemplateThumbnail({required this.template});
+  final NotebookTemplate template;
 
   @override
   Widget build(BuildContext context) {
-    if (thumbnail != null) {
-      return ClipRRect(
-        borderRadius: BorderRadius.circular(4),
-        child: Image.memory(
-          thumbnail!,
-          width: 32,
-          height: 44,
-          fit: BoxFit.cover,
-        ),
-      );
-    }
-    return Icon(fallbackIcon, color: const Color(0xFF1A1A2E));
+    return ClipRRect(
+      borderRadius: BorderRadius.circular(4),
+      child: SizedBox(
+        width: 32,
+        height: 44,
+        child: template.thumbnailPng != null
+            ? Image.memory(template.thumbnailPng!, fit: BoxFit.cover)
+            : LayerStackPreview(
+                pageConfig: template.pageConfig,
+                layers: template.layers,
+                padding: EdgeInsets.zero,
+              ),
+      ),
+    );
   }
 }
 

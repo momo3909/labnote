@@ -1,6 +1,7 @@
 import 'package:pdf/pdf.dart';
 import 'package:pdf/widgets.dart' as pw;
 import '../../../core/constants/print_constants.dart';
+import 'pdf_font_store.dart';
 import '../../../shared/models/layer_config.dart';
 import '../../../shared/models/layer_region.dart';
 import '../../../shared/models/notebook_template.dart';
@@ -18,6 +19,14 @@ import 'isometric_layer_pdf_renderer.dart';
 import 'log_grid_layer_pdf_renderer.dart';
 import 'page_elements_pdf_renderer.dart';
 import 'region_layer_pdf_renderer.dart';
+import 'ruled_grid_layer_pdf_renderer.dart';
+import 'staff_layer_pdf_renderer.dart';
+import 'graph_axis_layer_pdf_renderer.dart';
+import 'table_layer_pdf_renderer.dart';
+import 'custom_line_layer_pdf_renderer.dart';
+
+import 'header_layer_pdf_renderer.dart';
+import 'stamp_layer_pdf_renderer.dart';
 
 PdfColor pdfColorFromHex(String hex) {
   final h = hex.replaceFirst('#', '');
@@ -30,6 +39,7 @@ PdfColor pdfColorFromHex(String hex) {
 
 class PdfBuilder {
   static Future<List<int>> build(NotebookTemplate template, {int? pageCountOverride}) async {
+    await PdfFontStore.preload();
     final doc = pw.Document();
     final pageCount = pageCountOverride ?? template.pageConfig.pageCount;
     final format = _pdfPageFormat(template.pageConfig);
@@ -67,11 +77,47 @@ class PdfBuilder {
       );
 
   static List<pw.Widget> _buildLayerWidgets(List<LayerEntity> layers, PageConfig pageConfig) {
-    return layers.where((l) => l.isVisible).map((layer) {
-      final config = layer.config;
-      final color = pdfColorFromHex(layer.colorHex);
-      final region = _region(layer);
-      return switch (config) {
+    final result = <pw.Widget>[];
+    for (final layer in layers.where((l) => l.isVisible)) {
+      if (layer.bgColorHex.isNotEmpty) {
+        result.add(_buildBgWidget(layer, pageConfig));
+      }
+      result.add(_buildLayerWidget(layer, pageConfig));
+    }
+    return result;
+  }
+
+  static pw.Widget _buildBgWidget(LayerEntity layer, PageConfig pageConfig) {
+    final bg = pdfColorFromHex(layer.bgColorHex);
+    final r = _region(layer);
+    return pw.CustomPaint(
+      painter: (canvas, size) {
+        final cLeft = toPoints(effectiveMarginLeftMm(pageConfig));
+        final cRight = size.x - toPoints(pageConfig.marginRightMm);
+        final cBottom = toPoints(pageConfig.marginBottomMm);
+        final cTop = size.y - toPoints(pageConfig.marginTopMm);
+        final cW = cRight - cLeft;
+        final cH = cTop - cBottom;
+        final left = cLeft + cW * r.x;
+        final right = left + cW * r.width;
+        final bottom = cTop - cH * (r.y + r.height);
+        final top = bottom + cH * r.height;
+        canvas.setFillColor(bg);
+        canvas.drawRect(left, bottom, right - left, top - bottom);
+        canvas.fillPath();
+      },
+      size: PdfPoint(
+        toPoints(pageConfig.effectiveWidthMm),
+        toPoints(pageConfig.effectiveHeightMm),
+      ),
+    );
+  }
+
+  static pw.Widget _buildLayerWidget(LayerEntity layer, PageConfig pageConfig) {
+    final config = layer.config;
+    final color = pdfColorFromHex(layer.colorHex);
+    final region = _region(layer);
+    return switch (config) {
         GridLayerConfig() => GridLayerPdfRenderer(
             config: config, pageConfig: pageConfig, color: color,
             opacity: layer.opacity, region: region).build(),
@@ -105,8 +151,29 @@ class PdfBuilder {
         GuideLayerConfig() => GuideLayerPdfRenderer(
             config: config, pageConfig: pageConfig, color: color,
             opacity: layer.opacity, region: region).build(),
+        StaffLayerConfig() => StaffLayerPdfRenderer(
+            config: config, pageConfig: pageConfig, color: color,
+            opacity: layer.opacity, region: region).build(),
+        RuledGridLayerConfig() => RuledGridLayerPdfRenderer(
+            config: config, pageConfig: pageConfig, color: color,
+            opacity: layer.opacity, region: region).build(),
+        StampLayerConfig() => StampLayerPdfRenderer(
+            config: config, pageConfig: pageConfig, color: color,
+            opacity: layer.opacity, region: region).build(),
+        CustomLineLayerConfig() => CustomLineLayerPdfRenderer(
+            config: config, pageConfig: pageConfig, color: color,
+            opacity: layer.opacity, region: region).build(),
+        GraphAxisLayerConfig() => GraphAxisLayerPdfRenderer(
+            config: config, pageConfig: pageConfig, color: color,
+            opacity: layer.opacity, region: region).build(),
+        TableLayerConfig() => TableLayerPdfRenderer(
+            config: config, pageConfig: pageConfig, color: color,
+            opacity: layer.opacity, region: region).build(),
+
+        HeaderLayerConfig() => HeaderLayerPdfRenderer(
+            config: config, pageConfig: pageConfig, color: color,
+            opacity: layer.opacity, region: region).build(),
       };
-    }).toList();
   }
 
   static PdfPageFormat _pdfPageFormat(PageConfig config) {
