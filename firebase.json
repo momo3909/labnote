@@ -4,7 +4,7 @@
   },
   "storage": [
     {
-      "bucket": "labnote-40d54.appspot.com",
+      "bucket": "YOUR_PROJECT_ID.appspot.com",
       "rules": "storage.rules"
     }
   ],
@@ -12,17 +12,17 @@
     "platforms": {
       "ios": {
         "default": {
-          "projectId": "labnote-40d54",
-          "appId": "1:382558262467:ios:617fbe120d4754423dfe76",
+          "projectId": "YOUR_PROJECT_ID",
+          "appId": "YOUR_IOS_APP_ID",
           "uploadDebugSymbols": false,
           "fileOutput": "ios/Runner/GoogleService-Info.plist"
         }
       },
       "dart": {
         "lib/firebase_options.dart": {
-          "projectId": "labnote-40d54",
+          "projectId": "YOUR_PROJECT_ID",
           "configurations": {
-            "ios": "1:382558262467:ios:617fbe120d4754423dfe76"
+            "ios": "YOUR_IOS_APP_ID"
           }
         }
       }

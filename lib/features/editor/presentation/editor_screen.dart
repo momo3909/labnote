@@ -136,7 +136,7 @@ class _EditorScreenState extends ConsumerState<EditorScreen> {
 
     if (!context.mounted) return;
 
-    final isPro = ref.read(entitlementNotifierProvider).valueOrNull ?? false;
+    final isPro = await ref.read(entitlementNotifierProvider.future);
     int pageCount = state.pageConfig.pageCount;
     if (isPro) {
       final picked = await showDialog<int>(
@@ -175,14 +175,14 @@ class _EditorScreenState extends ConsumerState<EditorScreen> {
     }
 
     if (!context.mounted) return;
-    final isProNow = ref.read(entitlementNotifierProvider).valueOrNull ?? false;
-    if (!isProNow) {
+    final isProNow = await ref.read(entitlementNotifierProvider.future);
+    if (!isProNow && mounted) {
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
           content: const Text('複数ページの一括出力は Pro プランでご利用いただけます'),
           action: SnackBarAction(
             label: 'Proを見る',
-            onPressed: () => showPaywallModal(context),
+            onPressed: () { if (mounted) showPaywallModal(context); },
           ),
           duration: const Duration(seconds: 4),
         ),
@@ -223,7 +223,7 @@ class _EditorScreenState extends ConsumerState<EditorScreen> {
     final thumbnail = await _capturePreview();
 
     if (state.savedUuid == null) {
-      final isPro = ref.read(entitlementNotifierProvider).valueOrNull ?? false;
+      final isPro = await ref.read(entitlementNotifierProvider.future);
       if (!isPro) {
         final all = await ref.read(templateRepositoryProvider).getAll();
         if (all.length >= freeMaxSavedTemplates && context.mounted) {

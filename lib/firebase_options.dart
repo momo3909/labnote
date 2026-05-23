@@ -53,11 +53,11 @@ class DefaultFirebaseOptions {
   }
 
   static const FirebaseOptions ios = FirebaseOptions(
-    apiKey: 'AIzaSyBry9SraCL_169e5EorZtAMBKSWCt0wPW4',
-    appId: '1:382558262467:ios:617fbe120d4754423dfe76',
-    messagingSenderId: '382558262467',
-    projectId: 'labnote-40d54',
-    storageBucket: 'labnote-40d54.firebasestorage.app',
-    iosBundleId: 'com.momonoi.labnote',
+    apiKey: 'YOUR_IOS_API_KEY',
+    appId: 'YOUR_IOS_APP_ID',
+    messagingSenderId: 'YOUR_SENDER_ID',
+    projectId: 'YOUR_PROJECT_ID',
+    storageBucket: 'YOUR_PROJECT_ID.firebasestorage.app',
+    iosBundleId: 'YOUR_BUNDLE_ID',
   );
 }

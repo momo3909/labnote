@@ -8,8 +8,7 @@ part 'entitlement_notifier.g.dart';
 const _entitlementId = 'pro';
 
 // RevenueCat API key (iOS)
-// TODO: App Store Connect連携後にここを実際のキーに差し替える
-const _rcApiKeyIos = 'test_bRjNnUVrUjdNxuGcxoXOGtSdXaB';
+const _rcApiKeyIos = 'YOUR_REVENUECAT_IOS_API_KEY';
 
 @riverpod
 class EntitlementNotifier extends _$EntitlementNotifier {
@@ -19,13 +18,10 @@ class EntitlementNotifier extends _$EntitlementNotifier {
   }
 
   Future<bool> _fetchIsPro() async {
+    if (kDebugMode) return true;
     try {
       final info = await Purchases.getCustomerInfo();
-      if (info.entitlements.active.containsKey(_entitlementId)) return true;
-      // デバッグ時: RevenueCat のエンタイトルメント未設定でも
-      // アクティブなサブスクリプションがあれば Pro とみなす
-      if (kDebugMode && info.activeSubscriptions.isNotEmpty) return true;
-      return false;
+      return info.entitlements.active.containsKey(_entitlementId);
     } catch (_) {
       return false;
     }
@@ -37,10 +33,13 @@ class EntitlementNotifier extends _$EntitlementNotifier {
   }
 
   Future<bool> purchase(Package package) async {
+    if (kDebugMode) {
+      state = const AsyncData(true);
+      return true;
+    }
     try {
       final info = await Purchases.purchasePackage(package);
-      final isPro = info.entitlements.active.containsKey(_entitlementId) ||
-          (kDebugMode && info.activeSubscriptions.isNotEmpty);
+      final isPro = info.entitlements.active.containsKey(_entitlementId);
       state = AsyncData(isPro);
       return isPro;
     } on PurchasesErrorCode catch (e) {

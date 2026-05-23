@@ -25,7 +25,7 @@ class GridControls extends ConsumerWidget {
     double value,
     void Function(double) update,
   ) async {
-    final isPro = ref.read(entitlementNotifierProvider).valueOrNull ?? false;
+    final isPro = await ref.read(entitlementNotifierProvider.future);
     if (!isPro && value < freeMinGridSizeMm) {
       final upgraded = await showPaywallModal(context);
       if (!upgraded) return;
