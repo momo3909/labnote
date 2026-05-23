@@ -75,6 +75,34 @@ const _rcApiKeyIos = 'YOUR_REVENUECAT_IOS_API_KEY';
 
 `ios/Runner.xcodeproj` を Xcode で開き、Bundle Identifier をご自身のものに変更してください。
 
+### 5. Info.plist の Google ログイン設定
+
+Firebase で Google ログインを有効にすると、`GoogleService-Info.plist` に以下の値が含まれます。  
+この値を `ios/Runner/Info.plist` の該当箇所に反映してください。
+
+| Info.plist のキー | GoogleService-Info.plist の対応キー |
+|---|---|
+| `GIDClientID` | `CLIENT_ID` |
+| `CFBundleURLSchemes` 内の値 | `REVERSED_CLIENT_ID` |
+
+**手順:**
+
+1. `GoogleService-Info.plist` を開き `CLIENT_ID` と `REVERSED_CLIENT_ID` の値をコピー
+2. `ios/Runner/Info.plist` を開き以下を書き換え
+
+```xml
+<!-- GIDClientID -->
+<key>GIDClientID</key>
+<string>YOUR_GOOGLE_CLIENT_ID.apps.googleusercontent.com</string>
+↓
+<string>（CLIENT_ID の値）</string>
+
+<!-- CFBundleURLSchemes -->
+<string>com.googleusercontent.apps.YOUR_GOOGLE_CLIENT_ID</string>
+↓
+<string>（REVERSED_CLIENT_ID の値）</string>
+```
+
 ---
 
 ## 開発時の注意
