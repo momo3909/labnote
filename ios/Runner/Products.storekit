@@ -93,7 +93,7 @@
               "locale" : "en_US"
             }
           ],
-          "productID" : "com.momonoi.labnote.pro_monthly",
+          "productID" : "YOUR_BUNDLE_ID.pro_monthly",
           "recurringSubscriptionPeriod" : "P1M",
           "referenceName" : "LabNote Pro",
           "subscriptionGroupID" : "A35E855D",

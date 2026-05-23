@@ -3,7 +3,7 @@
 <plist version="1.0">
 <dict>
 	<key>GIDClientID</key>
-	<string>382558262467-moujrsseq0ncqk7g137ucdlv0l6ar8g7.apps.googleusercontent.com</string>
+	<string>YOUR_GOOGLE_CLIENT_ID.apps.googleusercontent.com</string>
 	<key>NSPhotoLibraryUsageDescription</key>
 	<string>プロフィール画像の設定に使用します</string>
 	<key>CADisableMinimumFrameDurationOnPhone</key>
@@ -33,7 +33,7 @@
 			<string>Editor</string>
 			<key>CFBundleURLSchemes</key>
 			<array>
-				<string>com.googleusercontent.apps.382558262467-moujrsseq0ncqk7g137ucdlv0l6ar8g7</string>
+				<string>com.googleusercontent.apps.YOUR_GOOGLE_CLIENT_ID</string>
 			</array>
 		</dict>
 	</array>
