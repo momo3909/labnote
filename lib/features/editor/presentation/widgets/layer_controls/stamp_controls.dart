@@ -132,7 +132,7 @@ class StampControls extends ConsumerWidget {
             value: selectedItem!.strokeScale,
             min: 0.5,
             max: 4.0,
-            onChanged: (v) => notifier.updateStampStrokeScale(selectedIndex!, v),
+            onChanged: (v) => notifier.updateStampStrokeScale(selectedIndex, v),
           ),
           const SizedBox(height: 4),
           Row(
@@ -142,7 +142,7 @@ class StampControls extends ConsumerWidget {
               ..._stampColorSwatches.map((hex) {
                 final selected = selectedItem!.colorHex.toUpperCase() == hex.toUpperCase();
                 return GestureDetector(
-                  onTap: () => notifier.updateStampColor(selectedIndex!, hex),
+                  onTap: () => notifier.updateStampColor(selectedIndex, hex),
                   child: Container(
                     width: 20,
                     height: 20,
@@ -168,7 +168,7 @@ class StampControls extends ConsumerWidget {
               for (final deg in [-90, -45, 45, 90])
                 GestureDetector(
                   onTap: () => notifier.updateStampRotation(
-                      selectedIndex!, (selectedItem!.rotation + deg)),
+                      selectedIndex, (selectedItem!.rotation + deg)),
                   child: Container(
                     width: 36,
                     height: 28,
@@ -187,7 +187,7 @@ class StampControls extends ConsumerWidget {
                 ),
               const SizedBox(width: 4),
               GestureDetector(
-                onTap: () => notifier.updateStampRotation(selectedIndex!, 0),
+                onTap: () => notifier.updateStampRotation(selectedIndex, 0),
                 child: Container(
                   width: 36,
                   height: 28,
